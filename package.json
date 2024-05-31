@@ -1,4 +1,5 @@
 {
+  "name": "hono-neon-drizzle-template",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
