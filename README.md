@@ -40,3 +40,9 @@ neonctl set-context --project-id=$PROJECT_ID --branch=$BRANCH_NAME
 DATABASE_URL=$(neonctl connection-string)
 echo -e '\nDATABASE_URL='$DATABASE_URL'\n' >> .dev.vars
 ```
+
+This will create a `.neon` file, which is used by the `neonctl` command to know the proper context for running commands. 
+
+This file can be kept in version control. From [the Neon docs](https://neon.tech/docs/reference/cli-set-context):
+
+> **Neon does not save any confidential information to the context file (for example, auth tokens).** You can safely commit this file to your repository or share with others.

@@ -1,4 +1,4 @@
-import { Hono } from 'hono'
+import { Hono } from 'hono';
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { users } from './db/schema';
