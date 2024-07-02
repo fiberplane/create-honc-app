@@ -4,12 +4,17 @@
 
 ## Quickstart
 
-This is a template of a Hono-Neon-Drizzle-Cloudflare project. 
+This is a template of a HONC project, which uses:
+
+- **Hono** as an api framework
+- **Neon** for a relational database
+- **Drizzle** as the ORM and migrations manager
+- **Cloudflare** Workers for deployment hosting
 
 Use this template as follows:
 
 ```sh
-# Alternatively, you can use `yarn create`, `pnpm create`, `bun create` etc
+# You can also use `yarn create`, `pnpm create`, or `bun create`
 npm create cloudflare@latest -- --template=git@github.com:fiberplane/honc-template.git
 ```
 
