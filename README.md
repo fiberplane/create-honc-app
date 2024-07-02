@@ -9,6 +9,7 @@ This is a template of a Hono-Neon-Drizzle-Cloudflare project.
 Use this template as follows:
 
 ```sh
+# Alternatively, you can use `yarn create`, `pnpm create`, `bun create` etc
 npm create cloudflare@latest -- --template=git@github.com:fiberplane/honc-template.git
 ```
 
