@@ -1,5 +1,7 @@
 # Honc Honc!
 
+![Honc](honc.png)
+
 ## Quickstart
 
 This is a template of a Hono-Neon-Drizzle-Cloudflare project. 
