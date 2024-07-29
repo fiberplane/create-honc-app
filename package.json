@@ -10,7 +10,7 @@
   "dependencies": {
     "@neondatabase/serverless": "^0.9.3",
     "drizzle-orm": "^0.31.2",
-    "hono": "^4.4.0"
+    "hono": "^4.5.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240403.0",
