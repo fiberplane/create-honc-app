@@ -25,15 +25,15 @@ async function main() {
     await action(context);
   }
 
+  outro(`🪿 HONC app created successfully in ${context.path}!`);
   note(`
-Once you've set up the Neon database, you can generate some migrations, apply them, and seed the database: 
+Once you've set up the Neon database, you can generate the migrations, 
+apply them, and seed the database using the following commands: 
 
 npm run db:generate
 npm run db:migrate
 npm run db:seed
 `);
-
-  outro("🪿 HONC app created successfully!");
   process.exit(0);
 }
 
