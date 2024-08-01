@@ -1,14 +1,29 @@
-import { execSync } from "node:child_process";
+import { spawn } from "node:child_process";
 
 export function getPackageManager() {
   return process.env.npm_config_user_agent?.split("/").at(0);
 }
 
-export function runShell(commands: string[]): void {
-  const command = commands.join(" ");
-  try {
-    execSync(command, { stdio: "ignore" });
-  } catch (error) {
-    throw new Error(`Command execution failed: ${error.message}`);
-  }
+export async function runShell(cwd: string, commands: string[]): Promise<void> {
+  const commandStr = commands.join(" ");
+
+  return new Promise((resolve, reject) => {
+    const child = spawn(commandStr, [], { cwd, shell: true });
+
+    child.on("error", (error) => {
+      reject(error);
+    });
+
+    child.on("exit", (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`Command failed with exit code ${code}`));
+      }
+    });
+
+    // Swallow stdout and stderr
+    child.stdout.on("data", () => {});
+    child.stderr.on("data", () => {});
+  });
 }
