@@ -30,9 +30,9 @@ async function main() {
 Once you've set up the Neon database, you can generate the migrations, 
 apply them, and seed the database using the following commands: 
 
-npm run db:generate
-npm run db:migrate
-npm run db:seed
+${context.packageManager} run db:generate
+${context.packageManager} run db:migrate
+${context.packageManager} run db:seed
 `);
   process.exit(0);
 }
