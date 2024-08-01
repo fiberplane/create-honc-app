@@ -39,21 +39,27 @@ export async function template(ctx: Context) {
 
   if (ctx.template === "sample-api") {
     const s = spinner();
-    s.start("Downloading template...");
+    s.start("Setting up template...");
     await downloadTemplate("github:fiberplane/goose-quotes", {
       cwd: ctx.cwd,
       dir: ctx.path,
       force: true,
       provider: "github",
     });
-    s.stop("Template downloaded successfully");
+    s.stop("Template set up successfully");
   }
 
   if (ctx.template === "bare") {
-    const baseTemplatePath = path.join(PKG_ROOT, "template");
+    // const baseTemplatePath = path.join(PKG_ROOT, "template");
     const s = spinner();
-    s.start("Copying template...");
-    fs.copySync(baseTemplatePath, path.join(ctx.cwd, ctx.path));
-    s.stop("Template copied successfully");
+    s.start("Setting up template...");
+    // fs.copySync(baseTemplatePath, path.join(ctx.cwd, ctx.path));
+    await downloadTemplate("github:fiberplane/honc-template/template#spoonfeeding", {
+      cwd: ctx.cwd,
+      dir: ctx.path,
+      force: true,
+      provider: "github",
+    });
+    s.stop("Template set up successfully");
   }
 }
