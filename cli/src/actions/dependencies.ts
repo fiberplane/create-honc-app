@@ -22,15 +22,15 @@ export async function dependencies(ctx: Context) {
   if (shouldInstallDeps) {
     const installDir = path.join(ctx.cwd, ctx.path);
     const s = spinner();
-    s.start("Installing dependencies...");
     try {
-      runShell([ctx.packageManager, "install", "--prefix", installDir]);
+			s.start("Installing dependencies...");
+      await runShell(installDir,[ctx.packageManager, "install"]);
+			s.stop("Dependencies installed successfully");
     } catch (error) {
       log.error("Dependencies installation failed");
       note(
         `Run npm install inside ${ctx.path} to install the dependencies manually`,
       );
     }
-    s.stop("Dependencies installed successfully");
   }
 }

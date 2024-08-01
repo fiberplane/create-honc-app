@@ -22,12 +22,12 @@ export async function git(ctx: Context) {
   }
 
   if (confirmGit) {
-    const gitDir = path.join(ctx.cwd, ctx.path, ".git");
+    const gitDir = path.join(ctx.cwd, ctx.path);
     const s = spinner();
     s.start("Initializing git repository...");
     try {
-      runShell(["git", "--git-dir", gitDir, "init"]);
-      runShell(["git", "--git-dir", gitDir, "add", "."]);
+      await runShell(gitDir, ["git", "init"]);
+      await runShell(gitDir, ["git", "add", "."]);
     } catch (error) {
       log.error("Git repository initialization failed");
       note("Run git init and git add . to initialize the repository manually");
