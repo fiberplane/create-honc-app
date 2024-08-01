@@ -1,27 +1,37 @@
 {
-  "name": "create-honc-app",
-  "type": "module",
-  "version": "0.0.1",
-  "description": "An interactive CLI to create modular data APIs using TypeScript",
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
-  },
-  "exports": "./dist/index.js",
-  "bin": "./dist/index.js",
-  "author": "Fiberplane",
-  "license": "MIT",
-  "dependencies": {
-    "@clack/core": "^0.3.4",
-    "@clack/prompts": "^0.7.0",
-    "fs-extra": "^11.2.0",
-    "giget": "^1.2.3",
-    "picocolors": "^1.0.1"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "tsup": "^8.2.3",
-    "typescript": "^5.5.4",
-    "zod": "^3.23.8"
-  }
+	"name": "create-honc-app",
+	"type": "module",
+	"version": "0.0.1",
+	"description": "An interactive CLI to create modular data APIs using TypeScript",
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch"
+	},
+	"exports": "./dist/index.js",
+	"bin": "./dist/index.js",
+	"author": "Fiberplane<info@fiberplane.com>",
+	"license": "MIT",
+	"repository": {
+		"url": "https://github.com/fiberplane/create-honc-app",
+		"type": "git"
+	},
+	"dependencies": {
+		"@clack/core": "^0.3.4",
+		"@clack/prompts": "^0.7.0",
+		"fs-extra": "^11.2.0",
+		"giget": "^1.2.3",
+		"picocolors": "^1.0.1"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^11.0.4",
+		"tsup": "^8.2.3",
+		"typescript": "^5.5.4",
+		"zod": "^3.23.8"
+	},
+	"engines": {
+		"node": ">=16.13"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }
