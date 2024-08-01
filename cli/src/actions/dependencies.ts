@@ -1,6 +1,7 @@
 import type { Context } from "@/context";
 import { runShell } from "@/utils";
-import { cancel, confirm, isCancel, spinner } from "@clack/prompts";
+import { cancel, confirm, isCancel, log, note, spinner } from "@clack/prompts";
+import path from "node:path";
 
 export async function dependencies(ctx: Context) {
   const shouldInstallDeps = await confirm({
@@ -13,10 +14,23 @@ export async function dependencies(ctx: Context) {
     process.exit(0);
   }
 
+  if (!ctx.path) {
+    log.error("Path is required");
+    process.exit(1);
+  }
+
   if (shouldInstallDeps) {
+    const installDir = path.join(ctx.cwd, ctx.path);
     const s = spinner();
     s.start("Installing dependencies...");
-    runShell([ctx.packageManager, "install"]);
+    try {
+      runShell([ctx.packageManager, "install", "--prefix", installDir]);
+    } catch (error) {
+      log.error("Dependencies installation failed");
+      note(
+        `Run npm install inside ${ctx.path} to install the dependencies manually`,
+      );
+    }
     s.stop("Dependencies installed successfully");
   }
 }

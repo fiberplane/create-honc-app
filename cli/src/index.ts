@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { getContext } from "./context";
 import { path } from "@/actions/path";
 import { template } from "@/actions/template";
