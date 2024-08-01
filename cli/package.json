@@ -21,7 +21,6 @@
   "dependencies": {
     "@clack/core": "^0.3.4",
     "@clack/prompts": "^0.7.0",
-    "fs-extra": "^11.2.0",
     "giget": "^1.2.3",
     "picocolors": "^1.0.1"
   },
