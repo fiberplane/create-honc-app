@@ -23,9 +23,9 @@ export async function dependencies(ctx: Context) {
     const installDir = path.join(ctx.cwd, ctx.path);
     const s = spinner();
     try {
-			s.start("Installing dependencies...");
-      await runShell(installDir,[ctx.packageManager, "install"]);
-			s.stop("Dependencies installed successfully");
+      s.start("Installing dependencies...");
+      await runShell(installDir, [ctx.packageManager, "install"]);
+      s.stop("Dependencies installed successfully");
     } catch (error) {
       log.error("Dependencies installation failed");
       note(

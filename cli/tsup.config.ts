@@ -9,5 +9,5 @@ export default defineConfig({
   minify: false,
   target: "esnext",
   outDir: "dist",
-	onSuccess: isDev ? "node dist/index.js" : "",
+  onSuccess: isDev ? "node dist/index.js" : "",
 });

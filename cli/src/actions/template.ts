@@ -1,8 +1,5 @@
-import { PKG_ROOT } from "@/const";
-import path from "node:path";
-import fs from "fs-extra";
 import type { Context } from "@/context";
-import { cancel, isCancel, log, note, select, spinner } from "@clack/prompts";
+import { cancel, isCancel, log, select, spinner } from "@clack/prompts";
 import { downloadTemplate } from "giget";
 
 export async function template(ctx: Context) {
@@ -54,12 +51,15 @@ export async function template(ctx: Context) {
     const s = spinner();
     s.start("Setting up template...");
     // fs.copySync(baseTemplatePath, path.join(ctx.cwd, ctx.path));
-    await downloadTemplate("github:fiberplane/honc-template/template#spoonfeeding", {
-      cwd: ctx.cwd,
-      dir: ctx.path,
-      force: true,
-      provider: "github",
-    });
+    await downloadTemplate(
+      "github:fiberplane/honc-template/template#spoonfeeding",
+      {
+        cwd: ctx.cwd,
+        dir: ctx.path,
+        force: true,
+        provider: "github",
+      },
+    );
     s.stop("Template set up successfully");
   }
 }

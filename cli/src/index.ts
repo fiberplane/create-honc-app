@@ -5,16 +5,15 @@ import { template } from "@/actions/template";
 import { database } from "./actions/database";
 import { dependencies } from "./actions/dependencies";
 import { git } from "./actions/git";
+import pico from "picocolors";
 import { intro, note, outro } from "@clack/prompts";
+import { HONC_TITLE } from "./const";
 
 async function main() {
-  // NOTE: ASCII art is breaking installs so uhhhh
-  // console.log("");
-  // console.log(pico.red(HONC_TITLE));
-  // console.log("");
+  console.log("");
+  console.log(pico.red(HONC_TITLE));
+  console.log("");
 
-  // const { path, template, orm, database, dbProjectName} = await runPrompts();
-  //
   intro("🪿 create-honc-app");
 
   const context = getContext();
