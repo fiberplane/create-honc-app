@@ -8,7 +8,7 @@ export async function runShell(cwd: string, commands: string[]): Promise<void> {
   const commandStr = commands.join(" ");
 
   return new Promise((resolve, reject) => {
-    const child = spawn(commandStr, [], { cwd, shell: true });
+    const child = spawn(commandStr, [], { cwd, shell: true, timeout: 60000 });
 
     child.on("error", (error) => {
       reject(error);
