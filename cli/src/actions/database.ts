@@ -19,11 +19,11 @@ export async function database(ctx: Context) {
   // FIXME: Neon stuff happens here...
 
   log.step("Setting up Neon:");
-  note(`Create a Neon account and project, retrieve the connection key from the dashboard, and add it to your .dev.vars file.
+  log.step(`Create a Neon account and project, retrieve the connection key from the dashboard, and add it to your .dev.vars file.
 
 DATABASE_URL=postgres://....
 `);
-  note(
+  log.step(
     "Visit https://neon.tech/docs/get-started-with-neon/connect-neon to create an account and project.",
   );
 }

@@ -28,7 +28,7 @@ export async function dependencies(ctx: Context) {
       s.stop("Dependencies installed successfully");
     } catch (error) {
       log.error("Dependencies installation failed");
-      note(
+      log.step(
         `Run npm install inside ${ctx.path} to install the dependencies manually`,
       );
     }

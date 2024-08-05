@@ -30,7 +30,7 @@ export async function git(ctx: Context) {
       await runShell(gitDir, ["git", "add", "."]);
     } catch (error) {
       log.error("Git repository initialization failed");
-      note("Run git init and git add . to initialize the repository manually");
+      log.step("Run git init and git add . to initialize the repository manually");
     }
     s.stop("Git repository initialized and files staged successfully");
   }

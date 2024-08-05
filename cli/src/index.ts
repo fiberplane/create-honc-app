@@ -6,7 +6,7 @@ import { database } from "./actions/database";
 import { dependencies } from "./actions/dependencies";
 import { git } from "./actions/git";
 import pico from "picocolors";
-import { intro, note, outro } from "@clack/prompts";
+import { intro, outro } from "@clack/prompts";
 import { HONC_TITLE } from "./const";
 
 async function main() {
@@ -24,15 +24,15 @@ async function main() {
     await action(context);
   }
 
-  outro(`🪿 HONC app created successfully in ${context.path}!`);
-  note(`
+  outro(`🪿 HONC app created successfully in ${context.path}!
+
 Once you've set up the Neon database, you can generate the migrations, 
 apply them, and seed the database using the following commands: 
 
 ${context.packageManager} run db:generate
 ${context.packageManager} run db:migrate
 ${context.packageManager} run db:seed
-`);
+	`);
   process.exit(0);
 }
 
