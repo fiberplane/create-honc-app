@@ -6,10 +6,10 @@
 
 This is a template of a HONC project, which uses:
 
-  🪿 **Hono** as an api framework  
-  🪿 **Neon** for a relational database  
-  🪿 **Drizzle** as the ORM and migrations manager  
-  🪿 **Cloudflare** Workers for deployment hosting  
+  🪿 **[Hono](https://hono.dev)** as an api framework  
+  🪿 **[Neon](https://neon.tech)** for a relational Postgres database  
+  🪿 **[Drizzle](https://orm.drizzle.team/)** as the ORM and migrations manager  
+  🪿 **[Cloudflare](https://workers.cloudflare.com/)** Workers for deployment hosting  
 
 Use this template as follows:
 
