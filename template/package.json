@@ -4,19 +4,18 @@
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "tsx migrate.ts",
+    "db:migrate": "drizzle-kit migrate",
     "db:seed": "tsx seed.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.3",
     "drizzle-orm": "^0.31.2",
-    "hono": "^4.5.0"
+    "hono": "^4.5.0",
+		"dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240403.0",
-    "dotenv": "^16.4.5",
     "drizzle-kit": "^0.22.6",
-    "postgres": "^3.4.4",
     "tsx": "^4.11.0",
     "wrangler": "^3.47.0"
   }
