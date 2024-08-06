@@ -12,7 +12,7 @@
     <code>npm create honc-app@latest</code>
 </div
 
-HONC is an modular collection of choice technologies for building lightweight, type-safe, edge-enabled data apis that scale seamlessly to their demand.
+[HONC](https://honc.dev) is a modular collection of choice technologies for building lightweight, type-safe, edge-enabled data apis that scale seamlessly to their demand.
 
   🪿 **[Hono](https://hono.dev)** as an api framework  
   🪿 **[Neon](https://neon.tech)** for a relational Postgres database  
