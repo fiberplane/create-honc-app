@@ -1,7 +1,7 @@
 
 <div align="center">
   <h1>Honc Honc!</h1>
-  <img src="assets/honc.png" width="200" height="200" />
+  <img src="/assets/honc.png" width="200" height="200" />
 </div>
 
 <p align="center">
@@ -80,6 +80,7 @@ neonctl set-context --project-id=$PROJECT_ID --branch=$BRANCH_NAME
 DATABASE_URL=$(neonctl connection-string)
 echo -e '\nDATABASE_URL='$DATABASE_URL'\n' >> .dev.vars
 ```
+
 This will create a `.neon` file, which is used by the `neonctl` command to know the proper context for running commands. 
 
 This file can be kept in version control. From [the Neon docs](https://neon.tech/docs/reference/cli-set-context):
