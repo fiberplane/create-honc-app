@@ -1,6 +1,6 @@
 import type { Context } from "@/context";
 import { runShell } from "@/utils";
-import { cancel, confirm, isCancel, log, note, spinner } from "@clack/prompts";
+import { cancel, confirm, isCancel, log, spinner } from "@clack/prompts";
 import path from "node:path";
 
 export async function dependencies(ctx: Context) {
