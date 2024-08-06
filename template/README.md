@@ -1,6 +1,6 @@
 # Honc Honc!
 
-![Honc](honc.png)
+![Honc](assets/honc.png)
 
 ## Quickstart
 
