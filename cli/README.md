@@ -1,7 +1,7 @@
 
 <div align="center">
   <h1>Honc Honc!</h1>
-  <img src="/assets/honc.png" width="200" height="200" />
+  <img src="https://github.com/fiberplane/create-honc-app/blob/9290786147fe1efa2079899064853cf754f175e5/assets/honc.png" width="200" height="200" />
 </div>
 
 <p align="center">
