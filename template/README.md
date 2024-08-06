@@ -31,5 +31,11 @@ npm run db:migrate
 npm run db:seed # Optional
 ```
 
+Run the development server:
+
+```sh
+npm run dev
+```
+
 Learn more about the HONC stack on the [website](https://honc.dev) or the main [repo](https://github.com/fiberplane/create-honc-app).
 
