@@ -52,7 +52,7 @@ export async function template(ctx: Context) {
     s.start("Setting up template...");
     // fs.copySync(baseTemplatePath, path.join(ctx.cwd, ctx.path));
     await downloadTemplate(
-      "github:fiberplane/honc-template/template#spoonfeeding",
+      "github:fiberplane/create-honc-app/template",
       {
         cwd: ctx.cwd,
         dir: ctx.path,
