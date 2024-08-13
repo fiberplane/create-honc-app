@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import postgres from 'postgres';
-import { drizzle } from 'drizzle-orm/neon-http';
+import { drizzle } from 'drizzle-orm/postgres-js';
 import { users } from './db/schema';
 
 type Bindings = {
