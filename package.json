@@ -2,8 +2,8 @@
 	"name": "create-honc-root",
 	"version": "0.0.1",
 	"description": "A template for creating a new HONC project",
-	"workspaces": [
-		"template",
-		"cli"
-	]
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"typescript": "^5.5.4"
+	}
 }
