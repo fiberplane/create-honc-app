@@ -31,6 +31,8 @@ async function main() {
 	} catch (error) {
 		console.error("Error during seeding:", error);
 		process.exit(1);
+	} finally {
+		process.exit(0);
 	}
 }
 main();
