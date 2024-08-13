@@ -1,7 +1,7 @@
 {
   "name": "create-honc-app",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "An interactive CLI to create modular data APIs using TypeScript",
   "scripts": {
     "build": "tsup",

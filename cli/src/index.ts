@@ -26,8 +26,8 @@ async function main() {
 
   outro(`🪿 HONC app created successfully in ${context.path}!
 
-Once you've set up the Neon database, you can generate the migrations, 
-apply them, and seed the database using the following commands: 
+Once you've set up the database, you can generate the migrations,
+apply them, and seed the database using the following commands:
 
 ${context.packageManager} run db:generate
 ${context.packageManager} run db:migrate
