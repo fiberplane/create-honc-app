@@ -55,7 +55,7 @@ export async function template(ctx: Context) {
   if (ctx?.template === "base") {
     const s = spinner();
     s.start("Setting up template...");
-    await downloadTemplate("github:fiberplane/create-honc-app/templates/base#extra-templates", {
+    await downloadTemplate("github:fiberplane/create-honc-app/templates/base", {
       cwd: ctx.cwd,
       dir: ctx.path,
       force: true,
@@ -67,7 +67,7 @@ export async function template(ctx: Context) {
   if (ctx?.template === "base-supa") {
     const s = spinner();
     s.start("Setting up template...");
-    await downloadTemplate("github:fiberplane/create-honc-app/templates/base-supa#extra-templates", {
+    await downloadTemplate("github:fiberplane/create-honc-app/templates/base-supa", {
       cwd: ctx.cwd,
       dir: ctx.path,
       force: true,
