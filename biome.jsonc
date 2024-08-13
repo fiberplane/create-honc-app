@@ -1,59 +1,24 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
-  "css": {
-    "linter": {
-      "enabled": true
-    }
-  },
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git"
-  },
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
   "formatter": {
     "enabled": true,
     "indentStyle": "space"
   },
-  "organizeImports": {
-    "enabled": true
-  },
   "linter": {
-    "enabled": false
-  },
-  "overrides": [
-    {
-      "include": ["cli"],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "recommended": true,
-          "correctness": {
-            "noUnusedImports": {
-              "level": "error"
-            },
-            "noUnusedVariables": {
-              "level": "error"
-            }
-          }
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedImports": {
+          "level": "error"
+        },
+        "noUnusedVariables": {
+          "level": "error"
         }
       }
-    },
-    {
-      "include": ["test-content"],
-      "formatter": {
-        "enabled": false
-      }
     }
-  ],
+  },
   "files": {
-    "ignore": [
-      // API related
-      "meta/*.json",
-      "seed-assets/*.json",
-      "test-content/*.*",
-
-      // Client library related
-      "dist/*.js",
-      "dist/*.d.ts"
-    ]
+    "ignore": ["dist/*.*", "templates/*.*"]
   }
 }
