@@ -1,7 +1,7 @@
 {
   "name": "create-honc-app",
   "type": "module",
-  "version": "1.1.2",
+  "version": "1.2.0-canary.1",
   "description": "An interactive CLI to create modular data APIs using TypeScript",
   "scripts": {
     "build": "tsup",
@@ -9,6 +9,12 @@
     "format": "biome format . --write"
   },
   "exports": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    ".gitignore"
+  ],
   "bin": {
     "create-honc-app": "dist/index.js"
   },
@@ -24,13 +30,10 @@
     "@neondatabase/api-client": "^1.10.3",
     "giget": "^1.2.3",
     "open": "^10.1.0",
-    "openid-client": "^5.7.0",
     "oslo": "^1.2.1",
-    "picocolors": "^1.0.1",
-    "zod": "^3.23.8"
+    "picocolors": "^1.0.1"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.53.2",
     "@types/node": "^22.2.0",
     "tsup": "^8.2.3"
   },
