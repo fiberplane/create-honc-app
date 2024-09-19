@@ -1,9 +1,9 @@
 import type { Context } from "@/context";
 import type { Template } from "@/types";
-import { cancel, isCancel, log, select, spinner } from "@clack/prompts";
+import { log, select, spinner } from "@clack/prompts";
 import { downloadTemplate } from "giget";
 
-export async function template(ctx: Context) {
+export async function promptTemplate(ctx: Context): Promise<string | symbol> {
   const result = await select({
     message: "Which template do you want to use?",
     options: [
@@ -26,53 +26,44 @@ export async function template(ctx: Context) {
     initialValue: "base",
   });
 
-  if (isCancel(result)) {
-    cancel("create-honc-app cancelled 🪿");
-    process.exit(0);
-  }
-
   if (typeof result === "string") {
     ctx.template = result as Template;
   }
 
+  return result;
+}
+
+export async function actionTemplate(ctx: Context): Promise<void> {
   if (!ctx.path) {
     log.error("Path is required");
     process.exit(1);
   }
 
-  if (ctx.template === "sample-api") {
-    const s = spinner();
-    s.start("Setting up template...");
-    await downloadTemplate("github:fiberplane/goose-quotes", {
-      cwd: ctx.cwd,
-      dir: ctx.path,
-      force: true,
-      provider: "github",
-    });
-    s.stop("Template set up successfully");
+  const s = spinner();
+  s.start("Setting up template...");
+
+  let templateUrl: string;
+
+  switch (ctx.template) {
+    case "sample-api":
+      templateUrl = "github:fiberplane/goose-quotes";
+      break;
+    case "base":
+      templateUrl = "github:fiberplane/create-honc-app/templates/base";
+      break;
+    case "base-supa":
+      templateUrl = "github:fiberplane/create-honc-app/templates/base-supa";
+      break;
+    default:
+      throw new Error(`Invalid template selected: ${ctx.template}`);
   }
 
-  if (ctx?.template === "base") {
-    const s = spinner();
-    s.start("Setting up template...");
-    await downloadTemplate("github:fiberplane/create-honc-app/templates/base", {
-      cwd: ctx.cwd,
-      dir: ctx.path,
-      force: true,
-      provider: "github",
-    });
-    s.stop("Template set up successfully");
-  }
+  await downloadTemplate(templateUrl, {
+    cwd: ctx.cwd,
+    dir: ctx.path,
+    force: true,
+    provider: "github",
+  });
 
-  if (ctx?.template === "base-supa") {
-    const s = spinner();
-    s.start("Setting up template...");
-    await downloadTemplate("github:fiberplane/create-honc-app/templates/base-supa", {
-      cwd: ctx.cwd,
-      dir: ctx.path,
-      force: true,
-      provider: "github",
-    });
-    s.stop("Template set up successfully");
-  }
+  s.stop("Template set up successfully");
 }
