@@ -18,16 +18,13 @@ export async function promptDependencies(
   return shouldInstallDeps;
 }
 
-export async function actionDependencies(
-  ctx: Context,
-  shouldInstallDeps: boolean,
-): Promise<void> {
+export async function actionDependencies(ctx: Context): Promise<void> {
   if (!ctx.path) {
     log.error("Path is required");
     process.exit(1);
   }
 
-  if (shouldInstallDeps) {
+  if (ctx.flags.includes("install-dependencies")) {
     const installDir = path.join(ctx.cwd, ctx.path);
     const s = spinner();
     try {

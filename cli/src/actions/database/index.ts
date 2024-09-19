@@ -1,7 +1,7 @@
 import type { Context } from "@/context";
 import { confirm } from "@clack/prompts";
-import { neonSetupInstructions, runNeonSetup } from "./neon";
-import { supabaseSetupInstructions } from "./supabase";
+import { showNeonSetupInstructions, runNeonSetup } from "./neon";
+import { showSupabaseSetupInstructions } from "./supabase";
 
 export async function promptDatabase(ctx: Context) {
   switch (ctx.template) {
@@ -31,14 +31,14 @@ export async function promptDatabase(ctx: Context) {
 
 export async function actionDatabase(ctx: Context) {
   if (ctx.database === "supabase") {
-    supabaseSetupInstructions();
+    showSupabaseSetupInstructions();
     return;
   }
   if (ctx.database === "neon") {
     if (ctx.flags.includes("setup-neon")) {
       await runNeonSetup(ctx);
     } else {
-      neonSetupInstructions();
+      showNeonSetupInstructions();
     }
   }
 }

@@ -8,7 +8,6 @@ export interface Context {
   template?: Template;
   database?: string;
   flags: Flags;
-  neonAuthToken?: string;
 }
 
 export function getContext(): Context {

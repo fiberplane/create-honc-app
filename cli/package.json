@@ -21,6 +21,7 @@
   "dependencies": {
     "@clack/core": "^0.3.4",
     "@clack/prompts": "^0.7.0",
+    "@neondatabase/api-client": "^1.10.3",
     "giget": "^1.2.3",
     "open": "^10.1.0",
     "openid-client": "^5.7.0",
@@ -29,6 +30,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "^0.53.2",
     "@types/node": "^22.2.0",
     "tsup": "^8.2.3"
   },

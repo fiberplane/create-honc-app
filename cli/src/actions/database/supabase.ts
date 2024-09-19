@@ -1,6 +1,6 @@
 import { log } from "@clack/prompts";
 
-export function supabaseSetupInstructions() {
+export function showSupabaseSetupInstructions() {
   log.step("Setting up Supabase:");
   log.step(`Create a Supabase account and project, retrieve the connection key from the dashboard, and add it to your .dev.vars file.
 
