@@ -59,7 +59,7 @@ export async function actionTemplate(ctx: Context) {
       templateUrl = "github:fiberplane/create-honc-app/templates/base-supa";
       break;
     default:
-			return new Error(`Invalid template selected: ${ctx.template}`);
+      return new Error(`Invalid template selected: ${ctx.template}`);
   }
 
   try {

@@ -36,13 +36,12 @@ export async function actionDatabase(ctx: Context) {
   }
 
   if (ctx.database === "neon") {
-
     if (ctx.flags.includes("setup-neon")) {
       const result = await runNeonSetup(ctx);
-			return result;
-		}  
+      return result;
+    }
 
-		showNeonSetupInstructions();
+    showNeonSetupInstructions();
 
     return;
   }

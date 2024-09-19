@@ -9,12 +9,7 @@
     "format": "biome format . --write"
   },
   "exports": "./dist/index.js",
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE",
-    ".gitignore"
-  ],
+  "files": ["dist", "README.md", "LICENSE", ".gitignore"],
   "bin": {
     "create-honc-app": "dist/index.js"
   },

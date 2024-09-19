@@ -32,10 +32,10 @@ async function main() {
     if (isCancel(result)) {
       handleCancel();
     }
-		
-		if (result instanceof Error) {
-			handleError(result);
-		}
+
+    if (result instanceof Error) {
+      handleError(result);
+    }
   }
 
   const actions = [

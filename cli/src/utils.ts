@@ -1,7 +1,7 @@
 import { cancel, log } from "@clack/prompts";
 import { spawn } from "node:child_process";
 import { CANCEL_MESSAGE } from "./const";
-import fs from "node:fs"
+import fs from "node:fs";
 
 export function getPackageManager() {
   return process.env.npm_config_user_agent?.split("/").at(0);
@@ -32,11 +32,11 @@ export async function runShell(cwd: string, commands: string[]): Promise<void> {
 }
 
 export function handleError(error: Error) {
-		log.error(`create-honc-app exited with an error: ${error.message}`);
-		process.exit(1);
+  log.error(`create-honc-app exited with an error: ${error.message}`);
+  process.exit(1);
 }
 
 export function handleCancel() {
-		cancel(CANCEL_MESSAGE);
-		process.exit(0);
+  cancel(CANCEL_MESSAGE);
+  process.exit(0);
 }
