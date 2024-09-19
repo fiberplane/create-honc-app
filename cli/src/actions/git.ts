@@ -3,22 +3,26 @@ import { runShell } from "@/utils";
 import { confirm, log, spinner } from "@clack/prompts";
 import path from "node:path";
 
-export async function promptGit(ctx: Context): Promise<boolean | symbol> {
-  const confirmGit = await confirm({
-    message:
-      "Do you want to initialize a git repository and stage all the files?",
-    initialValue: true,
-    active: "yes",
-  });
+export async function promptGit(ctx: Context) {
+  try {
+    const confirmGit = await confirm({
+      message:
+        "Do you want to initialize a git repository and stage all the files?",
+      initialValue: true,
+      active: "yes",
+    });
 
-  if (typeof confirmGit === "boolean" && confirmGit) {
-    ctx.flags.push("initialize-git");
+    if (typeof confirmGit === "boolean" && confirmGit) {
+      ctx.flags.push("initialize-git");
+    }
+
+    return confirmGit;
+  } catch (error) {
+    return error;
   }
-
-  return confirmGit;
 }
 
-export async function actionGit(ctx: Context): Promise<void> {
+export async function actionGit(ctx: Context) {
   if (!ctx.path) {
     log.error("Path is required, could not initialize git repository");
     process.exit(1);
@@ -38,6 +42,10 @@ export async function actionGit(ctx: Context): Promise<void> {
       log.step(
         "Run git init and git add . to initialize the repository manually",
       );
+
+      return error;
     }
   }
+
+  return;
 }

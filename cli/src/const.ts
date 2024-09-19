@@ -6,3 +6,5 @@ export const HONC_TITLE = `
   \\/_/\\/_/   \\/_____/   \\/_/ \\/_/   \\/_____/ 
                                              
 `;
+
+export const CANCEL_MESSAGE = "create-honc-app cancelled 🪿";

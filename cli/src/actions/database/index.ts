@@ -34,11 +34,18 @@ export async function actionDatabase(ctx: Context) {
     showSupabaseSetupInstructions();
     return;
   }
+
   if (ctx.database === "neon") {
+
     if (ctx.flags.includes("setup-neon")) {
-      await runNeonSetup(ctx);
-    } else {
-      showNeonSetupInstructions();
-    }
+      const result = await runNeonSetup(ctx);
+			return result;
+		}  
+
+		showNeonSetupInstructions();
+
+    return;
   }
+
+  return;
 }

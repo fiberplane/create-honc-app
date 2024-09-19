@@ -8,6 +8,7 @@ export interface Context {
   template?: Template;
   database?: string;
   flags: Flags;
+	databaseConnectionString?: string;
 }
 
 export function getContext(): Context {
