@@ -21,9 +21,9 @@ DATABASE_URL=postgres://....
 export async function runNeonSetup(ctx: Context) {
   log.step(`Setting up Neon:
 
-		In order to connect to your database project and retrieve the connection key, you'll need to authenticate with Neon.
+In order to connect to your database project and retrieve the connection key, you'll need to authenticate with Neon.
 
-		The connection URI will be written to your .dev.vars file as DATABASE_URL. The token itself will *NOT* be stored anywhere after this session is complete.
+The connection URI will be written to your .dev.vars file as DATABASE_URL. The token itself will *NOT* be stored anywhere after this session is complete.
 		`);
 
   try {
@@ -31,7 +31,7 @@ export async function runNeonSetup(ctx: Context) {
     const neon = createApiClient({ apiKey: token.access_token });
 
     const project: string | symbol = await select({
-      message: "Select a project to use:",
+      message: "Select a Neon project to use:",
       options: (
         await Promise.all([
           ...(await neon.listProjects({})).data.projects,
@@ -49,7 +49,7 @@ export async function runNeonSetup(ctx: Context) {
     }
 
     const branch: string | symbol = await select({
-      message: "Select a branch to use:",
+      message: "Select a project branch to use:",
       options: (await neon.listProjectBranches(project)).data.branches.map(
         (branch) => ({
           label: branch.name,
@@ -64,7 +64,7 @@ export async function runNeonSetup(ctx: Context) {
     }
 
     const database: string | symbol = await select({
-      message: "Select a database to use:",
+      message: "Select a database you want to connect to:",
       options: (
         await neon.listProjectBranchDatabases(project, branch as string)
       ).data.databases.map((database) => ({
@@ -79,7 +79,8 @@ export async function runNeonSetup(ctx: Context) {
     }
 
     const role: string | symbol = await select({
-      message: "Select a role to use:",
+      message: "Select which role to use connecting to the database:",
+      initialValue: "neondb-owner",
       options: (
         await neon.listProjectBranchRoles(project, branch as string)
       ).data.roles.map((r) => ({
