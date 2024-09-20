@@ -32,7 +32,8 @@ export async function actionDependencies(ctx: Context) {
     try {
       s.start("Installing dependencies...");
       await runShell(installDir, [ctx.packageManager, "install"]);
-      s.stop("Dependencies installed successfully");
+      s.stop();
+			log.success("Dependencies installed successfully");
     } catch (error) {
       log.error("Dependencies installation failed");
       log.step(

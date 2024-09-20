@@ -35,7 +35,8 @@ export async function actionGit(ctx: Context) {
     try {
       await runShell(gitDir, ["git", "init"]);
       await runShell(gitDir, ["git", "add", "."]);
-      s.stop("Git repository initialized and files staged successfully");
+      s.stop();
+			log.success("Git repository initialized and files staged successfully");
     } catch (error) {
       s.stop("Git repository initialization failed");
       log.error("Git repository initialization failed");

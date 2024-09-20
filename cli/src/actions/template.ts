@@ -73,6 +73,7 @@ export async function actionTemplate(ctx: Context) {
     return error;
   }
 
-  s.stop("Template set up successfully");
+  s.stop();
+	log.success("Template set up successfully");
   return;
 }
