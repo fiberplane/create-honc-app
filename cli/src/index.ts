@@ -57,15 +57,19 @@ async function main() {
     }
   }
 
+  const dbPreamble = context.flags.includes("setup-neon")
+    ? "You can now navigate to the project folder and run the following commands to generate, apply the migrations and seed the database:"
+    : "Once you've set up the database and saved the connection string, you can generate the migrations, apply them, and seed the database using the following commands";
+
   outro(`🪿 HONC app created successfully in ${context.path}!
 
-Once you've set up the database, you can generate the migrations,
-apply them, and seed the database using the following commands:
+${dbPreamble}
 
+cd ${context.path}
 ${context.packageManager} run db:generate
 ${context.packageManager} run db:migrate
 ${context.packageManager} run db:seed
-	`);
+`);
   process.exit(0);
 }
 
