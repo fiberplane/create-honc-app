@@ -22,7 +22,7 @@ async function main() {
   const prompts = [
     promptPath,
     promptTemplate,
-		promptDatabase,
+    promptDatabase,
     promptDependencies,
     promptGit,
   ];
@@ -40,7 +40,7 @@ async function main() {
 
   const actions = [
     actionTemplate,
-		actionDatabase,
+    actionDatabase,
     actionDependencies,
     actionGit,
   ];
