@@ -17,7 +17,7 @@ const NEON_SCOPES = [
   "offline_access",
   "urn:neoncloud:projects:read",
 ];
-const AUTH_TIMEOUT_MS = 60000;
+const AUTH_TIMEOUT_MS = 200000;
 const REDIRECT_URI = (port: number) => `http://127.0.0.1:${port}/callback`;
 
 export async function getNeonAuthToken(): Promise<TokenResponseBody> {
