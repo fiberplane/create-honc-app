@@ -69,7 +69,7 @@ The connection URI will be written to your .dev.vars file as DATABASE_URL. The t
         await neon.listProjectBranchDatabases(project, branch as string)
       ).data.databases.map((database) => ({
         label: database.name,
-        value: database.id.toString(),
+        value: database.name,
         hint: `Last updated: ${database.updated_at}`,
       })),
     });
@@ -94,13 +94,13 @@ The connection URI will be written to your .dev.vars file as DATABASE_URL. The t
       return role;
     }
 
-    const connectionUri = (
-      await neon.getConnectionUri({
-        role_name: role,
-        projectId: project,
-        database_name: database,
-      })
-    ).data.uri;
+    const connectionUriResp = await neon.getConnectionUri({
+      role_name: role,
+      projectId: project,
+      database_name: database,
+    });
+
+    const connectionUri = connectionUriResp.data.uri;
 
     ctx.databaseConnectionString = connectionUri;
 
