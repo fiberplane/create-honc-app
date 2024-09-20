@@ -29,7 +29,7 @@ The connection URI will be written to your .dev.vars file as DATABASE_URL. The t
   try {
     const token = await getNeonAuthToken();
 
-		log.success("Neon authentication successful");
+    log.success("Neon authentication successful");
 
     const neon = createApiClient({ apiKey: token.access_token });
 
@@ -114,7 +114,7 @@ The connection URI will be written to your .dev.vars file as DATABASE_URL. The t
       `DATABASE_URL=${connectionUri}\n`,
     );
 
-		log.success("Neon connection string written to .dev.vars file");
+    log.success("Neon connection string written to .dev.vars file");
     return;
   } catch (error) {
     return error;

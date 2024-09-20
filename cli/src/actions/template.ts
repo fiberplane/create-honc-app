@@ -74,6 +74,6 @@ export async function actionTemplate(ctx: Context) {
   }
 
   s.stop();
-	log.success("Template set up successfully");
+  log.success("Template set up successfully");
   return;
 }
