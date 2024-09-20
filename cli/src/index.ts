@@ -22,9 +22,9 @@ async function main() {
   const prompts = [
     promptPath,
     promptTemplate,
+		promptDatabase,
     promptDependencies,
     promptGit,
-    promptDatabase,
   ];
 
   for (const prompt of prompts) {
@@ -40,9 +40,9 @@ async function main() {
 
   const actions = [
     actionTemplate,
+		actionDatabase,
     actionDependencies,
     actionGit,
-    actionDatabase,
   ];
 
   for (const action of actions) {
