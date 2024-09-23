@@ -94,7 +94,7 @@ The connection URI will be written to your .dev.vars file as DATABASE_URL. The t
     }
 
     const role: string | symbol = await select({
-      message: "Select which role to use connecting to the database:",
+      message: "Select which role to use to connect to the database:",
       initialValue: "neondb-owner",
       options: (
         await neon.listProjectBranchRoles(project, branch as string)
