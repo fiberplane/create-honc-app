@@ -76,7 +76,7 @@ export async function getNeonAuthToken(): Promise<TokenResponseBody> {
           });
           res.writeHead(200, { "Content-Type": "text/html" });
           res.end(
-            "<code>🪿Authentication with create-honc-app successful! You can close this window.🪿</code>",
+            "<code>Authentication with create-honc-app successful! You can close this window.</code>",
           );
           clearTimeout(timer);
           resolve(token);
