@@ -2,6 +2,8 @@
 A curated list of awesome [HONC](www.honc.dev) guides, recipes and other resources.
 
 ## HONC usecases
+Work in Progress, feel free to open a PR 
+
 - Authentication
 - Patterns for streaming responses
 - Handling file uploads/downloads on cloudflare (and storing keys to the blobs in Neon)
