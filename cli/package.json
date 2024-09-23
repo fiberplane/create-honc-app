@@ -1,7 +1,7 @@
 {
   "name": "create-honc-app",
   "type": "module",
-  "version": "1.2.0-canary.5",
+  "version": "1.2.1",
   "description": "An interactive CLI to create modular data APIs using TypeScript",
   "scripts": {
     "build": "tsup",
