@@ -1,78 +1,79 @@
 import type { Context } from "@/context";
 import type { Template } from "@/types";
-import { cancel, isCancel, log, select, spinner } from "@clack/prompts";
+import { log, select, spinner } from "@clack/prompts";
 import { downloadTemplate } from "giget";
 
-export async function template(ctx: Context) {
-  const result = await select({
-    message: "Which template do you want to use?",
-    options: [
-      {
-        value: "base",
-        label: "Base template",
-        hint: "A barebones HONC project with a Neon database",
-      },
-      {
-        value: "base-supa",
-        label: "(Supa)base template",
-        hint: "A barebones HONC project with a Supabase database",
-      },
-      {
-        value: "sample-api",
-        label: "Sample API template",
-        hint: "A configured sample API using the HONC stack",
-      },
-    ],
-    initialValue: "base",
-  });
+export async function promptTemplate(ctx: Context) {
+  try {
+    const result = await select({
+      message: "Which template do you want to use?",
+      options: [
+        {
+          value: "base",
+          label: "Base template",
+          hint: "A barebones HONC project with a Neon database",
+        },
+        {
+          value: "base-supa",
+          label: "(Supa)base template",
+          hint: "A barebones HONC project with a Supabase database",
+        },
+        {
+          value: "sample-api",
+          label: "Sample API template",
+          hint: "A configured sample API using the HONC stack",
+        },
+      ],
+      initialValue: "base",
+    });
 
-  if (isCancel(result)) {
-    cancel("create-honc-app cancelled 🪿");
-    process.exit(0);
+    if (typeof result === "string") {
+      ctx.template = result as Template;
+    }
+
+    return result;
+  } catch (error) {
+    return error;
   }
+}
 
-  if (typeof result === "string") {
-    ctx.template = result as Template;
-  }
-
+export async function actionTemplate(ctx: Context) {
   if (!ctx.path) {
     log.error("Path is required");
     process.exit(1);
   }
 
-  if (ctx.template === "sample-api") {
-    const s = spinner();
-    s.start("Setting up template...");
-    await downloadTemplate("github:fiberplane/goose-quotes", {
-      cwd: ctx.cwd,
-      dir: ctx.path,
-      force: true,
-      provider: "github",
-    });
-    s.stop("Template set up successfully");
+  const s = spinner();
+  s.start("Setting up template...");
+
+  let templateUrl: string;
+
+  switch (ctx.template) {
+    case "sample-api":
+      templateUrl = "github:fiberplane/goose-quotes";
+      break;
+    case "base":
+      templateUrl = "github:fiberplane/create-honc-app/templates/base";
+      break;
+    case "base-supa":
+      templateUrl = "github:fiberplane/create-honc-app/templates/base-supa";
+      break;
+    default:
+      return new Error(`Invalid template selected: ${ctx.template}`);
   }
 
-  if (ctx?.template === "base") {
-    const s = spinner();
-    s.start("Setting up template...");
-    await downloadTemplate("github:fiberplane/create-honc-app/templates/base", {
+  try {
+    await downloadTemplate(templateUrl, {
       cwd: ctx.cwd,
       dir: ctx.path,
       force: true,
       provider: "github",
     });
-    s.stop("Template set up successfully");
+  } catch (error) {
+    return error;
   }
 
-  if (ctx?.template === "base-supa") {
-    const s = spinner();
-    s.start("Setting up template...");
-    await downloadTemplate("github:fiberplane/create-honc-app/templates/base-supa", {
-      cwd: ctx.cwd,
-      dir: ctx.path,
-      force: true,
-      provider: "github",
-    });
-    s.stop("Template set up successfully");
-  }
+  s.stop();
+  log.success("Template set up successfully");
+  return;
 }
