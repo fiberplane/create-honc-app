@@ -34,63 +34,35 @@ The connection URI will be written to your .dev.vars file as DATABASE_URL. The t
     const neon = createApiClient({ apiKey: token.access_token });
 
     const project = await createOrSelectProject(neon);
-
     if (isCancel(project)) {
       return project;
     }
 
-    const branch: string | symbol = await select({
-      message: "Select a project branch to use:",
-      options: (await neon.listProjectBranches(project)).data.branches.map(
-        (branch) => ({
-          label: branch.name,
-          value: branch.id,
-          hint: `Last updated: ${branch.updated_at}`,
-        }),
-      ),
-    });
-
+    const branch = await selectProjectBranch(neon, project);
     if (isCancel(branch)) {
       return branch;
     }
 
-    const allRoles = (await neon.listProjectBranchRoles(project, branch)).data
-      .roles;
+    const allRoles = await fetchProjectBranchRoles(neon, project, branch);
 
-    const database: string | symbol = await createOrSelectDatabase(
+    const databaseResult = await configureDatabase(
       neon,
       project,
       branch,
       allRoles,
     );
-
-    if (isCancel(database)) {
-      return database;
+    if (isCancel(databaseResult)) {
+      return databaseResult;
     }
 
-    const role: string | symbol = await select({
-      message: "Select which role to use to connect to the database:",
-      initialValue: "neondb-owner",
-      options: allRoles.map((r) => ({
-        label: r.name,
-        value: r.name,
-        hint: `Last updated: ${r.updated_at}`,
-      })),
-    });
+    const [database, role] = databaseResult;
 
-    if (isCancel(role)) {
-      return role;
-    }
-
-    console.log("role, projectId, database", role, project, database);
-
-    const connectionUriResp = await neon.getConnectionUri({
-      role_name: role,
-      projectId: project,
-      database_name: database,
-    });
-
-    const connectionUri = connectionUriResp.data.uri;
+    const connectionUri = await fetchConnectionUri(
+      neon,
+      role,
+      project,
+      database,
+    );
 
     ctx.databaseConnectionString = connectionUri;
 
@@ -102,7 +74,9 @@ The connection URI will be written to your .dev.vars file as DATABASE_URL. The t
   }
 }
 
-async function createOrSelectProject(neon: Api<unknown>) {
+async function createOrSelectProject(
+  neon: Api<unknown>,
+): Promise<string | symbol> {
   const neonProjects = await Promise.all([
     ...(await neon.listProjects({})).data.projects,
     ...(await neon.listSharedProjects({})).data.projects,
@@ -120,7 +94,7 @@ async function createOrSelectProject(neon: Api<unknown>) {
     hint: "Create a new project using the create-honc-app",
   });
 
-  const projectChoice: string | symbol = await select({
+  const projectChoice = await select({
     message: "Select a Neon project to use:",
     options: projectOptions,
   });
@@ -129,22 +103,23 @@ async function createOrSelectProject(neon: Api<unknown>) {
     return projectChoice;
   }
 
-  if (projectChoice !== "cha-create-project") {
-    return projectChoice;
+  if (projectChoice === "cha-create-project") {
+    return createNewProject(neon);
   }
 
+  return projectChoice as string;
+}
+
+async function createNewProject(neon: Api<unknown>): Promise<string | symbol> {
   const projectName = await text({
     message: "What is the name of the project?",
     validate: (value) => {
       if (value === "") {
         return "Please enter a project name.";
       }
-
       if (value.length > 64) {
         return "Project name must be less than 64 characters.";
       }
-
-      return value;
     },
   });
 
@@ -165,21 +140,60 @@ async function createOrSelectProject(neon: Api<unknown>) {
   return project.data.project.id;
 }
 
-async function recordConnectionUri(ctx: Context, connectionUri: string) {
-  log.step("Writing connection string to .dev.vars file");
+async function selectProjectBranch(
+  neon: Api<unknown>,
+  project: string,
+): Promise<string | symbol> {
+  const branches = (await neon.listProjectBranches(project)).data.branches;
+  const branchOptions = branches.map((branch) => ({
+    label: branch.name,
+    value: branch.id,
+    hint: `Last updated: ${branch.updated_at}`,
+  }));
 
-  fs.writeFileSync(`${ctx.path}/.dev.vars`, `DATABASE_URL=${connectionUri}\n`);
-
-  log.success("Neon connection string written to .dev.vars file");
-  return;
+  return await select({
+    message: "Select a project branch to use:",
+    options: branchOptions,
+  });
 }
 
-async function createOrSelectDatabase(
+async function fetchProjectBranchRoles(
+  neon: Api<unknown>,
+  project: string,
+  branch: string,
+): Promise<Role[]> {
+  return (await neon.listProjectBranchRoles(project, branch)).data.roles;
+}
+
+async function fetchConnectionUri(
+  neon: Api<unknown>,
+  role: string,
+  project: string,
+  database: string,
+): Promise<string> {
+  const connectionUriResp = await neon.getConnectionUri({
+    role_name: role,
+    projectId: project,
+    database_name: database,
+  });
+  return connectionUriResp.data.uri;
+}
+
+async function recordConnectionUri(
+  ctx: Context,
+  connectionUri: string,
+): Promise<void> {
+  log.step("Writing connection string to .dev.vars file");
+  fs.writeFileSync(`${ctx.path}/.dev.vars`, `DATABASE_URL=${connectionUri}\n`);
+  log.success("Neon connection string written to .dev.vars file");
+}
+
+async function configureDatabase(
   neon: Api<unknown>,
   projectId: string,
   branchId: string,
   roles: Role[],
-) {
+): Promise<[string, string] | symbol> {
   const databaseOptions = (
     await neon.listProjectBranchDatabases(projectId, branchId)
   ).data.databases.map((database) => ({
@@ -194,38 +208,13 @@ async function createOrSelectDatabase(
     hint: "Create a new database using the create-honc-app",
   });
 
-  const databaseChoice: string | symbol = await select({
+  const databaseChoice = await select({
     message: "Select a database you want to connect to:",
     options: databaseOptions,
   });
 
   if (isCancel(databaseChoice)) {
     return databaseChoice;
-  }
-
-  // if the user has selected an existing database, we return early
-  if (databaseChoice !== "cha-create-database") {
-    return databaseChoice;
-  }
-
-  // start the creation of a new database
-  const databaseName = await text({
-    message: "What should be the name of the database?",
-    validate: (value) => {
-      if (value === "") {
-        return "Please enter a database name.";
-      }
-
-      if (value.length > 64) {
-        return "Database name must be less than 64 characters.";
-      }
-
-      return value;
-    },
-  });
-
-  if (isCancel(databaseName)) {
-    return databaseName;
   }
 
   const role = await select({
@@ -241,6 +230,35 @@ async function createOrSelectDatabase(
     return role;
   }
 
+  if (databaseChoice !== "cha-create-database") {
+    return [databaseChoice as string, role as string];
+  }
+
+  return createNewDatabase(neon, projectId, branchId, role as string);
+}
+
+async function createNewDatabase(
+  neon: Api<unknown>,
+  projectId: string,
+  branchId: string,
+  role: string,
+): Promise<[string, string] | symbol> {
+  const databaseName = await text({
+    message: "What should be the name of the database?",
+    validate: (value) => {
+      if (value === "") {
+        return "Please enter a database name.";
+      }
+      if (value.length > 64) {
+        return "Database name must be less than 64 characters.";
+      }
+    },
+  });
+
+  if (isCancel(databaseName)) {
+    return databaseName;
+  }
+
   const database = (
     await neon.createProjectBranchDatabase(projectId, branchId, {
       database: {
@@ -250,5 +268,5 @@ async function createOrSelectDatabase(
     })
   ).data.database;
 
-  return database.name;
+  return [database.name, role];
 }
