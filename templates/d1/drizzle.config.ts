@@ -3,22 +3,39 @@ import { config } from 'dotenv';
 import fs from "node:fs";
 import path from "node:path";
 
-config({ path: './.dev.vars' })
-const localD1 = getLocalD1DB();
-if(!localD1){
-  process.exit(1);
+
+let dbConfig: ReturnType<typeof defineConfig>;
+if (process.env.ENVIROMENT === "production") {
+  config({ path: "./.prod.vars" });
+  dbConfig = defineConfig({
+    schema: "./src/db/schema.ts",
+    out: "./drizzle/migrations",
+    dialect: "sqlite",
+    driver: "d1-http",
+    dbCredentials: {
+      accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
+      databaseId: process.env.CLOUDFLARE_DATABASE_ID!,
+      token: process.env.CLOUDFLARE_D1_TOKEN!,
+    },
+  });
+} else {
+  config({ path: "./.dev.vars" });
+  const localD1DB = getLocalD1DB();
+  if (!localD1DB) {
+    process.exit(1);
+  }
+
+  dbConfig = defineConfig({
+    schema: "./src/db/schema.ts",
+    out: "./drizzle/migrations",
+    dialect: "sqlite",
+    dbCredentials: {
+      url: localD1DB,
+    },
+  });
 }
 
-
-
-export default defineConfig({
-  schema: './src/db/schema.ts',
-  out: './drizzle/migrations',
-  dialect: 'sqlite',
-  dbCredentials: {
-    url: localD1,
-  }
-})
+export default dbConfig;
 
 
 function getLocalD1DB() {

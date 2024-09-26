@@ -1,11 +1,11 @@
-name = ""
+name = "honc-d1-template"
 compatibility_date = "2024-07-25"
 compatibility_flags = [ "nodejs_compat" ]
 
 [[d1_databases]]
 binding = "DB"
 database_name = "d1-database"
-database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+database_id = "32de90b4-702c-4ddf-80d1-000b06acd51e"
 migrations_dir = "drizzle/migrations"
 
 

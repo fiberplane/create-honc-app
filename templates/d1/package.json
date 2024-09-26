@@ -6,6 +6,7 @@
     "db:touch": "wrangler d1 execute d1-database --local --command='SELECT 1'",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply d1-database --local",
+    "db:migrate:prod": "ENVIROMENT=production drizzle-kit migrate",
     "client": "tsx client.ts"
   },
   "dependencies": {

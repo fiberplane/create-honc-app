@@ -19,6 +19,7 @@ node_modules/
 .env
 .env.production
 .dev.vars
+.prod.vars
 
 # logs
 logs/
@@ -31,3 +32,8 @@ lerna-debug.log*
 
 # misc
 .DS_Store
+
+# drizzle
+drizzle
+
+.wrangler
