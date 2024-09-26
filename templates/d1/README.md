@@ -1,9 +1,9 @@
 ## 🪿 HONC
 
-This is a project created with the `create-honc-app` template.
+This is a project created with the `create-honc-app` template. 
 
 ### Getting started
-Text
+[D1](https://developers.cloudflare.com/d1/) is Cloudflare's serverless SQL database. Running HONC with a D1 database involves two key steps: first, setting up the project locally, and second, deploying it in production. You can spin up your D1 database locally using Wrangler. If you're planning to deploy your application for production use, ensure that you have created a D1 instance in your Cloudflare account.
 
 ### Project structure
 
