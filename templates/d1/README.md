@@ -12,12 +12,13 @@ Text
 │   ├── index.ts # Hono app entry point
 │   └── db
 │       └── schema.ts # Database schema
-├── client.ts # Optional client script to seed the db
 ├── .dev.vars.example # Example .dev.vars file
-├── wrangler.toml # Cloudflare Workers configuration
+├── .prod.vars.example # Example .prod.vars file
+├── client.ts # Optional client script to seed the db
 ├── drizzle.config.ts # Drizzle configuration
+├── package.json
 ├── tsconfig.json # TypeScript configuration
-└── package.json
+└── wrangler.toml # Cloudflare Workers configuration
 ```
 
 ### Commands for local development
