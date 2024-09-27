@@ -7,7 +7,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply d1-database --local",
     "db:migrate:prod": "ENVIROMENT=production drizzle-kit migrate",
-    "client": "tsx client.ts"
+    "db:seed": "tsx client.ts"
   },
   "dependencies": {
     "@cloudflare/d1": "^1.4.1",
