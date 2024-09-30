@@ -64,7 +64,7 @@ export async function actionTemplate(ctx: Context) {
       templateUrl = "github:fiberplane/create-honc-app/templates/base-supa";
       break;
     case "sample-d1":
-      templateUrl = "github:fiberplane/create-honc-app/templates/d1#d1";
+      templateUrl = "github:fiberplane/create-honc-app/templates/d1";
       break
     default:
       return new Error(`Invalid template selected: ${ctx.template}`);
