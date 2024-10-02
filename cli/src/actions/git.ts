@@ -9,7 +9,7 @@ export async function promptGit(ctx: Context) {
       message:
         "Do you want to initialize a git repository and stage all the files?",
       initialValue: true,
-      active: "yes",
+      active: "Yes",
     });
 
     if (typeof confirmGit === "boolean" && confirmGit) {
