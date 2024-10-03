@@ -1,0 +1,24 @@
+{
+  "name": "hono-d1-drizzle-template",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "db:touch": "wrangler d1 execute d1-database --local --command='SELECT 1'",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply d1-database --local",
+    "db:migrate:prod": "ENVIROMENT=production drizzle-kit migrate",
+    "db:seed": "tsx client.ts"
+  },
+  "dependencies": {
+    "@cloudflare/d1": "^1.4.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.31.2",
+    "hono": "^4.5.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240403.0",
+    "drizzle-kit": "^0.22.6",
+    "tsx": "^4.11.0",
+    "wrangler": "^3.47.0"
+  }
+}
