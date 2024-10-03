@@ -26,7 +26,7 @@ export async function promptTemplate(ctx: Context) {
         {
           value: "sample-d1",
           label: "D1 base template",
-          hint: "A barebons HONC project with a D1 Database"
+          hint: "A barebones HONC project with a D1 Database"
         }
       ],
       initialValue: "base",
