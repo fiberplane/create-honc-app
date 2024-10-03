@@ -4,8 +4,8 @@ compatibility_flags = [ "nodejs_compat" ]
 
 [[d1_databases]]
 binding = "DB"
-database_name = "d1-database"
-database_id = "32de90b4-702c-4ddf-80d1-000b06acd51e"
+database_name = ""
+database_id = ""
 migrations_dir = "drizzle/migrations"
 
 

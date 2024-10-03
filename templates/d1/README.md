@@ -1,4 +1,4 @@
-## 🪿 HONC
+ db:## 🪿 HONC
 
 This is a project created with the `create-honc-app` template. 
 
@@ -39,7 +39,7 @@ npm run dev
 Once the application runs you can seed the database with the client script
 
 ```sh
-npm run client
+npm run db:seed
 ```
 
 

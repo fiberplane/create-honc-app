@@ -1,5 +1,5 @@
 {
-  "name": "hono-neon-drizzle-template",
+  "name": "hono-d1-drizzle-template",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@cloudflare/d1": "^1.4.1",
-    "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.2",
     "hono": "^4.5.0"

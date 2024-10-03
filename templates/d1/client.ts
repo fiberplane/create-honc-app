@@ -1,4 +1,3 @@
-import axios from 'axios';
 
 interface User {
   name: string;
@@ -14,19 +13,26 @@ const seedData: User[] = [
 const seedDatabase = async () => {
   try {
     for (const user of seedData) {
-      const response = await axios.post('http://localhost:8787/api/user', user);
-      console.log(`User inserted: ${response.data}`);
+    const response = await fetch('http://localhost:8787/api/user', {
+        method: "POST",
+        headers:{"Content-Type": "application/json"},
+        body: JSON.stringify(user)
+    })
+
+    if (!response.ok){
+        throw new Error('Failed to insert user: ${response.statusText}');
     }
+
+    const data = await response.text();
+
+    console.log(`User inserted: ${data}`);
+    }
+
     console.log('Database seeded successfully');
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-
-      console.error('Axios error:', error.message);
-    } else if (error instanceof Error) {
-
-      console.error('Error:', error.message);
+    if (error instanceof Error) {
+      console.error('Error: ', error.message);
     } else {
-
       console.error('Unknown error occurred:', error);
     }
   }
