@@ -3,9 +3,9 @@
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
-    "db:touch": "wrangler d1 execute d1-database --local --command='SELECT 1'",
+    "db:touch": "wrangler d1 execute DB --local --command='SELECT 1'",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "wrangler d1 migrations apply d1-database --local",
+    "db:migrate": "wrangler d1 migrations apply DB --local",
     "db:migrate:prod": "ENVIROMENT=production drizzle-kit migrate",
     "db:seed": "tsx client.ts"
   },
