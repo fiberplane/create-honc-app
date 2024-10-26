@@ -20,7 +20,7 @@ async function main() {
   console.log(pico.red(HONC_TITLE));
   console.log("");
 
-  intro("🪿 creating HONC app");
+  intro("🪿 create-honc-app");
 
   const context = getContext();
 
