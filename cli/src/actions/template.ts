@@ -61,13 +61,13 @@ export async function actionTemplate(ctx: Context) {
       templateUrl = "github:fiberplane/goose-quotes";
       break;
     case "base":
-      templateUrl = "github:brettimus/honc-it-like-its-hot/templates/base";
+      templateUrl = "github:fiberplane/create-honc-app/templates/base";;
       break;
     case "base-supa":
-      templateUrl = "github:brettimus/honc-it-like-its-hot/templates/base-supa";
+      templateUrl = "github:fiberplane/create-honc-app/templates/base-supa";
       break;
     case "sample-d1":
-      templateUrl = "github:brettimus/honc-it-like-its-hot/templates/d1";
+      templateUrl = "github:fiberplane/create-honc-app/templates/d1";
       break;
     default:
       return new Error(`Invalid template selected: ${ctx.template}`);
