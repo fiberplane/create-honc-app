@@ -1,25 +1,21 @@
 import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { users } from "./src/db/schema";
+import { type NewUser, users } from "./src/db/schema";
 
 config({ path: ".dev.vars" });
 
 const sql = postgres(process.env.DATABASE_URL ?? "");
 const db = drizzle(sql);
 
+const seedData: NewUser[] = [
+  { name: "Paul Copplestone", email: "paul@supabase.com" },
+  { name: "Ant Wilson", email: "ant@supabase.com" },
+  { name: "Michael Stonebraker", email: "databasesarecool@berkeley.edu" },
+];
+
 async function seed() {
-  await db.insert(users).values([
-    {
-      name: "Laszlo Cravensworth",
-    },
-    {
-      name: "Nadja Antipaxos",
-    },
-    {
-      name: "Colin Robinson",
-    },
-  ]);
+  await db.insert(users).values(seedData);
 }
 
 async function main() {

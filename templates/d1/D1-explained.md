@@ -2,7 +2,7 @@
 
 D1 is Cloudflare's relational database. It's basically sqlite!
 
-Working with HONC + D1 locally is a little particular. We've done as best as goosily possible to make it easy for you, but you'll inevitably see eye-raising funkiness if you look at the migration and seed scripts :goose:.
+Working with HONC + D1 locally is a little peculiar. We've done as best as goosily possible to make it easy for you, but you'll see some eye-raising funkiness if you look at the migration and seed scripts :goose:.
 
 Visit https://developers.cloudflare.com/d1/ for more information
 

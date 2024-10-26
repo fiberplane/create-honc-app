@@ -3,18 +3,15 @@ import path from "node:path";
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 import * as schema from "./src/db/schema";
+import type { NewUser } from "./src/db/schema";
 
-interface User {
-  name: string;
-  email: string;
-}
-
-const seedData: User[] = [
-  { name: "Laszlo Cravensworth", email: "laszlo.cravensworth@example.com" },
-  { name: "Nadja Antipaxos", email: "nadja.antipaxos@example.com" },
-  { name: "Colin Robinson", email: "colin.robinson@example.com" },
+const seedData: NewUser[] = [
+  { name: "Matthew Prince", email: "matthew.prince@example.com" },
+  { name: "Lee Holloway", email: "lee.holloway@example.com" },
+  { name: "Michelle Zatlyn", email: "michelle.zatlyn@example.com" },
 ];
 
+// Modified from: https://github.com/drizzle-team/drizzle-orm/discussions/1545
 const seedDatabase = async () => {
   const pathToDb = getLocalD1DB();
   const client = createClient({
