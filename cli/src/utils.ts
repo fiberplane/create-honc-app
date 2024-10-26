@@ -1,10 +1,27 @@
-import { cancel, log } from "@clack/prompts";
 import { spawn } from "node:child_process";
+import { readFileSync, statSync } from "node:fs";
+import { basename, dirname } from "node:path";
+import { cancel, log } from "@clack/prompts";
 import { CANCEL_MESSAGE } from "./const";
-import fs from "node:fs";
+import { CodeGenError } from "./types";
 
 export function getPackageManager() {
   return process.env.npm_config_user_agent?.split("/").at(0);
+}
+
+export function getProjectName(path: string) {
+  try {
+    const stats = statSync(path);
+
+    if (stats.isDirectory()) {
+      return basename(path);
+    }
+    // If it's a file, return the parent directory name
+    return basename(dirname(path));
+  } catch {
+    // If the path doesn't exist, just return the last part of the path
+    return basename(path);
+  }
 }
 
 export async function runShell(cwd: string, commands: string[]): Promise<void> {
@@ -31,12 +48,27 @@ export async function runShell(cwd: string, commands: string[]): Promise<void> {
   });
 }
 
-export function handleError(error: Error) {
-  log.error(`create-honc-app exited with an error: ${error.message}`);
-  process.exit(1);
+export function handleError(error: Error | CodeGenError) {
+  if (error instanceof CodeGenError) {
+    log.warn(
+      `Could not scaffold project according to your description\n(error: ${error.message})`,
+    );
+    log.info("Continuing...");
+  } else {
+    log.error(`exiting with an error: ${error.message}`);
+    process.exit(1);
+  }
 }
 
 export function handleCancel() {
   cancel(CANCEL_MESSAGE);
   process.exit(0);
+}
+
+export function safeReadFile(path: string) {
+  try {
+    return readFileSync(path, "utf-8");
+  } catch (_error) {
+    return null;
+  }
 }

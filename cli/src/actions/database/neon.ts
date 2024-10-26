@@ -1,8 +1,8 @@
+import fs from "node:fs";
 import type { Context } from "@/context";
 import { getNeonAuthToken } from "@/integrations/neon";
-import fs from "node:fs";
 import { isCancel, log, select, text } from "@clack/prompts";
-import { type Api, createApiClient, type Role } from "@neondatabase/api-client";
+import { type Api, type Role, createApiClient } from "@neondatabase/api-client";
 
 /*
  * Used if the user rejects the Neon setup flow
@@ -120,6 +120,7 @@ async function createNewProject(neon: Api<unknown>): Promise<string | symbol> {
       if (value.length > 64) {
         return "Project name must be less than 64 characters.";
       }
+      return undefined;
     },
   });
 
@@ -252,6 +253,7 @@ async function createNewDatabase(
       if (value.length > 64) {
         return "Database name must be less than 64 characters.";
       }
+      return undefined;
     },
   });
 

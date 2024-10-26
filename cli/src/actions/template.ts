@@ -1,5 +1,7 @@
+import { join } from "node:path";
 import type { Context } from "@/context";
 import type { Template } from "@/types";
+import { safeReadFile } from "@/utils";
 import { log, select, spinner } from "@clack/prompts";
 import { downloadTemplate } from "giget";
 
@@ -10,7 +12,7 @@ export async function promptTemplate(ctx: Context) {
       options: [
         {
           value: "base",
-          label: "Base template",
+          label: "Neon template",
           hint: "A barebones HONC project with a Neon database",
         },
         {
@@ -18,16 +20,16 @@ export async function promptTemplate(ctx: Context) {
           label: "(Supa)base template",
           hint: "A barebones HONC project with a Supabase database",
         },
-        {
-          value: "sample-api",
-          label: "Sample API template",
-          hint: "A configured sample API using the HONC stack",
-        },
+        // {
+        //   value: "sample-api",
+        //   label: "Sample API template",
+        //   hint: "A configured sample API using the HONC stack",
+        // },
         {
           value: "sample-d1",
           label: "D1 base template",
-          hint: "A barebones HONC project with a D1 Database"
-        }
+          hint: "A barebones HONC project with a D1 Database",
+        },
       ],
       initialValue: "base",
     });
@@ -54,18 +56,19 @@ export async function actionTemplate(ctx: Context) {
   let templateUrl: string;
 
   switch (ctx.template) {
+    // TODO - Update this repo or link
     case "sample-api":
       templateUrl = "github:fiberplane/goose-quotes";
       break;
     case "base":
-      templateUrl = "github:fiberplane/create-honc-app/templates/base";
+      templateUrl = "github:brettimus/honc-it-like-its-hot/templates/base";
       break;
     case "base-supa":
-      templateUrl = "github:fiberplane/create-honc-app/templates/base-supa";
+      templateUrl = "github:brettimus/honc-it-like-its-hot/templates/base-supa";
       break;
     case "sample-d1":
-      templateUrl = "github:fiberplane/create-honc-app/templates/d1";
-      break
+      templateUrl = "github:brettimus/honc-it-like-its-hot/templates/d1";
+      break;
     default:
       return new Error(`Invalid template selected: ${ctx.template}`);
   }
@@ -77,6 +80,16 @@ export async function actionTemplate(ctx: Context) {
       force: true,
       provider: "github",
     });
+
+    const projectDir = join(ctx.cwd, ctx.path);
+
+    const indexFile = safeReadFile(join(projectDir, "src", "index.ts"));
+    const schemaFile = safeReadFile(join(projectDir, "src", "db", "schema.ts"));
+    const seedFile = safeReadFile(join(projectDir, "seed.ts"));
+
+    ctx.indexFile = indexFile?.toString();
+    ctx.schemaFile = schemaFile?.toString();
+    ctx.seedFile = seedFile?.toString();
   } catch (error) {
     return error;
   }
