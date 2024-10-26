@@ -9,7 +9,7 @@ import { actionDependencies, promptDependencies } from "./actions/dependencies";
 import { promptDescription } from "./actions/description";
 import { actionGit, promptGit } from "./actions/git";
 import { HONC_TITLE } from "./const";
-import { getContext } from "./context";
+import { initContext } from "./context";
 import { updateProjectName } from "./project-name";
 import { touchDevVars } from "./touch-dev-vars";
 import { isError } from "./types";
@@ -22,10 +22,19 @@ async function main() {
 
   intro("🪿 create-honc-app");
 
-  const context = getContext();
+  const context = initContext();
+
+  // If the hatch flag is present, we should use its value
+  const shouldHatch = typeof context.hatchValue === "string";
+  if (shouldHatch) {
+    // TODO - Implement hatching
+  }
+
+  // If the hatch flag is present but without a value, we should prompt for a description
+  const shouldPromptDescription = context.hatchValue === true;
 
   const prompts = [
-    promptDescription,
+    shouldPromptDescription ? promptDescription : undefined,
     promptPath,
     promptTemplate,
     promptDatabase,
@@ -34,6 +43,10 @@ async function main() {
   ];
 
   for (const prompt of prompts) {
+    if (!prompt) {
+      continue;
+    }
+
     const result = await prompt(context);
     if (isCancel(result)) {
       handleCancel();
