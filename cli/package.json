@@ -6,6 +6,7 @@
   "scripts": {
     "build": "pnpm clean && tsup",
     "dev": "tsup --watch && node dist/index.js",
+    "dev:hatch": "tsup --watch --onSuccess 'node dist/index.js --hatch'",
     "format": "biome format . --write",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
