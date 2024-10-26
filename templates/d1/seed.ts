@@ -1,40 +1,36 @@
 import fs from "node:fs";
 import path from "node:path";
-import { config } from "dotenv";
-import { defineConfig } from "drizzle-kit";
+import { createClient } from "@libsql/client";
+import { drizzle } from "drizzle-orm/libsql";
+import * as schema from "./src/db/schema";
 
-let dbConfig: ReturnType<typeof defineConfig>;
-if (process.env.ENVIROMENT === "production") {
-  config({ path: "./.prod.vars" });
-  dbConfig = defineConfig({
-    schema: "./src/db/schema.ts",
-    out: "./drizzle/migrations",
-    dialect: "sqlite",
-    driver: "d1-http",
-    dbCredentials: {
-      accountId: process.env.CLOUDFLARE_ACCOUNT_ID ?? "",
-      databaseId: process.env.CLOUDFLARE_DATABASE_ID ?? "",
-      token: process.env.CLOUDFLARE_D1_TOKEN ?? "",
-    },
-  });
-} else {
-  config({ path: "./.dev.vars" });
-  const localD1DB = getLocalD1DB();
-  if (!localD1DB) {
-    process.exit(1);
-  }
-
-  dbConfig = defineConfig({
-    schema: "./src/db/schema.ts",
-    out: "./drizzle/migrations",
-    dialect: "sqlite",
-    dbCredentials: {
-      url: localD1DB,
-    },
-  });
+interface User {
+  name: string;
+  email: string;
 }
 
-export default dbConfig;
+const seedData: User[] = [
+  { name: "Laszlo Cravensworth", email: "laszlo.cravensworth@example.com" },
+  { name: "Nadja Antipaxos", email: "nadja.antipaxos@example.com" },
+  { name: "Colin Robinson", email: "colin.robinson@example.com" },
+];
+
+const seedDatabase = async () => {
+  const pathToDb = getLocalD1DB();
+  const client = createClient({
+    url: `file:${pathToDb}`,
+  });
+  const db = drizzle(client);
+  console.log("Seeding database...");
+  try {
+    await db.insert(schema.users).values(seedData);
+    console.log("Database seeded successfully!");
+  } catch (error) {
+    console.error("Error seeding database:", error);
+  }
+};
+
+seedDatabase();
 
 function getLocalD1DB() {
   try {

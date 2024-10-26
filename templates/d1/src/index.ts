@@ -1,3 +1,4 @@
+import { instrument } from "@fiberplane/hono-otel";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import * as schema from "./db/schema";
@@ -26,7 +27,7 @@ app.post("/api/user", async (c) => {
     name: name,
     email: email,
   });
-  return c.text("user: " + name + "inserted");
+  return c.text(`user: ${name}inserted`);
 });
 
-export default app;
+export default instrument(app);
