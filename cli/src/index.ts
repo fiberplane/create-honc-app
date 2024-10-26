@@ -4,7 +4,7 @@ import { actionTemplate, promptTemplate } from "@/actions/template";
 import { intro, isCancel, outro } from "@clack/prompts";
 import pico from "picocolors";
 import { actionCodeGenFinish, actionCodeGenStart } from "./actions/code-gen";
-import { actionDatabase, promptDatabase } from "./actions/database";
+import { actionDatabase, getDatabasePreamble, promptDatabase } from "./actions/database";
 import { actionDependencies, promptDependencies } from "./actions/dependencies";
 import { promptDescription } from "./actions/description";
 import { actionGit, promptGit } from "./actions/git";
@@ -84,9 +84,8 @@ async function main() {
   // Add the default FPX_ENDPOINT environment variable to the .dev.vars file
   touchDevVars(context);
 
-  const dbPreamble = context.flags.includes("setup-neon")
-    ? "You can now navigate to the project folder and run the following commands to generate, apply the migrations and seed the database:"
-    : "Once you've set up the database and saved the connection string, you can generate the migrations, apply them, and seed the database using the following commands";
+  // Add a reminder of remaining database setup steps, if necessary
+  const dbPreamble = getDatabasePreamble(context);
 
   outro(`🪿 HONC app created successfully in ${context.path}!
 

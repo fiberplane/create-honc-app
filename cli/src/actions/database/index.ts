@@ -57,3 +57,19 @@ export async function actionDatabase(ctx: Context) {
 
   return;
 }
+
+export function getDatabasePreamble(ctx: Context) {
+  switch (ctx.database) {
+    case "supabase":
+      return "Once you've added your connection string, set up the database using the following command:";
+    case "d1":
+      return "You can now navigate to the project folder and run the following to set up the database:";
+    case "neon": {
+      return ctx.flags.includes("setup-neon")
+        ? "You can now navigate to the project folder and run the following to set up the database:"
+        : "Once you've added your connection string, set up the database using the following command:";
+    }
+    default:
+      return "";
+  }
+}
