@@ -19,7 +19,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241022.0",
     "@fiberplane/hono-otel": "latest",
-    "@fiberplane/studio": "canary",
+    "@fiberplane/studio": "latest",
     "drizzle-kit": "^0.26.2",
     "tsx": "^4.19.2",
     "typescript": "^5.5.4",
