@@ -4,7 +4,11 @@ import { actionTemplate, promptTemplate } from "@/actions/template";
 import { intro, isCancel, outro } from "@clack/prompts";
 import pico from "picocolors";
 import { actionCodeGenFinish, actionCodeGenStart } from "./actions/code-gen";
-import { actionDatabase, getDatabasePreamble, promptDatabase } from "./actions/database";
+import {
+  actionDatabase,
+  getDatabasePreamble,
+  promptDatabase,
+} from "./actions/database";
 import { actionDependencies, promptDependencies } from "./actions/dependencies";
 import { promptDescription } from "./actions/description";
 import { actionGit, promptGit } from "./actions/git";

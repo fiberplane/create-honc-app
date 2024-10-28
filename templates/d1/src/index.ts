@@ -23,11 +23,12 @@ app.post("/api/user", async (c) => {
   const db = drizzle(c.env.DB);
   const { name, email } = await c.req.json();
 
-  await db.insert(schema.users).values({
+  const [newUser] = await db.insert(schema.users).values({
     name: name,
     email: email,
-  });
-  return c.text(`user: ${name}inserted`);
+  }).returning();
+
+  return c.json(newUser);
 });
 
 export default instrument(app);
