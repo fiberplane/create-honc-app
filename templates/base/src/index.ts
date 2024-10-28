@@ -11,7 +11,7 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.get("/", (c) => {
-  return c.text("Hello Hono!");
+  return c.text("Honc! 🪿");
 });
 
 app.get("/api/users", async (c) => {
