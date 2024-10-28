@@ -56,21 +56,17 @@ export async function actionTemplate(ctx: Context) {
   let templateUrl: string;
 
   switch (ctx.template) {
-    // TODO - Update this repo or link
     case "sample-api":
       templateUrl = "github:fiberplane/goose-quotes";
       break;
     case "base":
-      templateUrl =
-        "github:fiberplane/create-honc-app/templates/base#update-templates";
+      templateUrl = "github:fiberplane/create-honc-app/templates/base";
       break;
     case "base-supa":
-      templateUrl =
-        "github:fiberplane/create-honc-app/templates/base-supa#update-templates";
+      templateUrl = "github:fiberplane/create-honc-app/templates/base-supa";
       break;
     case "sample-d1":
-      templateUrl =
-        "github:fiberplane/create-honc-app/templates/d1#update-templates";
+      templateUrl = "github:fiberplane/create-honc-app/templates/d1";
       break;
     default:
       return new Error(`Invalid template selected: ${ctx.template}`);
