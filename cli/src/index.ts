@@ -91,9 +91,15 @@ async function main() {
 
 ${dbPreamble}
 
+# Set up database:
 cd ${context.path}
 ${context.packageManager} run db:setup
+
+# [optional] Use Fiberplane to explore your api:
 ${context.packageManager} run fiberplane
+
+# Run your api:
+${context.packageManager} run dev
 `);
   process.exit(0);
 }
