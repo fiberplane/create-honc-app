@@ -21,9 +21,10 @@ const seedDatabase = async () => {
   console.log("Seeding database...");
   try {
     await db.insert(schema.users).values(seedData);
-    console.log("Database seeded successfully!");
+    console.log("✅ Database seeded successfully!");
+    console.log("🪿 Run `npm run fiberplane` to explore data with your api.");
   } catch (error) {
-    console.error("Error seeding database:", error);
+    console.error("❌ Error seeding database:", error);
   }
 };
 

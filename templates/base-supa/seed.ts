@@ -21,9 +21,10 @@ async function seed() {
 async function main() {
   try {
     await seed();
-    console.log("Seeding completed");
+    console.log("✅ Database seeded successfully!");
+    console.log("🪿 Run `npm run fiberplane` to explore data with your api.");
   } catch (error) {
-    console.error("Error during seeding:", error);
+    console.error("❌ Error during seeding:", error);
     process.exit(1);
   } finally {
     process.exit(0);
