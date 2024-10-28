@@ -55,6 +55,12 @@ Set your `DATABASE_URL` secret (and any other secrets you need) with wrangler:
 npx wrangler secret put DATABASE_URL
 ```
 
+Finally, change the name of the project in `wrangler.toml` to something appropriate for your project
+
+```toml
+name = "my-neon-project"
+```
+
 Deploy with wrangler:
 
 ```sh

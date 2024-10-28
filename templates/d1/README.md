@@ -85,7 +85,14 @@ Afterwards, run the migration script for production:
 npm run db:migrate:prod
 ```
 
-Finally deploy your worker
+Change the name of the project in `wrangler.toml` to something appropriate for your project:
+
+```toml
+name = "my-d1-project"
+```
+
+Finally, deploy your worker
+
 ```shell 
 npm run deploy
 ```

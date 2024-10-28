@@ -55,6 +55,12 @@ Set your `DATABASE_URL` secret (and any other secrets you need) with wrangler:
 npx wrangler secret put DATABASE_URL
 ```
 
+Change the name of the project in `wrangler.toml` to something appropriate for your project:
+
+```toml
+name = "my-supabase-project"
+```
+
 Deploy with wrangler:
 
 ```sh
