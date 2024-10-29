@@ -3,22 +3,29 @@
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
-    "db:touch": "wrangler d1 execute DB --local --command='SELECT 1'",
+    "db:touch": "wrangler d1 execute honc-d1-database --local --command='SELECT 1'",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "wrangler d1 migrations apply DB --local",
+    "db:migrate": "wrangler d1 migrations apply honc-d1-database --local",
     "db:migrate:prod": "ENVIROMENT=production drizzle-kit migrate",
-    "db:seed": "tsx client.ts"
+    "db:seed": "tsx seed.ts",
+    "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
+    "db:studio": "drizzle-kit studio",
+    "fiberplane": "fpx"
   },
   "dependencies": {
-    "@cloudflare/d1": "^1.4.1",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.31.2",
-    "hono": "^4.5.0"
+    "drizzle-orm": "^0.35.3",
+    "hono": "^4.6.7"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240403.0",
-    "drizzle-kit": "^0.22.6",
-    "tsx": "^4.11.0",
-    "wrangler": "^3.47.0"
+    "@cloudflare/workers-types": "^4.20241022.0",
+    "@fiberplane/hono-otel": "latest",
+    "@fiberplane/studio": "latest",
+    "@libsql/client": "^0.14.0",
+    "drizzle-kit": "^0.26.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.4",
+    "typescript-language-server": "^4.3.3",
+    "wrangler": "^3.83.0"
   }
 }

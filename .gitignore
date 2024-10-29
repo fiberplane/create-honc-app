@@ -1,1 +1,11 @@
 node_modules
+
+# Ignore package-lock.json files in templates
+templates/**/package-lock.json
+
+# Ignore test apps
+cli/test-apps/**
+!cli/test-apps/.gitkeep
+
+# Ignore macOS DS_Store files
+.DS_Store

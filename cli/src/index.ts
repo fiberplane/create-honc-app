@@ -1,13 +1,22 @@
 #!/usr/bin/env node
-import { getContext } from "./context";
 import { promptPath } from "@/actions/path";
-import { promptTemplate, actionTemplate } from "@/actions/template";
-import { promptDatabase, actionDatabase } from "./actions/database";
-import { promptDependencies, actionDependencies } from "./actions/dependencies";
-import { promptGit, actionGit } from "./actions/git";
+import { actionTemplate, promptTemplate } from "@/actions/template";
+import { intro, isCancel, outro } from "@clack/prompts";
 import pico from "picocolors";
-import { intro, outro, isCancel } from "@clack/prompts";
+import { actionCodeGenFinish, actionCodeGenStart } from "./actions/code-gen";
+import {
+  actionDatabase,
+  getDatabasePreamble,
+  promptDatabase,
+} from "./actions/database";
+import { actionDependencies, promptDependencies } from "./actions/dependencies";
+import { promptDescription } from "./actions/description";
+import { actionGit, promptGit } from "./actions/git";
 import { HONC_TITLE } from "./const";
+import { initContext } from "./context";
+import { updateProjectName } from "./project-name";
+import { touchDevVars } from "./touch-dev-vars";
+import { isError } from "./types";
 import { handleCancel, handleError } from "./utils";
 
 async function main() {
@@ -17,9 +26,19 @@ async function main() {
 
   intro("🪿 create-honc-app");
 
-  const context = getContext();
+  const context = initContext();
+
+  // If the hatch flag is present, we should use its value
+  const shouldHatch = typeof context.hatchValue === "string";
+  if (shouldHatch) {
+    // TODO - Implement hatching
+  }
+
+  // If the hatch flag is present but without a value, we should prompt for a description
+  const shouldPromptDescription = context.hatchValue === true;
 
   const prompts = [
+    shouldPromptDescription ? promptDescription : undefined,
     promptPath,
     promptTemplate,
     promptDatabase,
@@ -28,6 +47,10 @@ async function main() {
   ];
 
   for (const prompt of prompts) {
+    if (!prompt) {
+      continue;
+    }
+
     const result = await prompt(context);
     if (isCancel(result)) {
       handleCancel();
@@ -40,9 +63,11 @@ async function main() {
 
   const actions = [
     actionTemplate,
+    actionCodeGenStart,
     actionDatabase,
     actionDependencies,
     actionGit,
+    actionCodeGenFinish,
   ];
 
   for (const action of actions) {
@@ -52,26 +77,33 @@ async function main() {
       handleCancel();
     }
 
-    if (result instanceof Error) {
+    if (isError(result)) {
       handleError(result);
     }
   }
 
-  const dbPreamble = context.flags.includes("setup-neon")
-    ? "You can now navigate to the project folder and run the following commands to generate, apply the migrations and seed the database:"
-    : "Once you've set up the database and saved the connection string, you can generate the migrations, apply them, and seed the database using the following commands";
+  // Update the project name in the package.json file and wrangler.toml file
+  updateProjectName(context);
 
- 
-    const dbD1 = context.template === "sample-d1" ? `${context.packageManager} run dev` : "";
-    outro(`🪿 HONC app created successfully in ${context.path}!
+  // Add the default FPX_ENDPOINT environment variable to the .dev.vars file
+  touchDevVars(context);
+
+  // Add a reminder of remaining database setup steps, if necessary
+  const dbPreamble = getDatabasePreamble(context);
+
+  outro(`🪿 HONC app created successfully in ${context.path}!
 
 ${dbPreamble}
 
+# Set up database:
 cd ${context.path}
-${context.packageManager} run db:generate
-${context.packageManager} run db:migrate
-${dbD1}
-${context.packageManager} run db:seed
+${context.packageManager} run db:setup
+
+# [optional] Use Fiberplane to explore your api:
+${context.packageManager} run fiberplane
+
+# Run your api:
+${context.packageManager} run dev
 `);
   process.exit(0);
 }

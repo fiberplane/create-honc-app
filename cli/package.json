@@ -1,12 +1,16 @@
 {
   "name": "create-honc-app",
   "type": "module",
-  "version": "1.2.1",
-  "description": "An interactive CLI to create modular data APIs using TypeScript",
+  "version": "1.3.0",
+  "description": "An interactive CLI to create modular typesafe data APIs using TypeScript",
   "scripts": {
-    "build": "tsup",
+    "build": "pnpm clean && tsup",
     "dev": "tsup --watch && node dist/index.js",
-    "format": "biome format . --write"
+    "dev:hatch": "tsup --watch --onSuccess 'node dist/index.js --hatch'",
+    "format": "biome format . --write",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "clean:test-apps": "rimraf test-apps/* && touch test-apps/.gitkeep"
   },
   "exports": "./dist/index.js",
   "files": ["dist", "README.md", "LICENSE", ".gitignore"],
@@ -30,6 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.2.0",
+    "rimraf": "^6.0.1",
     "tsup": "^8.2.3"
   },
   "engines": {

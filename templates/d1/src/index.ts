@@ -1,3 +1,4 @@
+import { instrument } from "@fiberplane/hono-otel";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import * as schema from "./db/schema";
@@ -9,7 +10,7 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.get("/", (c) => {
-  return c.text("Hello Hono!");
+  return c.text("Honc from above! ☁️🪿");
 });
 
 app.get("/api/users", async (c) => {
@@ -22,11 +23,12 @@ app.post("/api/user", async (c) => {
   const db = drizzle(c.env.DB);
   const { name, email } = await c.req.json();
 
-  await db.insert(schema.users).values({
+  const [newUser] = await db.insert(schema.users).values({
     name: name,
     email: email,
-  });
-  return c.text("user: " + name + "inserted");
+  }).returning();
+
+  return c.json(newUser);
 });
 
-export default app;
+export default instrument(app);

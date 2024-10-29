@@ -1,22 +1,29 @@
 {
-  "name": "hono-neon-drizzle-template",
+  "name": "hono-supabase-drizzle-template",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:seed": "tsx seed.ts"
+    "db:seed": "tsx seed.ts",
+    "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
+    "db:studio": "drizzle-kit studio",
+    "fiberplane": "fpx"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.31.2",
-    "hono": "^4.5.0",
-    "postgres": "^3.4.4"
+    "drizzle-orm": "^0.35.3",
+    "hono": "^4.6.7",
+    "postgres": "^3.4.5"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240403.0",
-    "drizzle-kit": "^0.22.6",
-    "tsx": "^4.11.0",
-    "wrangler": "^3.47.0"
+    "@cloudflare/workers-types": "^4.20241022.0",
+    "@fiberplane/hono-otel": "latest",
+    "@fiberplane/studio": "latest",
+    "drizzle-kit": "^0.26.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.4",
+    "typescript-language-server": "^4.3.3",
+    "wrangler": "^3.83.0"
   }
 }
