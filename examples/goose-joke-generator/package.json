@@ -22,6 +22,7 @@
     "@cloudflare/workers-types": "^4.20241022.0",
     "@fiberplane/hono-otel": "^0.3.1",
     "@fiberplane/studio": "^0.9.1",
+    "@libsql/client": "0.14.0",
     "drizzle-kit": "^0.27.1",
     "tsx": "^4.19.2",
     "typescript": "^5.5.4",
