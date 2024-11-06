@@ -1,24 +1,75 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "css": {
+    "linter": {
+      "enabled": true
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space"
   },
+  "organizeImports": {
+    "enabled": true
+  },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
-      "correctness": {
-        "noUnusedImports": {
-          "level": "error"
-        },
-        "noUnusedVariables": {
+      "style": {
+        "useBlockStatements": {
           "level": "error"
         }
       }
     }
   },
+  "overrides": [
+    {
+      "include": ["templates"],
+      "formatter": {
+        "enabled": false
+      }
+    },
+    {
+      "include": [
+        "packages/client-library-otel",
+        "api",
+        "honc-code-gen",
+        "fp-services"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "recommended": true,
+          "correctness": {
+            "noUnusedImports": {
+              "level": "error"
+            },
+            "noUnusedVariables": {
+              "level": "error"
+            }
+          }
+        }
+      }
+    }
+  ],
   "files": {
-    "ignore": ["dist/*.*", "templates/*.*"]
+    "ignore": [
+      // Drizzle related
+      "meta/*.json",
+
+      // Honc code gen playground outputs
+      "examples/**/*",
+
+      // Compiled dirs
+      "dist",
+
+      // ignore all tsconfig.json files
+      "tsconfig.json"
+    ]
   }
 }
