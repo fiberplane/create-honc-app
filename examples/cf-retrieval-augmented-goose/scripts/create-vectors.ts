@@ -1,12 +1,13 @@
-import fs from 'node:fs';
+import fs from "node:fs";
 import { generateObject, embedMany } from "ai";
-import { openai } from '@ai-sdk/openai';
-import { z } from 'zod';
+import { openai } from "@ai-sdk/openai";
+import { z } from "zod";
 import { config } from "dotenv";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { documents, chunks } from "../src/db/schema";
-import crypto from 'node:crypto';
+import crypto from "node:crypto";
+import path from "node:path";
 
 config({ path: "./.dev.vars" });
 
@@ -15,24 +16,26 @@ if (!process.env.DATABASE_URL) {
 }
 
 // Constants to help with accessing files of built docs
-const CF_DOCS_DIR_PREFIX = "/Users/brettbeutell/fiber/create-honc-app/examples/cf-retrieval-augmented-goose/data";
+const CF_DOCS_DIR_PREFIX = path.resolve("./data");
 const DOCS_FILES = getPaths();
 
 // Define schemas for structured output
 const BaseChunkSchema = z.object({
-  title: z.string().describe('Title of the content chunk.'),
-  content: z.string().describe('Main content of the chunk, with code samples in Markdown.'),
-  tags: z.array(z.string()).describe('Array of metadata tags for the chunk.'),
+  title: z.string().describe("Title of the content chunk."),
+  content: z
+    .string()
+    .describe("Main content of the chunk, with code samples in Markdown."),
+  tags: z.array(z.string()).describe("Array of metadata tags for the chunk."),
   // tags: z.array(z.enum(['workers', 'r2', 'd1', 'ai', 'queues', 'hono'])).describe('Array of metadata tags for the chunk.'),
 });
 type BaseChunk = z.infer<typeof BaseChunkSchema>;
 const DocumentSchema = z.object({
-  title: z.string().describe('Title of the document.'),
-  chunks: z.array(BaseChunkSchema).describe('Array of content chunks.'),
+  title: z.string().describe("Title of the document."),
+  chunks: z.array(BaseChunkSchema).describe("Array of content chunks."),
 });
 
 const VectorizedChunkSchema = BaseChunkSchema.extend({
-  embedding: z.array(z.number()).describe('Embedding vector for the chunk.'),
+  embedding: z.array(z.number()).describe("Embedding vector for the chunk."),
 });
 
 type VectorizedChunk = z.infer<typeof VectorizedChunkSchema>;
@@ -49,7 +52,6 @@ for (const path of DOCS_FILES.slice(0, 1)) {
 }
 // \=== MAIN ===/ //
 
-
 async function processDoc(path: string) {
   const SYSTEM_PROMPT = `
 You are a data cleaner specializing in HTML content extraction.
@@ -63,13 +65,13 @@ Your task is to process HTML documents and extract the main content by performin
 - Determine metadata tags for each chunk
 
 Please process the given HTML document accordingly.
-`.trim()
+`.trim();
   const docsPath = path.split("cloudflare-docs/dist")[1];
   // Read the HTML file content
-  const content = fs.readFileSync(path, 'utf-8');
+  const content = fs.readFileSync(path, "utf-8");
 
   const { object } = await generateObject({
-    model: openai('gpt-4o-mini'),
+    model: openai("gpt-4o-mini"),
     schema: DocumentSchema,
     system: SYSTEM_PROMPT,
     prompt: content,
@@ -81,12 +83,12 @@ Please process the given HTML document accordingly.
     ...object,
     url: docsPath,
     chunks,
-  }
+  };
 }
 
 async function processChunks(chunks: Array<BaseChunk>) {
   const { embeddings } = await embedMany({
-    model: openai.embedding('text-embedding-3-small'),
+    model: openai.embedding("text-embedding-3-small"),
     values: chunks.map((chunk) => chunk.content),
   });
 
@@ -99,16 +101,23 @@ async function processChunks(chunks: Array<BaseChunk>) {
 }
 
 // Add new function to handle database operations
-async function saveToDatabase(doc: { url: string, title: string, chunks: Array<VectorizedChunk> }) {
-  const documentHash = crypto.createHash('md5').update(doc.url).digest('hex');
-  
+async function saveToDatabase(doc: {
+  url: string;
+  title: string;
+  chunks: Array<VectorizedChunk>;
+}) {
+  const documentHash = crypto.createHash("md5").update(doc.url).digest("hex");
+
   // Insert document
-  const [savedDoc] = await db.insert(documents).values({
-    title: doc.title, // Using first chunk's title as document title
-    url: doc.url,
-    content: doc.chunks.map(c => c.content).join('\n'),
-    hash: documentHash,
-  }).returning();
+  const [savedDoc] = await db
+    .insert(documents)
+    .values({
+      title: doc.title, // Using first chunk's title as document title
+      url: doc.url,
+      content: doc.chunks.map((c) => c.content).join("\n"),
+      hash: documentHash,
+    })
+    .returning();
 
   // Insert chunks
   await db.insert(chunks).values(
@@ -118,8 +127,8 @@ async function saveToDatabase(doc: { url: string, title: string, chunks: Array<V
       text: chunk.content,
       embedding: chunk.embedding,
       metadata: chunk.tags,
-      hash: crypto.createHash('md5').update(chunk.content).digest('hex'),
-    }))
+      hash: crypto.createHash("md5").update(chunk.content).digest("hex"),
+    })),
   );
 }
 
@@ -148,7 +157,9 @@ function getPaths() {
     "./cloudflare-docs/dist/pages/migrations/migrating-from-workers/index.html",
     "./cloudflare-docs/dist/r2/api/workers/workers-api-reference/index.html",
     "./cloudflare-docs/dist/r2/api/workers/workers-multipart-usage/index.html",
-  ].map((path) => `${CF_DOCS_DIR_PREFIX}/${path}`).filter((path) => path.endsWith(".html"));
+  ]
+    .map((path) => `${CF_DOCS_DIR_PREFIX}/${path}`)
+    .filter((path) => path.endsWith(".html"));
 
   return WORKERS_FILES_THAT_MENTION_HONO;
 }

@@ -2,7 +2,15 @@ import { instrument } from "@fiberplane/hono-otel";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
-import { MetadataMode, storageContextFromDefaults, type NodeWithScore, VectorStoreIndex, Settings, OpenAIEmbedding, OpenAI } from "llamaindex";
+import {
+  MetadataMode,
+  storageContextFromDefaults,
+  type NodeWithScore,
+  VectorStoreIndex,
+  Settings,
+  OpenAIEmbedding,
+  OpenAI,
+} from "llamaindex";
 
 import { PostgresIndexStore } from "llamaindex/storage/indexStore/PostgresIndexStore";
 import { PostgresDocumentStore } from "llamaindex/storage/docStore/PostgresDocumentStore";
@@ -55,7 +63,9 @@ app.get("/search", async (c) => {
   });
 
   // const query = c.req.query.query;
-  const query = c.req.query("q") || "how do i use the d1 binding in a worker to query a database?";
+  const query =
+    c.req.query("q") ||
+    "how do i use the d1 binding in a worker to query a database?";
 
   const clientConfig = {
     connectionString: c.env.DATABASE_URL,
@@ -73,6 +83,8 @@ app.get("/search", async (c) => {
     }),
   });
 
+  console.log(storageContext);
+
   const vectorIndex = await VectorStoreIndex.init({
     storageContext,
   });
@@ -81,7 +93,6 @@ app.get("/search", async (c) => {
 
   return c.json({ query, result: response ?? [] });
 });
-
 
 // app.get("/api/users", async (c) => {
 //   const sql = neon(c.env.DATABASE_URL);
@@ -94,13 +105,11 @@ app.get("/search", async (c) => {
 
 export default instrument(app);
 
-
 export async function queryStore(vectorIndex: VectorStoreIndex, query: string) {
   const queryEngine = vectorIndex.asQueryEngine();
   const { response, sourceNodes } = await queryEngine.query({
     query,
   });
-
 
   if (!sourceNodes) {
     return null;
@@ -115,6 +124,6 @@ export async function queryStore(vectorIndex: VectorStoreIndex, query: string) {
 
   return {
     documents,
-    response
-  }
+    response,
+  };
 }

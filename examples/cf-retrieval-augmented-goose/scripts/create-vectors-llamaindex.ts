@@ -14,6 +14,7 @@ import {
 } from "llamaindex";
 
 import { config } from "dotenv";
+import path from "node:path";
 
 config({ path: "./.dev.vars" });
 
@@ -51,10 +52,12 @@ const storageContext = await storageContextFromDefaults({
 
 // NOTE - Only has one index.html file
 // NOTE - The compiled stuff is... not great for RAG. I think I'd wanna crawl the site
-const D1_DIR =
-  "/Users/brettbeutell/fiber/create-honc-app/examples/cf-retrieval-augmented-goose/data/cloudflare-docs/dist/workers/databases/d1";
+// const D1_DIR =
+//   "/Users/brettbeutell/fiber/create-honc-app/examples/cf-retrieval-augmented-goose/data/cloudflare-docs/dist/workers/databases/d1";
+const D1_DIR = path.resolve("./data/cloudflare-docs/dist/workers/databases/d1");
 
-const DIR_PREFIX = "/Users/brettbeutell/fiber/create-honc-app/examples/cf-retrieval-augmented-goose/data";
+// const DIR_PREFIX = "/Users/brettbeutell/fiber/create-honc-app/examples/cf-retrieval-augmented-goose/data";
+const DIR_PREFIX = path.resolve("./data");
 
 const WORKERS_FILES_THAT_MENTION_HONO = [
   "./cloudflare-docs/dist/d1/examples/query-d1-from-python-workers/index.html",
@@ -80,7 +83,9 @@ const WORKERS_FILES_THAT_MENTION_HONO = [
   "./cloudflare-docs/dist/pages/migrations/migrating-from-workers/index.html",
   "./cloudflare-docs/dist/r2/api/workers/workers-api-reference/index.html",
   "./cloudflare-docs/dist/r2/api/workers/workers-multipart-usage/index.html",
-].map((path) => `${DIR_PREFIX}/${path}`).filter((path) => path.endsWith(".html"));
+]
+  .map((path) => `${DIR_PREFIX}/${path}`)
+  .filter((path) => path.endsWith(".html"));
 
 console.log(WORKERS_FILES_THAT_MENTION_HONO);
 
