@@ -1,0 +1,29 @@
+{
+  "name": ".",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx seed.ts",
+    "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
+    "db:studio": "drizzle-kit studio",
+    "fiberplane": "fpx"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.35.3",
+    "hono": "^4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241022.0",
+    "@fiberplane/hono-otel": "latest",
+    "@fiberplane/studio": "latest",
+    "drizzle-kit": "^0.26.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.4",
+    "typescript-language-server": "^4.3.3",
+    "wrangler": "^3.83.0"
+  }
+}
