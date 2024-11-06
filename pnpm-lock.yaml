@@ -85,9 +85,6 @@ importers:
       '@fiberplane/hono-otel':
         specifier: latest
         version: 0.3.1
-      '@fiberplane/studio':
-        specifier: latest
-        version: 0.9.1(@cloudflare/workers-types@4.20241022.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(encoding@0.1.13)(pg@8.13.1)(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(vue@3.5.12(typescript@5.5.4))
       '@types/node':
         specifier: ^22.2.0
         version: 22.9.0
@@ -3872,82 +3869,6 @@ snapshots:
       - utf-8-validate
       - vue
 
-  '@fiberplane/studio@0.9.1(@cloudflare/workers-types@4.20241022.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(encoding@0.1.13)(pg@8.13.1)(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(vue@3.5.12(typescript@5.5.4))':
-    dependencies:
-      '@ai-sdk/anthropic': 0.0.51(zod@3.23.8)
-      '@ai-sdk/mistral': 0.0.42(zod@3.23.8)
-      '@ai-sdk/openai': 0.0.66(zod@3.23.8)
-      '@anthropic-ai/sdk': 0.24.3(encoding@0.1.13)
-      '@clack/core': 0.3.4
-      '@clack/prompts': 0.7.0
-      '@fiberplane/fpx-types': 0.0.8(zod@3.23.8)
-      '@hono/node-server': 1.13.5(hono@4.6.9)
-      '@hono/zod-validator': 0.2.2(hono@4.6.9)(zod@3.23.8)
-      '@iarna/toml': 2.2.5
-      '@langchain/core': 0.2.36(openai@4.70.3(encoding@0.1.13)(zod@3.23.8))
-      '@libsql/client': 0.6.2
-      '@neondatabase/api-client': 1.10.3
-      acorn: 8.12.1
-      acorn-walk: 8.3.4
-      ai: 3.4.33(openai@4.70.3(encoding@0.1.13)(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(vue@3.5.12(typescript@5.5.4))(zod@3.23.8)
-      chalk: 5.3.0
-      dotenv: 16.4.5
-      drizzle-kit: 0.24.2
-      drizzle-orm: 0.33.0(@cloudflare/workers-types@4.20241022.0)(@libsql/client@0.6.2)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1)
-      drizzle-zod: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20241022.0)(@libsql/client@0.6.2)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1))(zod@3.23.8)
-      figlet: 1.8.0
-      giget: 1.2.3
-      hono: 4.6.9
-      minimatch: 10.0.1
-      open: 10.1.0
-      openai: 4.70.3(encoding@0.1.13)(zod@3.23.8)
-      oslo: 1.2.1
-      picocolors: 1.0.1
-      source-map: 0.7.4
-      typescript: 5.5.4
-      typescript-language-server: 4.3.3
-      vscode-jsonrpc: 8.2.1
-      vscode-uri: 3.0.8
-      ws: 8.18.0
-      zod: 3.23.8
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@opentelemetry/api'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/pg'
-      - '@types/react'
-      - '@types/sql.js'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - debug
-      - encoding
-      - expo-sqlite
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - react
-      - solid-js
-      - sql.js
-      - sqlite3
-      - sswr
-      - supports-color
-      - svelte
-      - utf-8-validate
-      - vue
-
   '@hono-rate-limiter/cloudflare@0.2.1(@cloudflare/workers-types@4.20241022.0)(hono@4.6.9)':
     dependencies:
       '@cloudflare/workers-types': 4.20241022.0
@@ -4564,31 +4485,6 @@ snapshots:
   agentkeepalive@4.5.0:
     dependencies:
       humanize-ms: 1.2.1
-
-  ai@3.4.33(openai@4.70.3(encoding@0.1.13)(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(vue@3.5.12(typescript@5.5.4))(zod@3.23.8):
-    dependencies:
-      '@ai-sdk/provider': 0.0.26
-      '@ai-sdk/provider-utils': 1.0.22(zod@3.23.8)
-      '@ai-sdk/react': 0.0.70(react@18.3.1)(zod@3.23.8)
-      '@ai-sdk/solid': 0.0.54(zod@3.23.8)
-      '@ai-sdk/svelte': 0.0.57(svelte@5.1.9)(zod@3.23.8)
-      '@ai-sdk/ui-utils': 0.0.50(zod@3.23.8)
-      '@ai-sdk/vue': 0.0.59(vue@3.5.12(typescript@5.5.4))(zod@3.23.8)
-      '@opentelemetry/api': 1.9.0
-      eventsource-parser: 1.1.2
-      json-schema: 0.4.0
-      jsondiffpatch: 0.6.0
-      secure-json-parse: 2.7.0
-      zod-to-json-schema: 3.23.5(zod@3.23.8)
-    optionalDependencies:
-      openai: 4.70.3(encoding@0.1.13)(zod@3.23.8)
-      react: 18.3.1
-      sswr: 2.1.0(svelte@5.1.9)
-      svelte: 5.1.9
-      zod: 3.23.8
-    transitivePeerDependencies:
-      - solid-js
-      - vue
 
   ai@3.4.33(openai@4.70.3(encoding@0.1.13)(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(zod@3.23.8):
     dependencies:
