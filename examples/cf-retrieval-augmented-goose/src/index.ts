@@ -7,6 +7,7 @@ import { MetadataMode, storageContextFromDefaults, type NodeWithScore, VectorSto
 import { PostgresIndexStore } from "llamaindex/storage/indexStore/PostgresIndexStore";
 import { PostgresDocumentStore } from "llamaindex/storage/docStore/PostgresDocumentStore";
 import { PGVectorStore } from "llamaindex/vector-store/PGVectorStore";
+import { chunks, documents } from "./db/schema";
 
 type Bindings = {
   DATABASE_URL: string;
@@ -17,6 +18,24 @@ const app = new Hono<{ Bindings: Bindings }>();
 
 app.get("/", (c) => {
   return c.text("Honc! 🪿");
+});
+
+app.get("/documents", async (c) => {
+  const sql = neon(c.env.DATABASE_URL);
+  const db = drizzle(sql);
+
+  return c.json({
+    documents: await db.select().from(documents),
+  });
+});
+
+app.get("/chunks", async (c) => {
+  const sql = neon(c.env.DATABASE_URL);
+  const db = drizzle(sql);
+
+  return c.json({
+    chunks: await db.select().from(chunks),
+  });
 });
 
 app.get("/search", async (c) => {

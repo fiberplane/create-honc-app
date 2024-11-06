@@ -14,11 +14,15 @@
     "vectors:create": "tsx --tsconfig tsconfig.scripts.json scripts/create-vectors.ts"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.72",
     "@neondatabase/serverless": "^0.10.1",
+    "ai": "^3.4.33",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.35.3",
     "hono": "^4.6.7",
-    "llamaindex": "^0.8.4"
+    "llamaindex": "^0.8.4",
+    "openai": "^4.71.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241022.0",
