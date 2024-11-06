@@ -2,6 +2,7 @@ import { sql } from 'drizzle-orm';
 import { 
   jsonb, 
   pgTable, 
+  // serial, 
   text, 
   timestamp, 
   vector, 

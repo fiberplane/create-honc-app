@@ -10,7 +10,7 @@
     "db:seed": "tsx seed.ts",
     "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
     "db:studio": "drizzle-kit studio",
-    "fiberplane": "pnpx @fiberplane/studio@canary",
+    "fiberplane": "fpx",
     "vectors:create": "tsx --tsconfig tsconfig.scripts.json scripts/create-vectors.ts"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.35.3",
     "hono": "^4.6.7",
+    "llamaindex": "^0.8.4",
     "openai": "^4.71.0",
     "zod": "^3.23.8"
   },
