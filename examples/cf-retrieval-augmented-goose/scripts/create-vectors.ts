@@ -1,13 +1,13 @@
-import fs from "node:fs";
-import { generateObject, embedMany } from "ai";
-import { openai } from "@ai-sdk/openai";
-import { z } from "zod";
-import { config } from "dotenv";
-import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
-import { documents, chunks } from "../src/db/schema";
 import crypto from "node:crypto";
+import fs from "node:fs";
 import path from "node:path";
+import { openai } from "@ai-sdk/openai";
+import { neon } from "@neondatabase/serverless";
+import { embedMany, generateObject } from "ai";
+import { config } from "dotenv";
+import { drizzle } from "drizzle-orm/neon-http";
+import { z } from "zod";
+import { chunks, documents } from "../src/db/schema";
 
 config({ path: "./.dev.vars" });
 

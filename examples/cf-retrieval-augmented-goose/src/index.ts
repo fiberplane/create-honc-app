@@ -1,10 +1,10 @@
 import { instrument } from "@fiberplane/hono-otel";
 import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
 import { cosineDistance, sql as magicSql } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
-import { chunks, documents } from "./db/schema";
 import { OpenAI } from "openai";
+import { chunks, documents } from "./db/schema";
 
 type Bindings = {
   DATABASE_URL: string;
@@ -43,7 +43,8 @@ app.get("/search", async (c) => {
   // Parse query parameters
   const query = c.req.query("query");
   const similarityCutoffStr = c.req.query("similarity");
-  const similarityCutoff = Number.parseFloat(similarityCutoffStr || "0.5") ?? 0.5;
+  const similarityCutoff =
+    Number.parseFloat(similarityCutoffStr || "0.5") ?? 0.5;
 
   if (!query) {
     return c.text("No search query provided", 422);
@@ -58,20 +59,21 @@ app.get("/search", async (c) => {
   const queryEmbedding = embedding.data[0].embedding;
 
   // Craft a similarity search based on the cosine distance between:
-  // - the embedding of the user's query, and 
+  // - the embedding of the user's query, and
   // - the embedding of each recipe
   const similarityQuery = magicSql<number>`1 - (${cosineDistance(chunks.embedding, queryEmbedding)})`;
 
   // Search for chunks with similarity above cutoff
-  const results = await db.select({
-    id: chunks.id,
-    text: chunks.text,
-    similarity: similarityQuery,
-  })
-  .from(chunks)
-  .where(magicSql`${similarityQuery} > ${similarityCutoff}`)
-  .orderBy(magicSql`${similarityQuery} desc`)
-  .limit(10);
+  const results = await db
+    .select({
+      id: chunks.id,
+      text: chunks.text,
+      similarity: similarityQuery,
+    })
+    .from(chunks)
+    .where(magicSql`${similarityQuery} > ${similarityCutoff}`)
+    .orderBy(magicSql`${similarityQuery} desc`)
+    .limit(10);
 
   return c.json({ results });
 });
