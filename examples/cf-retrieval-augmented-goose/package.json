@@ -1,5 +1,6 @@
 {
-  "name": "cf-etrieval-augmented-goose",
+  "name": "cf-retrieval-augmented-goose",
+  "description": "cloudflare docs semantic search",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
@@ -31,6 +32,5 @@
     "typescript": "^5.5.4",
     "typescript-language-server": "^4.3.3",
     "wrangler": "^3.83.0"
-  },
-  "description": "i would like to build a basic semantic search app against an index of cloudflare documentation - will use cosine similarity to compare vectors representing documentation chunks from cloudflare docs"
+  }
 }
