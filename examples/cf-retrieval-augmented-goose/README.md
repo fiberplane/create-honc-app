@@ -76,12 +76,6 @@ Set your `DATABASE_URL` secret (and any other secrets you need) with wrangler:
 pnpx wrangler secret put DATABASE_URL
 ```
 
-Finally, change the name of the project in `wrangler.toml` to something appropriate for your project
-
-```toml
-name = "retrieval-augmented-goose"
-```
-
 Deploy with wrangler:
 
 ```sh

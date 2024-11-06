@@ -51,7 +51,10 @@ app.get("/search", async (c) => {
   }
 
   // Create embedding for the search query
-  const openai = new OpenAI({ apiKey: c.env.OPENAI_API_KEY });
+  const openai = new OpenAI({
+    apiKey: c.env.OPENAI_API_KEY,
+    fetch: globalThis.fetch,
+  });
   const embedding = await openai.embeddings.create({
     model: "text-embedding-3-small",
     input: query,
