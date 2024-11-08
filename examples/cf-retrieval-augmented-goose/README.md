@@ -14,7 +14,7 @@ Make sure you have Neon set up and configured with your database. Create a .dev.
 
 ```#
 ├── src
-│   ├── index.ts # Hono app entry point
+│   ├── index.tsx # Hono app entry point
 │   └── db
 │       └── schema.ts # Database schema
 ├── scripts
