@@ -8,7 +8,7 @@ import {eq} from "drizzle-orm";
 type Bindings = {
   DATABASE_URL: string;
   R2_BUCKET: R2Bucket;
-  AI: any; // todo find out what type this is
+  AI: Ai;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
