@@ -4,7 +4,6 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
 import { pullRequests, reviews } from "./db/schema";
 import { eq } from "drizzle-orm";
-
 import { Anthropic } from "@anthropic-ai/sdk";
 import { Octokit } from "@octokit/rest";
 
