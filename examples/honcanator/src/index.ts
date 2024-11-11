@@ -34,19 +34,21 @@ app.post("/api/geese/:name", async (c) => {
     );
   }
 
-  const model = "@cf/black-forest-labs/flux-1-schnell";
+  const model =
+    "@cf/black-forest-labs/flux-1-schnell" as BaseAiTextToImageModels;
   const prompt = `Please generate a image of a goose. Its name is ${name}. Make it in the style of comic or anime please`;
 
   const response = await c.env.AI.run(model, {
     prompt,
   });
 
+  // NOTE - The cloudflare types are wrong here. This code works.
   const base64image = response.image;
   const buffer = Buffer.from(base64image, "base64");
 
   await c.env.R2_BUCKET.put(`${name}.png`, buffer);
 
-  const goose = await db
+  const [goose] = await db
     .insert(geese)
     .values({
       name,
@@ -86,6 +88,15 @@ app.get("/api/geese/:name", async (c) => {
   }
 
   const image = await c.env.R2_BUCKET.get(`${name}.png`);
+
+  if (!image) {
+    return c.json(
+      {
+        error: "image_not_found",
+      },
+      404,
+    );
+  }
 
   c.header("Content-Type", "image/png");
   return c.body(image.body);
