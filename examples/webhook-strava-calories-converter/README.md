@@ -25,9 +25,6 @@ Make sure you have Neon set up and configured with your database. Create a .dev.
 
 ### Setup
 
-
-```
-
 Run the development server:
 
 ```sh
