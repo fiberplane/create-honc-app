@@ -4,7 +4,7 @@ import type { PropsWithChildren } from "hono/jsx";
 type LabelProps = { htmlFor?: string } & PropsWithChildren;
 
 export function Label(props: LabelProps) {
-  // biome-ignore lint/a11y/noLabelWithoutControl: TODO
+  // @biome-ignore lint/a11y/noLabelWithoutControl: TODO
   return <label className={labelClassName} {...props} />;
 }
 

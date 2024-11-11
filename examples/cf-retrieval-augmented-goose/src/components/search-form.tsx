@@ -2,11 +2,11 @@ import { css } from "hono/css";
 import { Button } from "../ascuii/button";
 import {
   Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
 } from "../ascuii/card";
 import { Input } from "../ascuii/input";
 import { Label } from "../ascuii/label";
