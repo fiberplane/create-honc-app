@@ -1,0 +1,29 @@
+{
+  "name": "webhook-strava-calories-converter",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx seed.ts",
+    "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
+    "db:studio": "drizzle-kit studio",
+    "fiberplane": "npx @fiberplane/studio@canary",
+    "format": "biome check . --write"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.36.0",
+    "hono": "^4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241106.0",
+    "@fiberplane/hono-otel": "latest",
+    "drizzle-kit": "^0.26.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.4",
+    "typescript-language-server": "^4.3.3",
+    "wrangler": "^3.86.1"
+  }
+}

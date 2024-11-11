@@ -1,0 +1,2 @@
+DATABASE_URL=
+FPX_ENDPOINT=http://localhost:8788/v1/traces
