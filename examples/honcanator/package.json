@@ -8,7 +8,8 @@
     "db:seed": "tsx seed.ts",
     "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
     "db:studio": "drizzle-kit studio",
-    "fiberplane": "fpx"
+    "fiberplane": "fpx",
+    "format": "biome check . --write"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.1",

@@ -1,7 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/neon-http";
-import { users, type NewUser } from "./src/db/schema";
+import { type NewUser, users } from "./src/db/schema";
 
 config({ path: ".dev.vars" });
 
