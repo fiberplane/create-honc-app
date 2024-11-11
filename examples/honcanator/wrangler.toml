@@ -1,4 +1,4 @@
-name = "honc-neon-template"
+name = "honcanator"
 compatibility_date = "2024-10-28"
 compatibility_flags = [ "nodejs_compat" ]
 
@@ -17,7 +17,7 @@ enabled = true
 
 [[r2_buckets]]
 binding = "R2_BUCKET"
-bucket_name = "geese"
+bucket_name = "honcanator-geese"
 
 # [[d1_databases]]
 # binding = "DB"

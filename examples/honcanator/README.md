@@ -59,6 +59,12 @@ Set your `DATABASE_URL` secret (and any other secrets you need) with wrangler:
 npx wrangler secret put DATABASE_URL
 ```
 
+Create a new R2 bucket to match the one in `wrangler.toml`:
+
+```sh
+pnpx wrangler r2 bucket create honcanator-geese
+```
+
 Finally, change the name of the project in `wrangler.toml` to something appropriate for your project
 
 ```toml
