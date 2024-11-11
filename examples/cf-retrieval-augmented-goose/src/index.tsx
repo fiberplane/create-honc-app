@@ -76,7 +76,7 @@ app.get("/search", async (c) => {
   const queryEmbedding = embedding.data[0].embedding;
   // Craft a similarity search based on the cosine distance between:
   // - the embedding of the user's query, and
-  // - the embedding of each recipe
+  // - the embedding of each chunk from the docs
   const similarityQuery = magicSql<number>`1 - (${cosineDistance(chunks.embedding, queryEmbedding)})`;
 
   // Search for chunks with similarity above cutoff
