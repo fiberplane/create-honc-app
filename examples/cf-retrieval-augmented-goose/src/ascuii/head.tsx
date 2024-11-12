@@ -1,16 +1,18 @@
-import { css } from "hono/css";
-import type { PropsWithChildren } from "hono/jsx";
+import { css, Style } from "hono/css";
 
-type ProviderProps = PropsWithChildren;
-
-export function Provider({ ...props }: ProviderProps) {
-  return <div className={globalClass} {...props} />;
+export function Head() {
+  return (
+    <>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <Style>{globalClassName}</Style>
+    </>
+  );
 }
 
-const globalClass = css`
+const globalClassName = css`
   :-hono-global {
     @font-face {
-      font-family: "Departure Mono";
+      font-family: Departure Mono;
       src: url('https://honcathon.honc-site.pages.dev/static/fonts/DepartureMono-Regular.woff2') format('woff2');
       font-weight: normal;
       font-style: normal;
@@ -23,6 +25,7 @@ const globalClass = css`
       --mid-background: #4c413b;
       --prime: #f15f29;
       --secondary: #37a0da;
+      --font-mono: Departure Mono, monospace;
     }
 
     * {
@@ -31,7 +34,7 @@ const globalClass = css`
     }
 
     html {
-      font-family: Departure Mono, monospace;
+      font-family: var(--font-mono);
       background: var(--background);
       color: var(--color);
       margin: 0;

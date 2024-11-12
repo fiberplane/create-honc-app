@@ -1,16 +1,16 @@
-import { css } from "hono/css";
-import type { PropsWithChildren } from "hono/jsx";
+import { css, cx } from "hono/css";
+import type { JSX } from "hono/jsx";
 
-type ButtonProps = PropsWithChildren;
+type ButtonProps = JSX.IntrinsicElements["button"];
 
-export function Button({ ...props }: ButtonProps) {
-  return <button className={buttonClassName} {...props} />;
+export function Button({ className, ...props }: ButtonProps) {
+  return <button className={cx(buttonClassName, className)} {...props} />;
 }
 
 const buttonClassName = css`
   width: 100%;
   text-align: center;
-  font-family: Departure Mono, monospace;
+  font-family: var(--font-mono);
   padding: 8px 16px;
   background: var(--prime);
   color: var(--background);

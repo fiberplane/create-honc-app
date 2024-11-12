@@ -1,11 +1,11 @@
-import { css } from "hono/css";
-import type { PropsWithChildren } from "hono/jsx";
+import { css, cx } from "hono/css";
+import type { JSX } from "hono/jsx";
 
-type LabelProps = { htmlFor?: string } & PropsWithChildren;
+type LabelProps = JSX.IntrinsicElements["label"];
 
-export function Label(props: LabelProps) {
+export function Label({ className, ...props }: LabelProps) {
   // biome-ignore lint/a11y/noLabelWithoutControl: TODO
-  return <label className={labelClassName} {...props} />;
+  return <label className={cx(labelClassName, className)} {...props} />;
 }
 
 const labelClassName = css`

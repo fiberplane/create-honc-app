@@ -1,20 +1,21 @@
-import { css } from "hono/css";
-import type { PropsWithChildren } from "hono/jsx";
+import { css, cx } from "hono/css";
+import type { JSX } from "hono/jsx";
 
-type InputProps = {
-  id?: string;
-  name?: string;
-  placeholder?: string;
-  defaultValue?: string;
-} & PropsWithChildren;
+type InputProps = Exclude<JSX.IntrinsicElements["input"], { type: "range" }>;
 
-export function Input({ defaultValue, ...props }: InputProps) {
-  return <input className={inputClassName} value={defaultValue} {...props} />;
+export function Input({ className, defaultValue, ...props }: InputProps) {
+  return (
+    <input
+      className={cx(inputClassName, className)}
+      value={defaultValue}
+      {...props}
+    />
+  );
 }
 
 const inputClassName = css`
   width: 100%;
-  font-family: Departure Mono, monospace;
+  font-family: var(--font-mono);
   padding: 8px 16px;
   border: 2px dashed var(--mid-background);
   background: transparent;

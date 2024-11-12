@@ -9,6 +9,9 @@ import { chunks, documents } from "./db/schema";
 import { SearchForm } from "./components/search-form";
 import { SearchResults } from "./components/search-results";
 import { APP_NAME } from "./constants";
+import { Button } from "./ascuii/button";
+import { Input } from "./ascuii/input";
+import { Label } from "./ascuii/label";
 
 type Bindings = {
   DATABASE_URL: string;
@@ -94,45 +97,19 @@ app.get("/search", async (c) => {
   return c.html(
     <Layout title={`Search results | ${APP_NAME}`}>
       <SearchForm query={query} similarity={similarityCutoff} />
-      <SearchResults
-        results={
-          // results,
-          [
-            {
-              id: "1234",
-              text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              similarity: 0.2,
-            },
-            {
-              id: "1234",
-              text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              similarity: 0.2,
-            },
-            {
-              id: "1234",
-              text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              similarity: 0.2,
-            },
-            {
-              id: "1234",
-              text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              similarity: 0.2,
-            },
-            {
-              id: "1234",
-              text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              similarity: 0.2,
-            },
-            {
-              id: "1234",
-              text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              similarity: 0.2,
-            },
-          ]
-        }
-      />
+      <SearchResults results={results} />
     </Layout>,
   );
 });
+
+app.get("/components", async (c) =>
+  c.html(
+    <Layout title={`Components | ${APP_NAME}`}>
+      <Label />
+      <Button />
+      <Input />
+    </Layout>,
+  ),
+);
 
 export default instrument(app);
