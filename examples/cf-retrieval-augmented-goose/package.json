@@ -15,6 +15,7 @@
     "format": "biome check . --write"
   },
   "dependencies": {
+    "@fiberplane/ascuii": "workspace:*",
     "@ai-sdk/openai": "^0.0.72",
     "@neondatabase/serverless": "^0.10.1",
     "ai": "^3.4.33",

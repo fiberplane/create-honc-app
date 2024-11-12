@@ -1,16 +1,16 @@
-import { css } from "hono/css";
-import { Button } from "../ascuii/button";
 import {
+  Button,
   Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "../ascuii/card";
-import { Input } from "../ascuii/input";
-import { Label } from "../ascuii/label";
-import { Slider } from "../ascuii/slider";
+  Input,
+  Label,
+  Slider,
+} from "@fiberplane/ascuii";
+import { css } from "hono/css";
 import { APP_NAME } from "../constants";
 
 type SearchFormProps = {

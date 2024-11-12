@@ -1,23 +1,18 @@
 import { css, cx } from "hono/css";
 import type { JSX } from "hono/jsx";
 
-type SliderProps = JSX.IntrinsicElements["input"] & { type: "range" };
+type SliderProps = Omit<
+  JSX.IntrinsicElements["input"] & { type: "range" },
+  "type"
+>;
 
-export function Slider({
-  className,
-  defaultValue,
-  max,
-  name,
-  step,
-}: SliderProps) {
+export function Slider({ className, defaultValue, ...props }: SliderProps) {
   return (
     <input
       type="range"
-      name={name}
       value={defaultValue}
-      max={max}
-      step={step}
       className={cx(sliderClassName, className)}
+      {...props}
     />
   );
 }

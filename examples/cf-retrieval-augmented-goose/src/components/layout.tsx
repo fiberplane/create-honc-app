@@ -1,6 +1,6 @@
 import { css } from "hono/css";
 import type { PropsWithChildren } from "hono/jsx";
-import { Head } from "../ascuii/head";
+import { Head } from "@fiberplane/ascuii";
 import { Footer } from "./footer";
 import { Header } from "./header";
 

@@ -15,6 +15,12 @@ importers:
         specifier: ^5.5.4
         version: 5.5.4
 
+  ascuii:
+    dependencies:
+      hono:
+        specifier: ^4.6.7
+        version: 4.6.9
+
   cli:
     dependencies:
       '@clack/core':
@@ -54,6 +60,9 @@ importers:
       '@ai-sdk/openai':
         specifier: ^0.0.72
         version: 0.0.72(zod@3.23.8)
+      '@fiberplane/ascuii':
+        specifier: workspace:*
+        version: link:../../ascuii
       '@neondatabase/serverless':
         specifier: ^0.10.1
         version: 0.10.1

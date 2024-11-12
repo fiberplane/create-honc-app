@@ -1,3 +1,4 @@
+import { Button, Input, Label } from "@fiberplane/ascuii";
 import { instrument } from "@fiberplane/hono-otel";
 import { neon } from "@neondatabase/serverless";
 import { cosineDistance, sql as magicSql } from "drizzle-orm";
@@ -5,13 +6,10 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
 import { OpenAI } from "openai";
 import { Layout } from "./components/layout";
-import { chunks, documents } from "./db/schema";
 import { SearchForm } from "./components/search-form";
 import { SearchResults } from "./components/search-results";
 import { APP_NAME } from "./constants";
-import { Button } from "./ascuii/button";
-import { Input } from "./ascuii/input";
-import { Label } from "./ascuii/label";
+import { chunks, documents } from "./db/schema";
 
 type Bindings = {
   DATABASE_URL: string;
