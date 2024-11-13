@@ -1,6 +1,10 @@
 import type { FC } from "hono/jsx";
 
 export const HomePage: FC<{ joke: string }> = ({ joke }) => {
+  const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+    `${joke}\n\nGet your own goose joke at [Your Website URL]`
+  )}`;
+
   return (
     <html lang="en">
       <head>
@@ -63,6 +67,25 @@ export const HomePage: FC<{ joke: string }> = ({ joke }) => {
           .refresh-btn:hover {
             background-color: #ff8533;
           }
+          .share-btn {
+            font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", serif;
+            background-color: #1DA1F2;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+            display: inline-block;
+          }
+          .share-btn:hover {
+            background-color: #1991db;
+          }
+          .button-container {
+            margin-top: 20px;
+          }
         `,
           }}
         />
@@ -80,9 +103,19 @@ export const HomePage: FC<{ joke: string }> = ({ joke }) => {
             ))}
           </p>
         </div>
-        <button class="refresh-btn" type="submit" onclick="location.reload()">
-          More Joke!
-        </button>
+        <div class="button-container">
+          <button class="refresh-btn" type="submit" onclick="location.reload()">
+            More Joke!
+          </button>
+          <a
+            href={twitterShareUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="share-btn"
+          >
+            Share on twttr 🐦
+          </a>
+        </div>
       </body>
     </html>
   );
