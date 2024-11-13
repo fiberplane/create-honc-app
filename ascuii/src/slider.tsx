@@ -6,11 +6,10 @@ type SliderProps = Omit<
   "type"
 >;
 
-export function Slider({ className, defaultValue, ...props }: SliderProps) {
+export function Slider({ className, ...props }: SliderProps) {
   return (
     <input
       type="range"
-      value={defaultValue}
       className={cx(sliderClassName, className)}
       {...props}
     />

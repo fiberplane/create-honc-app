@@ -1,13 +1,15 @@
 import { css, cx } from "hono/css";
 import type { JSX } from "hono/jsx";
 
-type InputProps = Exclude<JSX.IntrinsicElements["input"], { type: "range" }>;
+type InputProps = Exclude<
+  JSX.IntrinsicElements["input"],
+  { type: "range" } | { type: "checkbox" }
+>;
 
-export function Input({ className, defaultValue, ...props }: InputProps) {
+export function Input({ className, ...props }: InputProps) {
   return (
     <input
       className={cx(inputClassName, className)}
-      value={defaultValue}
       {...props}
     />
   );

@@ -33,13 +33,13 @@ export function SearchForm({ similarity, query }: SearchFormProps) {
               id="query"
               name="query"
               placeholder="Search query"
-              defaultValue={query}
+              value={query}
             />
             <Label htmlFor="similarity">Similarity</Label>
             <Slider
               id="similarity"
               name="similarity"
-              defaultValue={similarity}
+              value={similarity}
               max={1}
               step={0.1}
             />
@@ -57,5 +57,4 @@ const formContainerClassName = css`
   display: flex;
   flex-direction: column;
   gap: 16px;
-
 `;

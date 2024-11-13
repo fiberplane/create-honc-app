@@ -1,4 +1,4 @@
-import { css, Style } from "hono/css";
+import { Style, css } from "hono/css";
 
 export function Head() {
   return (

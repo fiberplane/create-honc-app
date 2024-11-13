@@ -1,4 +1,3 @@
-import { Button, Input, Label } from "@fiberplane/ascuii";
 import { instrument } from "@fiberplane/hono-otel";
 import { neon } from "@neondatabase/serverless";
 import { cosineDistance, sql as magicSql } from "drizzle-orm";
@@ -10,6 +9,7 @@ import { SearchForm } from "./components/search-form";
 import { SearchResults } from "./components/search-results";
 import { APP_NAME } from "./constants";
 import { chunks, documents } from "./db/schema";
+import { ComponentsPreview } from "./components/components-preview";
 
 type Bindings = {
   DATABASE_URL: string;
@@ -103,9 +103,7 @@ app.get("/search", async (c) => {
 app.get("/components", async (c) =>
   c.html(
     <Layout title={`Components | ${APP_NAME}`}>
-      <Label />
-      <Button />
-      <Input />
+      <ComponentsPreview />
     </Layout>,
   ),
 );
