@@ -27,20 +27,20 @@ function truncateJoke(joke: string) {
 
 export const HomePage: FC<{ joke: string }> = ({ joke }) => {
   const shareableJoke = truncateJoke(joke);
-  const post = `Here is a very funny goose joke:\n\n${shareableJoke}\n\nfind more goose comedy at: https://goose-joke-generator.mies.workers.dev/\n#HONC #jsnation`;
-  const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-    post
-  )}`;
-
-  const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(
-    post
-  )}`;
+  const post = `Here is a very funny goose joke:\n\n${shareableJoke}\n\nWowww funny! Find more goose comedy at: https://goose-joke-generator.mies.workers.dev/\n#HONC #jsnation`;
+  const honcStackTwitterHandle = "@honcstack";
+  const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${post} ${honcStackTwitterHandle}`)}`;
+  const honcStackBlueskyHandle = "@honcstack.bsky.social";
+  // Don't know why, but newlines are not decoded correctly in the bluesky share url
+  // https://docs.bsky.app/docs/advanced-guides/intent-links
+  const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${post} ${honcStackBlueskyHandle}`)}`;
 
   return (
     <html lang="en">
       <head>
         <title>Goose Joke Generator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦢</text></svg>" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
