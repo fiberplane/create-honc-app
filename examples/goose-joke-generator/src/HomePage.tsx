@@ -1,8 +1,39 @@
 import type { FC } from "hono/jsx";
 
+function truncateJoke(joke: string) {
+  const lines = joke.split('\n');
+  const filteredLines = lines.filter(l => {
+    if (l.toLowerCase().trim().startsWith('explanation:')) {
+      return false;
+    }
+    if (l.toLowerCase().trim().startsWith('here')) {
+      return false;
+    }
+    if (l.toLowerCase().trim().startsWith('here is a new joke:')) {
+      return false;
+    }
+    if (l.toLowerCase().trim().includes('new joke')) {
+      return false;
+    }
+    if (l.toLowerCase().trim().includes('this joke')) {
+      return false;
+    }
+    return !!l.trim();
+  });
+
+  const joinedJoke = filteredLines.join('\n');
+  return joinedJoke;
+}
+
 export const HomePage: FC<{ joke: string }> = ({ joke }) => {
+  const shareableJoke = truncateJoke(joke);
+  const post = `Here is a very funny goose joke:\n\n${shareableJoke}\n\nfind more goose comedy at: https://goose-joke-generator.mies.workers.dev/\n#HONC #jsnation`;
   const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-    `${joke}\n\nGet your own goose joke at [Your Website URL]`
+    post
+  )}`;
+
+  const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(
+    post
   )}`;
 
   return (
@@ -59,8 +90,8 @@ export const HomePage: FC<{ joke: string }> = ({ joke }) => {
             background-color: #ff6600;
             color: #fff;
             border: none;
-            padding: 15px 30px;
-            font-size: 20px;
+            padding: 12px 24px;
+            font-size: 18px;
             cursor: pointer;
             border-radius: 5px;
           }
@@ -69,7 +100,7 @@ export const HomePage: FC<{ joke: string }> = ({ joke }) => {
           }
           .share-btn {
             font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", serif;
-            background-color: #1DA1F2;
+            background-color: rgb(0, 133, 255);
             color: #fff;
             border: none;
             padding: 12px 24px;
@@ -81,7 +112,24 @@ export const HomePage: FC<{ joke: string }> = ({ joke }) => {
             display: inline-block;
           }
           .share-btn:hover {
-            background-color: #1991db;
+            background-color: rgb(0, 89, 255);;
+          }
+
+          .share-btn--gray {
+            font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", serif;
+            background-color: #808080;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+            display: inline-block;
+          }
+          .share-btn--gray:hover {
+            background-color: #a9a9a9;
           }
           .button-container {
             margin-top: 20px;
@@ -105,15 +153,24 @@ export const HomePage: FC<{ joke: string }> = ({ joke }) => {
         </div>
         <div class="button-container">
           <button class="refresh-btn" type="submit" onclick="location.reload()">
-            More Joke!
+            more joke pls!
           </button>
           <a
             href={twitterShareUrl}
             target="_blank"
             rel="noopener noreferrer"
+            class="share-btn--gray"
+          >
+            share on twttr 🐦
+          </a>
+
+          <a
+            href={blueskyShareUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             class="share-btn"
           >
-            Share on twttr 🐦
+            bluesky better 🦋
           </a>
         </div>
       </body>
