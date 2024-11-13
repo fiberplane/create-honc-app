@@ -170,7 +170,7 @@ export const HomePage: FC<{ joke: string }> = ({ joke }) => {
             rel="noopener noreferrer"
             class="share-btn"
           >
-            bluesky better 🦋
+            bsky nicer 🦋
           </a>
         </div>
       </body>
