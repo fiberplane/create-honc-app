@@ -1,11 +1,46 @@
 import type { FC } from "hono/jsx";
 
+function truncateJoke(joke: string) {
+  const lines = joke.split('\n');
+  const filteredLines = lines.filter(l => {
+    if (l.toLowerCase().trim().startsWith('explanation:')) {
+      return false;
+    }
+    if (l.toLowerCase().trim().startsWith('here')) {
+      return false;
+    }
+    if (l.toLowerCase().trim().startsWith('here is a new joke:')) {
+      return false;
+    }
+    if (l.toLowerCase().trim().includes('new joke')) {
+      return false;
+    }
+    if (l.toLowerCase().trim().includes('this joke')) {
+      return false;
+    }
+    return !!l.trim();
+  });
+
+  const joinedJoke = filteredLines.join('\n');
+  return joinedJoke;
+}
+
 export const HomePage: FC<{ joke: string }> = ({ joke }) => {
+  const shareableJoke = truncateJoke(joke);
+  const post = `Here is a very funny goose joke:\n\n${shareableJoke}\n\nWowww funny! Find more goose comedy at: https://goose-joke-generator.mies.workers.dev/\n#HONC #jsnation`;
+  const honcStackTwitterHandle = "@honcstack";
+  const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${post} ${honcStackTwitterHandle}`)}`;
+  const honcStackBlueskyHandle = "@honcstack.bsky.social";
+  // Don't know why, but newlines are not decoded correctly in the bluesky share url
+  // https://docs.bsky.app/docs/advanced-guides/intent-links
+  const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${post} ${honcStackBlueskyHandle}`)}`;
+
   return (
     <html lang="en">
       <head>
         <title>Goose Joke Generator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦢</text></svg>" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -55,13 +90,49 @@ export const HomePage: FC<{ joke: string }> = ({ joke }) => {
             background-color: #ff6600;
             color: #fff;
             border: none;
-            padding: 15px 30px;
-            font-size: 20px;
+            padding: 12px 24px;
+            font-size: 18px;
             cursor: pointer;
             border-radius: 5px;
           }
           .refresh-btn:hover {
             background-color: #ff8533;
+          }
+          .share-btn {
+            font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", serif;
+            background-color: rgb(0, 133, 255);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+            display: inline-block;
+          }
+          .share-btn:hover {
+            background-color: rgb(0, 89, 255);;
+          }
+
+          .share-btn--gray {
+            font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", serif;
+            background-color: #808080;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 10px;
+            text-decoration: none;
+            display: inline-block;
+          }
+          .share-btn--gray:hover {
+            background-color: #a9a9a9;
+          }
+          .button-container {
+            margin-top: 20px;
           }
         `,
           }}
@@ -80,9 +151,28 @@ export const HomePage: FC<{ joke: string }> = ({ joke }) => {
             ))}
           </p>
         </div>
-        <button class="refresh-btn" type="submit" onclick="location.reload()">
-          More Joke!
-        </button>
+        <div class="button-container">
+          <button class="refresh-btn" type="submit" onclick="location.reload()">
+            more joke pls!
+          </button>
+          <a
+            href={twitterShareUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="share-btn--gray"
+          >
+            share on twttr 🐦
+          </a>
+
+          <a
+            href={blueskyShareUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="share-btn"
+          >
+            bsky nicer 🦋
+          </a>
+        </div>
       </body>
     </html>
   );
