@@ -1,0 +1,19 @@
+{
+  "name": "placegoose",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "fiberplane": "fpx"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "hono": "^4.6.10"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@cloudflare/workers-types": "^4.20241022.0",
+    "@fiberplane/hono-otel": "latest",
+    "@fiberplane/studio": "^0.10.1",
+    "wrangler": "^3.83.0"
+  }
+}
