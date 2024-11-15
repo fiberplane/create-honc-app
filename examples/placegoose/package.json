@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.36.0",
     "hono": "^4.6.10"
   },
   "devDependencies": {
@@ -14,6 +15,8 @@
     "@cloudflare/workers-types": "^4.20241022.0",
     "@fiberplane/hono-otel": "latest",
     "@fiberplane/studio": "^0.10.1",
+    "drizzle-kit": "^0.26.2",
+    "tsx": "^4.19.2",
     "wrangler": "^3.83.0"
   }
 }

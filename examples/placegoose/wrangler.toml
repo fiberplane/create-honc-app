@@ -15,9 +15,10 @@ compatibility_flags = [ "nodejs_compat" ]
 # bucket_name = "my-bucket"
 
 # [[d1_databases]]
-# binding = "DB"
-# database_name = "my-database"
-# database_id = ""
+binding = "DB"
+database_name = "placegoose-d1"
+database_id = "local-placegoose-d1"
+migrations_dir = "drizzle/migrations"
 
 # [ai]
 # binding = "AI"
