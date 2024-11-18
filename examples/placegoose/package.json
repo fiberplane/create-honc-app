@@ -3,6 +3,11 @@
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
+    "db:touch": "wrangler d1 execute placegoose-d1 --local --command='SELECT 1'",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply placegoose-d1 --local",
+    "db:seed": "tsx src/db/seed.ts",
+    "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
     "fiberplane": "fpx"
   },
   "dependencies": {
@@ -16,7 +21,8 @@
     "@cloudflare/workers-types": "^4.20241022.0",
     "@fiberplane/hono-otel": "latest",
     "@fiberplane/studio": "^0.10.1",
-    "drizzle-kit": "^0.26.2",
+    "@libsql/client": "^0.14.0",
+    "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",
     "wrangler": "^3.83.0"
   }
