@@ -1,7 +1,9 @@
 import "dotenv/config";
 import { config } from "dotenv";
 import { defineConfig } from "drizzle-kit";
+
 import { getLocalD1DBPath } from "./src/db/utils";
+import { KnownError } from "./src/lib/errors";
 
 type Test = ReturnType<typeof defineConfig>;
 
@@ -15,7 +17,7 @@ if (process.env.ENVIRONMENT === "production") {
   const CLOUDFLARE_D1_TOKEN = process.env.CLOUDFLARE_D1_TOKEN;
 
   if (!CLOUDFLARE_ACCOUNT_ID || !CLOUDFLARE_DATABASE_ID || !CLOUDFLARE_D1_TOKEN) {
-    throw new Error("Configuration Failed: Missing DB Credential(s)");
+    throw new KnownError("Configuration Failed: Missing DB Credential(s)");
   }
 
   drizzleConfig = defineConfig({

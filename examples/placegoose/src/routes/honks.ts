@@ -2,7 +2,9 @@ import { type Context, Hono } from "hono";
 import { drizzle } from "drizzle-orm/d1";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+
 import * as schema from "../db/schema";
+import { KnownError, NotFoundError } from "../lib/errors";
 import { Bindings } from "../types";
 import { generateId, parseBody, parseId } from "../utils";
 
@@ -53,8 +55,7 @@ honksApp.get("/:id", async (c) => {
   const honkById = await getHonkById(c, id);
 
   if (!honkById) {
-    // todo: 404
-    throw new Error();
+    throw new NotFoundError();
   }
     
   return c.json(honkById);
@@ -71,8 +72,7 @@ honksApp.patch("/:id", async (c) => {
   const honkById = await getHonkById(c, id);
 
   if (!honkById) {
-    // todo: 404
-    throw new Error();
+    throw new NotFoundError();
   }
 
   const updatedHonk: schema.Honk = {
@@ -98,8 +98,7 @@ honksApp.put("/:id", async (c) => {
   const honkById = await getHonkById(c, id);
 
   if (!honkById) {
-    // todo: 404
-    throw new Error();
+    throw new NotFoundError();
   }
 
   const updatedHonk: schema.Honk = {
@@ -117,8 +116,7 @@ honksApp.delete("/:id", async (c) => {
   const honkById = await getHonkById(c, id);
 
   if (!honkById) {
-    // todo: 404
-    throw new Error();
+    throw new NotFoundError();
   }
 
   return c.body(null, 204);
@@ -134,8 +132,7 @@ async function getHonkById(c: Context, id: number) {
       .where(eq(schema.honks.id, id));
   
     if (honksById.length > 1) {
-      // todo
-      throw new Error("Unique Constraint Conflict");
+      throw new KnownError("Unique Constraint Conflict");
     };
   
     return honksById.at(0);

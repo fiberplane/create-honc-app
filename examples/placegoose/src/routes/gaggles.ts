@@ -2,7 +2,9 @@ import { type Context, Hono } from "hono";
 import { drizzle } from "drizzle-orm/d1";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+
 import * as schema from "../db/schema";
+import { KnownError, NotFoundError } from "../lib/errors";
 import { Bindings } from "../types";
 import { generateId, parseBody, parseId } from "../utils";
 
@@ -46,8 +48,7 @@ gagglesApp.post("/", async (c) => {
     const gaggleById = await getGaggleById(c, id);
   
     if (!gaggleById) {
-      // todo: 404
-      throw new Error();
+      throw new NotFoundError();
     }
   
     return c.json(gaggleById);
@@ -61,8 +62,7 @@ gagglesApp.post("/", async (c) => {
     const gaggleById = await getGaggleById(c, id);
   
     if (!gaggleById) {
-      // todo: 404
-      throw new Error();
+      throw new NotFoundError();
     }
   
     const db = drizzle(c.env.DB);
@@ -82,8 +82,7 @@ gagglesApp.post("/", async (c) => {
     const gaggleById = await getGaggleById(c, id);
   
     if (!gaggleById) {
-      // todo: 404
-      throw new Error();
+      throw new NotFoundError();
     }
   
     const updatedGaggle: schema.Gaggle = {
@@ -101,8 +100,7 @@ gagglesApp.post("/", async (c) => {
     const gaggleById = await getGaggleById(c, id);
 
     if (!gaggleById) {
-      // todo: 404
-      throw new Error();
+      throw new NotFoundError();
     }
   
     return c.body(null, 204);
@@ -118,8 +116,7 @@ gagglesApp.post("/", async (c) => {
         .where(eq(schema.gaggles.id, id));
     
     if (gagglesById.length > 1) {
-        // todo
-        throw new Error("Unique Constraint Conflict");
+        throw new KnownError("Unique Constraint Conflict");
     };
     
     return gagglesById.at(0);

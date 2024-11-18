@@ -1,8 +1,10 @@
 import { type Context, Hono } from "hono";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
-import { Bindings } from "../types";
+
 import * as schema from "../db/schema";
+import { KnownError, NotFoundError } from "../lib/errors";
+import { Bindings } from "../types";
 import { parseId } from "../utils";
 
 const geeseApp = new Hono<{ Bindings: Bindings }>();
@@ -24,8 +26,7 @@ geeseApp.get("/:id", async (c) => {
   const gooseById = await getGooseById(c, id);
 
   if (!gooseById) {
-    // todo: 404
-    throw new Error();
+    throw new NotFoundError();
   }
 
   return c.json(gooseById);
@@ -37,8 +38,7 @@ geeseApp.get("/:id/honks", async (c) => {
   const gooseById = await getGooseById(c, id);
 
   if (!gooseById) {
-    // todo: 404
-    throw new Error();
+    throw new NotFoundError();
   }
 
   const db = drizzle(c.env.DB);
@@ -60,8 +60,7 @@ async function getGooseById(c: Context, id: number) {
       .where(eq(schema.geese.id, id));
   
     if (geeseById.length > 1) {
-      // todo
-      throw new Error("Unique Constraint Conflict");
+      throw new KnownError("Unique Constraint Conflict");
     };
   
     return geeseById.at(0);

@@ -1,5 +1,7 @@
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
+
+import { KnownError } from "../lib/errors";
 import * as schema from "./schema";
 import * as seedData from "./seedData"
 import { getLocalD1DBPath } from "./utils";
@@ -8,7 +10,7 @@ async function seedLocalDatabase() {
     const dbPath = getLocalD1DBPath();
 
     if (!dbPath) {
-        throw new Error("Database seed failed: local DB could not be resolved");
+        throw new KnownError("Database seed failed: local DB could not be resolved");
     }
 
     const client = createClient({

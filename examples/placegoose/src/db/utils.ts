@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { KnownError } from "../lib/errors";
 
 export function getLocalD1DBPath() {
     try {
@@ -22,7 +23,7 @@ export function getLocalD1DBPath() {
         const dbFile = files.at(0);
 
         if (!dbFile) {
-            throw new Error(`.sqlite file not found at ${basePath}`)
+            throw new KnownError(`.sqlite file not found at ${basePath}`)
         }
 
         return path.resolve(basePath, dbFile);
