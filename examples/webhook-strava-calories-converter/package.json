@@ -24,6 +24,6 @@
     "tsx": "^4.19.2",
     "typescript": "^5.5.4",
     "typescript-language-server": "^4.3.3",
-    "wrangler": "^3.86.1"
+    "wrangler": "^3.87.0"
   }
 }

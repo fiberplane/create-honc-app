@@ -1,3 +1,7 @@
+# ignore all fiberplane studio configuration
+# normally we don't do this but it makes sense for an example api
+.fpxconfig
+
 # prod
 dist/
 
