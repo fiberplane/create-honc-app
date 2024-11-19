@@ -250,6 +250,9 @@ importers:
 
   examples/placegoose:
     dependencies:
+      '@hono-rate-limiter/cloudflare':
+        specifier: ^0.2.1
+        version: 0.2.1(@cloudflare/workers-types@4.20241106.0)(hono@4.6.11)
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -259,6 +262,9 @@ importers:
       hono:
         specifier: ^4.6.10
         version: 4.6.11
+      hono-rate-limiter:
+        specifier: ^0.4.0
+        version: 0.4.0(hono@4.6.11)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -2170,14 +2176,6 @@ packages:
 
   drizzle-kit@0.24.2:
     resolution: {integrity: sha512-nXOaTSFiuIaTMhS8WJC2d4EBeIcN9OSt2A2cyFbQYBAZbi7lRsVGJNqDpEwPqYfJz38yxbY/UtbvBBahBfnExQ==}
-    hasBin: true
-
-  drizzle-kit@0.26.2:
-    resolution: {integrity: sha512-cMq8omEKywjIy5KcqUo6LvEFxkl8/zYHsgYjFVXjmPWWtuW4blcz+YW9+oIhoaALgs2ebRjzXwsJgN9i6P49Dw==}
-    hasBin: true
-
-  drizzle-kit@0.28.1:
-    resolution: {integrity: sha512-JimOV+ystXTWMgZkLHYHf2w3oS28hxiH1FR0dkmJLc7GHzdGJoJAQtQS5DRppnabsRZwE2U1F6CuezVBgmsBBQ==}
     hasBin: true
 
   drizzle-kit@0.28.1:
@@ -4166,6 +4164,11 @@ snapshots:
       - utf-8-validate
       - vue
 
+  '@hono-rate-limiter/cloudflare@0.2.1(@cloudflare/workers-types@4.20241106.0)(hono@4.6.11)':
+    dependencies:
+      '@cloudflare/workers-types': 4.20241106.0
+      hono: 4.6.11
+
   '@hono-rate-limiter/cloudflare@0.2.1(@cloudflare/workers-types@4.20241106.0)(hono@4.6.9)':
     dependencies:
       '@cloudflare/workers-types': 4.20241106.0
@@ -5049,24 +5052,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-kit@0.26.2:
-    dependencies:
-      '@drizzle-team/brocli': 0.10.2
-      '@esbuild-kit/esm-loader': 2.6.5
-      esbuild: 0.19.12
-      esbuild-register: 3.6.0(esbuild@0.19.12)
-    transitivePeerDependencies:
-      - supports-color
-
-  drizzle-kit@0.28.1:
-    dependencies:
-      '@drizzle-team/brocli': 0.10.2
-      '@esbuild-kit/esm-loader': 2.6.5
-      esbuild: 0.19.12
-      esbuild-register: 3.6.0(esbuild@0.19.12)
-    transitivePeerDependencies:
-      - supports-color
-
   drizzle-kit@0.28.1:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
@@ -5389,6 +5374,10 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  hono-rate-limiter@0.4.0(hono@4.6.11):
+    dependencies:
+      hono: 4.6.11
 
   hono-rate-limiter@0.4.0(hono@4.6.9):
     dependencies:

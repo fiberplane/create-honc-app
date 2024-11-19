@@ -1,5 +1,5 @@
 import type { HonoRequest } from "hono";
-import { z } from "zod";
+import type { z } from "zod";
 import { RequestError } from "./lib/errors";
 
 function getNumberBetween(min: number, max: number) {
@@ -8,25 +8,28 @@ function getNumberBetween(min: number, max: number) {
 
 // todo: params
 export function generateId() {
-    return getNumberBetween(50, 100);
-};
+  return getNumberBetween(50, 100);
+}
 
 export function parseId(value: string) {
   const maybeId = Number(value);
 
-  if (!value || isNaN(maybeId)) {
+  if (!value || Number.isNaN(maybeId)) {
     throw new RequestError("Invalid Id", { statusCode: 400 });
   }
   return maybeId;
-};
+}
 
 export async function parseBody<S extends z.AnyZodObject>(
-    req: HonoRequest, 
-    schema: S
-  ): Promise<S["_output"]> {
-    const body = await req.json();
-    const result = schema.safeParse(body);
+  req: HonoRequest,
+  schema: S,
+): Promise<S["_output"]> {
+  const body = await req.json();
+  const result = schema.safeParse(body);
 
-    if (result.success) return result.data;
-    throw new RequestError("Invalid Payload", { statusCode: 400 });
+  if (result.success) {
+    return result.data;
   }
+
+  throw new RequestError("Invalid Payload", { statusCode: 400 });
+}

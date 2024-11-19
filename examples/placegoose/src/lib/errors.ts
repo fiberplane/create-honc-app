@@ -1,35 +1,37 @@
-
 export class KnownError extends Error {
-    public name: string;
+  public name: string;
 
-    constructor(message: string, options?: ErrorOptions) {
-        super(message, options);
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options);
 
-        this.name = "KnownError";
-    }
+    this.name = "KnownError";
+  }
 }
 
 export class NotFoundError extends KnownError {
-    public statusCode: 404 = 404;
+  public statusCode = 404 as const;
 
-    constructor() {
-        super("Resource Not Found");
+  constructor() {
+    super("Resource Not Found");
 
-        this.name = "NotFoundError";
-    }
+    this.name = "NotFoundError";
+  }
 }
 
 type RequestErrorOptions = ErrorOptions & {
-    statusCode: 400 | 401 | 403;
-}
+  statusCode: 400 | 401 | 403;
+};
 
 export class RequestError extends KnownError {
-    public statusCode: 400 | 401 | 403;
+  public statusCode: 400 | 401 | 403;
 
-    constructor(message: string, { statusCode, ...options }: RequestErrorOptions) {
-        super(message, options);
+  constructor(
+    message: string,
+    { statusCode, ...options }: RequestErrorOptions,
+  ) {
+    super(message, options);
 
-        this.name = "RequestError";
-        this.statusCode = statusCode;
-    }
+    this.name = "RequestError";
+    this.statusCode = statusCode;
+  }
 }

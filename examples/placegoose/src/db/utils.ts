@@ -3,36 +3,34 @@ import path from "node:path";
 import { KnownError } from "../lib/errors";
 
 export function getLocalD1DBPath() {
-    try {
-        const basePath = path.resolve(".wrangler");
+  try {
+    const basePath = path.resolve(".wrangler");
 
-        const files = fs
-            .readdirSync(basePath, {
-                encoding: 'utf-8',
-                recursive: true
-            }).filter((fileName) => fileName.endsWith(".sqlite"))
+    const files = fs
+      .readdirSync(basePath, {
+        encoding: "utf-8",
+        recursive: true,
+      })
+      .filter((fileName) => fileName.endsWith(".sqlite"));
 
-        // Retrieve most recent .sqlite file
-        files.sort((a, b) => {
-            const statA = fs.statSync(path.join(basePath, a));
-            const statB = fs.statSync(path.join(basePath, b));
-            
-            return statB.mtime.getTime() - statA.mtime.getTime();
-        })
+    // Retrieve most recent .sqlite file
+    files.sort((a, b) => {
+      const statA = fs.statSync(path.join(basePath, a));
+      const statB = fs.statSync(path.join(basePath, b));
 
-        const dbFile = files.at(0);
+      return statB.mtime.getTime() - statA.mtime.getTime();
+    });
 
-        if (!dbFile) {
-            throw new KnownError(`.sqlite file not found at ${basePath}`)
-        }
+    const dbFile = files.at(0);
 
-        return path.resolve(basePath, dbFile);
-
-    } catch (error) {
-        const message = error instanceof Error
-            ? error.message
-            : error;
-
-        console.error(`Error resolving local D1 DB: ${message}`)
+    if (!dbFile) {
+      throw new KnownError(`.sqlite file not found at ${basePath}`);
     }
+
+    return path.resolve(basePath, dbFile);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : error;
+
+    console.error(`Error resolving local D1 DB: ${message}`);
+  }
 }
