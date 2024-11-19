@@ -22,10 +22,10 @@
     "@fiberplane/hono-otel": "latest",
     "@fiberplane/studio": "0.10.0",
     "@libsql/client": "^0.14.0",
-    "drizzle-kit": "^0.26.2",
+    "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",
     "typescript": "^5.5.4",
     "typescript-language-server": "^4.3.3",
-    "wrangler": "^3.86.1"
+    "wrangler": "^3.87.0"
   }
 }
