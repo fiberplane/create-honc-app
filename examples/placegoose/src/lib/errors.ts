@@ -10,7 +10,7 @@ export class KnownError extends Error {
 }
 
 export class NotFoundError extends KnownError {
-    public statusCode = 404;
+    public statusCode: 404 = 404;
 
     constructor() {
         super("Resource Not Found");
@@ -20,11 +20,11 @@ export class NotFoundError extends KnownError {
 }
 
 type RequestErrorOptions = ErrorOptions & {
-    statusCode: number;
+    statusCode: 400 | 401 | 403;
 }
 
 export class RequestError extends KnownError {
-    public statusCode: number;
+    public statusCode: 400 | 401 | 403;
 
     constructor(message: string, { statusCode, ...options }: RequestErrorOptions) {
         super(message, options);
