@@ -1,9 +1,9 @@
-import { instrument } from "@fiberplane/hono-otel";
 import { DrizzleError } from "drizzle-orm";
 import { Hono } from "hono";
+import { instrument } from "@fiberplane/hono-otel";
 
-import { ServiceError } from "./lib/errors";
 import * as routes from "./routes";
+import { ServiceError } from "./lib/errors";
 
 const app = new Hono();
 

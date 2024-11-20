@@ -260,7 +260,7 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0(@cloudflare/workers-types@4.20241106.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1)
       hono:
-        specifier: ^4.6.10
+        specifier: ^4.6.11
         version: 4.6.11
       hono-rate-limiter:
         specifier: ^0.4.0
@@ -291,7 +291,7 @@ importers:
         specifier: ^4.19.2
         version: 4.19.2
       wrangler:
-        specifier: ^3.83.0
+        specifier: ^3.88.0
         version: 3.88.0(@cloudflare/workers-types@4.20241106.0)
 
   examples/webhook-customer-io:
