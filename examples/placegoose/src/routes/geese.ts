@@ -26,7 +26,7 @@ geeseApp.get("/:id", validator("param", validateIdParam), async (c) => {
   const gooseById = await getGooseById(db, id);
 
   if (!gooseById) {
-    throw new NotFoundError(`No Geese with ID ${id}`)
+    throw new NotFoundError(`No Geese with ID ${id}`);
   }
 
   return c.json(gooseById);
@@ -39,7 +39,7 @@ geeseApp.get("/:id/honks", validator("param", validateIdParam), async (c) => {
   const gooseById = await getGooseById(db, id);
 
   if (!gooseById) {
-    throw new NotFoundError(`No Geese with ID ${id}`)
+    throw new NotFoundError(`No Geese with ID ${id}`);
   }
 
   const honksByGooseId = await db

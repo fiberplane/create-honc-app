@@ -87,7 +87,7 @@ gagglesApp.put(
     const gaggleById = await getGaggleById(db, id);
 
     if (!gaggleById) {
-      throw new NotFoundError( `No Gaggle with ID ${id}`);
+      throw new NotFoundError(`No Gaggle with ID ${id}`);
     }
 
     const updatedGaggle: schema.Gaggle = {
@@ -107,7 +107,7 @@ gagglesApp.delete("/:id", validator("param", validateIdParam), async (c) => {
   const gaggleById = await getGaggleById(db, id);
 
   if (!gaggleById) {
-    throw new NotFoundError( `No Gaggle with ID ${id}`);
+    throw new NotFoundError(`No Gaggle with ID ${id}`);
   }
 
   return c.body(null, 204);

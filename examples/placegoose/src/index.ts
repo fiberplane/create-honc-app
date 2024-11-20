@@ -1,11 +1,28 @@
+import { instrument } from "@fiberplane/hono-otel";
+import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
 import { DrizzleError } from "drizzle-orm";
 import { Hono } from "hono";
-import { instrument } from "@fiberplane/hono-otel";
 
-import * as routes from "./routes";
 import { ServiceError } from "./lib/errors";
+import * as routes from "./routes";
 
-const app = new Hono();
+type AppType = {
+  Variables: {
+    rateLimit: boolean;
+  };
+  Bindings: {
+    RATE_LIMITER: RateLimit;
+  };
+};
+
+const app = new Hono<AppType>();
+
+app.use(
+  cloudflareRateLimiter<AppType>({
+    rateLimitBinding: (c) => c.env.RATE_LIMITER,
+    keyGenerator: (c) => c.req.header("cf-connecting-ip") ?? "",
+  }),
+);
 
 app.route("/gaggles", routes.gaggles);
 

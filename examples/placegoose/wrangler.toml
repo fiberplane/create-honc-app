@@ -6,9 +6,9 @@ compatibility_flags = [ "nodejs_compat" ]
 # [vars]
 # MY_VAR = "my-variable"
 
-[[kv_namespaces]]
-binding = "CACHE"
-id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 # [[r2_buckets]]
 # binding = "MY_BUCKET"
@@ -26,3 +26,16 @@ migrations_dir = "drizzle/migrations"
 [observability]
 enabled = true
 # head_sampling_rate = 1
+
+# The rate limiting API is in open beta.
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+# An identifier you define, that is unique to your Cloudflare account.
+# Must be an integer.
+namespace_id = "1001"
+
+# Limit: the number of tokens allowed within a given period in a single
+# Cloudflare location
+# Period: the duration of the period, in seconds. Must be either 10 or 60
+simple = { limit = 100, period = 60 }
