@@ -1,37 +1,34 @@
-export class KnownError extends Error {
-  public name: string;
-
-  constructor(message: string, options?: ErrorOptions) {
-    super(message, options);
-
-    this.name = "KnownError";
-  }
-}
-
-export class NotFoundError extends KnownError {
-  public statusCode = 404 as const;
-
-  constructor() {
-    super("Resource Not Found");
-
-    this.name = "NotFoundError";
-  }
-}
-
-type RequestErrorOptions = ErrorOptions & {
-  statusCode: 400 | 401 | 403;
+type ServiceErrorOptions = ErrorOptions & {
+  statusCode?: 400 | 401 | 403 | 404 | 500;
 };
 
-export class RequestError extends KnownError {
-  public statusCode: 400 | 401 | 403;
+export class ServiceError extends Error {
+  public name: string;
+  public statusCode: 400 | 401 | 403 | 404 | 500;
 
-  constructor(
-    message: string,
-    { statusCode, ...options }: RequestErrorOptions,
-  ) {
-    super(message, options);
+  constructor(message: string, options?: ServiceErrorOptions) {
+    const { statusCode, ...restOptions } = options ?? {};
+    super(message, restOptions);
 
-    this.name = "RequestError";
-    this.statusCode = statusCode;
+    this.name = "KnownError";
+    this.statusCode = statusCode ?? 500;
+  }
+}
+
+export class NotFoundError extends ServiceError {
+  name = "NotFoundError";
+
+  constructor(message: string) {
+    super(message, { statusCode: 404 });
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
+export class RequestError extends ServiceError {
+  name = "RequestError";
+
+  constructor(message: string) {
+    super(message, { statusCode: 400 });
+    Error.captureStackTrace(this, this.constructor);
   }
 }

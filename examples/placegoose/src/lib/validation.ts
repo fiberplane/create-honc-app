@@ -13,30 +13,25 @@ export function makeBodyValidator<S extends z.AnyZodObject>(schema: S) {
       //   if (error instanceof z.ZodError) {
 
       //   }
-      throw new RequestError("Invalid Payload", {
-        statusCode: 400,
-      });
+      throw new RequestError("Invalid Payload");
     }
   };
+}
+
+export function validateId(value: string | string[]) {
+  if (typeof value !== "string" || !/^[1-9]\d*$/.test(value)) {
+    throw new RequestError("ID values must be positive integers");
+  }
+
+  return Number(value);
 }
 
 export function validateIdParam(params: Record<string, string>, c: Context) {
   const idParam = params.id;
 
   if (!idParam) {
-    throw new RequestError(`The 'id' parameter is required: ${c.req.path}`, {
-      statusCode: 400,
-    });
+    throw new RequestError(`The 'id' parameter is required: ${c.req.path}`);
   }
 
-  if (!/^[1-9]\d*$/.test(idParam)) {
-    throw new RequestError(
-      "The 'id' parameter must be a positive integer > 0",
-      {
-        statusCode: 400,
-      },
-    );
-  }
-
-  return { id: Number(idParam) };
+  return { id: validateId(idParam) };
 }

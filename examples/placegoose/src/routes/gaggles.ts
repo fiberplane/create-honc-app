@@ -7,7 +7,7 @@ import { z } from "zod";
 import * as schema from "../db/schema";
 import { NotFoundError, ServiceError } from "../lib/errors";
 import { makeBodyValidator, validateIdParam } from "../lib/validation";
-import type { Bindings, DrizzleClient } from "../types";
+import type { DatabaseBindings, DrizzleClient } from "../types";
 import { generateId } from "../utils";
 
 const ZGaggleInsert = z.object({
@@ -15,7 +15,7 @@ const ZGaggleInsert = z.object({
   territory: z.string().min(1).nullable(),
 });
 
-const gagglesApp = new Hono<{ Bindings: Bindings }>();
+const gagglesApp = new Hono<{ Bindings: DatabaseBindings }>();
 
 // Get all Gaggles
 gagglesApp.get("/", async (c) => {

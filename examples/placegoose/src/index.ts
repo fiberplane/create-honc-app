@@ -38,7 +38,7 @@ app.onError((error, c) => {
   }
 
   if (error instanceof DrizzleError) {
-    return c.text(error.message, 500);
+    return c.text("Database Error", 500);
   }
 
   if (error instanceof Error) {

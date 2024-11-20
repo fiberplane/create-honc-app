@@ -6,9 +6,9 @@ import { validator } from "hono/validator";
 import * as schema from "../db/schema";
 import { NotFoundError, ServiceError } from "../lib/errors";
 import { validateIdParam } from "../lib/validation";
-import type { Bindings, DrizzleClient } from "../types";
+import type { DatabaseBindings, DrizzleClient } from "../types";
 
-const geeseApp = new Hono<{ Bindings: Bindings }>();
+const geeseApp = new Hono<{ Bindings: DatabaseBindings }>();
 
 // Get all Geese
 geeseApp.get("/", async (c) => {

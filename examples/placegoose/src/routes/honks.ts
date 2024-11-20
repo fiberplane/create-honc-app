@@ -6,9 +6,13 @@ import { z } from "zod";
 
 import * as schema from "../db/schema";
 import { NotFoundError, ServiceError } from "../lib/errors";
-import { makeBodyValidator, validateIdParam } from "../lib/validation";
-import type { Bindings, DrizzleClient } from "../types";
-import { generateId, parseId } from "../utils";
+import {
+  makeBodyValidator,
+  validateId,
+  validateIdParam,
+} from "../lib/validation";
+import type { DatabaseBindings, DrizzleClient } from "../types";
+import { generateId } from "../utils";
 
 const ZHonkInsert = z.object({
   gooseId: z.number(),
@@ -21,7 +25,7 @@ const ZHonkUpdate = z
   })
   .partial();
 
-const honksApp = new Hono<{ Bindings: Bindings }>();
+const honksApp = new Hono<{ Bindings: DatabaseBindings }>();
 
 // Get all Honks (or just those from Goose specified by gooseId)
 honksApp.get(
@@ -30,7 +34,7 @@ honksApp.get(
     const gooseIdQuery = query.gooseId;
 
     return {
-      gooseId: gooseIdQuery ? parseId(gooseIdQuery) : undefined,
+      gooseId: gooseIdQuery ? validateId(gooseIdQuery) : undefined,
     };
   }),
   async (c) => {

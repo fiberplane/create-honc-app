@@ -6,13 +6,3 @@ function getNumberBetween(min: number, max: number) {
 export function generateId() {
   return getNumberBetween(50, 100);
 }
-
-export function parseId(value: string | string[]) {
-  const maybeId = Number(value);
-
-  if (Number.isNaN(maybeId)) {
-    return -1;
-  }
-
-  return maybeId;
-}

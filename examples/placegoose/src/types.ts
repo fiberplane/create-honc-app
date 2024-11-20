@@ -1,6 +1,6 @@
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
-export type Bindings = {
+export type DatabaseBindings = {
   DB: D1Database;
 };
 

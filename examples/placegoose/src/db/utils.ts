@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { ServiceError } from "../lib/errors";
 
 /**
  * @returns Path to most recent .sqlite file in the .wrangler directory
@@ -27,21 +26,17 @@ export function getLocalD1DBPath() {
     const dbFile = files.at(0);
 
     if (!dbFile) {
-      throw new ServiceError(`No .sqlite file found at ${basePath}`);
+      throw new Error(`No .sqlite file found at ${basePath}`);
     }
 
     return path.resolve(basePath, dbFile);
   } catch (error) {
-    if (error instanceof ServiceError) {
-      throw error;
-    }
-
     if (error instanceof Error) {
-      throw new ServiceError(`Error resolving local D1 DB: ${error.message}`, {
+      throw new Error(`Error resolving local D1 DB: ${error.message}`, {
         cause: error,
       });
     }
 
-    throw new ServiceError("Error resolving local D1 DB", { cause: error });
+    throw new Error("Error resolving local D1 DB", { cause: error });
   }
 }
