@@ -1,13 +1,10 @@
 import "dotenv/config";
 import { config } from "dotenv";
-import { defineConfig } from "drizzle-kit";
+import { type Config, defineConfig } from "drizzle-kit";
 
 import { getLocalD1DBPath } from "./src/db/utils";
-import { KnownError } from "./src/lib/errors";
 
-type Test = ReturnType<typeof defineConfig>;
-
-let drizzleConfig: Test;
+let drizzleConfig: Config;
 
 if (process.env.ENVIRONMENT === "production") {
   config({ path: "./.prod.vars" });
@@ -17,7 +14,8 @@ if (process.env.ENVIRONMENT === "production") {
   const CLOUDFLARE_D1_TOKEN = process.env.CLOUDFLARE_D1_TOKEN;
 
   if (!CLOUDFLARE_ACCOUNT_ID || !CLOUDFLARE_DATABASE_ID || !CLOUDFLARE_D1_TOKEN) {
-    throw new KnownError("Configuration Failed: Missing DB Credential(s)");
+    console.error("Configuration Failed: Missing Local DB")
+    process.exit(1);
   }
 
   drizzleConfig = defineConfig({
@@ -38,7 +36,7 @@ if (process.env.ENVIRONMENT === "production") {
   const localDbPath = getLocalD1DBPath();
 
   if (!localDbPath) {
-    console.log("Configuration Failed: Missing Local DB")
+    console.error("Configuration Failed: Missing Local DB")
     process.exit(1);
   }
 

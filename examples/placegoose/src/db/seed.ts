@@ -1,27 +1,24 @@
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 
-import { KnownError } from "../lib/errors";
 import * as schema from "./schema";
 import * as seedData from "./seedData";
 import { getLocalD1DBPath } from "./utils";
 
 async function seedLocalDatabase() {
-  const dbPath = getLocalD1DBPath();
-
-  if (!dbPath) {
-    throw new KnownError(
-      "Database seed failed: local DB could not be resolved",
-    );
-  }
-
-  const client = createClient({
-    url: `file:${dbPath}`,
-  });
-
-  const db = drizzle(client);
-
   try {
+    const dbPath = getLocalD1DBPath();
+
+    if (!dbPath) {
+      console.error("Database seed failed: local DB could not be resolved");
+      process.exit(1);
+    }
+
+    const client = createClient({
+      url: `file:${dbPath}`,
+    });
+
+    const db = drizzle(client);
     console.log("Seeding database...");
 
     await db.batch([
@@ -33,6 +30,7 @@ async function seedLocalDatabase() {
     console.log("Database seeded successfully!");
   } catch (error) {
     console.error(error);
+    process.exit(1);
   }
 }
 

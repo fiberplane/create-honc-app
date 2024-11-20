@@ -1,114 +1,147 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
-import { type Context, Hono } from "hono";
+import { Hono } from "hono";
+import { validator } from "hono/validator";
 import { z } from "zod";
 
 import * as schema from "../db/schema";
-import { KnownError, NotFoundError } from "../lib/errors";
-import type { Bindings } from "../types";
-import { generateId, parseBody, parseId } from "../utils";
+import { NotFoundError, ServiceError } from "../lib/errors";
+import { makeBodyValidator, validateIdParam } from "../lib/validation";
+import type { Bindings, DrizzleClient } from "../types";
+import { generateId, parseId } from "../utils";
+
+const ZHonkInsert = z.object({
+  gooseId: z.number(),
+  decibels: z.number(),
+});
+
+const ZHonkUpdate = z
+  .object({
+    decibels: z.number(),
+  })
+  .partial();
 
 const honksApp = new Hono<{ Bindings: Bindings }>();
 
 // Get all Honks (or just those from Goose specified by gooseId)
-honksApp.get("/", async (c) => {
-  const gooseIdValue = c.req.query("gooseId");
+honksApp.get(
+  "/",
+  validator("query", (query) => {
+    const gooseIdQuery = query.gooseId;
 
-  const gooseId = gooseIdValue ? parseId(gooseIdValue) : undefined;
+    return {
+      gooseId: gooseIdQuery ? parseId(gooseIdQuery) : undefined,
+    };
+  }),
+  async (c) => {
+    const { gooseId } = c.req.valid("query");
 
-  const db = drizzle(c.env.DB);
-  let honks: schema.Honk[];
-  // todo: if query but no value
-  if (gooseId) {
-    honks = await db
-      .select()
-      .from(schema.honks)
-      .where(eq(schema.honks.gooseId, gooseId));
-  } else {
-    honks = await db.select().from(schema.honks);
-  }
+    const db = drizzle(c.env.DB);
+    let honks: schema.Honk[];
 
-  return c.json(honks);
-});
+    if (gooseId) {
+      honks = await db
+        .select()
+        .from(schema.honks)
+        .where(eq(schema.honks.gooseId, gooseId));
+    } else {
+      honks = await db.select().from(schema.honks);
+    }
+
+    return c.json(honks);
+  },
+);
 
 // Create a new Honk
-honksApp.post("/", async (c) => {
-  const honkData = await parseBody(c.req, ZHonkData);
+honksApp.post(
+  "/",
+  validator("json", makeBodyValidator(ZHonkInsert)),
+  async (c) => {
+    const honkData = c.req.valid("json");
 
-  const newHonk: schema.Honk = {
-    id: generateId(),
-    gooseId: generateId(),
-    ...honkData,
-  };
+    const newHonk: schema.Honk = {
+      id: generateId(),
+      ...honkData,
+    };
 
-  return c.json(newHonk);
-});
+    return c.json(newHonk);
+  },
+);
 
 // Get a Honk by specified id
-honksApp.get("/:id", async (c) => {
-  const id = parseId(c.req.param("id"));
+honksApp.get("/:id", validator("param", validateIdParam), async (c) => {
+  const { id } = c.req.valid("param");
 
-  const honkById = await getHonkById(c, id);
+  const db = drizzle(c.env.DB);
+  const honkById = await getHonkById(db, id);
 
   if (!honkById) {
-    throw new NotFoundError();
+    throw new NotFoundError(`No Honks with ID ${id}`);
   }
 
   return c.json(honkById);
 });
 
 // Modify Honk with specified id
-honksApp.patch("/:id", async (c) => {
-  const id = parseId(c.req.param("id"));
+honksApp.patch(
+  "/:id",
+  validator("param", validateIdParam),
+  validator("json", makeBodyValidator(ZHonkUpdate)),
+  async (c) => {
+    const { id } = c.req.valid("param");
+    const { decibels } = c.req.valid("json");
 
-  const { decibels } = await parseBody(c.req, ZHonkData.partial());
+    const db = drizzle(c.env.DB);
+    const honkById = await getHonkById(db, id);
 
-  const honkById = await getHonkById(c, id);
+    if (!honkById) {
+      throw new NotFoundError(`No Honks with ID ${id}`);
+    }
 
-  if (!honkById) {
-    throw new NotFoundError();
-  }
+    // todo: how does patch work? relations?
+    const updatedHonk: schema.Honk = {
+      ...honkById,
+      ...(decibels && { decibels }),
+    };
 
-  const updatedHonk: schema.Honk = {
-    ...honkById,
-    ...(decibels && { decibels }),
-  };
-
-  return c.json(updatedHonk);
-});
-
-const ZHonkData = z.object({
-  decibels: z.number(),
-});
+    return c.json(updatedHonk);
+  },
+);
 
 // Update the Honk with the specified id
-honksApp.put("/:id", async (c) => {
-  const id = parseId(c.req.param("id"));
+honksApp.put(
+  "/:id",
+  validator("param", validateIdParam),
+  validator("json", makeBodyValidator(ZHonkInsert)),
+  async (c) => {
+    const { id } = c.req.valid("param");
+    const honkData = c.req.valid("json");
 
-  const { decibels } = await parseBody(c.req, ZHonkData);
+    const db = drizzle(c.env.DB);
+    const honkById = await getHonkById(db, id);
 
-  const honkById = await getHonkById(c, id);
+    if (!honkById) {
+      throw new NotFoundError(`No Honks with ID ${id}`);
+    }
 
-  if (!honkById) {
-    throw new NotFoundError();
-  }
+    const updatedHonk: schema.Honk = {
+      ...honkById,
+      ...honkData,
+    };
 
-  const updatedHonk: schema.Honk = {
-    ...honkById,
-    decibels,
-  };
-
-  return c.json(updatedHonk);
-});
+    return c.json(updatedHonk);
+  },
+);
 
 // Delete the Honk with the specified id
-honksApp.delete("/:id", async (c) => {
-  const id = parseId(c.req.param("id"));
+honksApp.delete("/:id", validator("param", validateIdParam), async (c) => {
+  const { id } = c.req.valid("param");
 
-  const honkById = await getHonkById(c, id);
+  const db = drizzle(c.env.DB);
+  const honkById = await getHonkById(db, id);
 
   if (!honkById) {
-    throw new NotFoundError();
+    throw new NotFoundError(`No Honks with ID ${id}`);
   }
 
   return c.body(null, 204);
@@ -116,15 +149,14 @@ honksApp.delete("/:id", async (c) => {
 
 export default honksApp;
 
-async function getHonkById(c: Context, id: number) {
-  const db = drizzle(c.env.DB);
+async function getHonkById(db: DrizzleClient, id: number) {
   const honksById = await db
     .select()
     .from(schema.honks)
     .where(eq(schema.honks.id, id));
 
   if (honksById.length > 1) {
-    throw new KnownError("Unique Constraint Conflict");
+    throw new ServiceError("Unique Constraint Conflict");
   }
 
   return honksById.at(0);

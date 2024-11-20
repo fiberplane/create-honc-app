@@ -1,14 +1,16 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
-import { type Context, Hono } from "hono";
+import { Hono } from "hono";
+import { validator } from "hono/validator";
 import { z } from "zod";
 
 import * as schema from "../db/schema";
-import { KnownError, NotFoundError } from "../lib/errors";
-import type { Bindings } from "../types";
-import { generateId, parseBody, parseId } from "../utils";
+import { NotFoundError, ServiceError } from "../lib/errors";
+import { makeBodyValidator, validateIdParam } from "../lib/validation";
+import type { Bindings, DrizzleClient } from "../types";
+import { generateId } from "../utils";
 
-const ZGaggleData = z.object({
+const ZGaggleInsert = z.object({
   name: z.string().min(1),
   territory: z.string().min(1).nullable(),
 });
@@ -24,43 +26,46 @@ gagglesApp.get("/", async (c) => {
 });
 
 // Create a new Gaggle
-gagglesApp.post("/", async (c) => {
-  const { name, territory } = await parseBody(c.req, ZGaggleData);
+gagglesApp.post(
+  "/",
+  validator("json", makeBodyValidator(ZGaggleInsert)),
+  async (c) => {
+    const gaggleData = c.req.valid("json");
 
-  const newGaggle: schema.Gaggle = {
-    id: generateId(),
-    name,
-    territory,
-  };
+    const newGaggle: schema.Gaggle = {
+      id: generateId(),
+      ...gaggleData,
+    };
 
-  return c.json(newGaggle);
-});
+    return c.json(newGaggle);
+  },
+);
 
 // Get a specific Gaggle by id
-gagglesApp.get("/:id", async (c) => {
-  const id = parseId(c.req.param("id"));
+gagglesApp.get("/:id", validator("param", validateIdParam), async (c) => {
+  const { id } = c.req.valid("param");
 
-  const gaggleById = await getGaggleById(c, id);
+  const db = drizzle(c.env.DB);
+  const gaggleById = await getGaggleById(db, id);
 
   if (!gaggleById) {
-    throw new NotFoundError();
+    throw new NotFoundError(`No Gaggle with ID ${id}`);
   }
 
   return c.json(gaggleById);
 });
 
 // Get Geese in the Gaggle specified by id
-gagglesApp.get("/:id/geese", async (c) => {
-  const id = parseId(c.req.param("id"));
-
-  // todo: redundant client?
-  const gaggleById = await getGaggleById(c, id);
-
-  if (!gaggleById) {
-    throw new NotFoundError();
-  }
+gagglesApp.get("/:id/geese", validator("param", validateIdParam), async (c) => {
+  const { id } = c.req.valid("param");
 
   const db = drizzle(c.env.DB);
+  const gaggleById = await getGaggleById(db, id);
+
+  if (!gaggleById) {
+    throw new NotFoundError(`No Gaggle with ID ${id}`);
+  }
+
   const geeseByGaggleId = await db
     .select()
     .from(schema.geese)
@@ -70,32 +75,39 @@ gagglesApp.get("/:id/geese", async (c) => {
 });
 
 // Update Gaggle specified by id
-gagglesApp.put("/:id", async (c) => {
-  const id = parseId(c.req.param("id"));
-  const gaggleData = await parseBody(c.req, ZGaggleData);
+gagglesApp.put(
+  "/:id",
+  validator("param", validateIdParam),
+  validator("json", makeBodyValidator(ZGaggleInsert)),
+  async (c) => {
+    const { id } = c.req.valid("param");
+    const gaggleData = c.req.valid("json");
 
-  const gaggleById = await getGaggleById(c, id);
+    const db = drizzle(c.env.DB);
+    const gaggleById = await getGaggleById(db, id);
 
-  if (!gaggleById) {
-    throw new NotFoundError();
-  }
+    if (!gaggleById) {
+      throw new NotFoundError( `No Gaggle with ID ${id}`);
+    }
 
-  const updatedGaggle: schema.Gaggle = {
-    ...gaggleById,
-    ...gaggleData,
-  };
+    const updatedGaggle: schema.Gaggle = {
+      ...gaggleById,
+      ...gaggleData,
+    };
 
-  return c.json(updatedGaggle);
-});
+    return c.json(updatedGaggle);
+  },
+);
 
 // Delete Gaggle specified by id
-gagglesApp.delete("/:id", async (c) => {
-  const id = parseId(c.req.param("id"));
+gagglesApp.delete("/:id", validator("param", validateIdParam), async (c) => {
+  const { id } = c.req.valid("param");
 
-  const gaggleById = await getGaggleById(c, id);
+  const db = drizzle(c.env.DB);
+  const gaggleById = await getGaggleById(db, id);
 
   if (!gaggleById) {
-    throw new NotFoundError();
+    throw new NotFoundError( `No Gaggle with ID ${id}`);
   }
 
   return c.body(null, 204);
@@ -103,15 +115,14 @@ gagglesApp.delete("/:id", async (c) => {
 
 export default gagglesApp;
 
-async function getGaggleById(c: Context, id: number) {
-  const db = drizzle(c.env.DB);
+async function getGaggleById(db: DrizzleClient, id: number) {
   const gagglesById = await db
     .select()
     .from(schema.gaggles)
     .where(eq(schema.gaggles.id, id));
 
   if (gagglesById.length > 1) {
-    throw new KnownError("Unique Constraint Conflict");
+    throw new ServiceError("Unique Constraint Conflict");
   }
 
   return gagglesById.at(0);
