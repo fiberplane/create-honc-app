@@ -4,12 +4,12 @@ import { cosineDistance, sql as magicSql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
 import { OpenAI } from "openai";
+import { ComponentsPreview } from "./components/components-preview";
 import { Layout } from "./components/layout";
 import { SearchForm } from "./components/search-form";
 import { SearchResults } from "./components/search-results";
 import { APP_NAME } from "./constants";
 import { chunks, documents } from "./db/schema";
-import { ComponentsPreview } from "./components/components-preview";
 
 type Bindings = {
   DATABASE_URL: string;
