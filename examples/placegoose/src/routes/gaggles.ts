@@ -5,7 +5,7 @@ import { validator } from "hono/validator";
 import { z } from "zod";
 
 import * as schema from "../db/schema";
-import { NotFoundError, ServiceError } from "../lib/errors";
+import { ServiceError } from "../lib/errors";
 import { makeBodyValidator, validateIdParam } from "../lib/validation";
 import type { DatabaseBindings, DrizzleClient } from "../types";
 import { generateId } from "../utils";
@@ -49,7 +49,7 @@ gagglesApp.get("/:id", validator("param", validateIdParam), async (c) => {
   const gaggleById = await getGaggleById(db, id);
 
   if (!gaggleById) {
-    throw new NotFoundError(`No Gaggle with ID ${id}`);
+    throw ServiceError.notFound(`No Gaggle with ID ${id}`);
   }
 
   return c.json(gaggleById);
@@ -63,7 +63,7 @@ gagglesApp.get("/:id/geese", validator("param", validateIdParam), async (c) => {
   const gaggleById = await getGaggleById(db, id);
 
   if (!gaggleById) {
-    throw new NotFoundError(`No Gaggle with ID ${id}`);
+    throw ServiceError.notFound(`No Gaggle with ID ${id}`);
   }
 
   const geeseByGaggleId = await db
@@ -87,7 +87,7 @@ gagglesApp.put(
     const gaggleById = await getGaggleById(db, id);
 
     if (!gaggleById) {
-      throw new NotFoundError(`No Gaggle with ID ${id}`);
+      throw ServiceError.notFound(`No Gaggle with ID ${id}`);
     }
 
     const updatedGaggle: schema.Gaggle = {
@@ -107,7 +107,7 @@ gagglesApp.delete("/:id", validator("param", validateIdParam), async (c) => {
   const gaggleById = await getGaggleById(db, id);
 
   if (!gaggleById) {
-    throw new NotFoundError(`No Gaggle with ID ${id}`);
+    throw ServiceError.notFound(`No Gaggle with ID ${id}`);
   }
 
   return c.body(null, 204);
@@ -122,7 +122,7 @@ async function getGaggleById(db: DrizzleClient, id: number) {
     .where(eq(schema.gaggles.id, id));
 
   if (gagglesById.length > 1) {
-    throw new ServiceError("Unique Constraint Conflict");
+    throw ServiceError.corruptedData("Unique Constraint Conflict");
   }
 
   return gagglesById.at(0);

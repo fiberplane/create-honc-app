@@ -1,34 +1,31 @@
+type ErrorStatusCode = 400 | 401 | 403 | 404 | 500;
+
 type ServiceErrorOptions = ErrorOptions & {
-  statusCode?: 400 | 401 | 403 | 404 | 500;
+  statusCode?: ErrorStatusCode;
 };
 
 export class ServiceError extends Error {
-  public name: string;
-  public statusCode: 400 | 401 | 403 | 404 | 500;
+  public name = "ServiceError";
+  public statusCode: ErrorStatusCode;
 
-  constructor(message: string, options?: ServiceErrorOptions) {
+  private constructor(message: string, options: ServiceErrorOptions) {
     const { statusCode, ...restOptions } = options ?? {};
     super(message, restOptions);
 
-    this.name = "KnownError";
     this.statusCode = statusCode ?? 500;
-  }
-}
 
-export class NotFoundError extends ServiceError {
-  name = "NotFoundError";
-
-  constructor(message: string) {
-    super(message, { statusCode: 404 });
     Error.captureStackTrace(this, this.constructor);
   }
-}
 
-export class RequestError extends ServiceError {
-  name = "RequestError";
+  public static corruptedData(message: string) {
+    return new ServiceError(message, { statusCode: 400 });
+  }
 
-  constructor(message: string) {
-    super(message, { statusCode: 400 });
-    Error.captureStackTrace(this, this.constructor);
+  public static invalidRequest(message: string) {
+    return new ServiceError(message, { statusCode: 400 });
+  }
+
+  public static notFound(message = "Resource Not Found") {
+    return new ServiceError(message, { statusCode: 404 });
   }
 }

@@ -5,7 +5,7 @@ import { validator } from "hono/validator";
 import { z } from "zod";
 
 import * as schema from "../db/schema";
-import { NotFoundError, ServiceError } from "../lib/errors";
+import { ServiceError } from "../lib/errors";
 import {
   makeBodyValidator,
   validateId,
@@ -80,7 +80,7 @@ honksApp.get("/:id", validator("param", validateIdParam), async (c) => {
   const honkById = await getHonkById(db, id);
 
   if (!honkById) {
-    throw new NotFoundError(`No Honks with ID ${id}`);
+    throw ServiceError.notFound(`No Honks with ID ${id}`);
   }
 
   return c.json(honkById);
@@ -99,7 +99,7 @@ honksApp.patch(
     const honkById = await getHonkById(db, id);
 
     if (!honkById) {
-      throw new NotFoundError(`No Honks with ID ${id}`);
+      throw ServiceError.notFound(`No Honks with ID ${id}`);
     }
 
     // todo: how does patch work? relations?
@@ -125,7 +125,7 @@ honksApp.put(
     const honkById = await getHonkById(db, id);
 
     if (!honkById) {
-      throw new NotFoundError(`No Honks with ID ${id}`);
+      throw ServiceError.notFound(`No Honks with ID ${id}`);
     }
 
     const updatedHonk: schema.Honk = {
@@ -145,7 +145,7 @@ honksApp.delete("/:id", validator("param", validateIdParam), async (c) => {
   const honkById = await getHonkById(db, id);
 
   if (!honkById) {
-    throw new NotFoundError(`No Honks with ID ${id}`);
+    throw ServiceError.notFound(`No Honks with ID ${id}`);
   }
 
   return c.body(null, 204);
@@ -160,7 +160,7 @@ async function getHonkById(db: DrizzleClient, id: number) {
     .where(eq(schema.honks.id, id));
 
   if (honksById.length > 1) {
-    throw new ServiceError("Unique Constraint Conflict");
+    throw ServiceError.corruptedData("Unique Constraint Conflict");
   }
 
   return honksById.at(0);
