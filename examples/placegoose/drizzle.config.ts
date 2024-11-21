@@ -14,7 +14,7 @@ if (process.env.ENVIRONMENT === "production") {
   const CLOUDFLARE_D1_TOKEN = process.env.CLOUDFLARE_D1_TOKEN;
 
   if (!CLOUDFLARE_ACCOUNT_ID || !CLOUDFLARE_DATABASE_ID || !CLOUDFLARE_D1_TOKEN) {
-    console.error("Configuration Failed: Missing Local DB")
+    console.error("Configuration Failed: Missing Local DB");
     process.exit(1);
   }
 
@@ -36,7 +36,7 @@ if (process.env.ENVIRONMENT === "production") {
   const localDbPath = getLocalD1DBPath();
 
   if (!localDbPath) {
-    console.error("Configuration Failed: Missing Local DB")
+    console.error("Configuration Failed: Missing Local DB");
     process.exit(1);
   }
 
