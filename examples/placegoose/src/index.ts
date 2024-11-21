@@ -1,6 +1,7 @@
 import { instrument } from "@fiberplane/hono-otel";
 import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
 import { Hono } from "hono";
+import { HTTPException } from "hono/http-exception";
 
 import * as routes from "./routes";
 
@@ -30,6 +31,11 @@ app.route("/honks", routes.honks);
 
 app.onError((error, c) => {
   console.error(error);
+
+  if (error instanceof HTTPException) {
+    return c.text(error.message, error.status);
+  }
+
   return c.text("Something went wrong", 500);
 });
 

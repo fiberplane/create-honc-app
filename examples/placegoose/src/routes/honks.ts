@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
+import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 import { z } from "zod";
 
@@ -59,7 +60,7 @@ honksApp.get(
 // Create a new Honk
 honksApp.post(
   "/",
-  validator("json", makeBodyValidator(ZHonkInsert)),
+  validator("json", makeBodyValidator(ZHonkInsert.parse)),
   async (c) => {
     const honkData = c.req.valid("json");
 
@@ -80,7 +81,9 @@ honksApp.get("/:id", validator("param", validateIdParam), async (c) => {
   const honkById = await getHonkById(db, id);
 
   if (!honkById) {
-    throw ServiceError.notFound(`No Honks with ID ${id}`);
+    throw new HTTPException(404, {
+      message: `No Honks with ID ${id}`,
+    });
   }
 
   return c.json(honkById);
@@ -90,7 +93,7 @@ honksApp.get("/:id", validator("param", validateIdParam), async (c) => {
 honksApp.patch(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZHonkUpdate)),
+  validator("json", makeBodyValidator(ZHonkUpdate.parse)),
   async (c) => {
     const { id } = c.req.valid("param");
     const { decibels } = c.req.valid("json");
@@ -99,7 +102,9 @@ honksApp.patch(
     const honkById = await getHonkById(db, id);
 
     if (!honkById) {
-      throw ServiceError.notFound(`No Honks with ID ${id}`);
+      throw new HTTPException(404, {
+        message: `No Honks with ID ${id}`,
+      });
     }
 
     // todo: how does patch work? relations?
@@ -116,7 +121,7 @@ honksApp.patch(
 honksApp.put(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZHonkInsert)),
+  validator("json", makeBodyValidator(ZHonkInsert.parse)),
   async (c) => {
     const { id } = c.req.valid("param");
     const honkData = c.req.valid("json");
@@ -145,7 +150,9 @@ honksApp.delete("/:id", validator("param", validateIdParam), async (c) => {
   const honkById = await getHonkById(db, id);
 
   if (!honkById) {
-    throw ServiceError.notFound(`No Honks with ID ${id}`);
+    throw new HTTPException(404, {
+      message: `No Honks with ID ${id}`,
+    });
   }
 
   return c.body(null, 204);
@@ -160,7 +167,9 @@ async function getHonkById(db: DrizzleClient, id: number) {
     .where(eq(schema.honks.id, id));
 
   if (honksById.length > 1) {
-    throw ServiceError.corruptedData("Unique Constraint Conflict");
+    throw new HTTPException(500, {
+      message: "Unique Constraint Conflict",
+    });
   }
 
   return honksById.at(0);

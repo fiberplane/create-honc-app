@@ -21,8 +21,8 @@ export class ServiceError extends Error {
     return new ServiceError(message, { statusCode: 400 });
   }
 
-  public static invalidRequest(message: string) {
-    return new ServiceError(message, { statusCode: 400 });
+  public static invalidRequest(message: string, options?: ErrorOptions) {
+    return new ServiceError(message, { statusCode: 400, ...options });
   }
 
   public static notFound(message = "Resource Not Found") {

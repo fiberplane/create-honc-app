@@ -1,10 +1,10 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
+import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 
 import * as schema from "../db/schema";
-import { ServiceError } from "../lib/errors";
 import { validateIdParam } from "../lib/validation";
 import type { DatabaseBindings, DrizzleClient } from "../types";
 
@@ -26,7 +26,9 @@ geeseApp.get("/:id", validator("param", validateIdParam), async (c) => {
   const gooseById = await getGooseById(db, id);
 
   if (!gooseById) {
-    throw ServiceError.notFound(`No Geese with ID ${id}`);
+    throw new HTTPException(404, {
+      message: `No Geese with ID ${id}`,
+    });
   }
 
   return c.json(gooseById);
@@ -39,7 +41,9 @@ geeseApp.get("/:id/honks", validator("param", validateIdParam), async (c) => {
   const gooseById = await getGooseById(db, id);
 
   if (!gooseById) {
-    throw ServiceError.notFound(`No Geese with ID ${id}`);
+    throw new HTTPException(404, {
+      message: `No Geese with ID ${id}`,
+    });
   }
 
   const honksByGooseId = await db
@@ -59,7 +63,9 @@ async function getGooseById(db: DrizzleClient, id: number) {
     .where(eq(schema.geese.id, id));
 
   if (geeseById.length > 1) {
-    throw ServiceError.corruptedData("Unique Constraint Conflict");
+    new HTTPException(500, {
+      message: "Unique Constraint Conflict",
+    });
   }
 
   return geeseById.at(0);
