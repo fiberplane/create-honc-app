@@ -4,6 +4,8 @@ A minimal UI component library for Hono applications with an ASCII aesthetic.
 
 These components are intended to work with `hono/jsx` out of the box, so you don't need a custom renderer outside of Hono to start using them.
 
+> To see the components in action, check out the [Retrieval Augmented Goose example](../examples/cf-retrieval-augmented-goose).
+
 ## Installation
 
 As of writing, this package is not published to npm. You can copy components into your project. At a minimum, you'll need to copy `src/head.tsx` into your project for styles and fonts to load correctly, as the `Head` component defines the necessary CSS variables.
