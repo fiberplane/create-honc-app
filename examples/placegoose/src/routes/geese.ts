@@ -4,9 +4,10 @@ import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 
+import { getGooseById } from "../controllers";
 import * as schema from "../db/schema";
 import { validateIdParam } from "../lib/validation";
-import type { DatabaseBindings, DrizzleClient } from "../types";
+import type { DatabaseBindings } from "../types";
 
 const geeseApp = new Hono<{ Bindings: DatabaseBindings }>();
 
@@ -34,6 +35,7 @@ geeseApp.get("/:id", validator("param", validateIdParam), async (c) => {
   return c.json(gooseById);
 });
 
+// Get Honks made by Goose specified by id
 geeseApp.get("/:id/honks", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
@@ -55,18 +57,3 @@ geeseApp.get("/:id/honks", validator("param", validateIdParam), async (c) => {
 });
 
 export default geeseApp;
-
-async function getGooseById(db: DrizzleClient, id: number) {
-  const geeseById = await db
-    .select()
-    .from(schema.geese)
-    .where(eq(schema.geese.id, id));
-
-  if (geeseById.length > 1) {
-    new HTTPException(500, {
-      message: "Unique Constraint Conflict",
-    });
-  }
-
-  return geeseById.at(0);
-}

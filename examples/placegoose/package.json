@@ -23,7 +23,7 @@
     "@biomejs/biome": "^1.9.4",
     "@cloudflare/workers-types": "^4.20241022.0",
     "@fiberplane/hono-otel": "latest",
-    "@fiberplane/studio": "^0.10.1",
+    "@fiberplane/studio": "latest",
     "@libsql/client": "^0.14.0",
     "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",

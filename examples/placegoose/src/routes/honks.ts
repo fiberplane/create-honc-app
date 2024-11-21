@@ -5,15 +5,15 @@ import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 import { z } from "zod";
 
+import { getGooseById, getHonkById } from "../controllers";
 import * as schema from "../db/schema";
-import { ServiceError } from "../lib/errors";
+import { generateId } from "../lib/utils";
 import {
   makeBodyValidator,
   validateId,
   validateIdParam,
 } from "../lib/validation";
-import type { DatabaseBindings, DrizzleClient } from "../types";
-import { generateId } from "../utils";
+import type { DatabaseBindings } from "../types";
 
 const ZHonkInsert = z.object({
   gooseId: z.number(),
@@ -45,6 +45,14 @@ honksApp.get(
     let honks: schema.Honk[];
 
     if (gooseId) {
+      const gooseById = await getGooseById(db, gooseId);
+
+      if (!gooseById) {
+        throw new HTTPException(404, {
+          message: `No Geese with ID ${gooseId}`,
+        });
+      }
+
       honks = await db
         .select()
         .from(schema.honks)
@@ -63,6 +71,16 @@ honksApp.post(
   validator("json", makeBodyValidator(ZHonkInsert.parse)),
   async (c) => {
     const honkData = c.req.valid("json");
+    const gooseId = honkData.gooseId;
+
+    const db = drizzle(c.env.DB);
+    const gooseById = await getGooseById(db, gooseId);
+
+    if (!gooseById) {
+      throw new HTTPException(404, {
+        message: `No Geese with ID ${gooseId}`,
+      });
+    }
 
     const newHonk: schema.Honk = {
       id: generateId(),
@@ -96,6 +114,7 @@ honksApp.patch(
   validator("json", makeBodyValidator(ZHonkUpdate.parse)),
   async (c) => {
     const { id } = c.req.valid("param");
+    // todo: should gooseId be mutable? should there be info about this?
     const { decibels } = c.req.valid("json");
 
     const db = drizzle(c.env.DB);
@@ -124,13 +143,16 @@ honksApp.put(
   validator("json", makeBodyValidator(ZHonkInsert.parse)),
   async (c) => {
     const { id } = c.req.valid("param");
+    // todo: should gooseId be mutable?
     const honkData = c.req.valid("json");
 
     const db = drizzle(c.env.DB);
     const honkById = await getHonkById(db, id);
 
     if (!honkById) {
-      throw ServiceError.notFound(`No Honks with ID ${id}`);
+      throw new HTTPException(404, {
+        message: `No Honks with ID ${id}`,
+      });
     }
 
     const updatedHonk: schema.Honk = {
@@ -159,18 +181,3 @@ honksApp.delete("/:id", validator("param", validateIdParam), async (c) => {
 });
 
 export default honksApp;
-
-async function getHonkById(db: DrizzleClient, id: number) {
-  const honksById = await db
-    .select()
-    .from(schema.honks)
-    .where(eq(schema.honks.id, id));
-
-  if (honksById.length > 1) {
-    throw new HTTPException(500, {
-      message: "Unique Constraint Conflict",
-    });
-  }
-
-  return honksById.at(0);
-}

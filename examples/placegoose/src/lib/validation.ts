@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { ServiceError } from "./errors";
+import { HTTPException } from "hono/http-exception";
 
 /**
  * @returns Validation fn for Hono body validator, responsible
@@ -13,7 +13,10 @@ export function makeBodyValidator<T extends Record<string, unknown>>(
       return parse(body);
     } catch (error) {
       console.error(error);
-      throw ServiceError.invalidRequest("Invalid Payload", { cause: error });
+      throw new HTTPException(400, {
+        message: "Invalid Payload",
+        cause: error,
+      });
     }
   };
 }
@@ -25,7 +28,9 @@ export function makeBodyValidator<T extends Record<string, unknown>>(
  */
 export function validateId(value: string | string[]) {
   if (typeof value !== "string" || !/^[1-9]\d*$/.test(value)) {
-    throw ServiceError.invalidRequest("ID values must be positive integers");
+    throw new HTTPException(400, {
+      message: "ID values must be positive integers",
+    });
   }
 
   return Number(value);
@@ -39,9 +44,9 @@ export function validateIdParam(params: Record<string, string>, c: Context) {
   const idParam = params.id;
 
   if (!idParam) {
-    throw ServiceError.invalidRequest(
-      `The 'id' parameter is required: ${c.req.path}`,
-    );
+    throw new HTTPException(400, {
+      message: `The 'id' parameter is required: ${c.req.path}`,
+    });
   }
 
   return { id: validateId(idParam) };

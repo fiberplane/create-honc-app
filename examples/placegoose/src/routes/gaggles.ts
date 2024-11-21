@@ -5,10 +5,11 @@ import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 import { z } from "zod";
 
+import { getGaggleById } from "../controllers";
 import * as schema from "../db/schema";
+import { generateId } from "../lib/utils";
 import { makeBodyValidator, validateIdParam } from "../lib/validation";
-import type { DatabaseBindings, DrizzleClient } from "../types";
-import { generateId } from "../utils";
+import type { DatabaseBindings } from "../types";
 
 const ZGaggleInsert = z.object({
   name: z.string().min(1),
@@ -122,18 +123,3 @@ gagglesApp.delete("/:id", validator("param", validateIdParam), async (c) => {
 });
 
 export default gagglesApp;
-
-async function getGaggleById(db: DrizzleClient, id: number) {
-  const gagglesById = await db
-    .select()
-    .from(schema.gaggles)
-    .where(eq(schema.gaggles.id, id));
-
-  if (gagglesById.length > 1) {
-    new HTTPException(500, {
-      message: "Unique Constraint Conflict",
-    });
-  }
-
-  return gagglesById.at(0);
-}
