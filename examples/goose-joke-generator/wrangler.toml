@@ -1,5 +1,5 @@
 name = "goose-joke-generator"
-compatibility_date = "2024-11-04"
+compatibility_date = "2024-11-11"
 compatibility_flags = [ "nodejs_compat" ]
 
 [dev]

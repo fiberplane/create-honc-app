@@ -1,36 +1,36 @@
-## 🪿 HONC
+## 🪿 HONC Webhook (customer.io)
 
-This is a project created with the `create-honc-app` template.
+This is a project created with the `create-honc-app` template. It is an example how to develop webhooks using Fiberplane studio.
+
+In this example a customer.io webhook calls the application `api/signups` endpoint. It stores the information in a Neon Database and send a message to a Slack channel. 
+
+So in order to make this project run, make sure that you have an account set-up for: 
+- [Neon](https://neon.tech/)
+- Slack Account to set up a [Slack App](https://api.slack.com/messaging/webhooks)
+- [Customer.io](https://customer.io/)
+
 
 Learn more about the HONC stack on the [website](https://honc.dev) or the main [repo](https://github.com/fiberplane/create-honc-app).
 
 ### Getting started
 
-Make sure you have Neon set up and configured with your database. Create a .dev.vars file with the `DATABASE_URL` key and value (see: `.dev.vars.example`).
+Make sure you have Neon set up and configured with your database. Create a .dev.vars file with the `DATABASE_URL` key and value. 
 
-### Project structure
+For Slack set the `SLACK_URL` from your Slack App to receive requests. 
 
-```#
-├── src
-│   ├── index.ts # Hono app entry point
-│   └── db
-│       └── schema.ts # Database schema
-├── seed.ts # Optional seeding script
-├── .dev.vars.example # Example .dev.vars file
-├── wrangler.toml # Cloudflare Workers configuration
-├── drizzle.config.ts # Drizzle configuration
-├── tsconfig.json # TypeScript configuration
-└── package.json
-```
+And finally set a `ADMIN` and `USERNAME` to secure your application endpoint.
+
+(see: `.dev.vars.example`).
+
 
 ### Commands
 
-Run the migrations and (optionally) seed the database:
-
+To set up the database run: 
 ```sh
-# this is a convenience script that runs db:generate, db:migrate, and db:seed
-npm run db:setup
+npm run db:generate
+npm run db:migrate
 ```
+
 
 Run the development server:
 
@@ -38,28 +38,31 @@ Run the development server:
 npm run dev
 ```
 
-### Developing
-
-When you iterate on the database schema, you'll need to generate a new migration and apply it:
-
+Start in a seperate Terminal Fiberplane
 ```sh
-npm run db:generate
-npm run db:migrate
+npx @fiberplane/studio@latest
 ```
+
+### Developing
+1. In the Fiberplane studio enable the Proxy feature. 
+2. Go to customer.io and create a workflow and in the workflow create a webhook activity
+3. Configure the webhook with the proxy URL from Fiberplane
+4. Set the Header to `X-Custom-Auth` and create a value for it
+```sh
+echo -n "yourUsername:yourPassword" | base64
+```
+5. Make sure to provide in the JSON a name, email and github handle using Liquid
+6. Send some test data from customer.io
+
 
 ### Deploying
 
-Set your `DATABASE_URL` secret (and any other secrets you need) with wrangler:
+Set your secrets from the dev.vars file with wrangler:
 
 ```sh
 npx wrangler secret put DATABASE_URL
 ```
 
-Finally, change the name of the project in `wrangler.toml` to something appropriate for your project
-
-```toml
-name = "my-neon-project"
-```
 
 Deploy with wrangler:
 

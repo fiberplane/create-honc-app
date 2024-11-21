@@ -77,7 +77,7 @@ app.get("/search", async (c) => {
   const queryEmbedding = embedding.data[0].embedding;
   // Craft a similarity search based on the cosine distance between:
   // - the embedding of the user's query, and
-  // - the embedding of each recipe
+  // - the embedding of each chunk from the docs
   const similarityQuery = magicSql<number>`1 - (${cosineDistance(chunks.embedding, queryEmbedding)})`;
 
   // Search for chunks with similarity above cutoff
@@ -95,7 +95,43 @@ app.get("/search", async (c) => {
   return c.html(
     <Layout title={`Search results | ${APP_NAME}`}>
       <SearchForm query={query} similarity={similarityCutoff} />
-      <SearchResults results={results} />
+      <SearchResults
+        results={
+          results
+          // [
+          //   {
+          //     id: "1234",
+          //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          //     similarity: 0.2,
+          //   },
+          //   {
+          //     id: "1234",
+          //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          //     similarity: 0.2,
+          //   },
+          //   {
+          //     id: "1234",
+          //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          //     similarity: 0.2,
+          //   },
+          //   {
+          //     id: "1234",
+          //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          //     similarity: 0.2,
+          //   },
+          //   {
+          //     id: "1234",
+          //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          //     similarity: 0.2,
+          //   },
+          //   {
+          //     id: "1234",
+          //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          //     similarity: 0.2,
+          //   },
+          // ]
+        }
+      />
     </Layout>,
   );
 });
