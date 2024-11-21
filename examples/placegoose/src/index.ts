@@ -1,9 +1,7 @@
 import { instrument } from "@fiberplane/hono-otel";
 import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
-import { DrizzleError } from "drizzle-orm";
 import { Hono } from "hono";
 
-import { ServiceError } from "./lib/errors";
 import * as routes from "./routes";
 
 type AppType = {
@@ -32,19 +30,6 @@ app.route("/honks", routes.honks);
 
 app.onError((error, c) => {
   console.error(error);
-
-  if (error instanceof ServiceError) {
-    return c.text(error.message, error.statusCode);
-  }
-
-  if (error instanceof DrizzleError) {
-    return c.text("Database Error", 500);
-  }
-
-  if (error instanceof Error) {
-    return c.text(error.message, 500);
-  }
-
   return c.text("Something went wrong", 500);
 });
 

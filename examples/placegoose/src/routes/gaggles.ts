@@ -37,7 +37,7 @@ gagglesApp.post(
       ...gaggleData,
     };
 
-    return c.json(newGaggle);
+    return c.json(newGaggle, 201);
   },
 );
 

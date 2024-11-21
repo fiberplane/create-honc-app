@@ -68,7 +68,7 @@ honksApp.post(
       ...honkData,
     };
 
-    return c.json(newHonk);
+    return c.json(newHonk, 201);
   },
 );
 
