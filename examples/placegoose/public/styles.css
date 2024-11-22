@@ -1,9 +1,13 @@
 
 body {
-  background-color: rgba(2, 8, 23, 1);
-  color: rgba(248, 250, 252, 1);
+  background-color: rgba(19, 9, 0, 1);
+  color: rgba(255, 255, 255, 1);
   font-family: sans-serif;
   padding: 8px;
+}
+
+h1 {
+  font-size: 2.2rem;
 }
 
 h2 {
@@ -11,11 +15,18 @@ h2 {
 }
 
 p {
-  color: rgba(148, 163, 184);
+  background-color: rgba(28, 22, 18, 1);
+  color: rgba(211, 211, 211, 1);
   font-size: 1.125rem;
   line-height: 1.75rem;
   margin-bottom: 24px;
   margin-top: 0;
+  padding: 16px;
+}
+
+pre {
+  background-color: rgba(28, 22, 18, 1);
+  padding: 16px;
 }
 
 @media only screen and (min-device-width: 600px) {

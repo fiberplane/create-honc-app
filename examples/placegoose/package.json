@@ -1,13 +1,13 @@
 {
   "name": "placegoose",
   "scripts": {
-    "dev": "wrangler dev src/index.tsx",
-    "deploy": "wrangler deploy --minify src/index.tsx",
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts",
     "db:touch": "wrangler d1 execute placegoose-d1 --local --command='SELECT 1'",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply placegoose-d1 --local",
     "db:migrate:prod": "ENVIRONMENT=production drizzle-kit migrate",
-    "db:seed": "tsx _scripts/seed/index.tsx",
+    "db:seed": "tsx _scripts/seed/index.ts",
     "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
     "fiberplane": "fpx",
     "lint": "npx biome check --write src"
