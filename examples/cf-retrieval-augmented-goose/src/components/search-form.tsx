@@ -1,16 +1,16 @@
-import { css } from "hono/css";
-import { Button } from "../ascuii/button";
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ascuii/card";
-import { Input } from "../ascuii/input";
-import { Label } from "../ascuii/label";
-import { Slider } from "../ascuii/slider";
+  Input,
+  Label,
+  Slider,
+} from "@fiberplane/ascuii";
+import { css } from "hono/css";
 import { APP_NAME } from "../constants";
 
 type SearchFormProps = {
@@ -33,13 +33,13 @@ export function SearchForm({ similarity, query }: SearchFormProps) {
               id="query"
               name="query"
               placeholder="Search query"
-              defaultValue={query}
+              value={query}
             />
             <Label htmlFor="similarity">Similarity</Label>
             <Slider
               id="similarity"
               name="similarity"
-              defaultValue={similarity}
+              value={similarity}
               max={1}
               step={0.1}
             />
@@ -57,5 +57,4 @@ const formContainerClassName = css`
   display: flex;
   flex-direction: column;
   gap: 16px;
-
 `;

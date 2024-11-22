@@ -1,0 +1,9 @@
+{
+  "name": "@fiberplane/ascuii",
+  "version": "0.0.1",
+  "private": "true",
+  "main": "src/index.ts",
+  "peerDependencies": {
+    "hono": "^4.6.7"
+  }
+}

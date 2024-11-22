@@ -4,6 +4,7 @@ import { cosineDistance, sql as magicSql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
 import { OpenAI } from "openai";
+import { ComponentsPreview } from "./components/components-preview";
 import { Layout } from "./components/layout";
 import { SearchForm } from "./components/search-form";
 import { SearchResults } from "./components/search-results";
@@ -134,5 +135,13 @@ app.get("/search", async (c) => {
     </Layout>,
   );
 });
+
+app.get("/components", async (c) =>
+  c.html(
+    <Layout title={`Components | ${APP_NAME}`}>
+      <ComponentsPreview />
+    </Layout>,
+  ),
+);
 
 export default instrument(app);
