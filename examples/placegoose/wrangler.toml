@@ -3,6 +3,12 @@ compatibility_date = "2024-11-15"
 
 compatibility_flags = [ "nodejs_compat" ]
 
+# Includes .md files in bundle: 
+# https://developers.cloudflare.com/workers/wrangler/configuration/#bundling
+rules = [
+  { type = "Text", globs = ["**/*.md"], fallthrough = true }
+]
+
 # [vars]
 # MY_VAR = "my-variable"
 

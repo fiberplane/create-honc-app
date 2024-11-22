@@ -1,9 +1,12 @@
 import { instrument } from "@fiberplane/hono-otel";
 import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
 import { Hono } from "hono";
+import { cors } from 'hono/cors'
 import { HTTPException } from "hono/http-exception";
+import { marked } from "marked";
 
 import * as routes from "./routes";
+import homePage from "./pages/index.md";
 
 type AppType = {
   Variables: {
@@ -15,6 +18,13 @@ type AppType = {
 };
 
 const app = new Hono<AppType>();
+
+app.use("/", cors());
+
+app.get("/", (c) => {
+    const html = marked(homePage);
+    return c.render(html);
+});
 
 app.use(
   cloudflareRateLimiter<AppType>({
