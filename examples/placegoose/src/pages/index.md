@@ -1,4 +1,4 @@
-## Try it!
+## Try it now!
 Run this code in a console, or from any app:
 ```typescript
 fetch("PROD_URL/geese/1")

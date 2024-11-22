@@ -1,10 +1,13 @@
 import { instrument } from "@fiberplane/hono-otel";
-import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { HTTPException } from "hono/http-exception";
+import { raw } from "hono/html";
+import { jsxRenderer } from "hono/jsx-renderer";
+import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
 import { marked } from "marked";
 
+import Layout from "./components/Layout";
 import homePage from "./pages/index.md";
 import * as routes from "./routes";
 
@@ -21,9 +24,10 @@ const app = new Hono<AppType>();
 
 app.use("/", cors());
 
-app.get("/", (c) => {
-  const html = marked(homePage);
-  return c.render(html);
+app.get("/", jsxRenderer(Layout), (c) => {
+  // todo: this seems off
+  const content = marked(homePage);
+  return c.render(raw(content));
 });
 
 app.use(
