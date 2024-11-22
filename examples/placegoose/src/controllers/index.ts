@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import type { SQLiteColumn, SQLiteTableWithColumns } from "drizzle-orm/sqlite-core";
 import { HTTPException } from "hono/http-exception";
 
@@ -16,7 +16,7 @@ type SQLiteTableWithIdColumn<T extends ColumnWithId> = SQLiteTableWithColumns<{
   dialect: "sqlite";
 }>
 
-async function getRowById<T extends ColumnWithId>(
+export async function getRowById<T extends ColumnWithId>(
   db: DrizzleClient, 
   table: SQLiteTableWithIdColumn<T>, 
   id: number
@@ -33,6 +33,18 @@ async function getRowById<T extends ColumnWithId>(
   }
 
   return rowsById.at(0);
+}
+
+export async function getRowExists<T extends ColumnWithId>(
+  db: DrizzleClient, 
+  table: SQLiteTableWithIdColumn<T>, 
+  id: number
+) {
+  const rowExists = db.run(
+    sql`select exists (select 1 from ${table} where ${table.id} = ${id})`
+  )
+
+  return !!rowExists;
 }
 
 export async function getGaggleById(db: DrizzleClient, id: number) {
