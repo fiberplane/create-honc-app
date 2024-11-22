@@ -6,6 +6,7 @@ import path from "node:path";
  */
 export function getLocalD1DBPath() {
   try {
+    // .wrangler dir and process execution are assumed to be colocated
     const basePath = path.resolve(".wrangler");
 
     const files = fs
@@ -15,6 +16,10 @@ export function getLocalD1DBPath() {
       })
       .filter((fileName) => fileName.endsWith(".sqlite"));
 
+    if (!files.length) {
+      throw new Error(`No .sqlite file found at ${basePath}`);
+    }
+
     // Retrieve most recent .sqlite file
     files.sort((a, b) => {
       const statA = fs.statSync(path.join(basePath, a));
@@ -23,13 +28,7 @@ export function getLocalD1DBPath() {
       return statB.mtime.getTime() - statA.mtime.getTime();
     });
 
-    const dbFile = files.at(0);
-
-    if (!dbFile) {
-      throw new Error(`No .sqlite file found at ${basePath}`);
-    }
-
-    return path.resolve(basePath, dbFile);
+    return path.resolve(basePath, files[0]);
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`Error resolving local D1 DB: ${error.message}`, {

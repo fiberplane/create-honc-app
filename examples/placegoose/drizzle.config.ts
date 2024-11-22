@@ -6,6 +6,12 @@ import { getLocalD1DBPath } from "./src/db/utils";
 
 let drizzleConfig: Config;
 
+/**
+ * While it's tempting to abstract this much duplication,
+ * it's important to prevent changes from config in one
+ * env from accidentally being applied to another
+ */
+
 if (process.env.ENVIRONMENT === "production") {
   config({ path: "./.prod.vars" });
 
@@ -14,7 +20,7 @@ if (process.env.ENVIRONMENT === "production") {
   const CLOUDFLARE_D1_TOKEN = process.env.CLOUDFLARE_D1_TOKEN;
 
   if (!CLOUDFLARE_ACCOUNT_ID || !CLOUDFLARE_DATABASE_ID || !CLOUDFLARE_D1_TOKEN) {
-    console.error("Configuration Failed: Missing Local DB");
+    console.error("Configuration Failed: Missing Cloudflare Credentials");
     process.exit(1);
   }
 
@@ -23,6 +29,7 @@ if (process.env.ENVIRONMENT === "production") {
     schema: './src/db/schema.ts',
     dialect: 'sqlite',
     driver: 'd1-http',
+    casing: "snake_case",
     dbCredentials: {
       accountId: CLOUDFLARE_ACCOUNT_ID,
       databaseId: CLOUDFLARE_DATABASE_ID,
@@ -44,6 +51,7 @@ if (process.env.ENVIRONMENT === "production") {
     out: './drizzle/migrations',
     schema: './src/db/schema.ts',
     dialect: 'sqlite',
+    casing: "snake_case",
     dbCredentials: {
       url: localDbPath,
     },
