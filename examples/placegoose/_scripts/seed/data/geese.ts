@@ -1,4 +1,4 @@
-import type { Goose } from "../schema";
+import type { Goose } from "../../../src/db/schema";
 
 const geese: Goose[] = [
   {

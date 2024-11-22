@@ -6,7 +6,8 @@
     "db:touch": "wrangler d1 execute placegoose-d1 --local --command='SELECT 1'",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply placegoose-d1 --local",
-    "db:seed": "tsx src/db/seed.ts",
+    "db:migrate:prod": "ENVIRONMENT=production drizzle-kit migrate",
+    "db:seed": "tsx _scripts/seed/index.ts",
     "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
     "fiberplane": "fpx",
     "lint": "npx biome check --write src"
@@ -14,9 +15,10 @@
   "dependencies": {
     "@hono-rate-limiter/cloudflare": "^0.2.1",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.36.0",
+    "drizzle-orm": "^0.36.4",
     "hono": "^4.6.11",
     "hono-rate-limiter": "^0.4.0",
+    "marked": "^15.0.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

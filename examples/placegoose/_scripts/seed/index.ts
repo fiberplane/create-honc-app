@@ -1,9 +1,9 @@
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 
-import * as schema from "./schema";
-import * as seedData from "./seedData";
-import { getLocalD1DBPath } from "./utils";
+import * as schema from "../../src/db/schema";
+import { getLocalD1DBPath } from "../../src/db/utils";
+import * as seedData from "./data";
 
 async function seedLocalDatabase() {
   try {
@@ -18,7 +18,7 @@ async function seedLocalDatabase() {
       url: `file:${dbPath}`,
     });
 
-    const db = drizzle(client);
+    const db = drizzle(client, { casing: "snake_case" });
     console.log("Seeding database...");
 
     await db.batch([
