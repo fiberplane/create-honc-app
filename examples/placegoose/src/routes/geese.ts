@@ -1,10 +1,10 @@
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 
 import { getGooseById } from "../controllers";
+import { getDb } from "../db";
 import * as schema from "../db/schema";
 import { validateIdParam } from "../lib/validation";
 import type { DatabaseBindings } from "../types";
@@ -13,7 +13,7 @@ const geeseApp = new Hono<{ Bindings: DatabaseBindings }>();
 
 // Get all Geese
 geeseApp.get("/", async (c) => {
-  const db = drizzle(c.env.DB);
+  const db = getDb(c.env.DB);
   const geese = await db.select().from(schema.geese);
 
   return c.json(geese);
@@ -23,7 +23,7 @@ geeseApp.get("/", async (c) => {
 geeseApp.get("/:id", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
-  const db = drizzle(c.env.DB);
+  const db = getDb(c.env.DB);
   const gooseById = await getGooseById(db, id);
 
   if (!gooseById) {
@@ -39,7 +39,7 @@ geeseApp.get("/:id", validator("param", validateIdParam), async (c) => {
 geeseApp.get("/:id/honks", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
-  const db = drizzle(c.env.DB);
+  const db = getDb(c.env.DB);
   const gooseById = await getGooseById(db, id);
 
   if (!gooseById) {

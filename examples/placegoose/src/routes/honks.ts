@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 import { z } from "zod";
 
 import { getGooseById, getHonkById } from "../controllers";
+import { getDb } from "../db";
 import * as schema from "../db/schema";
 import { generateId } from "../lib/utils";
 import {
@@ -41,7 +41,7 @@ honksApp.get(
   async (c) => {
     const { gooseId } = c.req.valid("query");
 
-    const db = drizzle(c.env.DB);
+    const db = getDb(c.env.DB);
     let honks: schema.Honk[];
 
     if (gooseId) {
@@ -73,7 +73,7 @@ honksApp.post(
     const honkData = c.req.valid("json");
     const gooseId = honkData.gooseId;
 
-    const db = drizzle(c.env.DB);
+    const db = getDb(c.env.DB);
     const gooseById = await getGooseById(db, gooseId);
 
     if (!gooseById) {
@@ -95,7 +95,7 @@ honksApp.post(
 honksApp.get("/:id", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
-  const db = drizzle(c.env.DB);
+  const db = getDb(c.env.DB);
   const honkById = await getHonkById(db, id);
 
   if (!honkById) {
@@ -117,7 +117,7 @@ honksApp.patch(
     // todo: should gooseId be mutable? should there be info about this?
     const { decibels } = c.req.valid("json");
 
-    const db = drizzle(c.env.DB);
+    const db = getDb(c.env.DB);
     const honkById = await getHonkById(db, id);
 
     if (!honkById) {
@@ -146,7 +146,7 @@ honksApp.put(
     // todo: should gooseId be mutable?
     const honkData = c.req.valid("json");
 
-    const db = drizzle(c.env.DB);
+    const db = getDb(c.env.DB);
     const honkById = await getHonkById(db, id);
 
     if (!honkById) {
@@ -168,7 +168,7 @@ honksApp.put(
 honksApp.delete("/:id", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
-  const db = drizzle(c.env.DB);
+  const db = getDb(c.env.DB);
   const honkById = await getHonkById(db, id);
 
   if (!honkById) {

@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 import { z } from "zod";
 
 import { getGaggleById } from "../controllers";
+import { getDb } from "../db";
 import * as schema from "../db/schema";
 import { generateId } from "../lib/utils";
 import { makeBodyValidator, validateIdParam } from "../lib/validation";
@@ -20,7 +20,7 @@ const gagglesApp = new Hono<{ Bindings: DatabaseBindings }>();
 
 // Get all Gaggles
 gagglesApp.get("/", async (c) => {
-  const db = drizzle(c.env.DB);
+  const db = getDb(c.env.DB);
   const gaggles = await db.select().from(schema.gaggles);
 
   return c.json(gaggles);
@@ -46,7 +46,7 @@ gagglesApp.post(
 gagglesApp.get("/:id", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
-  const db = drizzle(c.env.DB);
+  const db = getDb(c.env.DB);
   const gaggleById = await getGaggleById(db, id);
 
   if (!gaggleById) {
@@ -62,7 +62,7 @@ gagglesApp.get("/:id", validator("param", validateIdParam), async (c) => {
 gagglesApp.get("/:id/geese", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
-  const db = drizzle(c.env.DB);
+  const db = getDb(c.env.DB);
   const gaggleById = await getGaggleById(db, id);
 
   if (!gaggleById) {
@@ -88,7 +88,7 @@ gagglesApp.put(
     const { id } = c.req.valid("param");
     const gaggleData = c.req.valid("json");
 
-    const db = drizzle(c.env.DB);
+    const db = getDb(c.env.DB);
     const gaggleById = await getGaggleById(db, id);
 
     if (!gaggleById) {
@@ -110,7 +110,7 @@ gagglesApp.put(
 gagglesApp.delete("/:id", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
-  const db = drizzle(c.env.DB);
+  const db = getDb(c.env.DB);
   const gaggleById = await getGaggleById(db, id);
 
   if (!gaggleById) {
