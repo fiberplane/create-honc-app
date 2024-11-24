@@ -25,10 +25,10 @@ if (process.env.ENVIRONMENT === "production") {
   }
 
   drizzleConfig = defineConfig({
-    out: './drizzle/migrations',
-    schema: './src/db/schema.ts',
-    dialect: 'sqlite',
-    driver: 'd1-http',
+    out: "./drizzle/migrations",
+    schema: "./src/db/schema.ts",
+    dialect: "sqlite",
+    driver: "d1-http",
     casing: "snake_case",
     dbCredentials: {
       accountId: CLOUDFLARE_ACCOUNT_ID,
@@ -48,9 +48,9 @@ if (process.env.ENVIRONMENT === "production") {
   }
 
   drizzleConfig = defineConfig({
-    out: './drizzle/migrations',
-    schema: './src/db/schema.ts',
-    dialect: 'sqlite',
+    out: "./drizzle/migrations",
+    schema: "./src/db/schema.ts",
+    dialect: "sqlite",
     casing: "snake_case",
     dbCredentials: {
       url: localDbPath,
