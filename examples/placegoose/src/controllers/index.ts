@@ -1,24 +1,16 @@
 import { eq, sql } from "drizzle-orm";
+import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type {
   SQLiteColumn,
   SQLiteTableWithColumns,
 } from "drizzle-orm/sqlite-core";
 import { HTTPException } from "hono/http-exception";
-
 import * as schema from "../db/schema";
-import type { DrizzleClient } from "../types";
 
-type ColumnWithId = {
-  id: SQLiteColumn;
-};
-
-type SQLiteTableWithIdColumn<T extends ColumnWithId> = SQLiteTableWithColumns<{
-  name: string;
-  schema: undefined;
-  columns: T;
-  dialect: "sqlite";
-}>;
-
+/**
+ * Throws if multiple records found with same id
+ * @returns Row data or undefined
+ */
 export async function getRowById<T extends ColumnWithId>(
   db: DrizzleClient,
   table: SQLiteTableWithIdColumn<T>,
@@ -32,9 +24,15 @@ export async function getRowById<T extends ColumnWithId>(
     });
   }
 
+  // todo: return null?
   return rowsById.at(0);
 }
 
+/**
+ * Use subquery to verify row's existence by id.
+ * Disregards possibility of id duplication
+ * @returns boolean
+ */
 export async function getRowExists<T extends ColumnWithId>(
   db: DrizzleClient,
   table: SQLiteTableWithIdColumn<T>,
@@ -58,3 +56,18 @@ export async function getGooseById(db: DrizzleClient, id: number) {
 export async function getHonkById(db: DrizzleClient, id: number) {
   return getRowById(db, schema.honks, id);
 }
+
+type DrizzleClient = DrizzleD1Database<Record<string, never>> & {
+  $client: D1Database;
+};
+
+type ColumnWithId = {
+  id: SQLiteColumn;
+};
+
+type SQLiteTableWithIdColumn<T extends ColumnWithId> = SQLiteTableWithColumns<{
+  name: string;
+  schema: undefined;
+  columns: T;
+  dialect: "sqlite";
+}>;

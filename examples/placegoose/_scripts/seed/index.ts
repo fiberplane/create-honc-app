@@ -18,6 +18,7 @@ async function seedLocalDatabase() {
       url: `file:${dbPath}`,
     });
 
+    // Ensure client expects snake_case column names
     const db = drizzle(client, { casing: "snake_case" });
     console.log("Seeding database...");
 

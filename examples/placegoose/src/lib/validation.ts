@@ -10,6 +10,7 @@ export function makeBodyValidator<T extends Record<string, unknown>>(
 ) {
   return (body: unknown) => {
     try {
+      // Return value must be consistent with shape of "body"
       return parse(body);
     } catch (error) {
       console.error(error);
@@ -49,5 +50,6 @@ export function validateIdParam(params: Record<string, string>, c: Context) {
     });
   }
 
+  // Return value must be consistent with shape of "params"
   return { id: validateId(idParam) };
 }

@@ -36,6 +36,7 @@ enabled = true
 # head_sampling_rate = 1
 
 # The rate limiting API is in open beta.
+# https://www.npmjs.com/package/@hono-rate-limiter/cloudflare
 [[unsafe.bindings]]
 name = "RATE_LIMITER"
 type = "ratelimit"

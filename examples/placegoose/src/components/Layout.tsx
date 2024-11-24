@@ -1,11 +1,10 @@
-
 export default function Layout({ children }: { children?: unknown }) {
   const meta = {
     title: "",
     description: "",
     domain: "placegoose.dev",
     url: "https://placegoose.dev",
-  }
+  };
 
   return (
     <html lang="en-US">
@@ -26,9 +25,24 @@ export default function Layout({ children }: { children?: unknown }) {
         <meta name="twitter:description" content={meta.description} />
         <title>PlaceGoose</title>
         <link rel="stylesheet" href="static/styles.css" />
-        <link rel="apple-touch-icon" type="image/png" sizes="16x16" href="static/favicon/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="static/favicon/16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="static/favicon/32x32.png" />
+        <link
+          rel="apple-touch-icon"
+          type="image/png"
+          sizes="16x16"
+          href="static/favicon/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="static/favicon/16x16.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="static/favicon/32x32.png"
+        />
       </head>
       <div>
         <h1>PlaceGoose</h1>

@@ -1,18 +1,17 @@
 import { instrument } from "@fiberplane/hono-otel";
+import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { HTTPException } from "hono/http-exception";
 import { raw } from "hono/html";
+import { HTTPException } from "hono/http-exception";
 import { jsxRenderer } from "hono/jsx-renderer";
-import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
-import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
-import Prism from "prismjs";
 
 import Layout from "./components/Layout";
+import { mdToHtml } from "./lib/markdown";
 import homePage from "./pages/index.md";
 import * as routes from "./routes";
 
+// Used to type Hono Context object, making bindings available
 type AppType = {
   Variables: {
     rateLimit: boolean;
@@ -24,28 +23,15 @@ type AppType = {
 
 const app = new Hono<AppType>();
 
-app.use("/", cors());
-
-const marked = new Marked(
-  markedHighlight({
-    emptyLangClass: "hljs",
-    langPrefix: "hljs language-",
-    highlight: (code) => {
-      return Prism.highlight(
-        code, 
-        Prism.languages.javascript, 
-        "javascript"
-      );
-    }
-  })
-);
+app.use("*", cors());
 
 app.get("/", jsxRenderer(Layout), (c) => {
   // todo: this seems off
-  const content = marked.parse(homePage);
+  const content = mdToHtml(homePage);
   return c.render(raw(content));
 });
 
+// https://www.npmjs.com/package/@hono-rate-limiter/cloudflare
 app.use(
   cloudflareRateLimiter<AppType>({
     rateLimitBinding: (c) => c.env.RATE_LIMITER,
@@ -62,6 +48,7 @@ app.route("/honks", routes.honks);
 app.onError((error, c) => {
   console.error(error);
 
+  // Handle formatted errors thrown by app or hono
   if (error instanceof HTTPException) {
     return c.text(error.message, error.status);
   }

@@ -144,7 +144,7 @@ honksApp.put(
   async (c) => {
     const { id } = c.req.valid("param");
     // todo: should gooseId be mutable?
-    const honkData = c.req.valid("json");
+    const { decibels } = c.req.valid("json");
 
     const db = getDb(c.env.DB);
     const honkById = await getHonkById(db, id);
@@ -157,7 +157,7 @@ honksApp.put(
 
     const updatedHonk: schema.Honk = {
       ...honkById,
-      ...honkData,
+      decibels,
     };
 
     return c.json(updatedHonk);

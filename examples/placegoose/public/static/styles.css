@@ -73,6 +73,8 @@ pre {
   overflow-x: auto;
 }
 
+// #region Prism.js classes for styling code syntax
+
 .token.constant {
   color: rgba(241, 95, 41, 1);
 }
@@ -85,9 +87,11 @@ pre {
   color: rgba(255, 181, 157, 1);
 }
 
-.token.string {
+.token.string, .token.string-property {
   color: rgba(246, 210, 82, 1);
 }
+
+// #endregion
 
 @media only screen and (min-device-width: 600px) {
   body {
