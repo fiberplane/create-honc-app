@@ -19,6 +19,8 @@
     "hono": "^4.6.11",
     "hono-rate-limiter": "^0.4.0",
     "marked": "^15.0.2",
+    "marked-highlight": "^2.2.1",
+    "prismjs": "^1.29.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -27,6 +29,7 @@
     "@fiberplane/hono-otel": "latest",
     "@fiberplane/studio": "latest",
     "@libsql/client": "^0.14.0",
+    "@types/prismjs": "^1.26.5",
     "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",
     "wrangler": "^3.88.0"

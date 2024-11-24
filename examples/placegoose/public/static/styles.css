@@ -1,0 +1,101 @@
+@font-face {
+  font-family:Inter;
+  font-style:normal;
+  font-weight:300 800;
+  src:local("Inter"),
+  url(/static/fonts/Inter.woff2) format("woff2");
+  font-display:swap
+}
+
+@font-face {
+  font-family:Silkscreen;
+  font-style:bold;
+  font-weight:700;
+  src:local("Silkscreen"),
+  url(/static/fonts/Silkscreen-Bold.woff2) format("woff2");
+  font-display:swap
+}
+
+@font-face {
+  font-family:Fira Code;
+  font-style:normal;
+  font-weight:400;
+  src:local("Fira Code"),
+  url(/static/fonts/FiraCode.woff2) format("woff2");
+  font-display:swap
+}
+
+@font-face {
+  font-family:Departure Mono;
+  font-style:normal;
+  font-weight:400;
+  src:local("Departure Mono"),
+  url(/static/fonts/DepartureMono-Regular.woff2) format("woff2");
+  font-display:swap
+}
+
+body {
+  background-color: rgba(19, 9, 0, 1);
+  color: rgba(255, 255, 255, 1);
+  font-family: Inter, sans-serif;
+  padding: 8px;
+}
+
+code {
+  font-family: "Fira Code";
+}
+
+h1 {
+  font-family: Silkscreen, sans-serif;
+  font-size: 2.4rem;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 8px;
+  border-bottom: solid rgba(241, 95, 41, 0.8) 2px;
+}
+
+p {
+  background-color: rgba(28, 22, 18, 1);
+  color: rgba(211, 211, 211, 1);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  margin-bottom: 24px;
+  margin-top: 0;
+  padding: 16px;
+  overflow-wrap: break-word;
+}
+
+pre {
+  background-color: rgba(28, 22, 18, 1);
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.token.constant {
+  color: rgba(241, 95, 41, 1);
+}
+
+.token.function {
+  color: rgba(55, 160, 218, 1);
+}
+
+.token.property {
+  color: rgba(255, 181, 157, 1);
+}
+
+.token.string {
+  color: rgba(246, 210, 82, 1);
+}
+
+@media only screen and (min-device-width: 600px) {
+  body {
+    padding: 8px 25%;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 46px;
+  }
+}
