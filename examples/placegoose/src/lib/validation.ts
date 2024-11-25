@@ -34,7 +34,7 @@ export function validateId(value: string | string[]) {
     });
   }
 
-  return Number(value);
+  return Number.parseInt(value);
 }
 
 /**

@@ -2,13 +2,16 @@
 
 ### todo
 - rate-limit config
+    - rate check on ip
 - cors config
 - page rendering
 - abstraction of db calls
+    - rel update business logic
 - error responses
 - landing page
-- deployment instructions
-- rel update business logic
+- deployment instructionså
+- type drilling
+
 
 ## Deployment
 To deploy the app, you'll need to provision and configure a production D1 instance.
