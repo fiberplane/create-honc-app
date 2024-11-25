@@ -4,7 +4,11 @@ import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 import { z } from "zod";
 
-import { getGooseById, getHonkById } from "../controllers";
+import {
+  getGooseByIdExists,
+  getHonkById,
+  getHonkByIdExists,
+} from "../controllers";
 import { getDb } from "../db";
 import * as schema from "../db/schema";
 import { generateId } from "../lib/utils";
@@ -13,20 +17,16 @@ import {
   validateId,
   validateIdParam,
 } from "../lib/validation";
-import type { DatabaseBindings } from "../types";
+import type { AppType } from "../types";
 
 const ZHonkInsert = z.object({
   gooseId: z.number(),
   decibels: z.number(),
 });
 
-const ZHonkUpdate = z
-  .object({
-    decibels: z.number(),
-  })
-  .partial();
+const ZHonkUpdate = ZHonkInsert.omit({ gooseId: true });
 
-const honksApp = new Hono<{ Bindings: DatabaseBindings }>();
+const honksApp = new Hono<AppType>();
 
 // Get all Honks (or just those from Goose specified by gooseId)
 honksApp.get(
@@ -45,9 +45,9 @@ honksApp.get(
     let honks: schema.Honk[];
 
     if (gooseId) {
-      const gooseById = await getGooseById(db, gooseId);
+      const gooseExists = await getGooseByIdExists(db, gooseId);
 
-      if (!gooseById) {
+      if (!gooseExists) {
         throw new HTTPException(404, {
           message: `No Geese with ID ${gooseId}`,
         });
@@ -74,9 +74,9 @@ honksApp.post(
     const gooseId = honkData.gooseId;
 
     const db = getDb(c.env.DB);
-    const gooseById = await getGooseById(db, gooseId);
+    const gooseExists = await getGooseByIdExists(db, gooseId);
 
-    if (!gooseById) {
+    if (!gooseExists) {
       throw new HTTPException(404, {
         message: `No Geese with ID ${gooseId}`,
       });
@@ -114,8 +114,14 @@ honksApp.patch(
   validator("json", makeBodyValidator(ZHonkUpdate.parse)),
   async (c) => {
     const { id } = c.req.valid("param");
-    // todo: should gooseId be mutable? should there be info about this?
     const { decibels } = c.req.valid("json");
+
+    const includesGooseId = Boolean((await c.req.json()).gooseId);
+    if (includesGooseId) {
+      throw new HTTPException(400, {
+        message: "Honks cannot be reassigned to a different Goose",
+      });
+    }
 
     const db = getDb(c.env.DB);
     const honkById = await getHonkById(db, id);
@@ -140,11 +146,17 @@ honksApp.patch(
 honksApp.put(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZHonkInsert.parse)),
+  validator("json", makeBodyValidator(ZHonkUpdate.parse)),
   async (c) => {
     const { id } = c.req.valid("param");
-    // todo: should gooseId be mutable?
     const { decibels } = c.req.valid("json");
+
+    const includesGooseId = Boolean((await c.req.json()).gooseId);
+    if (includesGooseId) {
+      throw new HTTPException(400, {
+        message: "Honks cannot be reassigned to a different Goose",
+      });
+    }
 
     const db = getDb(c.env.DB);
     const honkById = await getHonkById(db, id);
@@ -169,9 +181,9 @@ honksApp.delete("/:id", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
   const db = getDb(c.env.DB);
-  const honkById = await getHonkById(db, id);
+  const honkExists = await getHonkByIdExists(db, id);
 
-  if (!honkById) {
+  if (!honkExists) {
     throw new HTTPException(404, {
       message: `No Honks with ID ${id}`,
     });

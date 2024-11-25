@@ -9,26 +9,15 @@ import { jsxRenderer } from "hono/jsx-renderer";
 
 import Layout from "./components/Layout";
 import { mdToHtml } from "./lib/markdown";
-import { isProduction } from "./lib/utils";
 import homePage from "./pages/index.md";
 import * as routes from "./routes";
-
-// Used to type Hono Context object, making bindings available
-type AppType = {
-  Variables: {
-    rateLimit: boolean;
-  };
-  Bindings: {
-    RATE_LIMITER: RateLimit;
-  };
-};
+import type { AppType } from "./types";
 
 const app = new Hono<AppType>();
 
 app.use("*", cors());
 
 app.get("/", jsxRenderer(Layout), (c) => {
-  // todo: this seems off
   const content = mdToHtml(homePage);
   return c.render(raw(content));
 });
@@ -38,7 +27,7 @@ app.use(
   cloudflareRateLimiter<AppType>({
     rateLimitBinding: (c) => c.env.RATE_LIMITER,
     keyGenerator: (c) => {
-      if (isProduction()) {
+      if (c.env.ENVIRONMENT === "production") {
         return getConnInfo(c).remote.address ?? "";
       }
 
@@ -58,10 +47,20 @@ app.onError((error, c) => {
 
   // Handle formatted errors thrown by app or hono
   if (error instanceof HTTPException) {
-    return c.text(error.message, error.status);
+    return c.json(
+      {
+        message: error.message,
+      },
+      error.status,
+    );
   }
 
-  return c.text("Something went wrong", 500);
+  return c.json(
+    {
+      message: "Something went wrong",
+    },
+    500,
+  );
 });
 
 export default instrument(app);

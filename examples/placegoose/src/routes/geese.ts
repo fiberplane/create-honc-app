@@ -3,13 +3,13 @@ import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 
-import { getGooseById } from "../controllers";
+import { getGooseById, getGooseByIdExists } from "../controllers";
 import { getDb } from "../db";
 import * as schema from "../db/schema";
 import { validateIdParam } from "../lib/validation";
-import type { DatabaseBindings } from "../types";
+import type { AppType } from "../types";
 
-const geeseApp = new Hono<{ Bindings: DatabaseBindings }>();
+const geeseApp = new Hono<AppType>();
 
 // Get all Geese
 geeseApp.get("/", async (c) => {
@@ -40,9 +40,9 @@ geeseApp.get("/:id/honks", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
   const db = getDb(c.env.DB);
-  const gooseById = await getGooseById(db, id);
+  const gooseExists = await getGooseByIdExists(db, id);
 
-  if (!gooseById) {
+  if (!gooseExists) {
     throw new HTTPException(404, {
       message: `No Geese with ID ${id}`,
     });

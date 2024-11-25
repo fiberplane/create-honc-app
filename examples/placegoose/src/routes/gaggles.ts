@@ -4,19 +4,19 @@ import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
 import { z } from "zod";
 
-import { getGaggleById } from "../controllers";
+import { getGaggleById, getGaggleByIdExists } from "../controllers";
 import { getDb } from "../db";
 import * as schema from "../db/schema";
 import { generateId } from "../lib/utils";
 import { makeBodyValidator, validateIdParam } from "../lib/validation";
-import type { DatabaseBindings } from "../types";
+import type { AppType } from "../types";
 
 const ZGaggleInsert = z.object({
   name: z.string().min(1),
   territory: z.string().min(1).nullable(),
 });
 
-const gagglesApp = new Hono<{ Bindings: DatabaseBindings }>();
+const gagglesApp = new Hono<AppType>();
 
 // Get all Gaggles
 gagglesApp.get("/", async (c) => {
@@ -63,9 +63,9 @@ gagglesApp.get("/:id/geese", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
   const db = getDb(c.env.DB);
-  const gaggleById = await getGaggleById(db, id);
+  const gaggleExists = await getGaggleByIdExists(db, id);
 
-  if (!gaggleById) {
+  if (!gaggleExists) {
     throw new HTTPException(404, {
       message: `No Gaggle with ID ${id}`,
     });
@@ -111,9 +111,9 @@ gagglesApp.delete("/:id", validator("param", validateIdParam), async (c) => {
   const { id } = c.req.valid("param");
 
   const db = getDb(c.env.DB);
-  const gaggleById = await getGaggleById(db, id);
+  const gaggleExists = await getGaggleByIdExists(db, id);
 
-  if (!gaggleById) {
+  if (!gaggleExists) {
     throw new HTTPException(404, {
       message: `No Gaggle with ID ${id}`,
     });

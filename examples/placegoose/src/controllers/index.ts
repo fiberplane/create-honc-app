@@ -7,11 +7,35 @@ import type {
 import { HTTPException } from "hono/http-exception";
 import * as schema from "../db/schema";
 
+export async function getGaggleById(db: DrizzleClient, id: number) {
+  return getRowById(db, schema.gaggles, id);
+}
+
+export async function getGooseById(db: DrizzleClient, id: number) {
+  return getRowById(db, schema.geese, id);
+}
+
+export async function getHonkById(db: DrizzleClient, id: number) {
+  return getRowById(db, schema.honks, id);
+}
+
+export async function getGaggleByIdExists(db: DrizzleClient, id: number) {
+  return getRowByIdExists(db, schema.gaggles, id);
+}
+
+export async function getGooseByIdExists(db: DrizzleClient, id: number) {
+  return getRowByIdExists(db, schema.geese, id);
+}
+
+export async function getHonkByIdExists(db: DrizzleClient, id: number) {
+  return getRowByIdExists(db, schema.honks, id);
+}
+
 /**
  * Throws if multiple records found with same id
  * @returns Row data or undefined
  */
-export async function getRowById<T extends ColumnWithId>(
+async function getRowById<T extends ColumnWithId>(
   db: DrizzleClient,
   table: SQLiteTableWithIdColumn<T>,
   id: number,
@@ -33,7 +57,7 @@ export async function getRowById<T extends ColumnWithId>(
  * Disregards possibility of id duplication
  * @returns boolean
  */
-export async function getRowExists<T extends ColumnWithId>(
+async function getRowByIdExists<T extends ColumnWithId>(
   db: DrizzleClient,
   table: SQLiteTableWithIdColumn<T>,
   id: number,
@@ -45,19 +69,7 @@ export async function getRowExists<T extends ColumnWithId>(
   return !!rowExists;
 }
 
-export async function getGaggleById(db: DrizzleClient, id: number) {
-  return getRowById(db, schema.gaggles, id);
-}
-
-export async function getGooseById(db: DrizzleClient, id: number) {
-  return getRowById(db, schema.geese, id);
-}
-
-export async function getHonkById(db: DrizzleClient, id: number) {
-  return getRowById(db, schema.honks, id);
-}
-
-type DrizzleClient = DrizzleD1Database<Record<string, never>> & {
+type DrizzleClient = DrizzleD1Database<DBSchema> & {
   $client: D1Database;
 };
 
