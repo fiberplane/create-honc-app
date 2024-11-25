@@ -1,6 +1,7 @@
 import { instrument } from "@fiberplane/hono-otel";
 import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
 import { Hono } from "hono";
+import { getConnInfo } from 'hono/cloudflare-workers'
 import { cors } from "hono/cors";
 import { raw } from "hono/html";
 import { HTTPException } from "hono/http-exception";
@@ -10,6 +11,7 @@ import Layout from "./components/Layout";
 import { mdToHtml } from "./lib/markdown";
 import homePage from "./pages/index.md";
 import * as routes from "./routes";
+import { isProduction } from "./lib/utils";
 
 // Used to type Hono Context object, making bindings available
 type AppType = {
@@ -35,7 +37,13 @@ app.get("/", jsxRenderer(Layout), (c) => {
 app.use(
   cloudflareRateLimiter<AppType>({
     rateLimitBinding: (c) => c.env.RATE_LIMITER,
-    keyGenerator: (c) => c.req.header("cf-connecting-ip") ?? "",
+    keyGenerator: (c) => {
+      if (isProduction()) {
+        return getConnInfo(c).remote.address ?? "";
+      }
+
+      return "localhost";
+    },
   }),
 );
 
