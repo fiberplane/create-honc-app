@@ -69,7 +69,7 @@ async function getRowByIdExists<T extends ColumnWithId>(
   return !!rowExists;
 }
 
-type DrizzleClient = DrizzleD1Database<DBSchema> & {
+type DrizzleClient = DrizzleD1Database<typeof schema> & {
   $client: D1Database;
 };
 
