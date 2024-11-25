@@ -2,7 +2,7 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 const metadata = {
   id: integer({ mode: "number" }).primaryKey(),
-}
+};
 
 export type Gaggle = typeof gaggles.$inferSelect;
 export const gaggles = sqliteTable("gaggles", {
@@ -13,7 +13,7 @@ export const gaggles = sqliteTable("gaggles", {
 
 export type Goose = typeof geese.$inferSelect;
 export const geese = sqliteTable("geese", {
-    ...metadata,
+  ...metadata,
   gaggleId: integer({ mode: "number" }).references(() => gaggles.id),
   name: text().notNull(),
   isMigratory: integer({ mode: "boolean" }).notNull().default(true),
@@ -24,9 +24,9 @@ export const geese = sqliteTable("geese", {
 
 export type Honk = typeof honks.$inferSelect;
 export const honks = sqliteTable("honks", {
-    ...metadata,
+  ...metadata,
   gooseId: integer()
-    .references(() => geese.id)
-    .notNull(),
+    .notNull()
+    .references(() => geese.id),
   decibels: integer().notNull(),
 });

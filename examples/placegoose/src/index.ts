@@ -1,7 +1,7 @@
 import { instrument } from "@fiberplane/hono-otel";
 import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
 import { Hono } from "hono";
-import { getConnInfo } from 'hono/cloudflare-workers'
+import { getConnInfo } from "hono/cloudflare-workers";
 import { cors } from "hono/cors";
 import { raw } from "hono/html";
 import { HTTPException } from "hono/http-exception";
@@ -9,9 +9,9 @@ import { jsxRenderer } from "hono/jsx-renderer";
 
 import Layout from "./components/Layout";
 import { mdToHtml } from "./lib/markdown";
+import { isProduction } from "./lib/utils";
 import homePage from "./pages/index.md";
 import * as routes from "./routes";
-import { isProduction } from "./lib/utils";
 
 // Used to type Hono Context object, making bindings available
 type AppType = {
