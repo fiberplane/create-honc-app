@@ -25,7 +25,8 @@ rules = [
 [[d1_databases]]
 binding = "DB"
 database_name = "placegoose-d1"
-database_id = "local-placegoose-d1"
+# Update when connecting to a production db
+database_id = "2047c000-8986-49c1-8ccc-91c8edaa6f97"
 migrations_dir = "drizzle/migrations"
 
 # [ai]
@@ -42,7 +43,7 @@ name = "RATE_LIMITER"
 type = "ratelimit"
 # An identifier you define, that is unique to your Cloudflare account.
 # Must be an integer.
-namespace_id = "1001"
+namespace_id = "6666"
 
 # Limit: the number of tokens allowed within a given period in a single
 # Cloudflare location
