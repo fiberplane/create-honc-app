@@ -1,9 +1,5 @@
 # placegoose
 
-### todo
-- use measure to introspect on mdToHtml
-- type drilling
-
 ## Deployment
 To deploy the app, you'll need to provision and configure a production D1 instance.
 ```sh

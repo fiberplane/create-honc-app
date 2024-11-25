@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm";
+import { type ColumnBaseConfig, eq, sql } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type {
   SQLiteColumn,
@@ -40,6 +40,7 @@ async function getRowById<T extends ColumnWithId>(
   table: SQLiteTableWithIdColumn<T>,
   id: number,
 ) {
+  // todo: drizzle doesn't know that id needs to be a number here
   const rowsById = await db.select().from(table).where(eq(table.id, id));
 
   if (rowsById.length > 1) {
@@ -74,7 +75,7 @@ type DrizzleClient = DrizzleD1Database<typeof schema> & {
 };
 
 type ColumnWithId = {
-  id: SQLiteColumn;
+  id: SQLiteColumn<ColumnBaseConfig<"number", "SQLiteInteger">>;
 };
 
 type SQLiteTableWithIdColumn<T extends ColumnWithId> = SQLiteTableWithColumns<{
