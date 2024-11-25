@@ -6,3 +6,7 @@ function getNumberBetween(min: number, max: number) {
 export function generateId() {
   return getNumberBetween(50, 100);
 }
+
+export function isProduction() {
+  return process.env.ENVIRONMENT === "production";
+}

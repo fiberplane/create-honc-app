@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import { type Config, defineConfig } from "drizzle-kit";
 
 import { getLocalD1DBPath } from "./src/db/utils";
+import { isProduction } from "./src/lib/utils";
 
 let drizzleConfig: Config;
 
@@ -12,7 +13,7 @@ let drizzleConfig: Config;
  * env from accidentally being applied to another
  */
 
-if (process.env.ENVIRONMENT === "production") {
+if (isProduction()) {
   config({ path: "./.prod.vars" });
 
   const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
