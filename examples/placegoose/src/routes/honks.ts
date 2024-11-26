@@ -118,8 +118,8 @@ honksApp.patch(
 
     const includesGooseId = Boolean((await c.req.json()).gooseId);
     if (includesGooseId) {
-      throw new HTTPException(400, {
-        message: "Honks cannot be reassigned to a different Goose",
+      throw new HTTPException(403, {
+        message: "Honks are read-only properties",
       });
     }
 
@@ -132,7 +132,6 @@ honksApp.patch(
       });
     }
 
-    // todo: how does patch work? relations?
     const updatedHonk: schema.Honk = {
       ...honkById,
       ...(decibels && { decibels }),
@@ -153,8 +152,8 @@ honksApp.put(
 
     const includesGooseId = Boolean((await c.req.json()).gooseId);
     if (includesGooseId) {
-      throw new HTTPException(400, {
-        message: "Honks cannot be reassigned to a different Goose",
+      throw new HTTPException(403, {
+        message: "Honks are read-only properties",
       });
     }
 

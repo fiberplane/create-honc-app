@@ -35,14 +35,40 @@
 }
 
 body {
-  background-color: rgba(19, 9, 0, 1);
-  color: rgba(255, 255, 255, 1);
-  font-family: Inter, sans-serif;
+  height: 100vh;
   padding: 8px;
+  background-color: rgba(19, 9, 0, 1);
+  color: rgba(211, 211, 211, 1);
+  font-family: Inter, sans-serif;
+}
+
+a {
+  color: rgba(241, 95, 41, 1);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 code {
   font-family: "Fira Code";
+}
+
+em {
+  color: rgba(211, 211, 211, 0.8);
+}
+
+footer {
+  padding: 16px;
+  padding-top: 24px;
+  font-family: "Departure Mono";
+  text-align: center;
+}
+
+h1, h2, h3 {
+  padding-top: 8px;
+  color: rgba(255, 255, 255, 1);
 }
 
 h1 {
@@ -51,29 +77,85 @@ h1 {
   text-align: center;
 }
 
-h2 {
+h2, h3, h4 {
   margin-bottom: 8px;
+}
+
+h2 {
   border-bottom: solid rgba(241, 95, 41, 0.8) 2px;
 }
 
 p {
-  background-color: rgba(28, 22, 18, 1);
+  padding: 0 16px;
+  overflow-wrap: break-word;
   color: rgba(211, 211, 211, 1);
   font-size: 1.125rem;
   line-height: 1.75rem;
-  margin-bottom: 24px;
-  margin-top: 0;
-  padding: 16px;
-  overflow-wrap: break-word;
 }
 
 pre {
-  background-color: rgba(28, 22, 18, 1);
   padding: 16px;
   overflow-x: auto;
+  background-color: rgba(28, 22, 18, 1);
 }
 
-// #region Prism.js classes for styling code syntax
+table {
+  margin-bottom: 24px;
+  padding: 0 16px;
+  border-collapse: separate;
+  border-spacing: 8px 4px;
+  font-size: 1.1em;
+}
+
+td {
+  min-width: fit-content;
+}
+
+td:first-of-type {
+  white-space: nowrap;
+}
+
+th {
+  text-align: left;
+}
+
+li {
+  padding: 8px 0;
+  font-size: 1.1em;
+}
+
+/* Responsive Styles */
+
+@media only screen and (min-device-width: 640px) {
+  main {
+    max-width: 75%;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 46px;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) {
+  main {
+    max-width: 60%;
+  }
+}
+
+
+@media only screen and (min-device-width: 1280px) {
+  main {
+    max-width: 900px;
+  }
+}
+
+/* Prism.js classes for styling code syntax */
+
+.token.comment {
+  color: rgba(211, 211, 211, 0.6);
+}
 
 .token.constant {
   color: rgba(241, 95, 41, 1);
@@ -87,19 +169,10 @@ pre {
   color: rgba(255, 181, 157, 1);
 }
 
-.token.string, .token.string-property {
-  color: rgba(246, 210, 82, 1);
+.token.punctuation {
+  color: rgba(255, 255, 255, 0.9);
 }
 
-// #endregion
-
-@media only screen and (min-device-width: 600px) {
-  body {
-    padding: 8px 25%;
-  }
-
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 46px;
-  }
+.token.string, .token.string-property.property {
+  color: rgba(246, 210, 82, 1);
 }

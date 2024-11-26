@@ -24,7 +24,7 @@ export default function Layout({ children }: { children?: unknown }) {
         <meta name="twitter:url" content={meta.url} />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
-        <title>PlaceGoose</title>
+        <title>Placegoose</title>
         <link rel="stylesheet" href="static/styles.css" />
         <link
           rel="apple-touch-icon"
@@ -45,10 +45,17 @@ export default function Layout({ children }: { children?: unknown }) {
           href="static/favicon/32x32.png"
         />
       </head>
-      <div>
-        <h1>PlaceGoose</h1>
-      </div>
-      <body>{children}</body>
+      <body>
+        <header>
+          <h1>Placegoose</h1>
+        </header>
+        <main>
+          {children}
+        </main>
+        <footer>
+          Built with 🪿 by Fiberplane
+        </footer>
+      </body>
     </html>
   );
 }
