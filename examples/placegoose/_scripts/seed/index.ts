@@ -4,6 +4,8 @@ import {
   type LibSQLDatabase,
 } from "drizzle-orm/libsql";
 import {
+  type AsyncBatchRemoteCallback,
+  type AsyncRemoteCallback,
   drizzle as drizzleSQLiteProxy,
   type SqliteRemoteDatabase,
 } from "drizzle-orm/sqlite-proxy";
@@ -12,6 +14,12 @@ import * as schema from "../../src/db/schema";
 import { getLocalD1DBPath } from "../../src/db/utils";
 import * as seedData from "./data";
 import { config } from "dotenv";
+import { SQLiteColumn, SQLiteTableWithColumns } from "drizzle-orm/sqlite-core";
+import { ColumnBaseConfig } from "drizzle-orm/column";
+import { ColumnDataType } from "drizzle-orm/column-builder";
+
+// biome-ignore lint/suspicious/noExplicitAny: Centralize usage of `any` type (we use it in db results that are not worth typing)
+type Any = any;
 
 // Ensure database clients expect snake_case column names
 const DB_CONFIG = {
@@ -41,11 +49,23 @@ async function seedDatabase() {
 
     console.log("Seeding database...");
 
-    await db.batch([
-      db.insert(schema.gaggles).values(seedData.gaggles),
-      db.insert(schema.geese).values(seedData.geese),
-      db.insert(schema.honks).values(seedData.honks),
-    ]);
+    // A conservative batch size to avoid hitting Cloudflare D1's variable limits
+    // NOTE - I tried 50 and 100, but they both hit the limit
+    const batchSize = 10;
+
+    // Helper function to insert data in chunks
+    // We do this because Cloudflare D1 has a restriction on the number of SQL variables you can use in a single query,
+    // and we bumped into that for production seeding
+    const insertInChunks = async <T>(table: Any, data: T[]) => {
+      const chunks = chunkArray(data, batchSize);
+      for (const chunk of chunks) {
+        await db.insert(table).values(chunk);
+      }
+    };
+
+    await insertInChunks(schema.gaggles, seedData.gaggles);
+    await insertInChunks(schema.geese, seedData.geese);
+    await insertInChunks(schema.honks, seedData.honks);
 
     console.log("Database seeded successfully!");
   } catch (error) {
@@ -113,46 +133,111 @@ export function createProductionD1Connection(
   databaseId: string,
   apiToken: string,
 ) {
-  return drizzleSQLiteProxy(
-    async (sql: string, params: unknown, method: string) => {
-      const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${databaseId}/query`;
+  /**
+   * Executes a single query against the Cloudflare D1 HTTP API.
+   *
+   * @param {string} accountId - Cloudflare account ID
+   * @param {string} databaseId - D1 database ID
+   * @param {string} apiToken - Cloudflare API token with write access to D1
+   * @param {string} sql - The SQL statement to execute
+   * @param {any[]} params - Parameters for the SQL statement
+   * @param {string} method - The method type for the SQL operation
+   * @returns {Promise<{ rows: any[][] }>} The result rows from the query
+   * @throws {Error} If the HTTP request fails or returns an error
+   */
+  async function executeCloudflareD1Query(
+    accountId: string,
+    databaseId: string,
+    apiToken: string,
+    sql: string,
+    params: Any[],
+    method: string,
+  ): Promise<{ rows: Any[][] }> {
+    const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${databaseId}/query`;
 
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ sql, params, method }),
-      });
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sql, params, method }),
+    });
 
-      // biome-ignore lint/suspicious/noExplicitAny: not worth the time to do type narrowing
-      const data: any = await res.json();
+    const data: Any = await res.json();
 
-      if (res.status !== 200) {
-        throw new Error(
-          `Error from sqlite proxy server: ${res.status} ${res.statusText}\n${JSON.stringify(data)}`,
-        );
-      }
+    if (res.status !== 200) {
+      throw new Error(
+        `Error from sqlite proxy server: ${res.status} ${res.statusText}\n${JSON.stringify(data)}`,
+      );
+    }
 
-      if (data.errors.length > 0 || !data.success) {
-        throw new Error(
-          `Error from sqlite proxy server: \n${JSON.stringify(data)}}`,
-        );
-      }
+    if (data.errors.length > 0 || !data.success) {
+      throw new Error(
+        `Error from sqlite proxy server: \n${JSON.stringify(data)}}`,
+      );
+    }
 
-      const qResult = data?.result?.[0];
+    const qResult = data?.result?.[0];
 
-      if (!qResult?.success) {
-        throw new Error(
-          `Error from sqlite proxy server: \n${JSON.stringify(data)}`,
-        );
-      }
+    if (!qResult?.success) {
+      throw new Error(
+        `Error from sqlite proxy server: \n${JSON.stringify(data)}`,
+      );
+    }
 
-      // https://orm.drizzle.team/docs/get-started-sqlite#http-proxy
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      return { rows: qResult.results.map((r: any) => Object.values(r)) };
-    },
-    DB_CONFIG,
-  );
+    return { rows: qResult.results.map((r: Any) => Object.values(r)) };
+  }
+
+  /**
+   * Asynchronously executes a single query.
+   */
+  const queryClient: AsyncRemoteCallback = async (sql, params, method) => {
+    return executeCloudflareD1Query(
+      accountId,
+      databaseId,
+      apiToken,
+      sql,
+      params,
+      method,
+    );
+  };
+
+  /**
+   * Asynchronously executes a batch of queries.
+   */
+  const batchQueryClient: AsyncBatchRemoteCallback = async (queries) => {
+    const results: { rows: Any[][] }[] = [];
+
+    for (const query of queries) {
+      const { sql, params, method } = query;
+      const result = await executeCloudflareD1Query(
+        accountId,
+        databaseId,
+        apiToken,
+        sql,
+        params,
+        method,
+      );
+      results.push(result);
+    }
+
+    return results;
+  };
+
+  return drizzleSQLiteProxy(queryClient, batchQueryClient, DB_CONFIG);
+}
+
+/**
+ * Splits an array into smaller chunks.
+ * @param {T[]} array - The array to split.
+ * @param {number} size - The maximum size of each chunk.
+ * @returns {T[][]} An array of chunks.
+ */
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const result: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
 }
