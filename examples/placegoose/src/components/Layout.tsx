@@ -1,9 +1,10 @@
 export default function Layout({ children }: { children?: unknown }) {
   const meta = {
+    // todo
     title: "",
     description: "",
-    domain: "placegoose.dev",
-    url: "https://placegoose.dev",
+    domain: "PROD_DOMAIN",
+    url: "PROD_URL",
   };
 
   return (
