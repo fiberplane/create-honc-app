@@ -1,0 +1,178 @@
+@font-face {
+  font-family:Inter;
+  font-style:normal;
+  font-weight:300 800;
+  src:local("Inter"),
+  url(/static/fonts/Inter.woff2) format("woff2");
+  font-display:swap
+}
+
+@font-face {
+  font-family:Silkscreen;
+  font-style:bold;
+  font-weight:700;
+  src:local("Silkscreen"),
+  url(/static/fonts/Silkscreen-Bold.woff2) format("woff2");
+  font-display:swap
+}
+
+@font-face {
+  font-family:Fira Code;
+  font-style:normal;
+  font-weight:400;
+  src:local("Fira Code"),
+  url(/static/fonts/FiraCode.woff2) format("woff2");
+  font-display:swap
+}
+
+@font-face {
+  font-family:Departure Mono;
+  font-style:normal;
+  font-weight:400;
+  src:local("Departure Mono"),
+  url(/static/fonts/DepartureMono-Regular.woff2) format("woff2");
+  font-display:swap
+}
+
+body {
+  height: 100vh;
+  padding: 8px;
+  background-color: rgba(19, 9, 0, 1);
+  color: rgba(211, 211, 211, 1);
+  font-family: Inter, sans-serif;
+}
+
+a {
+  color: rgba(241, 95, 41, 1);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code {
+  font-family: "Fira Code";
+}
+
+em {
+  color: rgba(211, 211, 211, 0.8);
+}
+
+footer {
+  padding: 16px;
+  padding-top: 24px;
+  font-family: "Departure Mono";
+  text-align: center;
+}
+
+h1, h2, h3 {
+  padding-top: 8px;
+  color: rgba(255, 255, 255, 1);
+}
+
+h1 {
+  font-family: Silkscreen, sans-serif;
+  font-size: 2.4rem;
+  text-align: center;
+}
+
+h2, h3, h4 {
+  margin-bottom: 8px;
+}
+
+h2 {
+  border-bottom: solid rgba(241, 95, 41, 0.8) 2px;
+}
+
+p {
+  padding: 0 16px;
+  overflow-wrap: break-word;
+  color: rgba(211, 211, 211, 1);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+pre {
+  padding: 16px;
+  overflow-x: auto;
+  background-color: rgba(28, 22, 18, 1);
+}
+
+table {
+  margin-bottom: 24px;
+  padding: 0 16px;
+  border-collapse: separate;
+  border-spacing: 8px 4px;
+  font-size: 1.1em;
+}
+
+td {
+  min-width: fit-content;
+}
+
+td:first-of-type {
+  white-space: nowrap;
+}
+
+th {
+  text-align: left;
+}
+
+li {
+  padding: 8px 0;
+  font-size: 1.1em;
+}
+
+/* Responsive Styles */
+
+@media only screen and (min-device-width: 640px) {
+  main {
+    max-width: 75%;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 46px;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) {
+  main {
+    max-width: 60%;
+  }
+}
+
+
+@media only screen and (min-device-width: 1280px) {
+  main {
+    max-width: 900px;
+  }
+}
+
+/* Prism.js classes for styling code syntax */
+
+.token.comment {
+  color: rgba(211, 211, 211, 0.6);
+}
+
+.token.constant {
+  color: rgba(241, 95, 41, 1);
+}
+
+.token.function {
+  color: rgba(55, 160, 218, 1);
+}
+
+.token.property {
+  color: rgba(255, 181, 157, 1);
+}
+
+.token.punctuation {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.token.string, .token.string-property.property {
+  color: rgba(246, 210, 82, 1);
+}

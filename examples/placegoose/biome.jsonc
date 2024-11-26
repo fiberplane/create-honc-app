@@ -1,0 +1,42 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+    "css": {
+      "linter": {
+        "enabled": true
+      }
+    },
+    "vcs": {
+      "enabled": true,
+      "clientKind": "git",
+      "useIgnoreFile": true
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space"
+    },
+    "organizeImports": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true,
+      "rules": {
+        "style": {
+          "useBlockStatements": {
+            "level": "error"
+          }
+        }
+      }
+    },
+    "files": {
+      "ignore": [
+        // Drizzle related
+        "meta/*.json",
+  
+        // Compiled dirs
+        "dist",
+  
+        // ignore all tsconfig.json files
+        "tsconfig.json"
+      ]
+    }
+  }
