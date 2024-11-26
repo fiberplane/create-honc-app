@@ -1,7 +1,7 @@
 ## Take a gander!
 ```typescript
 // Run this code in a console, or from any app:
-fetch("PROD_URL/geese/1")
+fetch("https://placegoose.mies.workers.dev/geese/1")
     .then((response) => response.json())
     .then((json) => console.log(json));
 ```
@@ -45,7 +45,7 @@ Take a deep dive into the development process and key features of the stack in o
 _Filtering, sorting, and pagination are not currently supported._
 
 ```typescript
-fetch("PROD_URL/honks")
+fetch("https://placegoose.mies.workers.dev/honks")
     .then((response) => response.json())
     .then((json) => console.log(json))
     .catch((error) => console.error(error));
@@ -73,7 +73,7 @@ Status: `200`
 _This feature is only available for the `/honks` resource at this time._
 
 ```typescript
-fetch("PROD_URL/honks?gooseId=1")
+fetch("https://placegoose.mies.workers.dev/honks?gooseId=1")
     .then((response) => response.json())
     .then((json) => console.log(json))
     .catch((error) => console.error(error));
@@ -100,7 +100,7 @@ Status: `200`
 _Geese cannot be created by API request._
 
 ```typescript
-fetch("PROD_URL/honks", {
+fetch("https://placegoose.mies.workers.dev/honks", {
     method: "POST",
     body: JSON.stringify({
         gooseId: 42,
@@ -128,7 +128,7 @@ Status: `201`
 ### Get Record By ID {#guide-get-by-id}
 
 ```typescript
-fetch("PROD_URL/honks/1")
+fetch("https://placegoose.mies.workers.dev/honks/1")
     .then((response) => response.json())
     .then((json) => console.log(json))
     .catch((error) => console.error(error));
@@ -148,7 +148,7 @@ Status: `200`
 _In most cases, PUTs update the whole record, but honks are read-only properties._
 
 ```typescript
-fetch("PROD_URL/honks/1", {
+fetch("https://placegoose.mies.workers.dev/honks/1", {
     method: "PUT",
     body: JSON.stringify({
         decibels: 299,
@@ -176,7 +176,7 @@ Status: `200`
 _PATCHes accept partial updates._
 
 ```typescript
-fetch("PROD_URL/honks/1", {
+fetch("https://placegoose.mies.workers.dev/honks/1", {
     method: "PATCH",
     body: JSON.stringify({
         decibels: 36,
@@ -204,7 +204,7 @@ Status: `200`
 _DELETes don't return a body._
 
 ```typescript
-fetch("PROD_URL/honks", {
+fetch("https://placegoose.mies.workers.dev/honks", {
     method: "DELETE",
 })
     .then((response) => response.json())
