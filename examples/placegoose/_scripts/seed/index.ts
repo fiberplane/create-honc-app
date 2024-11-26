@@ -64,8 +64,11 @@ async function seedDatabase() {
     };
 
     await insertInChunks(schema.gaggles, seedData.gaggles);
+    console.log("HONC! Seeded gaggles");
     await insertInChunks(schema.geese, seedData.geese);
+    console.log("HONC! Seeded geese");
     await insertInChunks(schema.honks, seedData.honks);
+    console.log("HONC! Seeded honks");
 
     console.log("Database seeded successfully!");
   } catch (error) {
