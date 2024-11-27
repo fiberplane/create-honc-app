@@ -50,7 +50,9 @@ export default function Layout({ children }: { children?: unknown }) {
           <h1>Placegoose</h1>
         </header>
         <main>{children}</main>
-        <footer>Built with 🪿 by Fiberplane</footer>
+        <footer>
+          Built with 🪿 by <a href="https://fiberplane.com">Fiberplane</a>
+        </footer>
       </body>
     </html>
   );
