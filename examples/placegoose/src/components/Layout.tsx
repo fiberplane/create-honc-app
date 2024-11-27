@@ -1,5 +1,5 @@
 export default function Layout({ children }: { children?: unknown }) {
-  // TODO
+  // TODO - Add an OG image
   const meta = {
     title: "Placegoose",
     description: "Goose-themed placeholder data json api",
