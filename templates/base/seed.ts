@@ -2,6 +2,7 @@ import { neon } from "@neondatabase/serverless";
 import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/neon-http";
 import { users, type NewUser } from "./src/db/schema";
+import { seed } from "drizzle-seed";
 
 config({ path: ".dev.vars" });
 
@@ -9,19 +10,21 @@ config({ path: ".dev.vars" });
 const sql = neon(process.env.DATABASE_URL!);
 const db = drizzle(sql);
 
-const seedData: NewUser[] = [
-  { name: "Nikita Shamgunov", email: "nikita.shamgunov@example.com" },
-  { name: "Heikki Linnakangas", email: "heikki.linnakangas@example.com" },
-  { name: "Stas Kelvich", email: "stas.kelvich@example.com" },
-];
-
-async function seed() {
-  await db.insert(users).values(seedData);
+async function seedDatabase() {
+  await seed(db, { users }).refine((f) => ({
+    users: {
+      count: 10,
+      columns: {
+        name: f.fullName(),
+        email: f.email(),
+      },
+    },
+  }));
 }
 
 async function main() {
   try {
-    await seed();
+    await seedDatabase();
     console.log("✅ Database seeded successfully!");
     console.log("🪿 Run `npm run fiberplane` to explore data with your api.");
   } catch (error) {

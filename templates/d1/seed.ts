@@ -1,34 +1,36 @@
-import fs from "node:fs";
-import path from "node:path";
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
+import { seed } from "drizzle-seed";
 import * as schema from "./src/db/schema";
-import type { NewUser } from "./src/db/schema";
+import path from "node:path";
+import fs from "node:fs";
 
-const seedData: NewUser[] = [
-  { name: "Matthew Prince", email: "matthew.prince@example.com" },
-  { name: "Lee Holloway", email: "lee.holloway@example.com" },
-  { name: "Michelle Zatlyn", email: "michelle.zatlyn@example.com" },
-];
-
-// Modified from: https://github.com/drizzle-team/drizzle-orm/discussions/1545
 const seedDatabase = async () => {
   const pathToDb = getLocalD1DB();
   const client = createClient({
     url: `file:${pathToDb}`,
   });
   const db = drizzle(client);
-  console.log("Seeding database...");
+  
   try {
-    await db.insert(schema.users).values(seedData);
+    await seed(db, { users: schema.users }).refine((f) => ({
+      users: {
+        count: 10,
+        columns: {
+          name: f.fullName(),
+          email: f.email(),
+        },
+      },
+    }));
     console.log("✅ Database seeded successfully!");
     console.log("🪿 Run `npm run fiberplane` to explore data with your api.");
   } catch (error) {
     console.error("❌ Error seeding database:", error);
+    process.exit(1);
+  } finally {
+    process.exit(0);
   }
 };
-
-seedDatabase();
 
 function getLocalD1DB() {
   try {
@@ -60,3 +62,5 @@ function getLocalD1DB() {
     }
   }
 }
+
+seedDatabase();
