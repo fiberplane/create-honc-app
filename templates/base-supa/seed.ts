@@ -1,26 +1,29 @@
 import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/postgres-js";
+import { seed } from "drizzle-seed";
 import postgres from "postgres";
-import { type NewUser, users } from "./src/db/schema";
+import { users } from "./src/db/schema";
 
 config({ path: ".dev.vars" });
 
 const sql = postgres(process.env.DATABASE_URL ?? "");
 const db = drizzle(sql);
 
-const seedData: NewUser[] = [
-  { name: "Paul Copplestone", email: "paul@supabase.com" },
-  { name: "Ant Wilson", email: "ant@supabase.com" },
-  { name: "Michael Stonebraker", email: "databasesarecool@berkeley.edu" },
-];
-
-async function seed() {
-  await db.insert(users).values(seedData);
+async function seedDatabase() {
+  await seed(db, { users }).refine((f) => ({
+    users: {
+      count: 10,
+      columns: {
+        name: f.fullName(),
+        email: f.email(),
+      },
+    },
+  }));
 }
 
 async function main() {
   try {
-    await seed();
+    await seedDatabase();
     console.log("✅ Database seeded successfully!");
     console.log("🪿 Run `npm run fiberplane` to explore data with your api.");
   } catch (error) {
@@ -30,4 +33,5 @@ async function main() {
     process.exit(0);
   }
 }
+
 main();
