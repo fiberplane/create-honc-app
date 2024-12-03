@@ -6,7 +6,7 @@ import { HTTPException } from "hono/http-exception";
  * for processing payload errors
  */
 export function makeBodyValidator<T extends Zod.AnyZodObject>(schema: T) {
-  return function bodyValidator(body: unknown): T["_output"] {
+  return (body: unknown): T["_output"] => {
     const result = schema.safeParse(body);
 
     if (result.success) {
