@@ -20,12 +20,12 @@
     "@hono-rate-limiter/cloudflare": "^0.2.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.4",
+    "drizzle-zod": "^0.5.1",
     "hono": "^4.6.11",
     "hono-rate-limiter": "^0.4.0",
     "marked": "^15.0.2",
     "marked-highlight": "^2.2.1",
-    "prismjs": "^1.29.0",
-    "zod": "^3.23.8"
+    "prismjs": "^1.29.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

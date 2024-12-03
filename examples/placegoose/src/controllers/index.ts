@@ -63,7 +63,6 @@ async function getRowByIdExists<T extends ColumnWithId>(
   table: SQLiteTableWithIdColumn<T>,
   id: number,
 ) {
-
   const { rowExists } = await db.get<{ rowExists: boolean }>(
     sql`select exists (select 1 from ${table} where ${table.id} = ${id}) as rowExists`,
   );

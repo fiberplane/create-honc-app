@@ -2,19 +2,14 @@ import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
-import { z } from "zod";
 
 import { getGaggleById, getGaggleByIdExists } from "../controllers";
 import { getDb } from "../db";
 import * as schema from "../db/schema";
+import { ZGaggleInsertPayload } from "../dtos";
 import { generateId } from "../lib/utils";
 import { makeBodyValidator, validateIdParam } from "../lib/validation";
 import type { AppType } from "../types";
-
-const ZGaggleInsert = z.object({
-  name: z.string().min(1),
-  territory: z.string().min(1).nullable(),
-});
 
 const gagglesApp = new Hono<AppType>();
 
@@ -29,13 +24,15 @@ gagglesApp.get("/", async (c) => {
 // Create a new Gaggle
 gagglesApp.post(
   "/",
-  validator("json", makeBodyValidator(ZGaggleInsert.parse)),
+  validator("json", makeBodyValidator(ZGaggleInsertPayload.parse)),
   async (c) => {
     const gaggleData = c.req.valid("json");
 
     const newGaggle: schema.Gaggle = {
       id: generateId(),
-      ...gaggleData,
+      // Default for optional property
+      territory: null,
+      ...gaggleData
     };
 
     return c.json(newGaggle, 201);
@@ -83,7 +80,7 @@ gagglesApp.get("/:id/geese", validator("param", validateIdParam), async (c) => {
 gagglesApp.put(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZGaggleInsert.parse)),
+  validator("json", makeBodyValidator(ZGaggleInsertPayload.parse)),
   async (c) => {
     const { id } = c.req.valid("param");
     const gaggleData = c.req.valid("json");

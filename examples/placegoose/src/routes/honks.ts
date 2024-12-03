@@ -2,7 +2,6 @@ import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
-import { z } from "zod";
 
 import {
   getGooseByIdExists,
@@ -11,6 +10,7 @@ import {
 } from "../controllers";
 import { getDb } from "../db";
 import * as schema from "../db/schema";
+import { ZHonkInsertPayload, ZHonkUpdatePayload } from "../dtos";
 import { generateId } from "../lib/utils";
 import {
   makeBodyValidator,
@@ -18,13 +18,6 @@ import {
   validateIdParam,
 } from "../lib/validation";
 import type { AppType } from "../types";
-
-const ZHonkInsert = z.object({
-  gooseId: z.number(),
-  decibels: z.number(),
-});
-
-const ZHonkUpdate = ZHonkInsert.omit({ gooseId: true });
 
 const honksApp = new Hono<AppType>();
 
@@ -68,7 +61,7 @@ honksApp.get(
 // Create a new Honk
 honksApp.post(
   "/",
-  validator("json", makeBodyValidator(ZHonkInsert.parse)),
+  validator("json", makeBodyValidator(ZHonkInsertPayload.parse)),
   async (c) => {
     const honkData = c.req.valid("json");
     const gooseId = honkData.gooseId;
@@ -111,7 +104,7 @@ honksApp.get("/:id", validator("param", validateIdParam), async (c) => {
 honksApp.patch(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZHonkUpdate.parse)),
+  validator("json", makeBodyValidator(ZHonkUpdatePayload.parse)),
   async (c) => {
     const { id } = c.req.valid("param");
     const { decibels } = c.req.valid("json");
@@ -145,7 +138,7 @@ honksApp.patch(
 honksApp.put(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZHonkUpdate.parse)),
+  validator("json", makeBodyValidator(ZHonkUpdatePayload.parse)),
   async (c) => {
     const { id } = c.req.valid("param");
     const { decibels } = c.req.valid("json");

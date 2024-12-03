@@ -93,7 +93,7 @@ importers:
         version: 4.20241106.0
       '@fiberplane/hono-otel':
         specifier: latest
-        version: 0.3.1
+        version: 0.5.0
       '@types/node':
         specifier: ^22.2.0
         version: 22.9.0
@@ -194,7 +194,7 @@ importers:
         version: 4.20241106.0
       '@fiberplane/hono-otel':
         specifier: latest
-        version: 0.3.1
+        version: 0.5.0
       drizzle-kit:
         specifier: ^0.28.1
         version: 0.28.1
@@ -231,7 +231,7 @@ importers:
         version: 4.20241106.0
       '@fiberplane/hono-otel':
         specifier: latest
-        version: 0.3.1
+        version: 0.5.0
       drizzle-kit:
         specifier: ^0.28.1
         version: 0.28.1
@@ -259,6 +259,9 @@ importers:
       drizzle-orm:
         specifier: ^0.36.4
         version: 0.36.4(@cloudflare/workers-types@4.20241106.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1)
+      drizzle-zod:
+        specifier: ^0.5.1
+        version: 0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241106.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1))(zod@3.23.8)
       hono:
         specifier: ^4.6.11
         version: 4.6.11
@@ -274,9 +277,6 @@ importers:
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -289,7 +289,7 @@ importers:
         version: 0.3.1
       '@fiberplane/studio':
         specifier: ^0.11.0
-        version: 0.11.0(@cloudflare/workers-types@4.20241106.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(encoding@0.1.13)(pg@8.13.1)(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)
+        version: 0.11.0(@cloudflare/workers-types@4.20241106.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(encoding@0.1.13)(pg@8.13.1)(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(vue@3.5.12(typescript@5.6.2))
       '@libsql/client':
         specifier: ^0.14.0
         version: 0.14.0
@@ -363,7 +363,7 @@ importers:
         version: 4.20241106.0
       '@fiberplane/hono-otel':
         specifier: latest
-        version: 0.3.1
+        version: 0.5.0
       drizzle-kit:
         specifier: ^0.28.1
         version: 0.28.1
@@ -1248,6 +1248,9 @@ packages:
 
   '@fiberplane/hono-otel@0.3.1':
     resolution: {integrity: sha512-E5Gpg06jMngM3gyIjhy4lFuGAv8Qpx0gnglmSgUeuEAkrpAAPy4tHpoFZsFc+gLgoM5+KytoI3MFowgheHjacg==}
+
+  '@fiberplane/hono-otel@0.5.0':
+    resolution: {integrity: sha512-ji54FWoRmhJL1V1YqgwetUKewFzQ/wEV5GWIYWIkMGN3BHg+h0QhtLHITUNcVqMyLxjf5W2I1qo3FcM0EOxayQ==}
 
   '@fiberplane/source-analysis@0.1.0':
     resolution: {integrity: sha512-2XI1ZmC0lkG78MMSNHzGQPaP4cFg658egdSU6bjU+FsAzGx0XJgQ7nInhYL7A6qDcTNCvSllYttOuyn6Mm4/Xg==}
@@ -3763,6 +3766,16 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
+  '@ai-sdk/vue@0.0.59(vue@3.5.12(typescript@5.6.2))(zod@3.23.8)':
+    dependencies:
+      '@ai-sdk/provider-utils': 1.0.22(zod@3.23.8)
+      '@ai-sdk/ui-utils': 0.0.50(zod@3.23.8)
+      swrv: 1.0.4(vue@3.5.12(typescript@5.6.2))
+    optionalDependencies:
+      vue: 3.5.12(typescript@5.6.2)
+    transitivePeerDependencies:
+      - zod
+
   '@ampproject/remapping@2.3.0':
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
@@ -4244,6 +4257,17 @@ snapshots:
       '@types/shimmer': 1.2.0
       shimmer: 1.2.1
 
+  '@fiberplane/hono-otel@0.5.0':
+    dependencies:
+      '@opentelemetry/api': 1.9.0
+      '@opentelemetry/exporter-trace-otlp-http': 0.52.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/exporter-trace-otlp-proto': 0.52.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/resources': 1.27.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/sdk-trace-base': 1.27.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/semantic-conventions': 1.27.0
+      '@types/shimmer': 1.2.0
+      shimmer: 1.2.1
+
   '@fiberplane/source-analysis@0.1.0':
     dependencies:
       chokidar: 3.6.0
@@ -4254,7 +4278,7 @@ snapshots:
       type-fest: 4.28.1
       typescript: 5.6.2
 
-  '@fiberplane/studio@0.11.0(@cloudflare/workers-types@4.20241106.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(encoding@0.1.13)(pg@8.13.1)(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)':
+  '@fiberplane/studio@0.11.0(@cloudflare/workers-types@4.20241106.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(encoding@0.1.13)(pg@8.13.1)(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(vue@3.5.12(typescript@5.6.2))':
     dependencies:
       '@ai-sdk/anthropic': 0.0.51(zod@3.23.8)
       '@ai-sdk/mistral': 0.0.42(zod@3.23.8)
@@ -4267,7 +4291,7 @@ snapshots:
       '@iarna/toml': 2.2.5
       '@langchain/core': 0.2.36(openai@4.71.0(encoding@0.1.13)(zod@3.23.8))
       '@libsql/client': 0.6.2
-      ai: 3.4.33(openai@4.71.0(encoding@0.1.13)(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(vue@3.5.12(typescript@5.5.4))(zod@3.23.8)
+      ai: 3.4.33(openai@4.71.0(encoding@0.1.13)(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(vue@3.5.12(typescript@5.6.2))(zod@3.23.8)
       chalk: 5.3.0
       consola: 3.2.3
       dotenv: 16.4.5
@@ -4989,6 +5013,12 @@ snapshots:
       '@vue/shared': 3.5.12
       vue: 3.5.12(typescript@5.5.4)
 
+  '@vue/server-renderer@3.5.12(vue@3.5.12(typescript@5.6.2))':
+    dependencies:
+      '@vue/compiler-ssr': 3.5.12
+      '@vue/shared': 3.5.12
+      vue: 3.5.12(typescript@5.6.2)
+
   '@vue/shared@3.5.12': {}
 
   abort-controller@3.0.0:
@@ -5018,6 +5048,31 @@ snapshots:
       '@ai-sdk/svelte': 0.0.57(svelte@5.1.9)(zod@3.23.8)
       '@ai-sdk/ui-utils': 0.0.50(zod@3.23.8)
       '@ai-sdk/vue': 0.0.59(vue@3.5.12(typescript@5.5.4))(zod@3.23.8)
+      '@opentelemetry/api': 1.9.0
+      eventsource-parser: 1.1.2
+      json-schema: 0.4.0
+      jsondiffpatch: 0.6.0
+      secure-json-parse: 2.7.0
+      zod-to-json-schema: 3.23.5(zod@3.23.8)
+    optionalDependencies:
+      openai: 4.71.0(encoding@0.1.13)(zod@3.23.8)
+      react: 18.3.1
+      sswr: 2.1.0(svelte@5.1.9)
+      svelte: 5.1.9
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - solid-js
+      - vue
+
+  ai@3.4.33(openai@4.71.0(encoding@0.1.13)(zod@3.23.8))(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)(vue@3.5.12(typescript@5.6.2))(zod@3.23.8):
+    dependencies:
+      '@ai-sdk/provider': 0.0.26
+      '@ai-sdk/provider-utils': 1.0.22(zod@3.23.8)
+      '@ai-sdk/react': 0.0.70(react@18.3.1)(zod@3.23.8)
+      '@ai-sdk/solid': 0.0.54(zod@3.23.8)
+      '@ai-sdk/svelte': 0.0.57(svelte@5.1.9)(zod@3.23.8)
+      '@ai-sdk/ui-utils': 0.0.50(zod@3.23.8)
+      '@ai-sdk/vue': 0.0.59(vue@3.5.12(typescript@5.6.2))(zod@3.23.8)
       '@opentelemetry/api': 1.9.0
       eventsource-parser: 1.1.2
       json-schema: 0.4.0
@@ -5257,6 +5312,11 @@ snapshots:
   drizzle-zod@0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20241106.0)(@libsql/client@0.6.2)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1))(zod@3.23.8):
     dependencies:
       drizzle-orm: 0.33.0(@cloudflare/workers-types@4.20241106.0)(@libsql/client@0.6.2)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1)
+      zod: 3.23.8
+
+  drizzle-zod@0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241106.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1))(zod@3.23.8):
+    dependencies:
+      drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20241106.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1)
       zod: 3.23.8
 
   eastasianwidth@0.2.0: {}
@@ -6277,6 +6337,10 @@ snapshots:
     dependencies:
       vue: 3.5.12(typescript@5.5.4)
 
+  swrv@1.0.4(vue@3.5.12(typescript@5.6.2)):
+    dependencies:
+      vue: 3.5.12(typescript@5.6.2)
+
   tar@6.2.1:
     dependencies:
       chownr: 2.0.0
@@ -6416,6 +6480,16 @@ snapshots:
       '@vue/shared': 3.5.12
     optionalDependencies:
       typescript: 5.5.4
+
+  vue@3.5.12(typescript@5.6.2):
+    dependencies:
+      '@vue/compiler-dom': 3.5.12
+      '@vue/compiler-sfc': 3.5.12
+      '@vue/runtime-dom': 3.5.12
+      '@vue/server-renderer': 3.5.12(vue@3.5.12(typescript@5.6.2))
+      '@vue/shared': 3.5.12
+    optionalDependencies:
+      typescript: 5.6.2
 
   web-streams-polyfill@3.3.3: {}
 
