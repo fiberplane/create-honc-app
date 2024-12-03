@@ -220,6 +220,8 @@ Whens something goes wrong, we'll try and share a helpful message! If you're run
 ```
 type ErrorData = {
     message: string;
+    /** Only included for validation errors */
+    issues?: Record<string, string[]>;
 }
 ```
 
