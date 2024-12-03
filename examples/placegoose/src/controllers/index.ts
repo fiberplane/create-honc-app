@@ -1,9 +1,5 @@
-import { type ColumnBaseConfig, eq, sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
-import type {
-  SQLiteColumn,
-  SQLiteTableWithColumns,
-} from "drizzle-orm/sqlite-core";
 import { HTTPException } from "hono/http-exception";
 import * as schema from "../db/schema";
 
@@ -35,12 +31,11 @@ export async function getHonkByIdExists(db: DrizzleClient, id: number) {
  * Throws if multiple records found with same id
  * @returns Row data or undefined
  */
-async function getRowById<T extends ColumnWithId>(
+async function getRowById<T extends PlacegooseTable>(
   db: DrizzleClient,
-  table: SQLiteTableWithIdColumn<T>,
+  table: T,
   id: number,
 ) {
-  // todo: drizzle doesn't know that id needs to be a number here
   const rowsById = await db.select().from(table).where(eq(table.id, id));
 
   if (rowsById.length > 1) {
@@ -49,7 +44,7 @@ async function getRowById<T extends ColumnWithId>(
     });
   }
 
-  // todo: return null?
+  // todo: is returning null (if no result) clearer/more standard?
   return rowsById.at(0);
 }
 
@@ -58,9 +53,9 @@ async function getRowById<T extends ColumnWithId>(
  * Disregards possibility of id duplication
  * @returns boolean
  */
-async function getRowByIdExists<T extends ColumnWithId>(
+async function getRowByIdExists<T extends PlacegooseTable>(
   db: DrizzleClient,
-  table: SQLiteTableWithIdColumn<T>,
+  table: T,
   id: number,
 ) {
   const { rowExists } = await db.get<{ rowExists: boolean }>(
@@ -74,13 +69,11 @@ type DrizzleClient = DrizzleD1Database<typeof schema> & {
   $client: D1Database;
 };
 
-type ColumnWithId = {
-  id: SQLiteColumn<ColumnBaseConfig<"number", "SQLiteInteger">>;
-};
-
-type SQLiteTableWithIdColumn<T extends ColumnWithId> = SQLiteTableWithColumns<{
-  name: string;
-  schema: undefined;
-  columns: T;
-  dialect: "sqlite";
-}>;
+/** 
+ * This is a fragile solution, but Drizzle typing is somewhat
+ * challenging as soon as 
+ */
+type PlacegooseTable =
+  | typeof schema.gaggles
+  | typeof schema.geese
+  | typeof schema.honks;
