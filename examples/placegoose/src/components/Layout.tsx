@@ -1,10 +1,10 @@
 export default function Layout({ children }: { children?: unknown }) {
+  // TODO - Add an OG image
   const meta = {
-    // todo
-    title: "",
-    description: "",
-    domain: "PROD_DOMAIN",
-    url: "PROD_URL",
+    title: "Placegoose",
+    description: "Goose-themed placeholder data json api",
+    domain: "placegoose.mies.workers.dev",
+    url: "https://placegoose.mies.workers.dev/",
   };
 
   return (
@@ -49,11 +49,9 @@ export default function Layout({ children }: { children?: unknown }) {
         <header>
           <h1>Placegoose</h1>
         </header>
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
         <footer>
-          Built with 🪿 by Fiberplane
+          Built with 🪿 by <a href="https://fiberplane.com">Fiberplane</a>
         </footer>
       </body>
     </html>
