@@ -24,7 +24,7 @@ gagglesApp.get("/", async (c) => {
 // Create a new Gaggle
 gagglesApp.post(
   "/",
-  validator("json", makeBodyValidator(ZGaggleInsertPayload.parse)),
+  validator("json", makeBodyValidator(ZGaggleInsertPayload)),
   async (c) => {
     const gaggleData = c.req.valid("json");
 
@@ -80,7 +80,7 @@ gagglesApp.get("/:id/geese", validator("param", validateIdParam), async (c) => {
 gagglesApp.put(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZGaggleInsertPayload.parse)),
+  validator("json", makeBodyValidator(ZGaggleInsertPayload)),
   async (c) => {
     const { id } = c.req.valid("param");
     const gaggleData = c.req.valid("json");

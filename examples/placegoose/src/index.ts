@@ -9,6 +9,7 @@ import { jsxRenderer } from "hono/jsx-renderer";
 
 import Layout from "./components/Layout";
 import { mdToHtml } from "./lib/markdown";
+import { formatZodError, isZodError } from "./lib/validation";
 import homePage from "./pages/index.md";
 import * as routes from "./routes";
 import type { AppType } from "./types";
@@ -58,9 +59,15 @@ app.onError((error, c) => {
 
   // Handle formatted errors thrown by app or hono
   if (error instanceof HTTPException) {
+    let issues: Record<string, string[]> | undefined = undefined;
+    if (error.cause instanceof Error && isZodError(error.cause)) {
+      issues = formatZodError(error.cause);
+    }
+
     return c.json(
       {
         message: error.message,
+        ...(issues && { issues }),
       },
       error.status,
     );

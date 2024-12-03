@@ -69,9 +69,9 @@ type DrizzleClient = DrizzleD1Database<typeof schema> & {
   $client: D1Database;
 };
 
-/** 
+/**
  * This is a fragile solution, but Drizzle typing is somewhat
- * challenging as soon as 
+ * challenging as soon as generics come into the picture
  */
 type PlacegooseTable =
   | typeof schema.gaggles

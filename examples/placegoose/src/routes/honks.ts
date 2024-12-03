@@ -61,7 +61,7 @@ honksApp.get(
 // Create a new Honk
 honksApp.post(
   "/",
-  validator("json", makeBodyValidator(ZHonkInsertPayload.parse)),
+  validator("json", makeBodyValidator(ZHonkInsertPayload)),
   async (c) => {
     const honkData = c.req.valid("json");
     const gooseId = honkData.gooseId;
@@ -104,7 +104,7 @@ honksApp.get("/:id", validator("param", validateIdParam), async (c) => {
 honksApp.patch(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZHonkUpdatePayload.parse)),
+  validator("json", makeBodyValidator(ZHonkUpdatePayload)),
   async (c) => {
     const { id } = c.req.valid("param");
     const { decibels } = c.req.valid("json");
@@ -143,7 +143,7 @@ honksApp.patch(
 honksApp.put(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZHonkUpdatePayload.parse)),
+  validator("json", makeBodyValidator(ZHonkUpdatePayload)),
   async (c) => {
     const { id } = c.req.valid("param");
     const { decibels } = c.req.valid("json");
