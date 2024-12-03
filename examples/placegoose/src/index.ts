@@ -17,17 +17,28 @@ const app = new Hono<AppType>();
 
 app.use("*", cors());
 
+/**
+ * The jsxRenderer middleware pipes the HTML returned
+ * by c.render into a custom layout component
+ */
 app.get("/", jsxRenderer(Layout), (c) => {
   const content = mdToHtml(homePage);
   return c.render(raw(content));
 });
 
-// https://www.npmjs.com/package/@hono-rate-limiter/cloudflare
+/**
+ * Limit how often users can make a request, based on the
+ * configurations set in wrangler.toml
+ * In a production context, using a unique user identifier is
+ * preferred, as IP addresses can be shared between users.
+ * @see https://github.com/rhinobase/hono-rate-limiter/tree/main/packages/cloudflare#usage
+ */
 app.use(
   cloudflareRateLimiter<AppType>({
     rateLimitBinding: (c) => c.env.RATE_LIMITER,
     keyGenerator: (c) => {
       if (c.env.ENVIRONMENT === "production") {
+        // Use Hono helper to get request IP (v4 or v6)
         return getConnInfo(c).remote.address ?? "";
       }
 

@@ -32,7 +32,7 @@ gagglesApp.post(
       id: generateId(),
       // Default for optional property
       territory: null,
-      ...gaggleData
+      ...gaggleData,
     };
 
     return c.json(newGaggle, 201);

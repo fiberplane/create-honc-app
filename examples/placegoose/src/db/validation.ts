@@ -1,6 +1,10 @@
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import * as schema from "./schema";
 
+// This level of separation is somewhat forced at this scale.
+// The decision was made for clarity, and to exclude these
+// from the "schema" file export
+
 export const ZGaggleInsert = createInsertSchema(schema.gaggles);
 
 export const ZGaggleSelect = createSelectSchema(schema.gaggles);

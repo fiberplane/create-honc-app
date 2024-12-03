@@ -26,7 +26,7 @@ honksApp.get(
   "/",
   validator("query", (query) => {
     const gooseIdQuery = query.gooseId;
-
+    // gooseId filter is optional
     return {
       gooseId: gooseIdQuery ? validateId(gooseIdQuery) : undefined,
     };
@@ -109,6 +109,11 @@ honksApp.patch(
     const { id } = c.req.valid("param");
     const { decibels } = c.req.valid("json");
 
+    /**
+     * Zod strips unrecognized keys. To inform users that
+     * an attempted gooseId update was invalid, we check the
+     * unvalidated body for the ineligible key
+     */
     const includesGooseId = Boolean((await c.req.json()).gooseId);
     if (includesGooseId) {
       throw new HTTPException(403, {

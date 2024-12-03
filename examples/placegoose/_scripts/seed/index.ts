@@ -11,7 +11,7 @@ import {
 } from "drizzle-orm/sqlite-proxy";
 
 import * as schema from "../../src/db/schema";
-import { getLocalD1DBPath } from "../../src/db/utils";
+import { getLocalSQLiteDBPath } from "../../src/db/utils";
 import * as seedData from "./data";
 import { config } from "dotenv";
 import { SQLiteColumn, SQLiteTableWithColumns } from "drizzle-orm/sqlite-core";

@@ -11,9 +11,13 @@ export function makeBodyValidator<T extends Record<string, unknown>>(
   return (body: unknown) => {
     try {
       // Return value must be consistent with shape of "body"
+      // Available through Context.req.valid
       return parse(body);
     } catch (error) {
       console.error(error);
+
+      // todo
+
       throw new HTTPException(400, {
         message: "Invalid Payload",
         cause: error,
@@ -40,6 +44,7 @@ export function validateId(value: string | string[]) {
 /**
  * Validation fn for hono param validator. Throws if id is missing
  * or invalid
+ * @returns Any validated params, available through Context.req.valid
  */
 export function validateIdParam(params: Record<string, string>, c: Context) {
   const idParam = params.id;
