@@ -117,7 +117,7 @@ honksApp.patch(
     const includesGooseId = Boolean((await c.req.json()).gooseId);
     if (includesGooseId) {
       throw new HTTPException(403, {
-        message: "Honks are read-only properties",
+        message: "Honk.gooseId is a read-only property",
       });
     }
 
@@ -151,7 +151,7 @@ honksApp.put(
     const includesGooseId = Boolean((await c.req.json()).gooseId);
     if (includesGooseId) {
       throw new HTTPException(403, {
-        message: "Honks are read-only properties",
+        message: "Honk.gooseId is a read-only property",
       });
     }
 
