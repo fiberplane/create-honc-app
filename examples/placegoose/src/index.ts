@@ -9,6 +9,7 @@ import { jsxRenderer } from "hono/jsx-renderer";
 
 import Layout from "./components/Layout";
 import { mdToHtml } from "./lib/markdown";
+import { formatZodError, isZodError } from "./lib/validation";
 import homePage from "./pages/index.md";
 import * as routes from "./routes";
 import type { AppType } from "./types";
@@ -17,17 +18,28 @@ const app = new Hono<AppType>();
 
 app.use("*", cors());
 
+/**
+ * The jsxRenderer middleware pipes the HTML returned
+ * by c.render into a custom layout component
+ */
 app.get("/", jsxRenderer(Layout), (c) => {
   const content = mdToHtml(homePage);
   return c.render(raw(content));
 });
 
-// https://www.npmjs.com/package/@hono-rate-limiter/cloudflare
+/**
+ * Limit how often users can make a request, based on the
+ * configurations set in wrangler.toml
+ * In a production context, using a unique user identifier is
+ * preferred, as IP addresses can be shared between users.
+ * @see https://github.com/rhinobase/hono-rate-limiter/tree/main/packages/cloudflare#usage
+ */
 app.use(
   cloudflareRateLimiter<AppType>({
     rateLimitBinding: (c) => c.env.RATE_LIMITER,
     keyGenerator: (c) => {
       if (c.env.ENVIRONMENT === "production") {
+        // Use Hono helper to get request IP (v4 or v6)
         return getConnInfo(c).remote.address ?? "";
       }
 
@@ -47,9 +59,15 @@ app.onError((error, c) => {
 
   // Handle formatted errors thrown by app or hono
   if (error instanceof HTTPException) {
+    let issues: Record<string, string[]> | undefined = undefined;
+    if (error.cause instanceof Error && isZodError(error.cause)) {
+      issues = formatZodError(error.cause);
+    }
+
     return c.json(
       {
         message: error.message,
+        ...(issues && { issues }),
       },
       error.status,
     );

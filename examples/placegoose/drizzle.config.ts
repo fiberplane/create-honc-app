@@ -2,7 +2,7 @@ import "dotenv/config";
 import { config } from "dotenv";
 import { type Config, defineConfig } from "drizzle-kit";
 
-import { getLocalD1DBPath } from "./src/db/utils";
+import { getLocalSQLiteDBPath } from "./src/db/utils";
 
 let drizzleConfig: Config;
 
@@ -12,7 +12,6 @@ let drizzleConfig: Config;
  * env from accidentally being applied to another
  */
 
-// todo: will this break too?
 if (process.env.ENVIRONMENT === "production") {
   config({ path: "./.prod.vars" });
 
@@ -41,7 +40,7 @@ if (process.env.ENVIRONMENT === "production") {
 } else {
   config({ path: "./.dev.vars" });
 
-  const localDbPath = getLocalD1DBPath();
+  const localDbPath = getLocalSQLiteDBPath();
 
   if (!localDbPath) {
     console.error("Configuration Failed: Missing Local DB");

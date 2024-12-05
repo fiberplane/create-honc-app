@@ -2,7 +2,6 @@ import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { validator } from "hono/validator";
-import { z } from "zod";
 
 import {
   getGooseByIdExists,
@@ -11,6 +10,7 @@ import {
 } from "../controllers";
 import { getDb } from "../db";
 import * as schema from "../db/schema";
+import { ZHonkInsertPayload, ZHonkUpdatePayload } from "../dtos";
 import { generateId } from "../lib/utils";
 import {
   makeBodyValidator,
@@ -19,13 +19,6 @@ import {
 } from "../lib/validation";
 import type { AppType } from "../types";
 
-const ZHonkInsert = z.object({
-  gooseId: z.number(),
-  decibels: z.number(),
-});
-
-const ZHonkUpdate = ZHonkInsert.omit({ gooseId: true });
-
 const honksApp = new Hono<AppType>();
 
 // Get all Honks (or just those from Goose specified by gooseId)
@@ -33,7 +26,7 @@ honksApp.get(
   "/",
   validator("query", (query) => {
     const gooseIdQuery = query.gooseId;
-
+    // gooseId filter is optional
     return {
       gooseId: gooseIdQuery ? validateId(gooseIdQuery) : undefined,
     };
@@ -68,7 +61,7 @@ honksApp.get(
 // Create a new Honk
 honksApp.post(
   "/",
-  validator("json", makeBodyValidator(ZHonkInsert.parse)),
+  validator("json", makeBodyValidator(ZHonkInsertPayload)),
   async (c) => {
     const honkData = c.req.valid("json");
     const gooseId = honkData.gooseId;
@@ -111,15 +104,20 @@ honksApp.get("/:id", validator("param", validateIdParam), async (c) => {
 honksApp.patch(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZHonkUpdate.parse)),
+  validator("json", makeBodyValidator(ZHonkUpdatePayload)),
   async (c) => {
     const { id } = c.req.valid("param");
     const { decibels } = c.req.valid("json");
 
+    /**
+     * Zod strips unrecognized keys. To inform users that
+     * an attempted gooseId update was invalid, we check the
+     * unvalidated body for the ineligible key
+     */
     const includesGooseId = Boolean((await c.req.json()).gooseId);
     if (includesGooseId) {
       throw new HTTPException(403, {
-        message: "Honks are read-only properties",
+        message: "Honk.gooseId is a read-only property",
       });
     }
 
@@ -145,7 +143,7 @@ honksApp.patch(
 honksApp.put(
   "/:id",
   validator("param", validateIdParam),
-  validator("json", makeBodyValidator(ZHonkUpdate.parse)),
+  validator("json", makeBodyValidator(ZHonkUpdatePayload)),
   async (c) => {
     const { id } = c.req.valid("param");
     const { decibels } = c.req.valid("json");
@@ -153,7 +151,7 @@ honksApp.put(
     const includesGooseId = Boolean((await c.req.json()).gooseId);
     if (includesGooseId) {
       throw new HTTPException(403, {
-        message: "Honks are read-only properties",
+        message: "Honk.gooseId is a read-only property",
       });
     }
 

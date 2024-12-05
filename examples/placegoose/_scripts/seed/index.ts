@@ -1,30 +1,28 @@
-import { createClient } from "@libsql/client";
+import { config } from "dotenv";
 import {
   drizzle as drizzleLibsql,
   type LibSQLDatabase,
 } from "drizzle-orm/libsql";
+import type { SQLiteTable } from "drizzle-orm/sqlite-core";
 import {
   type AsyncBatchRemoteCallback,
   type AsyncRemoteCallback,
   drizzle as drizzleSQLiteProxy,
   type SqliteRemoteDatabase,
 } from "drizzle-orm/sqlite-proxy";
+import { createClient } from "@libsql/client";
 
 import * as schema from "../../src/db/schema";
-import { getLocalD1DBPath } from "../../src/db/utils";
 import * as seedData from "./data";
-import { config } from "dotenv";
-import { SQLiteColumn, SQLiteTableWithColumns } from "drizzle-orm/sqlite-core";
-import { ColumnBaseConfig } from "drizzle-orm/column";
-import { ColumnDataType } from "drizzle-orm/column-builder";
+import { getLocalSQLiteDBPath } from "../../src/db/utils";
 
 // biome-ignore lint/suspicious/noExplicitAny: Centralize usage of `any` type (we use it in db results that are not worth typing)
 type Any = any;
 
 // Ensure database clients expect snake_case column names
 const DB_CONFIG = {
-  casing: "snake_case" as const,
-};
+  casing: "snake_case",
+} as const;
 
 seedDatabase();
 
@@ -35,17 +33,9 @@ seedDatabase();
  */
 async function seedDatabase() {
   try {
-    let db:
-      | LibSQLDatabase<Record<string, never>>
-      | SqliteRemoteDatabase<Record<string, never>>;
-
-    if (process.env.ENVIRONMENT === "production") {
-      console.warn("Using production D1 database");
-      db = await seedProductionDatabase();
-    } else {
-      console.log("Using local D1 database");
-      db = await seedLocalDatabase();
-    }
+    const db = process.env.ENVIRONMENT === "production"
+      ? await getProductionDatabase()
+      : await getLocalDatabase();
 
     console.log("Seeding database...");
 
@@ -56,7 +46,7 @@ async function seedDatabase() {
     // Helper function to insert data in chunks
     // We do this because Cloudflare D1 has a restriction on the number of SQL variables you can use in a single query,
     // and we bumped into that for production seeding
-    const insertInChunks = async <T>(table: Any, data: T[]) => {
+    const insertInChunks = async <T extends SQLiteTable>(table: T, data: T["$inferInsert"][]) => {
       const chunks = chunkArray(data, batchSize);
       for (const chunk of chunks) {
         await db.insert(table).values(chunk);
@@ -82,10 +72,11 @@ async function seedDatabase() {
  * @returns {Promise<LibSQLDatabase>} Drizzle ORM instance connected to local database
  * @throws {Error} If local database path cannot be resolved
  */
-async function seedLocalDatabase(): Promise<
+async function getLocalDatabase(): Promise<
   LibSQLDatabase<Record<string, never>>
 > {
-  const dbPath = getLocalD1DBPath();
+  console.log("Using local SQLite database");
+  const dbPath = getLocalSQLiteDBPath();
 
   if (!dbPath) {
     console.error("Database seed failed: local DB could not be resolved");
@@ -105,9 +96,10 @@ async function seedLocalDatabase(): Promise<
  * @returns {Promise<SqliteRemoteDatabase>} Drizzle ORM instance connected to production database
  * @throws {Error} If required environment variables are not set
  */
-async function seedProductionDatabase(): Promise<
+async function getProductionDatabase(): Promise<
   SqliteRemoteDatabase<Record<string, never>>
 > {
+  console.warn("Using production D1 database");
   config({ path: ".prod.vars" });
 
   const apiToken = process.env.CLOUDFLARE_D1_TOKEN;

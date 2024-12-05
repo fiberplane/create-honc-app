@@ -7,7 +7,7 @@ fetch("https://placegoose.mies.workers.dev/geese/1")
 ```
 
 ## What's it good for?
-Placegoose is a free online REST API for moments when you **just need some honkin data**! More than that, it's a learning resource for building blazing-fast REST APIs with the [HO(N)C stack.](https://honc.dev/#overview) You're welcome to use it as a reference, or clone the repo and modify the schema to fit your use-case.
+Placegoose is a free online REST API for moments when you **just need some honkin data!** More than that, it's a learning resource for building blazing-fast REST APIs with the [HO(N)C stack.](https://honc.dev/#overview) You're welcome to use it as a reference, or clone the repo and modify the schema to fit your use-case.
 
 ## How does the API work?
 Placegoose comes with 3 goose-themed resources, supporting _up to_ all 5 common HTTP verbs. We don't actually make updates to the DB in response to write requests, but we do validate payloads and verify the target exists. If something's not right, we'll return an error with a helpful message.
@@ -24,7 +24,7 @@ To learn more about making requests, or what different errors mean, [check out o
 ## Flying solo
 You might want to build your own (mock?) data service, or may just be curious about the stack. This project was built using [Hono](https://hono.dev/) and [Drizzle ORM](https://orm.drizzle.team/) to highlight core features and implementation patterns. For more examples, or to get going with a template, [check out our repo.](https://github.com/fiberplane/create-honc-app)
 
-Take a deep dive into the development process and key features of the stack in our blog post. You'll need a basic understanding of TypeScript REST APIs and Cloudflare, but we tried to cover everything you'll need to get started!
+Take a deep dive into the development process and key features of the stack in [our blog series.](https://fiberplane.com/blog/) You'll need a basic understanding of TypeScript REST APIs and Cloudflare, but we tried to cover everything you'll need to get started!
 
 ## Making requests {#guide}
 - **No updates are made to the DB.** Responses to write operations are simulated by merging the validated request payload with the stored data.
@@ -220,6 +220,8 @@ Whens something goes wrong, we'll try and share a helpful message! If you're run
 ```
 type ErrorData = {
     message: string;
+    /** Only included for validation errors */
+    issues?: Record<string, string[]>;
 }
 ```
 

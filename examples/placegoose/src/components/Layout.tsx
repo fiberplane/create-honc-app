@@ -12,6 +12,7 @@ export default function Layout({ children }: { children?: unknown }) {
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="dark light" />
         <meta name="description" content={meta.description} />
         <meta name="og:title" content={meta.title} />
         <meta name="og:description" content={meta.description} />

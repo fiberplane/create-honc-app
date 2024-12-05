@@ -2,9 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 
 /**
+ * Used when connecting to local SQLite db during seeding and migrations,
+ * or when making queries against the db.
  * @returns Path to most recent .sqlite file in the .wrangler directory
  */
-export function getLocalD1DBPath() {
+export function getLocalSQLiteDBPath() {
   try {
     // .wrangler dir and process execution are assumed to be colocated
     const basePath = path.resolve(".wrangler");

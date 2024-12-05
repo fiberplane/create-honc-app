@@ -93,7 +93,7 @@ importers:
         version: 4.20241106.0
       '@fiberplane/hono-otel':
         specifier: latest
-        version: 0.3.1
+        version: 0.5.1
       '@types/node':
         specifier: ^22.2.0
         version: 22.9.0
@@ -194,7 +194,7 @@ importers:
         version: 4.20241106.0
       '@fiberplane/hono-otel':
         specifier: latest
-        version: 0.3.1
+        version: 0.5.1
       drizzle-kit:
         specifier: ^0.28.1
         version: 0.28.1
@@ -231,7 +231,7 @@ importers:
         version: 4.20241106.0
       '@fiberplane/hono-otel':
         specifier: latest
-        version: 0.3.1
+        version: 0.5.1
       drizzle-kit:
         specifier: ^0.28.1
         version: 0.28.1
@@ -259,6 +259,9 @@ importers:
       drizzle-orm:
         specifier: ^0.36.4
         version: 0.36.4(@cloudflare/workers-types@4.20241106.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1)
+      drizzle-zod:
+        specifier: ^0.5.1
+        version: 0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241106.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1))(zod@3.23.8)
       hono:
         specifier: ^4.6.11
         version: 4.6.11
@@ -274,9 +277,6 @@ importers:
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -285,8 +285,8 @@ importers:
         specifier: ^4.20241022.0
         version: 4.20241106.0
       '@fiberplane/hono-otel':
-        specifier: ^0.3.1
-        version: 0.3.1
+        specifier: ^0.5.1
+        version: 0.5.1
       '@fiberplane/studio':
         specifier: ^0.11.0
         version: 0.11.0(@cloudflare/workers-types@4.20241106.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(encoding@0.1.13)(pg@8.13.1)(react@18.3.1)(sswr@2.1.0(svelte@5.1.9))(svelte@5.1.9)
@@ -363,7 +363,7 @@ importers:
         version: 4.20241106.0
       '@fiberplane/hono-otel':
         specifier: latest
-        version: 0.3.1
+        version: 0.5.1
       drizzle-kit:
         specifier: ^0.28.1
         version: 0.28.1
@@ -1248,6 +1248,9 @@ packages:
 
   '@fiberplane/hono-otel@0.3.1':
     resolution: {integrity: sha512-E5Gpg06jMngM3gyIjhy4lFuGAv8Qpx0gnglmSgUeuEAkrpAAPy4tHpoFZsFc+gLgoM5+KytoI3MFowgheHjacg==}
+
+  '@fiberplane/hono-otel@0.5.1':
+    resolution: {integrity: sha512-vdbyFv9YenzSA73jGXUqmNmEdHjd0RPQw5le3eEbGyvq0ggtg1tPr68dM5WQrbJHOZjimmCAeKL9aS9yxQS1kg==}
 
   '@fiberplane/source-analysis@0.1.0':
     resolution: {integrity: sha512-2XI1ZmC0lkG78MMSNHzGQPaP4cFg658egdSU6bjU+FsAzGx0XJgQ7nInhYL7A6qDcTNCvSllYttOuyn6Mm4/Xg==}
@@ -4244,6 +4247,17 @@ snapshots:
       '@types/shimmer': 1.2.0
       shimmer: 1.2.1
 
+  '@fiberplane/hono-otel@0.5.1':
+    dependencies:
+      '@opentelemetry/api': 1.9.0
+      '@opentelemetry/exporter-trace-otlp-http': 0.52.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/exporter-trace-otlp-proto': 0.52.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/resources': 1.27.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/sdk-trace-base': 1.27.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/semantic-conventions': 1.27.0
+      '@types/shimmer': 1.2.0
+      shimmer: 1.2.1
+
   '@fiberplane/source-analysis@0.1.0':
     dependencies:
       chokidar: 3.6.0
@@ -5257,6 +5271,11 @@ snapshots:
   drizzle-zod@0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20241106.0)(@libsql/client@0.6.2)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1))(zod@3.23.8):
     dependencies:
       drizzle-orm: 0.33.0(@cloudflare/workers-types@4.20241106.0)(@libsql/client@0.6.2)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1)
+      zod: 3.23.8
+
+  drizzle-zod@0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241106.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1))(zod@3.23.8):
+    dependencies:
+      drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20241106.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(react@18.3.1)
       zod: 3.23.8
 
   eastasianwidth@0.2.0: {}
