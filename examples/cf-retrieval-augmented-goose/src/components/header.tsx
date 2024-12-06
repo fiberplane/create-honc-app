@@ -1,5 +1,5 @@
-import { Separator } from "@fiberplane/ascuii";
 import { css } from "hono/css";
+import { Separator } from "./separator";
 
 export function Header() {
   return (
