@@ -16,7 +16,7 @@
     "hono": "^4.6.7"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241106.0",
+    "@cloudflare/workers-types": "^4.20241205.0",
     "@fiberplane/hono-otel": "^0.3.1",
     "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",

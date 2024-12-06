@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@cloudflare/workers-types": "^4.20241106.0",
+    "@cloudflare/workers-types": "^4.20241205.0",
     "@fiberplane/hono-otel": "latest",
     "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",

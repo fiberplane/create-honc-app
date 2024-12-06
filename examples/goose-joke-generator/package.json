@@ -19,7 +19,7 @@
     "hono-rate-limiter": "^0.4.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241106.0",
+    "@cloudflare/workers-types": "^4.20241205.0",
     "@fiberplane/hono-otel": "^0.3.1",
     "@libsql/client": "^0.14.0",
     "drizzle-kit": "^0.28.1",

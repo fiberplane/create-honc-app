@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@cloudflare/workers-types": "^4.20241022.0",
+    "@cloudflare/workers-types": "^4.20241205.0",
     "@fiberplane/hono-otel": "^0.5.1",
     "@fiberplane/studio": "^0.11.0",
     "@libsql/client": "^0.14.0",
