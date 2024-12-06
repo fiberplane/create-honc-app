@@ -11,6 +11,11 @@ rules = [
   { type = "Text", globs = ["**/*.md"], fallthrough = true }
 ]
 
+# Custom domain mapping to point the worker to placegoose.fp.dev
+routes = [
+  { pattern = "placegoose.fp.dev", custom_domain = true }
+]
+
 # [vars]
 # MY_VAR = "my-variable"
 
