@@ -8,7 +8,7 @@
     "db:seed": "tsx seed.ts",
     "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
     "db:studio": "drizzle-kit studio",
-    "fiberplane": "fpx"
+    "fiberplane": "npx @fiberplane/studio@latest"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.1",
@@ -19,12 +19,9 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241205.0",
     "@fiberplane/hono-otel": "latest",
-    "@fiberplane/studio": "0.10.0",
     "drizzle-kit": "^0.28.1",
     "drizzle-seed": "^0.1.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.5.4",
-    "typescript-language-server": "^4.3.3",
     "wrangler": "3.92.0"
   }
 }
