@@ -36,6 +36,6 @@
     "@types/prismjs": "^1.26.5",
     "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",
-    "wrangler": "^3.88.0"
+    "wrangler": "3.92.0"
   }
 }
