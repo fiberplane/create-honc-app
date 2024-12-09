@@ -26,8 +26,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241106.0",
-    "@fiberplane/hono-otel": "latest",
+    "@cloudflare/workers-types": "^4.20241205.0",
+    "@fiberplane/hono-otel": "^0.6.1",
     "@types/node": "^22.2.0",
     "drizzle-kit": "^0.28.1",
     "pg": "^8.13.1",
@@ -35,6 +35,6 @@
     "tsx": "^4.19.2",
     "typescript": "^5.5.4",
     "typescript-language-server": "^4.3.3",
-    "wrangler": "^3.87.0"
+    "wrangler": "3.92.0"
   }
 }

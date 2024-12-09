@@ -22,13 +22,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@cloudflare/workers-types": "^4.20241106.0",
-    "@fiberplane/hono-otel": "latest",
+    "@cloudflare/workers-types": "^4.20241205.0",
+    "@fiberplane/hono-otel": "^0.6.1",
     "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",
     "typescript": "^5.5.4",
     "typescript-language-server": "^4.3.3",
-    "wrangler": "^3.87.0"
+    "wrangler": "3.92.0"
   },
   "description": "an api that listens for github pull requests and does code reviews"
 }
