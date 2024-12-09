@@ -24,6 +24,7 @@
     "drizzle-kit": "^0.28.1",
     "drizzle-seed": "^0.1.2",
     "tsx": "^4.19.2",
+    "typescript": "^5.5.4",
     "wrangler": "3.92.0"
   }
 }
