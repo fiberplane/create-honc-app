@@ -1,7 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/neon-http";
-import { users, type NewUser } from "./src/db/schema";
+import * as schema from "./src/db/schema";
 import { seed } from "drizzle-seed";
 
 config({ path: ".dev.vars" });
@@ -11,15 +11,8 @@ const sql = neon(process.env.DATABASE_URL!);
 const db = drizzle(sql);
 
 async function seedDatabase() {
-  await seed(db, { users }).refine((f) => ({
-    users: {
-      count: 10,
-      columns: {
-        name: f.fullName(),
-        email: f.email(),
-      },
-    },
-  }));
+  // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
+  await seed(db, schema);
 }
 
 async function main() {
