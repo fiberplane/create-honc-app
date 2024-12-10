@@ -13,15 +13,7 @@ const seedDatabase = async () => {
   const db = drizzle(client);
   
   try {
-    await seed(db, { users: schema.users }).refine((f) => ({
-      users: {
-        count: 10,
-        columns: {
-          name: f.fullName(),
-          email: f.email(),
-        },
-      },
-    }));
+    await seed(db, schema);
     console.log("✅ Database seeded successfully!");
     console.log("🪿 Run `npm run fiberplane` to explore data with your api.");
   } catch (error) {
