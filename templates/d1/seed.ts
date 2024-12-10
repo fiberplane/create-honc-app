@@ -13,6 +13,7 @@ const seedDatabase = async () => {
   const db = drizzle(client);
   
   try {
+    // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
     await seed(db, schema);
     console.log("✅ Database seeded successfully!");
     console.log("🪿 Run `npm run fiberplane` to explore data with your api.");

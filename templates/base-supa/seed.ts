@@ -10,6 +10,7 @@ const sql = postgres(process.env.DATABASE_URL ?? "");
 const db = drizzle(sql);
 
 async function seedDatabase() {
+  // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
   await seed(db, schema);
 }
 
