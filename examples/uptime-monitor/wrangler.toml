@@ -1,0 +1,38 @@
+name = "uptime-monitor"
+compatibility_date = "2024-11-11"
+compatibility_flags = [ "nodejs_compat" ]
+
+[durable_objects]
+bindings = [
+  { name = "SCHEDULED_MONITOR", class_name = "Monitor" }
+]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "uptime-d1-database"
+database_id = "local-uptime-d1-database"
+migrations_dir = "drizzle/migrations"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Monitor"]
+
+# [vars]
+# MY_VAR = "my-variable"
+
+# Workers Logs
+# Docs: https://developers.cloudflare.com/workers/observability/logs/workers-logs/
+# Configuration: https://developers.cloudflare.com/workers/observability/logs/workers-logs/#enable-workers-logs
+[observability]
+enabled = true
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+# [ai]
+# binding = "AI"
