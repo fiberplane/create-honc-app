@@ -9,7 +9,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:setup": "npm run db:generate && npm run db:migrate",
     "db:studio": "drizzle-kit studio",
-    "fiberplane": "pnpx @fiberplane/studio@canary",
+    "fiberplane": "npx @fiberplane/studio@latest",
     "vectors:create": "tsx --tsconfig tsconfig.scripts.json scripts/create-vectors.ts",
     "format": "biome check . --write"
   },
@@ -34,7 +34,6 @@
     "pgvector": "^0.2.0",
     "tsx": "^4.19.2",
     "typescript": "^5.5.4",
-    "typescript-language-server": "^4.3.3",
     "wrangler": "^3.95.0"
   }
 }

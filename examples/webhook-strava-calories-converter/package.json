@@ -7,7 +7,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:setup": "npm run db:generate && npm run db:migrate",
     "db:studio": "drizzle-kit studio",
-    "fiberplane": "npx @fiberplane/studio@canary",
+    "fiberplane": "npx @fiberplane/studio@latest",
     "format": "biome check . --write"
   },
   "dependencies": {
@@ -22,7 +22,6 @@
     "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",
     "typescript": "^5.5.4",
-    "typescript-language-server": "^4.3.3",
     "wrangler": "^3.95.0"
   }
 }
