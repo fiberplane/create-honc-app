@@ -41,6 +41,12 @@ A serverless website monitoring application built with the HONC stack (Hono, Ope
 
 ### Commands for local development
 
+Create a `.dev.vars` file from the example file:
+
+```sh
+cp .dev.vars.example .dev.vars
+```
+
 Run the migrations and (optionally) seed the database:
 
 ```sh
