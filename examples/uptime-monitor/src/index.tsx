@@ -182,13 +182,5 @@ app.get('/websites/:id/uptime', async (c) => {
   }
 })
 
-
-
-
-// TODO: Implement streaming or realtime updates for website status
-// See: https://hono.dev/docs/helpers/streaming#streaming-helper
-// See: https://developers.cloudflare.com/durable-objects/
-// See: https://fiberplane.com/blog/creating-websocket-server-hono-durable-objects/
-
 export default instrument(app);
 export { Monitor };
