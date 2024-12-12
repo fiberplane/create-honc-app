@@ -84,7 +84,7 @@ After creating the database, update the `wrangler.toml` file with the database i
 ```toml
 [[d1_databases]]
 binding = "DB"
-database_name = "honc-d1-database"
+database_name = "uptime-d1-database"
 database_id = "<database-id-you-just-created>"
 migrations_dir = "drizzle/migrations"
 ```
@@ -107,10 +107,10 @@ Afterwards, run the migration script for production:
 npm run db:migrate:prod
 ```
 
-Change the name of the project in `wrangler.toml` to something appropriate for your project:
+Change the name of the project in `wrangler.toml` if you want to, but for now it is:
 
 ```toml
-name = "my-d1-project"
+name = "uptime-monitor"
 ```
 
 Finally, deploy your worker
