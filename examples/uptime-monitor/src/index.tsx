@@ -18,8 +18,9 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 // Enable CORS
-app.use('/*', cors())
+app.use("/*", cors());
 
+// Render the main page UI with hono/jsx
 app.get(
   "/",
   jsxRenderer(
@@ -41,13 +42,13 @@ app.get(
         </html>
       );
     },
-    { docType: true }
+    { docType: true },
   ),
   async (c) => {
     const db = drizzle(c.env.DB);
     const websites = await db.select().from(schema.websites);
     return c.render(<WebsiteList websites={websites} />);
-  }
+  },
 );
 
 // CRUD for Websites
@@ -60,16 +61,17 @@ app.get("/api/websites", async (c) => {
 
 app.post("/api/website", async (c) => {
   const db = drizzle(c.env.DB);
-  
+
   try {
     const data = await c.req.json();
-    
+
     // Validate required fields
     if (!data.url || !data.name || !data.checkInterval) {
       return c.json({ error: "Missing required fields" }, 400);
     }
 
-    const [newWebsite] = await db.insert(schema.websites)
+    const [newWebsite] = await db
+      .insert(schema.websites)
       .values({
         url: data.url,
         name: data.name,
@@ -80,9 +82,11 @@ app.post("/api/website", async (c) => {
 
     // Create monitor with the new website's ID
     const monitor = c.env.SCHEDULED_MONITOR.get(
-      c.env.SCHEDULED_MONITOR.idFromName(newWebsite.id.toString())
+      c.env.SCHEDULED_MONITOR.idFromName(newWebsite.id.toString()),
     );
-    await monitor.fetch(new Request(`https://monitor/schedule?websiteId=${newWebsite.id}`));
+    await monitor.fetch(
+      new Request(`https://monitor/schedule?websiteId=${newWebsite.id}`),
+    );
 
     return c.json(newWebsite);
   } catch (error) {
@@ -146,41 +150,42 @@ app.get("/api/website/:id/checks", async (c) => {
 });
 
 // Get uptime percentage for a website
-app.get('/websites/:id/uptime', async (c) => {
-  const { id } = c.req.param()
-  const daysQueryParam = c.req.query('days') || "7";
+app.get("/websites/:id/uptime", async (c) => {
+  const { id } = c.req.param();
+  const daysQueryParam = c.req.query("days") || "7";
   const days = Number.parseInt(daysQueryParam);
-  const db = drizzle(c.env.DB)
+  const db = drizzle(c.env.DB);
 
   try {
-    const startDate = new Date()
-    startDate.setDate(startDate.getDate() - days)
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
 
-    const checks = await db.select()
+    const checks = await db
+      .select()
       .from(schema.uptimeChecks)
       .where(
         and(
           eq(schema.uptimeChecks.websiteId, Number.parseInt(id)),
-          sql`${schema.uptimeChecks.timestamp} >= ${startDate.toISOString()}`
-        )
-      )
-    
+          sql`${schema.uptimeChecks.timestamp} >= ${startDate.toISOString()}`,
+        ),
+      );
+
     if (!checks.length) {
-      return c.json({ error: 'No data found' }, 404)
+      return c.json({ error: "No data found" }, 404);
     }
 
-    const upCount = checks.filter(check => check.isUp).length
-    const uptimePercentage = (upCount / checks.length) * 100
+    const upCount = checks.filter((check) => check.isUp).length;
+    const uptimePercentage = (upCount / checks.length) * 100;
 
-    return c.json({ 
+    return c.json({
       uptimePercentage: Math.round(uptimePercentage * 100) / 100,
-      period: `${days} days`
-    })
+      period: `${days} days`,
+    });
   } catch (error) {
     console.error("Error calculating uptime:", error);
-    return c.json({ error: 'Failed to calculate uptime' }, 500)
+    return c.json({ error: "Failed to calculate uptime" }, 500);
   }
-})
+});
 
 export default instrument(app);
 export { Monitor };

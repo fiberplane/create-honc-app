@@ -10,7 +10,8 @@
     "db:seed": "tsx seed.ts",
     "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
     "db:studio": "drizzle-kit studio",
-    "fiberplane": "npx @fiberplane/studio@latest"
+    "fiberplane": "npx @fiberplane/studio@latest",
+    "format": "biome check . --write"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

@@ -10,20 +10,20 @@ const seedWebsites: NewWebsite[] = [
     url: "https://cloudflare.com",
     name: "Cloudflare Website",
     checkInterval: 60, // Check every 60 seconds
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   },
   {
     url: "https://workers.cloudflare.com",
     name: "Cloudflare Workers",
     checkInterval: 300, // Check every 5 minutes
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   },
   {
     url: "https://developers.cloudflare.com",
     name: "Cloudflare Developers",
     checkInterval: 120, // Check every 2 minutes
-    createdAt: new Date().toISOString()
-  }
+    createdAt: new Date().toISOString(),
+  },
 ];
 
 const seedDatabase = async () => {
@@ -32,7 +32,7 @@ const seedDatabase = async () => {
     console.error("❌ Could not find local D1 database");
     process.exit(1);
   }
-  
+
   const client = createClient({
     url: `file:${pathToDb}`,
   });

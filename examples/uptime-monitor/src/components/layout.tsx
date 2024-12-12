@@ -1,7 +1,6 @@
 import { css } from "hono/css";
 import type { PropsWithChildren } from "hono/jsx";
 
-
 type LayoutProps = { title: string } & PropsWithChildren;
 
 export function Layout({ children, title }: LayoutProps) {
@@ -13,9 +12,7 @@ export function Layout({ children, title }: LayoutProps) {
         <style id="hono-css" />
       </head>
       <body className={bodyClassName}>
-        
         <main className={mainClassName}>{children}</main>
-        
       </body>
     </html>
   );

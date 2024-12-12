@@ -1,7 +1,7 @@
-import { css } from 'hono/css'
-import { html } from 'hono/html'
-import type { FC } from 'hono/jsx'
-import type { Website, websites } from '../db/schema'
+import { css } from "hono/css";
+import { html } from "hono/html";
+import type { FC } from "hono/jsx";
+import type { Website, websites } from "../db/schema";
 
 const styles = {
   container: css`
@@ -39,12 +39,12 @@ const styles = {
   interval: css`
     color: #6b7280;
     font-size: 0.875rem;
-  `
-}
+  `,
+};
 
 type Props = {
-  websites: Array<Website>
-}
+  websites: Array<Website>;
+};
 
 export const WebsiteList: FC<Props> = ({ websites }) => {
   return (
@@ -66,5 +66,5 @@ export const WebsiteList: FC<Props> = ({ websites }) => {
         ))}
       </div>
     </div>
-  )
-} 
+  );
+};
