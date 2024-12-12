@@ -1,0 +1,18 @@
+# Normally you don't ignore this file, but it's nice to ignore it for the examples
+.fpxconfig
+
+# prod
+dist/
+
+# deps
+node_modules/
+.wrangler
+
+# env
+.env
+.env.production
+.dev.vars
+.prod.vars
+
+# misc
+.DS_Store

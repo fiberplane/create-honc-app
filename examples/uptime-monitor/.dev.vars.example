@@ -1,0 +1,2 @@
+# Connect to local fiberplane instance
+FPX_ENDPOINT=http://localhost:8788/v1/traces
