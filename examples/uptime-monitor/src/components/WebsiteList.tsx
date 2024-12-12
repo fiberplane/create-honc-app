@@ -1,7 +1,7 @@
 import { css } from 'hono/css'
 import { html } from 'hono/html'
 import type { FC } from 'hono/jsx'
-import type { websites } from '../db/schema'
+import type { Website, websites } from '../db/schema'
 
 const styles = {
   container: css`
@@ -42,8 +42,8 @@ const styles = {
   `
 }
 
-interface Props {
-  websites: typeof websites.$inferSelect[]
+type Props = {
+  websites: Array<Website>
 }
 
 export const WebsiteList: FC<Props> = ({ websites }) => {

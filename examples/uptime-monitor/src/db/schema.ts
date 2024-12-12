@@ -1,6 +1,6 @@
-import { sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
+export type Website = typeof websites.$inferSelect;
 export type NewWebsite = typeof websites.$inferInsert;
 export type NewUptimeCheck = typeof uptimeChecks.$inferInsert;
 

@@ -2,6 +2,7 @@
 import { drizzle } from 'drizzle-orm/d1'
 import { eq } from 'drizzle-orm'
 import * as schema from './db/schema'
+import type { Website } from './db/schema'
 
 interface Env {
   DB: D1Database
@@ -21,13 +22,14 @@ export class Monitor {
     const url = new URL(request.url)
     
     switch (url.pathname) {
-      case '/schedule':
+      case '/schedule': {
         const websiteId = url.searchParams.get('websiteId')
         if (!websiteId) {
           return new Response('Website ID is required', { status: 400 })
         }
-        await this.scheduleChecks(parseInt(websiteId))
+        await this.scheduleChecks(Number.parseInt(websiteId))
         return new Response('Monitoring scheduled')
+      }
       default:
         return new Response('Not found', { status: 404 })
     }
@@ -68,7 +70,7 @@ export class Monitor {
     })
   }
 
-  async performCheck(website: typeof schema.websites.$inferSelect) {
+  async performCheck(website: Website) {
     console.log(`Performing check for ${website.name} (${website.url})`)
     let isUp = false
     let responseTime = 0

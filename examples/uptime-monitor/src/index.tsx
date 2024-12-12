@@ -82,7 +82,7 @@ app.post("/api/website", async (c) => {
     const monitor = c.env.SCHEDULED_MONITOR.get(
       c.env.SCHEDULED_MONITOR.idFromName(newWebsite.id.toString())
     );
-    await monitor.fetch(new Request('https://monitor/schedule?websiteId=' + newWebsite.id));
+    await monitor.fetch(new Request(`https://monitor/schedule?websiteId=${newWebsite.id}`));
 
     return c.json(newWebsite);
   } catch (error) {
@@ -99,7 +99,7 @@ app.get("/api/website/:id", async (c) => {
   const website = await db
     .select()
     .from(schema.websites)
-    .where(eq(schema.websites.id, parseInt(websiteId)))
+    .where(eq(schema.websites.id, Number.parseInt(websiteId)))
     .limit(1);
 
   if (!website.length) {
@@ -116,7 +116,7 @@ app.delete("/api/website/:id", async (c) => {
   //TODO: wrap in try catch
   const [deletedWebsite] = await db
     .delete(schema.websites)
-    .where(eq(schema.websites.id, parseInt(websiteId)))
+    .where(eq(schema.websites.id, Number.parseInt(websiteId)))
     .returning();
 
   if (!deletedWebsite) {
@@ -134,7 +134,7 @@ app.get("/api/website/:id/checks", async (c) => {
     const uptimeChecks = await db
       .select()
       .from(schema.uptimeChecks)
-      .where(eq(schema.uptimeChecks.websiteId, websiteId))
+      .where(eq(schema.uptimeChecks.websiteId, Number.parseInt(websiteId)))
       .orderBy(desc(schema.uptimeChecks.timestamp))
       .limit(100); // Limiting to last 100 checks, adjust as needed
 
@@ -148,7 +148,8 @@ app.get("/api/website/:id/checks", async (c) => {
 // Get uptime percentage for a website
 app.get('/websites/:id/uptime', async (c) => {
   const { id } = c.req.param()
-  const days = c.req.query('days') != null ? parseInt(c.req.query('days')!) : 7
+  const daysQueryParam = c.req.query('days') || "7";
+  const days = Number.parseInt(daysQueryParam);
   const db = drizzle(c.env.DB)
 
   try {
@@ -159,7 +160,7 @@ app.get('/websites/:id/uptime', async (c) => {
       .from(schema.uptimeChecks)
       .where(
         and(
-          eq(schema.uptimeChecks.websiteId, id),
+          eq(schema.uptimeChecks.websiteId, Number.parseInt(id)),
           sql`${schema.uptimeChecks.timestamp} >= ${startDate.toISOString()}`
         )
       )
@@ -176,6 +177,7 @@ app.get('/websites/:id/uptime', async (c) => {
       period: `${days} days`
     })
   } catch (error) {
+    console.error("Error calculating uptime:", error);
     return c.json({ error: 'Failed to calculate uptime' }, 500)
   }
 })
