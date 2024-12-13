@@ -10,7 +10,7 @@
 
 <div align="center">
     <code>npm create honc-app@latest</code>
-</div
+</div>
 
 [HONC](https://honc.dev) is a modular collection of choice technologies for building lightweight, type-safe, edge-enabled data apis that scale seamlessly to their demand.
 
@@ -88,4 +88,7 @@ This file can be kept in version control. From [the Neon docs](https://neon.tech
 > **Neon does not save any confidential information to the context file (for example, auth tokens).** You can safely commit this file to your repository or share with others.
 
 ## More resources
+
+See the [examples](/examples) folder for some sample APIs.
+
 We have an [awesome HONC list](https://github.com/fiberplane/create-honc-app/blob/main/awesome-honc.md) with further guides, use cases and examples.
