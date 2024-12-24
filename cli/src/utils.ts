@@ -56,6 +56,15 @@ export function handleError(error: Error | CodeGenError) {
     log.info("Continuing...");
   } else {
     log.error(`exiting with an error: ${error.message}`);
+    // HACK - Allow us to log the error in more depth if `CHA_LOG_LEVEL` is set to `debug`
+    if (process?.env?.CHA_LOG_LEVEL === "debug") {
+      console.error("\n\n*********LOGGING VERBOSE ERROR*********\n");
+      console.error(error);
+      console.error(
+        "\n\n*********LOGGING VERBOSE ERROR AGAIN, BUT AS JSON*********\n",
+      );
+      console.error(JSON.stringify(error, null, 2));
+    }
     process.exit(1);
   }
 }

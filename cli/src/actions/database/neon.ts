@@ -143,9 +143,10 @@ async function createNewProject(neon: Api<unknown>): Promise<string | symbol> {
 
 async function selectProjectBranch(
   neon: Api<unknown>,
-  project: string,
+  projectId: string,
 ): Promise<string | symbol> {
-  const branches = (await neon.listProjectBranches(project)).data.branches;
+  const branches = (await neon.listProjectBranches({ projectId })).data
+    .branches;
   const branchOptions = branches.map((branch) => ({
     label: branch.name,
     value: branch.id,

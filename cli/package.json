@@ -1,7 +1,7 @@
 {
   "name": "create-honc-app",
   "type": "module",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "An interactive CLI to create modular typesafe data APIs using TypeScript",
   "scripts": {
     "build": "pnpm clean && tsup",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@clack/core": "^0.3.4",
     "@clack/prompts": "^0.7.0",
-    "@neondatabase/api-client": "^1.10.3",
+    "@neondatabase/api-client": "1.11.2",
     "giget": "^1.2.3",
     "open": "^10.1.0",
     "oslo": "^1.2.1",
