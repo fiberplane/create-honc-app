@@ -7,7 +7,7 @@ export const apiSpec = {
   },
   "servers": [
     {
-      "url": "https://placegoose.mies.workers.dev",
+      "url": "https://placegoose.fp.dev",
       "description": "Production server"
     }
   ],
