@@ -58,7 +58,7 @@ app.route("/honks", routes.honks);
 
 // Mount the Fiberplane playground to play with the API
 app.use("/fp/*", createMiddleware({
-  cdn: "https://cdn.jsdelivr.net/gh/fiberplane/fpx@playground/playground/dist/",
+  cdn: "https://cdn.jsdelivr.net/npm/@fiberplane/embedded/dist/playground/",
   // @ts-expect-error - The imported spec does not match our expected OpenAPIv3 type
   spec: apiSpec,
 }));
