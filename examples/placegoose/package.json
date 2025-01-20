@@ -17,7 +17,7 @@
     "format": "biome format --write src"
   },
   "dependencies": {
-    "@fiberplane/embedded": "^0.0.13",
+    "@fiberplane/embedded": "^0.0.15",
     "@hono-rate-limiter/cloudflare": "^0.2.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.4",

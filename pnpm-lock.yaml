@@ -242,8 +242,8 @@ importers:
   examples/placegoose:
     dependencies:
       '@fiberplane/embedded':
-        specifier: ^0.0.13
-        version: 0.0.13(hono@4.6.11)
+        specifier: ^0.0.15
+        version: 0.0.15(hono@4.6.11)
       '@hono-rate-limiter/cloudflare':
         specifier: ^0.2.1
         version: 0.2.1(@cloudflare/workers-types@4.20241205.0)(hono@4.6.11)
@@ -1231,8 +1231,8 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  '@fiberplane/embedded@0.0.13':
-    resolution: {integrity: sha512-AOmXHUD7tnlmsvGZO6wbhw4ARguOnyXmh4vv/CKjCwc9Xglzw8Stt1ok7IHt3B17U/sGFV9GUzSi00WsTG9upg==}
+  '@fiberplane/embedded@0.0.15':
+    resolution: {integrity: sha512-P0Moi7qUVp6Of8ng+xiwaR5HyCrpYXvlopQ5haXM/YgbjLCSNsIqXgvjJA7TsEvblzC6IS4BjNVxRYUZhReFaA==}
     peerDependencies:
       hono: ^4.0
 
@@ -3852,7 +3852,7 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
-  '@fiberplane/embedded@0.0.13(hono@4.6.11)':
+  '@fiberplane/embedded@0.0.15(hono@4.6.11)':
     dependencies:
       hono: 4.6.11
       openapi-types: 12.1.3
