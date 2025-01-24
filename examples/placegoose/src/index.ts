@@ -6,6 +6,7 @@ import { cors } from "hono/cors";
 import { raw } from "hono/html";
 import { HTTPException } from "hono/http-exception";
 import { jsxRenderer } from "hono/jsx-renderer";
+import { createMiddleware } from "@fiberplane/embedded";
 
 import Layout from "./components/Layout";
 import { mdToHtml } from "./lib/markdown";
@@ -13,6 +14,7 @@ import { formatZodError, isZodError } from "./lib/validation";
 import homePage from "./pages/index.md";
 import * as routes from "./routes";
 import type { AppType } from "./types";
+import { apiSpec } from "./api-spec";
 
 const app = new Hono<AppType>();
 
@@ -53,6 +55,12 @@ app.route("/gaggles", routes.gaggles);
 app.route("/geese", routes.geese);
 
 app.route("/honks", routes.honks);
+
+// Mount the Fiberplane playground to play with the API
+app.use("/fp/*", createMiddleware({
+  // @ts-expect-error - The imported spec does not match our expected OpenAPIv3 type
+  spec: apiSpec,
+}));
 
 app.onError((error, c) => {
   console.error(error);
