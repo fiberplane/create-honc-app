@@ -13,7 +13,7 @@ import path from "node:path";
 import fs from "node:fs";
 import { config } from "dotenv";
 
-// biome-ignore lint/suspicious/noExplicitAny: Centralize usage of `any` type (we use it in db results that are not worth typing)
+// biome-ignore lint/suspicious/noExplicitAny: Centralize usage of `any` type, since we use it in db results that are not worth the pain of typing
 type Any = any;
 
 seedDatabase();
