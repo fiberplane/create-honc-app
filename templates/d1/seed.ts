@@ -48,6 +48,13 @@ async function seedDatabase() {
  */
 function getLocalD1Db() {
   const pathToDb = getLocalD1DBPath();
+  if (!pathToDb) {
+    console.error(
+      "⚠️ Local D1 database not found. Try running `npm run db:touch` to create one.",
+    );
+    process.exit(1);
+  }
+
   const client = createClient({
     url: `file:${pathToDb}`,
   });
