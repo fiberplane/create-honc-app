@@ -6,7 +6,7 @@
     "db:touch": "wrangler d1 execute uptime-d1-database --local --command='SELECT 1'",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply uptime-d1-database --local",
-    "db:migrate:prod": "ENVIROMENT=production drizzle-kit migrate",
+    "db:migrate:prod": "ENVIRONMENT=production drizzle-kit migrate",
     "db:seed": "tsx seed.ts",
     "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
     "db:studio": "drizzle-kit studio",
