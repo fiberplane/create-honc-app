@@ -41,6 +41,11 @@ async function seedDatabase() {
   }
 };
 
+/**
+ * Creates a connection to the local D1 database and returns a Drizzle ORM instance.
+ *
+ * Relies on `getLocalD1DBPath` to find the path to the local D1 database inside the `.wrangler` directory.
+ */
 function getLocalD1Db() {
   const pathToDb = getLocalD1DBPath();
   const client = createClient({
@@ -50,6 +55,9 @@ function getLocalD1Db() {
   return db;
 }
 
+/**
+ * Finds the path to the local D1 database inside the `.wrangler` directory.
+ */
 function getLocalD1DBPath() {
   try {
     const basePath = path.resolve(".wrangler");
@@ -84,6 +92,7 @@ function getLocalD1DBPath() {
 /**
  * Creates a connection to the production Cloudflare D1 database and returns a Drizzle ORM instance.
  * Loads production environment variables from .prod.vars file.
+ *
  * @returns {Promise<SqliteRemoteDatabase>} Drizzle ORM instance connected to production database
  * @throws {Error} If required environment variables are not set
  */
@@ -211,15 +220,4 @@ export function createProductionD1Connection(
   };
 
   return drizzleSQLiteProxy(queryClient, batchQueryClient);
-}
-
-/**
- * Splits an array into smaller chunks.
- */
-function chunkArray<T>(array: T[], size: number): T[][] {
-  const result: T[][] = [];
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size));
-  }
-  return result;
 }
