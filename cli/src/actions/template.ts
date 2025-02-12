@@ -2,7 +2,7 @@ import { join } from "node:path";
 import type { Context } from "@/context";
 import type { Template } from "@/types";
 import { safeReadFile } from "@/utils";
-import { log, select, spinner } from "@clack/prompts";
+import { confirm, log, select, spinner } from "@clack/prompts";
 import { downloadTemplate } from "giget";
 
 export async function promptTemplate(ctx: Context) {
@@ -44,6 +44,20 @@ export async function promptTemplate(ctx: Context) {
   }
 }
 
+export async function promptOpenAPI(ctx: Context) {
+  const confirmOpenAPI = await confirm({
+    message: "Do you want to use OpenAPI?",
+    initialValue: true,
+    active: "Yes",
+  });
+
+
+  if (typeof confirmOpenAPI === "boolean" && confirmOpenAPI) {
+    // TODO - change the current template to the OpenAPI template
+    ctx.useOpenAPI = confirmOpenAPI;
+  }
+}
+
 export async function actionTemplate(ctx: Context) {
   if (!ctx.path) {
     log.error("Path is required");
@@ -60,13 +74,22 @@ export async function actionTemplate(ctx: Context) {
       templateUrl = "github:fiberplane/goose-quotes";
       break;
     case "base":
-      templateUrl = "github:fiberplane/create-honc-app/templates/base";
+      // TODO - change the branch specifier before merging and releasing
+      templateUrl = ctx.useOpenAPI
+        ? "github:fiberplane/create-honc-app/templates/base-openapi#its-openapi-time"
+        : "github:fiberplane/create-honc-app/templates/base";
       break;
     case "base-supa":
-      templateUrl = "github:fiberplane/create-honc-app/templates/base-supa";
+      // TODO - change the branch specifier before merging and releasing
+      templateUrl = ctx.useOpenAPI
+        ? "github:fiberplane/create-honc-app/templates/base-supa-openapi#its-openapi-time"
+        : "github:fiberplane/create-honc-app/templates/base-supa";
       break;
     case "sample-d1":
-      templateUrl = "github:fiberplane/create-honc-app/templates/d1";
+      // TODO - change the branch specifier before merging and releasing
+      templateUrl = ctx.useOpenAPI
+        ? "github:fiberplane/create-honc-app/templates/d1-openapi#its-openapi-time"
+        : "github:fiberplane/create-honc-app/templates/d1";
       break;
     default:
       return new Error(`Invalid template selected: ${ctx.template}`);

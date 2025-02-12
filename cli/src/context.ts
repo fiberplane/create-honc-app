@@ -8,6 +8,7 @@ export interface Context {
   path?: string;
   description?: string;
   template?: Template;
+  useOpenAPI?: boolean;
   database?: string;
   flags: Flags;
   databaseConnectionString?: string;
