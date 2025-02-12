@@ -3,8 +3,8 @@ export default function Layout({ children }: { children?: unknown }) {
   const meta = {
     title: "Placegoose",
     description: "Goose-themed placeholder data json api",
-    domain: "placegoose.mies.workers.dev",
-    url: "https://placegoose.mies.workers.dev/",
+    domain: "placegoose.fp.dev",
+    url: "https://placegoose.fp.dev/",
   };
 
   return (
