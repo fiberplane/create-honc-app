@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { promptPath } from "@/actions/path";
-import { actionTemplate, promptTemplate } from "@/actions/template";
+import { actionTemplate, promptOpenAPI, promptTemplate } from "@/actions/template";
 import { intro, isCancel, outro } from "@clack/prompts";
 import pico from "picocolors";
 import { actionCodeGenFinish, actionCodeGenStart } from "./actions/code-gen";
@@ -41,6 +41,7 @@ async function main() {
     shouldPromptDescription ? promptDescription : undefined,
     promptPath,
     promptTemplate,
+    promptOpenAPI,
     promptDatabase,
     promptDependencies,
     promptGit,
