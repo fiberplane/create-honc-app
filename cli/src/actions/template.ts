@@ -24,12 +24,7 @@ export async function promptTemplate(ctx: Context) {
           value: "sample-d1",
           label: "D1 base template",
           hint: "A barebones HONC project with a D1 Database",
-        },
-        {
-          value: "sample-api",
-          label: "Sample API template",
-          hint: "A configured sample API using the HONC stack",
-        },
+        }
       ],
       initialValue: "base",
     });
@@ -70,9 +65,6 @@ export async function actionTemplate(ctx: Context) {
   let templateUrl: string;
 
   switch (ctx.template) {
-    case "sample-api":
-      templateUrl = "github:fiberplane/goose-quotes";
-      break;
     case "base":
       // TODO - change the branch specifier before merging and releasing
       templateUrl = ctx.useOpenAPI
