@@ -41,14 +41,12 @@ export async function promptTemplate(ctx: Context) {
 
 export async function promptOpenAPI(ctx: Context) {
   const confirmOpenAPI = await confirm({
-    message: "Do you want to use OpenAPI?",
-    initialValue: true,
-    active: "Yes",
+    message: "Do you need an OpenAPI spec?",
+    initialValue: false,
   });
 
 
   if (typeof confirmOpenAPI === "boolean" && confirmOpenAPI) {
-    // TODO - change the current template to the OpenAPI template
     ctx.useOpenAPI = confirmOpenAPI;
   }
 }
