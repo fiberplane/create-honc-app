@@ -11,6 +11,7 @@
     "fiberplane": "npx @fiberplane/studio@latest"
   },
   "dependencies": {
+    "@hono/zod-openapi": "^0.18.4",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.39.3",
     "hono": "^4.7.0",
