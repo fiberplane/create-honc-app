@@ -6,7 +6,7 @@ import { cors } from "hono/cors";
 import { raw } from "hono/html";
 import { HTTPException } from "hono/http-exception";
 import { jsxRenderer } from "hono/jsx-renderer";
-import { createMiddleware } from "@fiberplane/embedded";
+import { createFiberplane } from "@fiberplane/hono";
 
 import Layout from "./components/Layout";
 import { mdToHtml } from "./lib/markdown";
@@ -57,9 +57,8 @@ app.route("/geese", routes.geese);
 app.route("/honks", routes.honks);
 
 // Mount the Fiberplane playground to play with the API
-app.use("/fp/*", createMiddleware({
-  // @ts-expect-error - The imported spec does not match our expected OpenAPIv3 type
-  spec: apiSpec,
+app.use("/fp/*", createFiberplane({
+  openapi: { content: JSON.stringify(apiSpec) },
 }));
 
 app.onError((error, c) => {
