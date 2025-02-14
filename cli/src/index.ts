@@ -13,7 +13,7 @@ import { actionDependencies, promptDependencies } from "./actions/dependencies";
 import { promptDescription } from "./actions/description";
 import { actionGit, promptGit } from "./actions/git";
 import { HONC_TITLE } from "./const";
-import { initContext } from "./context";
+import { Context, initContext } from "./context";
 import { updateProjectName } from "./project-name";
 import { touchDevVars } from "./touch-dev-vars";
 import { isError } from "./types";
@@ -99,12 +99,10 @@ ${dbPreamble}
 # Set up database:
 cd ${context.path}
 ${context.packageManager} run db:setup
-
-# [optional] Use Fiberplane to explore your api:
-${context.packageManager} run fiberplane
-
+${fiberplaneStudioPlug(context)}
 # Run your api:
 ${context.packageManager} run dev
+${fiberplanePlaygroundPlug(context)}
 `);
   process.exit(0);
 }
@@ -112,3 +110,26 @@ ${context.packageManager} run dev
 main().catch((err) => {
   console.error("Unhandled error:", err);
 });
+
+function fiberplaneStudioPlug(context: Context) {
+  const { packageManager } = context;
+
+  if (context.useOpenAPI) {
+    return "";
+  }
+
+  return `
+# [optional] Use Fiberplane to explore your api:
+${packageManager} run fiberplane
+`;
+}
+
+function fiberplanePlaygroundPlug(context: Context) {
+  if (!context.useOpenAPI) {
+    return "";
+  }
+
+  return `
+# [optional] Use Fiberplane to explore your api at "http://localhost:8787/fp"
+    `;
+}
