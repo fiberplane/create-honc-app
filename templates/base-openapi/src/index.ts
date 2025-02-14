@@ -14,6 +14,7 @@ type Variables = {
 };
 
 // Create the app with type-safe bindings and variables
+// For more information on OpenAPIHono, see: https://hono.dev/examples/zod-openapi
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Middleware: Set up database connection for all routes
@@ -39,17 +40,41 @@ const root = createRoute({
 	},
 });
 
+// Define the expected response shape using Zod
+//
+// We can add openapi documentation, as well as name the Schema in the OpenAPI document,
+// by chaining `openapi` on the zod schema definitions
+const UserSchema = z.object({
+  id: z.number().openapi({
+    example: 1,
+  }),
+  name: z.string().openapi({
+    example: "Nikita",
+  }),
+  email: z.string().email().openapi({
+    example: "nikita@neon.tech",
+  }),
+}).openapi("User");
+
 const getUsers = createRoute({
 	method: "get",
 	path: "/users",
 	responses: {
 		200: {
-			// Define the expected response shape using Zod
-			content: { "application/json": { schema: z.object({}) } },
+      content: { "application/json": { schema: z.array(UserSchema) } },
 			description: "Users fetched successfully",
 		},
 	},
 });
+
+const NewUserSchema = z.object({
+  name: z.string().openapi({
+    example: "Nikita",
+  }),
+  email: z.string().email().openapi({
+    example: "nikita@neon.tech",
+  }),
+}).openapi("NewUser");
 
 const getUser = createRoute({
 	method: "get",
@@ -57,12 +82,14 @@ const getUser = createRoute({
 	request: {
 		// Validate and parse URL parameters
 		params: z.object({
-			id: z.coerce.number(),
+			id: z.coerce.number().openapi({
+				example: 1,
+			}),
 		}),
 	},
 	responses: {
 		200: {
-			content: { "application/json": { schema: z.object({}) } },
+			content: { "application/json": { schema: UserSchema } },
 			description: "User fetched successfully",
 		},
 	},
@@ -77,10 +104,7 @@ const createUser = createRoute({
 			required: true, // NOTE: this is important to set to true, otherwise the route will accept empty body
 			content: {
 				"application/json": {
-					schema: z.object({
-						name: z.string(),
-						email: z.string().email(),
-					}),
+					schema: NewUserSchema,
 				},
 			},
 		},
@@ -89,11 +113,7 @@ const createUser = createRoute({
 		201: {
 			content: {
 				"application/json": {
-					schema: z.object({
-						id: z.number(),
-						name: z.string(),
-						email: z.string().email(),
-					}),
+					schema: UserSchema,
 				},
 			},
 			description: "User created successfully",
@@ -110,14 +130,14 @@ app.openapi(root, async (c) => {
 		const db = c.get("db");
 		return c.json({
 			users: await db.select().from(users),
-		});
+		}, 200);
 	})
 	.openapi(getUser, async (c) => {
 		const db = c.get("db");
 		const { id } = c.req.valid("param");
 		return c.json({
 			user: await db.select().from(users).where(eq(users.id, id)),
-		});
+		}, 200);
 	})
 	.openapi(createUser, async (c) => {
 		const db = c.get("db");

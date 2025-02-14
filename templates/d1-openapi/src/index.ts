@@ -12,6 +12,7 @@ type Variables = {
 };
 
 // Create the app with type-safe bindings and variables
+// For more information on OpenAPIHono, see: https://hono.dev/examples/zod-openapi
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Middleware: Set up D1 database connection for all routes
@@ -36,17 +37,41 @@ const root = createRoute({
 	},
 });
 
+// Define the expected response shape using Zod
+//
+// We can add openapi documentation, as well as name the Schema in the OpenAPI document,
+// by chaining `openapi` on the zod schema definitions
+const UserSchema = z.object({
+	id: z.number().openapi({
+		example: 1,
+	}),
+	name: z.string().openapi({
+		example: "Matthew",
+	}),
+	email: z.string().email().openapi({
+		example: "matthew@cloudflare.com",
+	}),
+}).openapi("User");
+
 const getUsers = createRoute({
 	method: "get",
 	path: "/api/users",
 	responses: {
 		200: {
-			// Define the expected response shape using Zod
-			content: { "application/json": { schema: z.object({}) } },
+			content: { "application/json": { schema: z.array(UserSchema) } },
 			description: "Users fetched successfully",
 		},
 	},
 });
+
+const NewUserSchema = z.object({
+	name: z.string().openapi({
+		example: "Matthew",
+	}),
+	email: z.string().email().openapi({
+		example: "matthew@cloudflare.com",
+	}),
+}).openapi("NewUser");
 
 const createUser = createRoute({
 	method: "post",
@@ -57,10 +82,7 @@ const createUser = createRoute({
 			required: true, // NOTE: this is important to set to true, otherwise the route will accept empty body
 			content: {
 				"application/json": {
-					schema: z.object({
-						name: z.string(),
-						email: z.string().email(),
-					}),
+					schema: NewUserSchema,
 				},
 			},
 		},
@@ -69,11 +91,7 @@ const createUser = createRoute({
 		201: {
 			content: {
 				"application/json": {
-					schema: z.object({
-						id: z.number(),
-						name: z.string(),
-						email: z.string().email(),
-					}),
+					schema: UserSchema,
 				},
 			},
 			description: "User created successfully",
