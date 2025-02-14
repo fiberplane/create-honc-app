@@ -4,6 +4,8 @@ This is a project created with the `create-honc-app` template.
 
 Learn more about the HONC stack on the [website](https://honc.dev) or the main [repo](https://github.com/fiberplane/create-honc-app).
 
+This template uses a Cloudflare D1 (sqlite) database. It also has [a version of Hono](https://hono.dev/examples/zod-openapi) that can generate an OpenAPI spec from your code. The OpenAPI spec is served from the route `/openapi.json`. To explore your API interactively, run `npm run dev` and go to `http://localhost:8787/fp`.
+
 ### Getting started
 [D1](https://developers.cloudflare.com/d1/) is Cloudflare's serverless SQL database. Running HONC with a D1 database involves two key steps: first, setting up the project locally, and second, deploying it in production. You can spin up your D1 database locally using Wrangler. If you're planning to deploy your application for production use, ensure that you have created a D1 instance in your Cloudflare account.
 
