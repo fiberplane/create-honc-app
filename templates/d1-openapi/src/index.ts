@@ -1,4 +1,4 @@
-import { drizzle, DrizzleD1Database } from "drizzle-orm/d1";
+import { drizzle, type DrizzleD1Database } from "drizzle-orm/d1";
 import { eq } from "drizzle-orm";
 import { createFiberplane } from "@fiberplane/hono";
 import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
@@ -129,14 +129,13 @@ app.openapi(root, (c) => {
 	.openapi(getUsers, async (c) => {
 		const db = c.get("db");
 		const users = await db.select().from(schema.users);
-		return c.json({ users });
+    return c.json(users);
 	})
   .openapi(getUser, async (c) => {
     const db = c.get("db");
     const { id } = c.req.valid("param");
-    return c.json({
-      user: await db.select().from(schema.users).where(eq(schema.users.id, id)),
-    });
+    const [user] = await db.select().from(schema.users).where(eq(schema.users.id, id));
+    return c.json(user);
   })
 	.openapi(createUser, async (c) => {
 		const db = c.get("db");

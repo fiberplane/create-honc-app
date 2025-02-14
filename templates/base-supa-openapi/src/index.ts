@@ -2,7 +2,7 @@ import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { eq } from "drizzle-orm";
 import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import postgres from "postgres";
-import { users } from "./db/schema";
+import * as schema from "./db/schema";
 import { createFiberplane } from "@fiberplane/hono";
 // Types for environment variables and context
 type Bindings = {
@@ -128,23 +128,21 @@ app.openapi(root, (c) => {
 })
 	.openapi(getUsers, async (c) => {
 		const db = c.get("db");
-		return c.json({
-			users: await db.select().from(users),
-		});
+    const users = await db.select().from(schema.users);
+		return c.json(users);
 	})
 	.openapi(getUser, async (c) => {
 		const db = c.get("db");
 		const { id } = c.req.valid("param");
-		return c.json({
-			user: await db.select().from(users).where(eq(users.id, id)),
-		});
+    const [user] = await db.select().from(schema.users).where(eq(schema.users.id, id));
+		return c.json(user);
 	})
 	.openapi(createUser, async (c) => {
 		const db = c.get("db");
 		const { name, email } = c.req.valid("json");
 
 		const [newUser] = await db
-			.insert(users)
+			.insert(schema.users)
 			.values({
 				name,
 				email,
