@@ -4,8 +4,6 @@ This is a project created with the `create-honc-app` template.
 
 Learn more about the HONC stack on the [website](https://honc.dev) or the main [repo](https://github.com/fiberplane/create-honc-app).
 
-This template uses Drizzle to query a Supabase (postgres) database. It also has [a version of Hono](https://hono.dev/examples/zod-openapi) that can generate an OpenAPI spec from your code. The OpenAPI spec is served from the route `/openapi.json`. To explore your API interactively, run `npm run dev` and go to `http://localhost:8787/fp`.
-
 ### Getting started
 
 Make sure you have Supabase set up and configured with your database. Create a .dev.vars file with the `DATABASE_URL` key and value (see: `.dev.vars.example`).

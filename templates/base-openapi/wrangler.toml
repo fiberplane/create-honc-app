@@ -1,12 +1,6 @@
-name = "honc-d1-template"
+name = "honc-neon-template-openapi"
 compatibility_date = "2025-02-04"
 compatibility_flags = [ "nodejs_compat" ]
-
-[[d1_databases]]
-binding = "DB"
-database_name = "honc-d1-database"
-database_id = "local-honc-d1-database"
-migrations_dir = "drizzle/migrations"
 
 # [vars]
 # MY_VAR = "my-variable"
@@ -24,6 +18,11 @@ enabled = true
 # [[r2_buckets]]
 # binding = "MY_BUCKET"
 # bucket_name = "my-bucket"
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "my-database"
+# database_id = ""
 
 # [ai]
 # binding = "AI"

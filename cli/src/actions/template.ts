@@ -2,7 +2,7 @@ import { join } from "node:path";
 import type { Context } from "@/context";
 import type { Template } from "@/types";
 import { safeReadFile } from "@/utils";
-import { log, select, spinner } from "@clack/prompts";
+import { confirm, log, select, spinner } from "@clack/prompts";
 import { downloadTemplate } from "giget";
 
 export async function promptTemplate(ctx: Context) {
@@ -24,12 +24,7 @@ export async function promptTemplate(ctx: Context) {
           value: "sample-d1",
           label: "D1 base template",
           hint: "A barebones HONC project with a D1 Database",
-        },
-        {
-          value: "sample-api",
-          label: "Sample API template",
-          hint: "A configured sample API using the HONC stack",
-        },
+        }
       ],
       initialValue: "base",
     });
@@ -41,6 +36,18 @@ export async function promptTemplate(ctx: Context) {
     return result;
   } catch (error) {
     return error;
+  }
+}
+
+export async function promptOpenAPI(ctx: Context) {
+  const confirmOpenAPI = await confirm({
+    message: "Do you need an OpenAPI spec?",
+    initialValue: false,
+  });
+
+
+  if (typeof confirmOpenAPI === "boolean" && confirmOpenAPI) {
+    ctx.useOpenAPI = confirmOpenAPI;
   }
 }
 
@@ -56,17 +63,20 @@ export async function actionTemplate(ctx: Context) {
   let templateUrl: string;
 
   switch (ctx.template) {
-    case "sample-api":
-      templateUrl = "github:fiberplane/goose-quotes";
-      break;
     case "base":
-      templateUrl = "github:fiberplane/create-honc-app/templates/base";
+      templateUrl = ctx.useOpenAPI
+        ? "github:fiberplane/create-honc-app/templates/base-openapi"
+        : "github:fiberplane/create-honc-app/templates/base";
       break;
     case "base-supa":
-      templateUrl = "github:fiberplane/create-honc-app/templates/base-supa";
+      templateUrl = ctx.useOpenAPI
+        ? "github:fiberplane/create-honc-app/templates/base-supa-openapi"
+        : "github:fiberplane/create-honc-app/templates/base-supa";
       break;
     case "sample-d1":
-      templateUrl = "github:fiberplane/create-honc-app/templates/d1";
+      templateUrl = ctx.useOpenAPI
+        ? "github:fiberplane/create-honc-app/templates/d1-openapi"
+        : "github:fiberplane/create-honc-app/templates/d1";
       break;
     default:
       return new Error(`Invalid template selected: ${ctx.template}`);
