@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 import { promptPath } from "@/actions/path";
-import { actionTemplate, promptOpenAPI, promptTemplate } from "@/actions/template";
+import {
+  actionTemplate,
+  promptOpenAPI,
+  promptTemplate,
+} from "@/actions/template";
 import { intro, isCancel, outro } from "@clack/prompts";
 import pico from "picocolors";
 import { actionCodeGenFinish, actionCodeGenStart } from "./actions/code-gen";
@@ -130,6 +134,7 @@ function fiberplanePlaygroundPlug(context: Context) {
   }
 
   return `
-# [optional] Use Fiberplane to explore your api at "http://localhost:8787/fp"
+# [optional] Use Fiberplane to explore your api
+open http://localhost:8787/fp
     `;
 }
