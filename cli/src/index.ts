@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 import { promptPath } from "@/actions/path";
-import { actionTemplate, promptOpenAPI, promptTemplate } from "@/actions/template";
+import {
+  actionTemplate,
+  promptOpenAPI,
+  promptTemplate,
+} from "@/actions/template";
 import { intro, isCancel, outro } from "@clack/prompts";
 import pico from "picocolors";
 import { actionCodeGenFinish, actionCodeGenStart } from "./actions/code-gen";

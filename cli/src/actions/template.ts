@@ -24,7 +24,7 @@ export async function promptTemplate(ctx: Context) {
           value: "sample-d1",
           label: "D1 base template",
           hint: "A barebones HONC project with a D1 Database",
-        }
+        },
       ],
       initialValue: "base",
     });
@@ -42,9 +42,9 @@ export async function promptTemplate(ctx: Context) {
 export async function promptOpenAPI(ctx: Context) {
   const confirmOpenAPI = await confirm({
     message: "Do you need an OpenAPI spec?",
-    initialValue: false,
+    initialValue: true,
+    active: "Yes",
   });
-
 
   if (typeof confirmOpenAPI === "boolean" && confirmOpenAPI) {
     ctx.useOpenAPI = confirmOpenAPI;
