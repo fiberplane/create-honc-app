@@ -64,21 +64,18 @@ export async function actionTemplate(ctx: Context) {
 
   switch (ctx.template) {
     case "base":
-      // TODO - change the branch specifier before merging and releasing
       templateUrl = ctx.useOpenAPI
-        ? "github:fiberplane/create-honc-app/templates/base-openapi#its-openapi-time"
+        ? "github:fiberplane/create-honc-app/templates/base-openapi"
         : "github:fiberplane/create-honc-app/templates/base";
       break;
     case "base-supa":
-      // TODO - change the branch specifier before merging and releasing
       templateUrl = ctx.useOpenAPI
-        ? "github:fiberplane/create-honc-app/templates/base-supa-openapi#its-openapi-time"
+        ? "github:fiberplane/create-honc-app/templates/base-supa-openapi"
         : "github:fiberplane/create-honc-app/templates/base-supa";
       break;
     case "sample-d1":
-      // TODO - change the branch specifier before merging and releasing
       templateUrl = ctx.useOpenAPI
-        ? "github:fiberplane/create-honc-app/templates/d1-openapi#its-openapi-time"
+        ? "github:fiberplane/create-honc-app/templates/d1-openapi"
         : "github:fiberplane/create-honc-app/templates/d1";
       break;
     default:
