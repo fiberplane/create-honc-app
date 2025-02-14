@@ -82,8 +82,8 @@ const getUser = createRoute({
 	request: {
 		// Validate and parse URL parameters
 		params: z.object({
-			id: z.coerce.number().openapi({
-				example: 1,
+			id: z.string().uuid().openapi({
+				example: "123e4567-e89b-12d3-a456-426614174000",
 			}),
 		}),
 	},
