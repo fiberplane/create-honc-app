@@ -4,6 +4,7 @@ import { drizzle, type NeonHttpDatabase } from "drizzle-orm/neon-http";
 import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import * as schema from "./db/schema";
 import { createFiberplane } from "@fiberplane/hono";
+
 // Types for environment variables and context
 type Bindings = {
   DATABASE_URL: string;

@@ -4,6 +4,7 @@ import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import postgres from "postgres";
 import * as schema from "./db/schema";
 import { createFiberplane } from "@fiberplane/hono";
+
 // Types for environment variables and context
 type Bindings = {
   DATABASE_URL: string; // Supabase PostgreSQL connection string
