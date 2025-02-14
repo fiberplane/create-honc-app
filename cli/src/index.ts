@@ -130,6 +130,7 @@ function fiberplanePlaygroundPlug(context: Context) {
   }
 
   return `
-# [optional] Use Fiberplane to explore your api at "http://localhost:8787/fp"
+# [optional] Use Fiberplane to explore your api
+open http://localhost:8787/fp
     `;
 }
