@@ -1,4 +1,6 @@
 import { drizzle, DrizzleD1Database } from "drizzle-orm/d1";
+import { eq } from "drizzle-orm";
+import { createFiberplane } from "@fiberplane/hono";
 import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import * as schema from "./db/schema";
 
@@ -64,6 +66,26 @@ const getUsers = createRoute({
 	},
 });
 
+const getUser = createRoute({
+  method: "get",
+  path: "/api/users/{id}",
+  request: {
+    // Validate and parse URL parameters
+    params: z.object({
+      id: z.coerce.number().openapi({
+        example: 1,
+      }),
+    }),
+  },
+  responses: {
+    200: {
+      content: { "application/json": { schema: UserSchema } },
+      description: "User fetched successfully",
+    },
+  },
+});
+
+
 const NewUserSchema = z.object({
 	name: z.string().openapi({
 		example: "Matthew",
@@ -109,6 +131,13 @@ app.openapi(root, (c) => {
 		const users = await db.select().from(schema.users);
 		return c.json({ users });
 	})
+  .openapi(getUser, async (c) => {
+    const db = c.get("db");
+    const { id } = c.req.valid("param");
+    return c.json({
+      user: await db.select().from(schema.users).where(eq(schema.users.id, id)),
+    });
+  })
 	.openapi(createUser, async (c) => {
 		const db = c.get("db");
 		const { name, email } = c.req.valid("json");
@@ -131,6 +160,9 @@ app.openapi(root, (c) => {
 			version: "1.0.0",
 			description: "D1 Honc! 🪿☁️",
 		},
-	});
+	})
+  .use("/fp/*", createFiberplane({
+    openapi: { url: "/openapi.json" },
+  }));
 
 export default app;

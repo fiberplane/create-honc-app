@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { drizzle, type NeonHttpDatabase } from "drizzle-orm/neon-http";
 import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import { users } from "./db/schema";
-
+import { createFiberplane } from "@fiberplane/hono";
 // Types for environment variables and context
 type Bindings = {
 	DATABASE_URL: string;
@@ -58,7 +58,7 @@ const UserSchema = z.object({
 
 const getUsers = createRoute({
 	method: "get",
-	path: "/users",
+	path: "/api/users",
 	responses: {
 		200: {
       content: { "application/json": { schema: z.array(UserSchema) } },
@@ -78,7 +78,7 @@ const NewUserSchema = z.object({
 
 const getUser = createRoute({
 	method: "get",
-	path: "/users/{id}",
+	path: "/api/users/{id}",
 	request: {
 		// Validate and parse URL parameters
 		params: z.object({
@@ -97,7 +97,7 @@ const getUser = createRoute({
 
 const createUser = createRoute({
 	method: "post",
-	path: "/users",
+	path: "/api/users",
 	request: {
 		// Validate request body using Zod schemas
 		body: {
@@ -142,15 +142,8 @@ app.openapi(root, async (c) => {
 	.openapi(createUser, async (c) => {
 		const db = c.get("db");
 		const { name, email } = c.req.valid("json");
-		const user = await db.insert(users).values({ name, email }).returning();
-		return c.json(
-			{
-				name: user[0].name!,
-				id: user[0].id,
-				email: user[0].email!,
-			},
-			201
-		);
+		const [newUser] = await db.insert(users).values({ name, email }).returning();
+		return c.json(newUser, 201);
 	})
 	// Generate OpenAPI documentation at /openapi.json
 	.doc("/openapi.json", {
@@ -160,6 +153,9 @@ app.openapi(root, async (c) => {
 			version: "1.0.0",
 			description: "Honc! 🪿",
 		},
-	});
+	})
+  .use("/fp/*", createFiberplane({
+    openapi: { url: "/openapi.json" },
+  }));
 
 export default app;

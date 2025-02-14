@@ -11,6 +11,7 @@
     "fiberplane": "npx @fiberplane/studio@latest"
   },
   "dependencies": {
+    "@fiberplane/hono": "^0.4.1",
     "@hono/zod-openapi": "^0.18.4",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.39.3",
@@ -20,7 +21,6 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250204.0",
-    "@fiberplane/hono-otel": "^0.6.2",
     "drizzle-kit": "^0.30.4",
     "drizzle-seed": "^0.3.1",
     "tsx": "^4.19.2",

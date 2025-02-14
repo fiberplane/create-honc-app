@@ -1,8 +1,9 @@
-import { drizzle, PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import { eq } from "drizzle-orm";
 import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import postgres from "postgres";
 import { users } from "./db/schema";
-
+import { createFiberplane } from "@fiberplane/hono";
 // Types for environment variables and context
 type Bindings = {
 	DATABASE_URL: string; // Supabase PostgreSQL connection string
@@ -68,7 +69,7 @@ const getUsers = createRoute({
 
 const getUser = createRoute({
   method: "get",
-  path: "/users/{id}",
+  path: "/api/users/{id}",
   request: {
     // Validate and parse URL parameters
     params: z.object({
@@ -96,11 +97,11 @@ const NewUserSchema = z.object({
 
 const createUser = createRoute({
 	method: "post",
-	path: "/api/user",
+	path: "/users",
 	request: {
 		// Validate request body using Zod schemas
 		body: {
-			required: true, // NOTE: this is important to set to true, otherwise the route will accept empty body
+			required: true,
 			content: {
 				"application/json": {
 					schema: NewUserSchema,
@@ -160,6 +161,9 @@ app.openapi(root, (c) => {
 			version: "1.0.0",
 			description: "Supa Honc! 📯🪿📯🪿📯🪿📯",
 		},
-	});
+	})
+  .use("/fp/*", createFiberplane({
+    openapi: { url: "/openapi.json" },
+  }));
 
 export default app;

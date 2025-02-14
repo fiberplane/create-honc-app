@@ -11,6 +11,7 @@
     "fiberplane": "npx @fiberplane/studio@latest"
   },
   "dependencies": {
+    "@fiberplane/hono": "^0.4.1",
     "@hono/zod-openapi": "^0.18.4",
     "@neondatabase/serverless": "^0.10.4",
     "dotenv": "^16.4.7",
