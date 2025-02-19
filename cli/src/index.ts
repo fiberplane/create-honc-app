@@ -103,10 +103,12 @@ ${dbPreamble}
 # Set up database:
 cd ${context.path}
 ${context.packageManager} run db:setup
-${fiberplaneStudioPlug(context)}
+
 # Run your api:
 ${context.packageManager} run dev
-${fiberplanePlaygroundPlug(context)}
+
+# [optional] Use Fiberplane to explore your api
+open http://localhost:8787/fp
 `);
   process.exit(0);
 }
@@ -114,27 +116,3 @@ ${fiberplanePlaygroundPlug(context)}
 main().catch((err) => {
   console.error("Unhandled error:", err);
 });
-
-function fiberplaneStudioPlug(context: Context) {
-  const { packageManager } = context;
-
-  if (context.useOpenAPI) {
-    return "";
-  }
-
-  return `
-# [optional] Use Fiberplane to explore your api:
-${packageManager} run fiberplane
-`;
-}
-
-function fiberplanePlaygroundPlug(context: Context) {
-  if (!context.useOpenAPI) {
-    return "";
-  }
-
-  return `
-# [optional] Use Fiberplane to explore your api
-open http://localhost:8787/fp
-    `;
-}
