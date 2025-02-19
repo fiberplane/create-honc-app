@@ -1,5 +1,9 @@
 ## 🪿 HONC The Halls
 
+A Made-for-TV Christmas Movie idea generator.
+
+**See it live: https://honc-the-halls.fp.dev**
+
 > This is a project created with a `create-honc-app` template.
 > For the original README that describes the HONC stack, see [README-honc.md](./README-honc.md)
 
