@@ -31,8 +31,7 @@ async function seedDatabase() {
     await seed(db, schema);
     console.log("✅ Database seeded successfully!");
     if (!isProd) {
-      console.log("🪿 Run `npm run fiberplane` to explore data with your api.");
-    }
+      }
   } catch (error) {
     console.error("❌ Error seeding database:", error);
     process.exit(1);
