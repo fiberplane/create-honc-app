@@ -58,6 +58,17 @@ An AI-powered goose image generator that creates comic/anime style goose images 
 </details>
 <details>
 
+### 🧑‍🎄 [HONC the Halls](./honc-the-halls)
+
+A Made-for-TV Christmas Movie idea geneator using `llama3.3-70b-instruct` and Together AI. Uses Hono's streaming utilities to stream the response back to the client, and Hono's `hono/jsx` to render the UI.
+
+<details>
+<summary>Integrations</summary>
+- Cloudflare D1 to store movie ideas
+- Together AI to generate movie ideas
+</details>
+<details>
+
 ### 🪿 [Goose Review Bot](./goose-review-bot)
 
 A GitHub PR review bot that provides "goosey" code reviews using Claude. Built with Neon Postgres and Cloudflare Workers.
