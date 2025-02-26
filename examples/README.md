@@ -44,29 +44,24 @@ A serverless monitoring application that tracks website uptime. Features configu
 </details>
 <details>
 
-### Telegram Bot
+### 🤖 Telegram Bot
 A personal AI assistant agent that can manage your schedule, events and calendars.
-
 - Check out [the GitHub repo](https://github.com/MonsterDeveloper/www-berlin-feb-2025)
 
-### Gift Card Generator
+### 🎁 Gift Card Generator
 A gift card creator that generates gift cards.
-
 - Check out [the GitHub repo](https://github.com/Alwurts/honc-slide-generator)
 
-### HONC Currency converter
+### 💱 HONC Currency converter
 A currency converter.
-
 - Check out [the GitHub repo](GitHub.com/JBlezi/honc-currency-converter)
   
-### Recipe AI Assistant
+### 🍽️ Recipe AI Assistant
 An app for recording recipes.
-
 - Check out [the GitHub repo](https://github.com/justArale/recipe-ai-assistant)
 
-### Meme Generator
+### 😂 Meme Generator
 A meme generator.
-
 - Check out [the GitHub repo](https://github.com/whereissam/meme-generator)
     
 ### 🎨 [Honcanator](./honcanator)
