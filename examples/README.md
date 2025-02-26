@@ -29,7 +29,6 @@ A RAG (Retrieval Augmented Generation) example that uses Cloudflare docs as a kn
 - OpenAI for embeddings generation
 - UI: SSR with hono/jsx and Fiberplane's "ascuii" SSR ui components
 </details>
-<details>
 
 ### 📊 [Website Uptime Monitor](./uptime-monitor)
 A serverless monitoring application that tracks website uptime. Features configurable health checks, response time tracking, and a web interface. Uses Cloudflare D1 and Durable Objects.
@@ -42,7 +41,6 @@ A serverless monitoring application that tracks website uptime. Features configu
 - Cloudflare Durable Objects for serverless state
 - UI: SSR with hono/jsx
 </details>
-<details>
 
 ### 🤖 Telegram Bot
 A personal AI assistant agent that can manage your schedule, events and calendars.
@@ -75,7 +73,6 @@ An AI-powered goose image generator that creates comic/anime style goose images 
 - Cloudflare R2 for blob storage
 - Cloudflare AI for image generation (Flux-1-Schnell)
 </details>
-<details>
 
 ### 🧑‍🎄 [HONC the Halls](./honc-the-halls)
 
@@ -86,7 +83,6 @@ A Made-for-TV Christmas Movie idea geneator using `llama3.3-70b-instruct` and To
 - Cloudflare D1 to store movie ideas
 - Together AI to generate movie ideas
 </details>
-<details>
 
 ### 🪿 [Goose Review Bot](./goose-review-bot)
 
@@ -97,7 +93,6 @@ A GitHub PR review bot that provides "goosey" code reviews using Claude. Built w
 - GitHub Octokit to handle webhooks and pull requests
 - Claude (Anthropic) to provide code reviews
 </details>
-<details>
 
 ### 😄 [Goose Joke Generator](./goose-joke-generator)
 A web app that generates (terrible) goose-themed jokes using Cloudflare AI. Stores jokes in a Neon Postgres database and includes rate limiting functionality.
@@ -109,4 +104,3 @@ A web app that generates (terrible) goose-themed jokes using Cloudflare AI. Stor
 - Neon serverless Postgres for data storage
 - Cloudflare AI (Llama-3.1-8B-Instruct)
 </details>
-<details>
