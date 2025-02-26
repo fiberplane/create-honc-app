@@ -161,6 +161,7 @@ app.openapi(root, (c) => {
     },
   })
   .use("/fp/*", createFiberplane({
+    app,
     openapi: { url: "/openapi.json" },
   }));
 

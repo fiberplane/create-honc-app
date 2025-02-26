@@ -45,6 +45,7 @@ app.get("/openapi.json", c => {
  * Visit the explorer at `/fp`
  */
 app.use("/fp/*", createFiberplane({
+  app,
   openapi: { url: "/openapi.json" }
 }));
 
