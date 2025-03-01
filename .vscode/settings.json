@@ -1,0 +1,6 @@
+{
+    "rust-analyzer.restartServerOnConfigChange": false,
+    "rust-analyzer.server.extraEnv": {
+        "PROMETHEUS_URL": "https://p01--explorer--9s96gp7669cc.code.run"
+    }
+}
