@@ -20,6 +20,9 @@
   🪿 **[Drizzle](https://orm.drizzle.team/)** as the ORM and migrations manager  
   🪿 **[Cloudflare](https://workers.cloudflare.com/)** Workers for deployment hosting  
 
+
+> 📚 For more examples and templates, check out the [Awesome Honc](https://github.com/fiberplane/awesome-honc) repository.
+
 ## Quickstart
 
 To get started run the following command:
@@ -92,4 +95,4 @@ This file can be kept in version control. From [the Neon docs](https://neon.tech
 
 See the [examples](/examples) folder for some sample APIs.
 
-We have an [awesome HONC list](https://github.com/fiberplane/create-honc-app/blob/main/awesome-honc.md) with further guides, use cases and examples.
+We have an [Awesome HONC repository](https://github.com/fiberplane/awesome-honc) with further guides, use cases and examples.
