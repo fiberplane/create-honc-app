@@ -26,7 +26,7 @@
     "hono-rate-limiter": "^0.4.0",
     "marked": "^15.0.2",
     "marked-highlight": "^2.2.1",
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.30.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
