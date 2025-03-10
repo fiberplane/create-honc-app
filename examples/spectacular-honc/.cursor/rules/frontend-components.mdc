@@ -1,0 +1,15 @@
+---
+description: frontend components with shadcn
+globs: 
+alwaysApply: false
+---
+
+# Adding and working with frontend components using shadcn
+
+Try to add shadcn components when you can instead of writing UI from scratch.
+
+To add a new shadcn component, use the custom pnpm script in @package.json: `pnpm shadd button`
+
+Look in the directory `src/components/ui` for existing components
+
+Try not to modify the components in this directory. if you want a reusable version of one of these with custom styles or behavior, define the derived component in `src/components` directory, then reuse that across the app.

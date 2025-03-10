@@ -17,7 +17,7 @@
     "@fiberplane/ascuii": "workspace:*",
     "@ai-sdk/openai": "^0.0.72",
     "@neondatabase/serverless": "^0.10.1",
-    "ai": "^3.4.33",
+    "ai": "^4.1.53",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.0",
     "hono": "^4.6.7",
