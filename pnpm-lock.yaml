@@ -73,8 +73,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
@@ -98,8 +98,8 @@ importers:
         specifier: ^22.2.0
         version: 22.9.0
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.5
+        version: 0.30.5
       pg:
         specifier: ^8.13.1
         version: 8.13.1
@@ -128,8 +128,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.6.9
         version: 4.6.9
@@ -147,8 +147,8 @@ importers:
         specifier: ^0.14.0
         version: 0.14.0
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.5
+        version: 0.30.5
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -177,8 +177,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
@@ -193,8 +193,8 @@ importers:
         specifier: ^0.6.2
         version: 0.6.2
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.5
+        version: 0.30.5
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -214,8 +214,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.4
-        version: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.6.7
         version: 4.6.11
@@ -230,11 +230,11 @@ importers:
         specifier: 0.8.0-canary.3
         version: 0.8.0-canary.3
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.5
+        version: 0.30.5
       drizzle-seed:
         specifier: ^0.1.2
-        version: 0.1.3(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0))
+        version: 0.1.3(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5))
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -254,8 +254,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
@@ -267,8 +267,8 @@ importers:
         specifier: ^0.6.2
         version: 0.6.2
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.5
+        version: 0.30.5
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -291,11 +291,11 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.4
-        version: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       drizzle-zod:
         specifier: ^0.5.1
-        version: 0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0))(zod@3.24.2)
+        version: 0.5.1(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5))(zod@3.24.2)
       hono:
         specifier: ^4.6.11
         version: 4.6.11
@@ -328,8 +328,8 @@ importers:
         specifier: ^1.26.5
         version: 1.26.5
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.5
+        version: 0.30.5
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -385,8 +385,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.7
       drizzle-orm:
-        specifier: ^0.36.4
-        version: 0.36.4(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.7.0
         version: 4.7.4
@@ -446,11 +446,11 @@ importers:
         specifier: ^4.3.4
         version: 4.3.4(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.2)(yaml@2.7.0))
       drizzle-kit:
-        specifier: ^0.30.4
+        specifier: ^0.30.5
         version: 0.30.5
       drizzle-seed:
         specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0))
+        version: 0.3.1(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5))
       tailwindcss:
         specifier: ^4.0.9
         version: 4.0.12
@@ -473,8 +473,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.0
-        version: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.6.7
         version: 4.6.11
@@ -492,8 +492,8 @@ importers:
         specifier: ^0.14.0
         version: 0.14.0
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.5
+        version: 0.30.5
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -513,8 +513,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
@@ -526,8 +526,8 @@ importers:
         specifier: ^0.6.2
         version: 0.6.2
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.5
+        version: 0.30.5
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -547,8 +547,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+        specifier: ^0.40.0
+        version: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
@@ -560,8 +560,8 @@ importers:
         specifier: ^0.6.2
         version: 0.6.2
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.5
+        version: 0.30.5
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -3658,111 +3658,15 @@ packages:
     resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
     engines: {node: '>=12'}
 
-  drizzle-kit@0.28.1:
-    resolution: {integrity: sha512-JimOV+ystXTWMgZkLHYHf2w3oS28hxiH1FR0dkmJLc7GHzdGJoJAQtQS5DRppnabsRZwE2U1F6CuezVBgmsBBQ==}
-    hasBin: true
-
   drizzle-kit@0.30.5:
     resolution: {integrity: sha512-l6dMSE100u7sDaTbLczibrQZjA35jLsHNqIV+jmhNVO3O8jzM6kywMOmV9uOz9ZVSCMPQhAZEFjL/qDPVrqpUA==}
     hasBin: true
 
-  drizzle-orm@0.36.0:
-    resolution: {integrity: sha512-6BETYPdKSR7cDHC0ZfqZk2VrKJ8n/Rfd3ajFPsAbc69gi87nwZ6oBA2wUGMELHA0tQE4kUKN0Ds00LUZQ6Z69A==}
+  drizzle-orm@0.40.0:
+    resolution: {integrity: sha512-7ptk/HQiMSrEZHnAsSlBESXWj52VwgMmyTEfoNmpNN2ZXpcz13LwHfXTIghsAEud7Z5UJhDOp8U07ujcqme7wg==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
-      '@cloudflare/workers-types': '>=3'
-      '@electric-sql/pglite': '>=0.2.0'
-      '@libsql/client': '>=0.10.0'
-      '@libsql/client-wasm': '>=0.10.0'
-      '@neondatabase/serverless': '>=0.1'
-      '@op-engineering/op-sqlite': '>=2'
-      '@opentelemetry/api': ^1.4.1
-      '@planetscale/database': '>=1'
-      '@prisma/client': '*'
-      '@tidbcloud/serverless': '*'
-      '@types/better-sqlite3': '*'
-      '@types/pg': '*'
-      '@types/react': '>=18'
-      '@types/sql.js': '*'
-      '@vercel/postgres': '>=0.8.0'
-      '@xata.io/client': '*'
-      better-sqlite3: '>=7'
-      bun-types: '*'
-      expo-sqlite: '>=13.2.0'
-      knex: '*'
-      kysely: '*'
-      mysql2: '>=2'
-      pg: '>=8'
-      postgres: '>=3'
-      prisma: '*'
-      react: '>=18'
-      sql.js: '>=1'
-      sqlite3: '>=5'
-    peerDependenciesMeta:
-      '@aws-sdk/client-rds-data':
-        optional: true
-      '@cloudflare/workers-types':
-        optional: true
-      '@electric-sql/pglite':
-        optional: true
-      '@libsql/client':
-        optional: true
-      '@libsql/client-wasm':
-        optional: true
-      '@neondatabase/serverless':
-        optional: true
-      '@op-engineering/op-sqlite':
-        optional: true
-      '@opentelemetry/api':
-        optional: true
-      '@planetscale/database':
-        optional: true
-      '@prisma/client':
-        optional: true
-      '@tidbcloud/serverless':
-        optional: true
-      '@types/better-sqlite3':
-        optional: true
-      '@types/pg':
-        optional: true
-      '@types/react':
-        optional: true
-      '@types/sql.js':
-        optional: true
-      '@vercel/postgres':
-        optional: true
-      '@xata.io/client':
-        optional: true
-      better-sqlite3:
-        optional: true
-      bun-types:
-        optional: true
-      expo-sqlite:
-        optional: true
-      knex:
-        optional: true
-      kysely:
-        optional: true
-      mysql2:
-        optional: true
-      pg:
-        optional: true
-      postgres:
-        optional: true
-      prisma:
-        optional: true
-      react:
-        optional: true
-      sql.js:
-        optional: true
-      sqlite3:
-        optional: true
-
-  drizzle-orm@0.36.4:
-    resolution: {integrity: sha512-1OZY3PXD7BR00Gl61UUOFihslDldfH4NFRH2MbP54Yxi0G/PKn4HfO65JYZ7c16DeP3SpM3Aw+VXVG9j6CRSXA==}
-    peerDependencies:
-      '@aws-sdk/client-rds-data': '>=3'
-      '@cloudflare/workers-types': '>=3'
+      '@cloudflare/workers-types': '>=4'
       '@electric-sql/pglite': '>=0.2.0'
       '@libsql/client': '>=0.10.0'
       '@libsql/client-wasm': '>=0.10.0'
@@ -3774,20 +3678,19 @@ packages:
       '@tidbcloud/serverless': '*'
       '@types/better-sqlite3': '*'
       '@types/pg': '*'
-      '@types/react': '>=18'
       '@types/sql.js': '*'
       '@vercel/postgres': '>=0.8.0'
       '@xata.io/client': '*'
       better-sqlite3: '>=7'
       bun-types: '*'
       expo-sqlite: '>=14.0.0'
+      gel: '>=2'
       knex: '*'
       kysely: '*'
       mysql2: '>=2'
       pg: '>=8'
       postgres: '>=3'
       prisma: '*'
-      react: '>=18'
       sql.js: '>=1'
       sqlite3: '>=5'
     peerDependenciesMeta:
@@ -3817,8 +3720,6 @@ packages:
         optional: true
       '@types/pg':
         optional: true
-      '@types/react':
-        optional: true
       '@types/sql.js':
         optional: true
       '@vercel/postgres':
@@ -3831,6 +3732,8 @@ packages:
         optional: true
       expo-sqlite:
         optional: true
+      gel:
+        optional: true
       knex:
         optional: true
       kysely:
@@ -3842,8 +3745,6 @@ packages:
       postgres:
         optional: true
       prisma:
-        optional: true
-      react:
         optional: true
       sql.js:
         optional: true
@@ -8361,15 +8262,6 @@ snapshots:
 
   dotenv@16.4.7: {}
 
-  drizzle-kit@0.28.1:
-    dependencies:
-      '@drizzle-team/brocli': 0.10.2
-      '@esbuild-kit/esm-loader': 2.6.5
-      esbuild: 0.19.12
-      esbuild-register: 3.6.0(esbuild@0.19.12)
-    transitivePeerDependencies:
-      - supports-color
-
   drizzle-kit@0.30.5:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
@@ -8380,7 +8272,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0):
+  drizzle-orm@0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20241205.0
       '@libsql/client': 0.14.0
@@ -8388,12 +8280,11 @@ snapshots:
       '@neondatabase/serverless': 0.10.1
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.11.10
-      '@types/react': 19.0.10
+      gel: 2.0.1
       pg: 8.13.1
       postgres: 3.4.5
-      react: 19.0.0
 
-  drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0):
+  drizzle-orm@0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20241205.0
       '@libsql/client': 0.14.0
@@ -8401,12 +8292,11 @@ snapshots:
       '@neondatabase/serverless': 0.10.4
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.11.10
-      '@types/react': 19.0.10
+      gel: 2.0.1
       pg: 8.13.1
       postgres: 3.4.5
-      react: 19.0.0
 
-  drizzle-orm@0.36.4(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0):
+  drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20250303.0
       '@libsql/client': 0.14.0
@@ -8414,26 +8304,25 @@ snapshots:
       '@neondatabase/serverless': 0.10.4
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.11.10
-      '@types/react': 19.0.10
+      gel: 2.0.1
       pg: 8.13.1
       postgres: 3.4.5
-      react: 19.0.0
 
-  drizzle-seed@0.1.3(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)):
+  drizzle-seed@0.1.3(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)):
     dependencies:
       pure-rand: 6.1.0
     optionalDependencies:
-      drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+      drizzle-orm: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
 
-  drizzle-seed@0.3.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)):
+  drizzle-seed@0.3.1(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)):
     dependencies:
       pure-rand: 6.1.0
     optionalDependencies:
-      drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+      drizzle-orm: 0.40.0(@cloudflare/workers-types@4.20250303.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
 
-  drizzle-zod@0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0))(zod@3.24.2):
+  drizzle-zod@0.5.1(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5))(zod@3.24.2):
     dependencies:
-      drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(@types/react@19.0.10)(pg@8.13.1)(postgres@3.4.5)(react@19.0.0)
+      drizzle-orm: 0.40.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       zod: 3.24.2
 
   eastasianwidth@0.2.0: {}

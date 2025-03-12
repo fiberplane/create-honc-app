@@ -15,3 +15,6 @@ cli/test-apps/**
 
 # Ignore VSCode settings
 .vscode/
+
+# script for removing nodemodules
+remove_node_modules.sh
