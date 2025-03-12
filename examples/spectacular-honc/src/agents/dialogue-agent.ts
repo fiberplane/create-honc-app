@@ -4,7 +4,8 @@ import { createDataStreamResponse, streamText, tool } from "ai";
 import { drizzle } from "drizzle-orm/d1";
 import type { AiEnv, AiOnFinishHandler } from "./types";
 import { z } from "zod";
-import { specifications } from "@/db/schema";
+import { specifications, type Specification } from "@/db/schema";
+import type { AgentContext } from "agents-sdk";
 
 // https://harper.blog/2025/02/16/my-llm-codegen-workflow-atm/
 export const REFINING_SYSTEM_PROMPT = `
@@ -29,6 +30,35 @@ Here's the idea:
  * - [ ] Allow refinement of the specification
  */
 export class DialogueAgent extends AIChatAgent<AiEnv> {
+  specifications: Pick<Specification, "id">[];
+  constructor(ctx: AgentContext, env: AiEnv) {
+    super(ctx, env);
+    this.sql`create table if not exists cf_ai_chat_agent_specifications (
+      id text primary key
+    )`;
+    this.specifications = (
+      this.sql`select * from cf_ai_chat_agent_specifications` || []
+    ).map((row) => {
+      return { id: Number.parseInt(row?.id as string) };
+    });
+  }
+
+  /**
+   * Method that saves a spec
+   * 
+   * We only save the latest spec id
+   */
+  private async persistSpecification(
+    specification: Pick<Specification, "id">
+  ) {
+    this.sql`delete from cf_ai_chat_agent_specifications`;
+    this.sql`insert into cf_ai_chat_agent_specifications (id) values (${specification.id})`;
+    this.specifications = [specification];
+  }
+
+  /**
+   * Method that handles the chat message
+   */
   async onChatMessage(onFinish: AiOnFinishHandler) {
     return createDataStreamResponse({
       execute: async (dataStream) => {
@@ -51,11 +81,12 @@ export class DialogueAgent extends AIChatAgent<AiEnv> {
               execute: async ({ title, plan }) => {
                 console.log("Executing generate_implementation_plan tool");
                 // TODO: Implement a reasoning call to improve the plan
-                await db.insert(specifications).values({
+                const [spec] = await db.insert(specifications).values({
                   title: title,
                   content: plan,
                   version: 1,
-                });
+                }).returning();
+                await this.persistSpecification(spec);
                 return plan;
               },
             }),
