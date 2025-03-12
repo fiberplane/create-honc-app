@@ -1,0 +1,10 @@
+you are in a typescript fullstack project that runs on cloudflare using the following:
+
+- cloudflare workers for the runtime
+- hono.js as the api framework
+- cloudflare's sdk for ai agents (which is new!)
+- durable objects to manage state of ai agents and expose realtime streaming
+
+the project uses modern typescript
+
+pnpm for dependency mangement (insidea monorepo)
