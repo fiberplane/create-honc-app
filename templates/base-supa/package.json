@@ -20,7 +20,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250204.0",
     "@fiberplane/hono-otel": "^0.6.2",
-    "drizzle-kit": "^0.30.4",
+    "drizzle-kit": "^0.30.5",
     "drizzle-seed": "^0.3.1",
     "tsx": "^4.19.2",
     "wrangler": "^3.107.3"
