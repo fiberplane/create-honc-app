@@ -1,5 +1,4 @@
 import { AIChatAgent } from "agents-sdk/ai-chat-agent";
-import type { IncomingMessage } from "agents-sdk";
 
 import { createOpenAI } from "@ai-sdk/openai";
 import { createDataStreamResponse, streamText, tool } from "ai";
@@ -9,8 +8,6 @@ import { z } from "zod";
 import { specifications, type Specification } from "@/db/schema";
 import type { AgentContext, Connection, WSMessage } from "agents-sdk";
 import { eq } from "drizzle-orm";
-
-
 
 /**
  * Main chat agent that responds to the user's messsage to refine an idea

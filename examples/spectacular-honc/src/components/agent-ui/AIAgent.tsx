@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Send, Trash2 } from "lucide-react";
 import { AIMarkdown } from "./AIMarkdown";
+import type { UIMessage } from "ai";
 
 export function ChatInterface() {
   // Connect to the agent
@@ -30,24 +31,7 @@ export function ChatInterface() {
           </div>
         ) : (
           messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${
-                message.role === "user" ? "justify-end" : "justify-start"
-              }`}
-            >
-              <div
-                className={`rounded-xl px-3 py-2 max-w-[85%] flex items-center ${
-                  message.role === "user"
-                    ? "bg-primary/80 text-primary-foreground"
-                    : "bg-card"
-                }`}
-              >
-                <div className="whitespace-pre-wrap markdown-content flex items-center">
-                  <AIMarkdown content={message.content} />
-                </div>
-              </div>
-            </div>
+            <ChatMessage key={message.id} message={message} />
           ))
         )}
       </div>
@@ -91,4 +75,43 @@ export function ChatInterface() {
       </div>
     </div>
   );
+}
+
+function ChatMessage({ message }: { message: UIMessage }) {
+  const toolInvocations = message.parts.filter(part => part.type === "tool-invocation")
+  const generateSpecInvocations = toolInvocations.filter(invocation => invocation.toolInvocation.toolName === "generate_implementation_plan")
+  return (
+    <>
+      {generateSpecInvocations.length > 0 && <SpecCreated title={generateSpecInvocations[0].toolInvocation.args?.title} />}
+      <div
+        className={`flex ${message.role === "user" ? "justify-end" : "justify-start"
+          }`}
+      >
+        <div
+          className={`rounded-xl px-3 py-2 max-w-[85%] flex items-center ${message.role === "user"
+              ? "bg-primary/80 text-primary-foreground"
+              : "bg-card"
+            }`}
+        >
+          <div className="whitespace-pre-wrap markdown-content flex items-center">
+            <AIMarkdown content={message.content} />
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+function SpecCreated({ title }: { title: string }) {
+  return (
+    <div
+      className={"flex justify-start"}
+    >
+      <div
+        className={"rounded-xl px-3 py-2 max-w-[85%] flex items-center bg-card"}
+      >
+        Create Specification: {title}
+      </div>
+    </div>
+  )
 }
