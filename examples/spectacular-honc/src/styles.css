@@ -3,78 +3,78 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: #1a1a1b;
-  --card: oklch(1 0 0);
-  --card-foreground: #1a1a1b;
-  --popover: oklch(1 0 0);
-  --popover-foreground: #1a1a1b;
-  --primary: #f48120;
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: #faad3f;
-  --secondary-foreground: #1a1a1b;
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: #1a1a1b;
-  --accent: #faad3f;
-  --accent-foreground: #1a1a1b;
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: #faad3f;
-  --assistant-border: #faad3f;
-  --input: #faad3f;
-  --input-background: oklch(0.97 0 0);
-  --ring: #f48120;
-  --chart-1: #f48120;
-  --chart-2: #faad3f;
-  --chart-3: #1a1a1b;
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --background: #fdf6e3;
+  --foreground: #7d7c80;
+  --card: #fff5e4;
+  --card-foreground: #484849;
+  --popover: #fff5e4;
+  --popover-foreground: #7d7c80;
+  --primary: #ff8c96;
+  --primary-foreground: #ffffff;
+  --secondary: #ffb380;
+  --secondary-foreground: #7d7c80;
+  --muted: #f0f8ff;
+  --muted-foreground: #7d7c80;
+  --accent: #baffc9;
+  --accent-foreground: #7d7c80;
+  --destructive: #ff6961;
+  --destructive-foreground: #ffffff;
+  --border: #ffdfba;
+  --assistant-border: #ffdfba;
+  --input: #ffdfba;
+  --input-background: #f0f8ff;
+  --ring: #ffb3ba;
+  --chart-1: #ffb3ba;
+  --chart-2: #ffdfba;
+  --chart-3: #baffc9;
+  --chart-4: #bae1ff;
+  --chart-5: #e0bbe4;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: #1a1a1b;
-  --sidebar-primary: #f48120;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: #faad3f;
-  --sidebar-accent-foreground: #1a1a1b;
-  --sidebar-border: #faad3f;
-  --sidebar-ring: #f48120;
+  --sidebar: #fffaf0;
+  --sidebar-foreground: #7d7c80;
+  --sidebar-primary: #ffb3ba;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ffdfba;
+  --sidebar-accent-foreground: #7d7c80;
+  --sidebar-border: #ffdfba;
+  --sidebar-ring: #ffb3ba;
 }
 
 .dark {
-  --background: #1a1a1b;
-  --foreground: oklch(0.985 0 0);
-  --card: #1a1a1b;
-  --card-foreground: oklch(0.985 0 0);
-  --popover: #1a1a1b;
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: #f48120;
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: #faad3f;
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: #1a1a1b;
-  --muted-foreground: #faad3f;
-  --accent: #faad3f;
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: #faad3f;
-  --assistant-border: #8b4d14;
-  --input: #faad3f;
-  --input-background: #0f0f10;
-  --ring: #f48120;
-  --chart-1: #f48120;
-  --chart-2: #faad3f;
-  --chart-3: #1a1a1b;
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: #1a1a1b;
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: #f48120;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: #faad3f;
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: #faad3f;
-  --sidebar-ring: #f48120;
+  --background: #2e3440;
+  --foreground: #eceff4;
+  --card: #3b4252;
+  --card-foreground: #eceff4;
+  --popover: #3b4252;
+  --popover-foreground: #eceff4;
+  --primary: #ffb3ba;
+  --primary-foreground: #2e3440;
+  --secondary: #ffdfba;
+  --secondary-foreground: #2e3440;
+  --muted: #434c5e;
+  --muted-foreground: #d8dee9;
+  --accent: #baffc9;
+  --accent-foreground: #2e3440;
+  --destructive: #bf616a;
+  --destructive-foreground: #eceff4;
+  --border: #ffdfba;
+  --assistant-border: #a3be8c;
+  --input: #ffdfba;
+  --input-background: #434c5e;
+  --ring: #ffb3ba;
+  --chart-1: #ffb3ba;
+  --chart-2: #ffdfba;
+  --chart-3: #baffc9;
+  --chart-4: #bae1ff;
+  --chart-5: #e0bbe4;
+  --sidebar: #3b4252;
+  --sidebar-foreground: #eceff4;
+  --sidebar-primary: #ffb3ba;
+  --sidebar-primary-foreground: #2e3440;
+  --sidebar-accent: #ffdfba;
+  --sidebar-accent-foreground: #2e3440;
+  --sidebar-border: #ffdfba;
+  --sidebar-ring: #ffb3ba;
 }
 
 @theme inline {
@@ -146,5 +146,9 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  [class$="bg-card"] {
+    @apply shadow-sm border border-border/20;
   }
 }

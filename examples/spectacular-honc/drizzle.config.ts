@@ -38,7 +38,8 @@ export default dbConfig;
 
 function getLocalD1DB() {
   try {
-    const basePath = path.resolve(".wrangler");
+    const basePath = path.resolve(path.join(".wrangler", "state", "v3", "d1"));
+    // const basePath = path.resolve(".wrangler");
     const files = fs
       .readdirSync(basePath, { encoding: "utf-8", recursive: true })
       .filter((f) => f.endsWith(".sqlite"));

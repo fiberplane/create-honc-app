@@ -18,36 +18,44 @@ export function ChatInterface() {
       maxSteps: 5,
     });
 
+  console.log("Messages", messages);
+
   return (
     <div className="flex flex-col h-[calc(100vh-40px)]">
       {/* Message History */}
       <div className="flex-1 overflow-y-auto p-4 space-y-6">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex ${
-              message.role === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
+        {messages.length === 0 ? (
+          <div className="text-center text-muted-foreground mt-10">
+            Start chatting to create a software specification!
+          </div>
+        ) : (
+          messages.map((message) => (
             <div
-              className={`rounded-2xl px-4 py-3 max-w-[85%] ${
-                message.role === "user"
-                  ? "bg-amber-700/80 text-white rounded-tr-none"
-                  : "bg-transparent border rounded-tl-none"
+              key={message.id}
+              className={`flex ${
+                message.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
-              <div className="whitespace-pre-wrap markdown-content">
-                <AIMarkdown content={message.content} />
+              <div
+                className={`rounded-xl px-3 py-2 max-w-[85%] flex items-center ${
+                  message.role === "user"
+                    ? "bg-primary/80 text-primary-foreground"
+                    : "bg-card"
+                }`}
+              >
+                <div className="whitespace-pre-wrap markdown-content flex items-center">
+                  <AIMarkdown content={message.content} />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-gray-800 p-4">
-        <div className="flex justify-between items-center mb-3">
-          <div className="text-sm font-medium text-gray-400">
+      <div className="border-t border-border/10 px-4 pt-1 pb-3 bg-card">
+        <div className="flex justify-between items-center mb-2">
+          <div className="text-xs font-medium text-muted-foreground">
             {messages.length > 0 ? `${messages.length} messages` : "No messages"}
           </div>
           {messages.length > 0 && (
@@ -55,29 +63,29 @@ export function ChatInterface() {
               onClick={clearHistory}
               variant="outline"
               size="sm"
-              className="text-gray-400 hover:text-white border-gray-700 hover:border-gray-500 hover:bg-gray-800/50 text-xs flex items-center gap-1.5"
+              className="p-1 text-muted-foreground hover:text-foreground border-border/10 hover:border-border hover:bg-muted/50 text-xs flex items-center gap-1.5 transition-colors duration-200"
             >
-              <Trash2 className="h-3.5 w-3.5" />
+              <Trash2 className="h-3 w-3" />
               Clear chat
             </Button>
           )}
         </div>
         <form
           onSubmit={handleSubmit}
-          className="flex items-center space-x-2"
+          className="flex items-center space-x-3"
         >
           <Input
             value={input}
             onChange={handleInputChange}
             placeholder="Type your message..."
-            className="flex-1 bg-transparent border-gray-700 focus-visible:ring-gray-600 text-white placeholder:text-gray-500"
+            className="flex-1 bg-background/50 border-border/10 focus-visible:ring-primary/30 text-foreground placeholder:text-muted-foreground/60 rounded-xl py-5"
           />
           <Button 
             type="submit" 
             size="icon" 
-            className="bg-amber-800 hover:bg-amber-700 text-white rounded-full h-10 w-10 flex items-center justify-center"
+            className="bg-primary/80 hover:bg-primary text-primary-foreground rounded-full h-10 w-10 flex items-center justify-center transition-colors duration-200"
           >
-            <Send className="h-5 w-5" />
+            <Send className="h-4 w-4" />
           </Button>
         </form>
       </div>

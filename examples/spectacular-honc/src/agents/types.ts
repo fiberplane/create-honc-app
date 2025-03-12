@@ -2,6 +2,7 @@ import type { AIChatAgent } from "agents-sdk/ai-chat-agent";
 import type { streamText } from "ai";
 
 export type AiEnv = {
+  DB: D1Database;
   OPENAI_API_KEY: string;
 };
 

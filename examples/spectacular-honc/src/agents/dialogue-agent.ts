@@ -1,8 +1,10 @@
 import { AIChatAgent } from "agents-sdk/ai-chat-agent";
 import { createOpenAI } from "@ai-sdk/openai";
 import { createDataStreamResponse, streamText, tool } from "ai";
+import { drizzle } from "drizzle-orm/d1";
 import type { AiEnv, AiOnFinishHandler } from "./types";
 import { z } from "zod";
+import { specifications } from "@/db/schema";
 
 // https://harper.blog/2025/02/16/my-llm-codegen-workflow-atm/
 export const REFINING_SYSTEM_PROMPT = `
@@ -30,6 +32,7 @@ export class DialogueAgent extends AIChatAgent<AiEnv> {
   async onChatMessage(onFinish: AiOnFinishHandler) {
     return createDataStreamResponse({
       execute: async (dataStream) => {
+        const db = drizzle(this.env.DB);
         const ai = createOpenAI({
           apiKey: this.env.OPENAI_API_KEY,
         });
@@ -39,22 +42,29 @@ export class DialogueAgent extends AIChatAgent<AiEnv> {
           system: REFINING_SYSTEM_PROMPT,
           messages: this.messages,
           tools: {
-            ask_follow_up_question: tool({
-              description: "Ask a follow up question to the user about their idea",
-              parameters: z.object({
-                question: z.string(),
-              }),
-            }),
             generate_implementation_plan: tool({
               description: "Generate an implementation plan for the user's idea",
               parameters: z.object({
-                plan: z.string(),
+                title: z.string().describe("The title of the specification"),
+                plan: z.string().describe("A handover document for a developer to implement the specification"),
               }),
-              execute: async ({ plan }) => {
+              execute: async ({ title, plan }) => {
+                console.log("Executing generate_implementation_plan tool");
                 // TODO: Implement a reasoning call to improve the plan
+                await db.insert(specifications).values({
+                  title: title,
+                  content: plan,
+                  version: 1,
+                });
                 return plan;
               },
             }),
+          },
+          onStepFinish: (step) => {
+            console.log("Step finished:", step);
+            
+            // this.messages.push(step);
+            // ...
           },
           // maxSteps: 3, // allow up to 3 steps, feeding outputs back into the model
           onFinish, // call onFinish so that messages get saved

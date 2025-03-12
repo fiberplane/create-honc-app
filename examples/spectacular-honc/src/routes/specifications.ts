@@ -18,6 +18,13 @@ const specificationSchema = z.object({
   version: z.number().int().positive().optional(),
 });
 
+// List all specifications
+specificationsRouter.get("/", async (c) => {
+  const db = c.get("db");
+  const specs = await db.select().from(specifications);
+  return c.json(specs);
+});
+
 // Create a new specification
 specificationsRouter.post(
   "/",
