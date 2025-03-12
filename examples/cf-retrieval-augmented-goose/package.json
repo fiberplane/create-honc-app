@@ -19,7 +19,7 @@
     "@neondatabase/serverless": "^0.10.1",
     "ai": "^4.1.53",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.36.0",
+    "drizzle-orm": "^0.40.0",
     "hono": "^4.6.7",
     "openai": "^4.71.0",
     "tslib": "^2.8.1",
