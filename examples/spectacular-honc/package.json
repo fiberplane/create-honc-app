@@ -12,6 +12,7 @@
     "db:seed:prod": "ENVIRONMENT=production tsx seed.ts",
     "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
     "db:studio": "drizzle-kit studio",
+    "db:agent:studio": "ENVIRONMENT=agent drizzle-kit studio",
     "shadd": "pnpm dlx shadcn@latest add"
   },
   "dependencies": {
@@ -30,7 +31,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.39.3",
+    "drizzle-orm": "^0.40.0",
     "hono": "^4.7.0",
     "hono-agents": "^0.0.17",
     "lucide-react": "^0.477.0",

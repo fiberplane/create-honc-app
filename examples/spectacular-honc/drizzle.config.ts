@@ -19,7 +19,8 @@ if (process.env.ENVIRONMENT === "production") {
   });
 } else {
   config({ path: "./.dev.vars" });
-  const localD1DB = getLocalD1DB();
+  const shouldUseAgentDB = process.env.ENVIRONMENT === "agent";
+  const localD1DB = getLocalD1DB(shouldUseAgentDB);
   if (!localD1DB) {
     process.exit(1);
   }
@@ -36,10 +37,11 @@ if (process.env.ENVIRONMENT === "production") {
 
 export default dbConfig;
 
-function getLocalD1DB() {
+function getLocalD1DB(shouldUseAgentDB: boolean) {
   try {
-    const basePath = path.resolve(path.join(".wrangler", "state", "v3", "d1"));
-    // const basePath = path.resolve(".wrangler");
+    const basePath = shouldUseAgentDB
+      ? path.resolve(path.join(".wrangler", "state", "v3", "do"))
+      : path.resolve(path.join(".wrangler", "state", "v3", "d1"));
     const files = fs
       .readdirSync(basePath, { encoding: "utf-8", recursive: true })
       .filter((f) => f.endsWith(".sqlite"));
