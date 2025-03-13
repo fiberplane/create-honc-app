@@ -285,8 +285,8 @@ importers:
         specifier: 0.5.3-canary.1
         version: 0.5.3-canary.1(@hono/zod-openapi@0.18.4(hono@4.6.11)(zod@3.24.2))(@standard-schema/spec@1.0.0)(hono@4.6.11)
       '@fiberplane/hono-otel':
-        specifier: 0.8.1-canary.2
-        version: 0.8.1-canary.2
+        specifier: 0.8.1-canary.3
+        version: 0.8.1-canary.3
       '@hono-rate-limiter/cloudflare':
         specifier: ^0.2.1
         version: 0.2.1(@cloudflare/workers-types@4.20241205.0)(hono@4.6.11)
@@ -1426,8 +1426,8 @@ packages:
   '@fiberplane/hono-otel@0.8.0-canary.3':
     resolution: {integrity: sha512-J2Y89d7ZMu0TpNYaXma5ZmZ2WNnBLtv3Z4ieXQmVT4LwEk5LmCQYK7UaBT6HFctJAMnybkjlD8dJHK2O0RYFOw==}
 
-  '@fiberplane/hono-otel@0.8.1-canary.2':
-    resolution: {integrity: sha512-RcPQWOxxtP0vQkYQ+fsX5Lq+3+8rrRfh5i/Ug5vxIuyyd2nknSzYqbZMad7lAuAKAwmI4eedAG6KYMtrM1Z30g==}
+  '@fiberplane/hono-otel@0.8.1-canary.3':
+    resolution: {integrity: sha512-ImFLMK1cqy/8Gcc8VqQwJSkageA2J2PRqLRcArhvcVz7vl0S4y/6HwY9syQM4paXO6qa3P8V2cLSODbHes6Qcw==}
 
   '@fiberplane/hono@0.5.3-canary.1':
     resolution: {integrity: sha512-FDUIYu3WtKF495Z8wFN4Nc1hnu36/lxMCwSk7ccf8RXTa2WZ4gcLiYGLKpHCKUzRxPRhfelXg/sz381B8tE1pQ==}
@@ -4459,7 +4459,7 @@ snapshots:
       '@types/shimmer': 1.2.0
       shimmer: 1.2.1
 
-  '@fiberplane/hono-otel@0.8.1-canary.2':
+  '@fiberplane/hono-otel@0.8.1-canary.3':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 1.9.0(@opentelemetry/api@1.9.0)

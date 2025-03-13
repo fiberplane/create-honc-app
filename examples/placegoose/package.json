@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@fiberplane/hono": "0.5.3-canary.1",
-    "@fiberplane/hono-otel": "0.8.1-canary.2",
+    "@fiberplane/hono-otel": "0.8.1-canary.3",
     "@hono-rate-limiter/cloudflare": "^0.2.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.4",
