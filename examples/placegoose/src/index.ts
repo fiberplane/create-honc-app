@@ -60,7 +60,7 @@ app.route("/honks", routes.honks);
 app.use("/fp/*", createFiberplane({
   openapi: { content: JSON.stringify(apiSpec) },
   debug: true,
-  authTraces: false,
+  // authTraces: false,
 }));
 
 app.onError((error, c) => {
