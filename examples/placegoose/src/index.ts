@@ -59,6 +59,7 @@ app.route("/honks", routes.honks);
 // Mount the Fiberplane playground to play with the API
 app.use("/fp/*", createFiberplane({
   openapi: { content: JSON.stringify(apiSpec) },
+  debug: true,
 }));
 
 app.onError((error, c) => {
