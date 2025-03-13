@@ -17,7 +17,8 @@
     "format": "biome format --write src"
   },
   "dependencies": {
-    "@fiberplane/hono": "^0.4.1-beta.3",
+    "@fiberplane/hono": "0.5.3-canary.1",
+    "@fiberplane/hono-otel": "0.8.1-canary.1",
     "@hono-rate-limiter/cloudflare": "^0.2.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.4",
@@ -31,7 +32,6 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@cloudflare/workers-types": "^4.20241205.0",
-    "@fiberplane/hono-otel": "^0.6.2",
     "@libsql/client": "^0.14.0",
     "@types/prismjs": "^1.26.5",
     "drizzle-kit": "^0.28.1",
