@@ -188,7 +188,7 @@ export function createProductionD1Connection(
     }
 
     const queryResult = dbResponse?.result?.at(0);
-    if (!queryResult || !queryResult.success) {
+    if (!queryResult?.success) {
       throw new Error(
         `Query Failed: \n${JSON.stringify(dbResponse)}`,
         { cause: queryResult },
