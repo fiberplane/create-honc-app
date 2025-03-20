@@ -1,7 +1,7 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 const metadata = {
-  id: integer({ mode: "number" }).primaryKey(),
+  id: integer({ mode: "number" }).primaryKey({ autoIncrement: true }),
 };
 
 export type Gaggle = typeof gaggles.$inferSelect;
