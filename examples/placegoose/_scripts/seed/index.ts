@@ -62,8 +62,11 @@ async function seedDatabase() {
 
     // Batch writes to insert in transaction
     await db.batch([
+      // 3 columns * 33 rows = 99
       ...chunkInserts(schema.gaggles, seedData.gaggles, 33),
+      // 5 columns * 20 rows = 100
       ...chunkInserts(schema.geese, seedData.geese, 20),
+      // 3 columns * 33 rows = 99
       ...chunkInserts(schema.honks, seedData.honks, 33),
     ]);
 
