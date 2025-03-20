@@ -49,12 +49,13 @@ async function seedDatabase() {
       // Initialize the array with the first insert to
       // satisfy the tuple type requirement
       const chunkedInserts: [BatchItem<"sqlite">, ...BatchItem<"sqlite">[]] = [
-        db.insert(table).values(dataChunks[0])
+        db.insert(table).values(dataChunks[0]),
       ];
 
       // Loop starts at 1 as we've already added 0
       for (let i = 1; i < dataChunks.length; i++) {
-        chunkedInserts.push(db.insert(table).values(dataChunks[i]));
+        const batchItem = db.insert(table).values(dataChunks[i]);
+        chunkedInserts.push(batchItem);
       }
 
       return chunkedInserts;
@@ -72,10 +73,7 @@ async function seedDatabase() {
 
     console.log("Database seeded successfully!");
   } catch (error) {
-    if (error instanceof Error) {
-      console.error(`Database Seed Failed: ${error.message}`);
-    }
-    console.error(error);
+    console.error('Database Seed Failed: ', error);
     process.exit(1);
   }
 }
@@ -203,7 +201,7 @@ export function createProductionD1Connection(
       throw new TypeError('Unexpected Response: Malformed rows', {
         cause: dbResponse,
       });
-    })
+    });
 
     return { rows };
   }
