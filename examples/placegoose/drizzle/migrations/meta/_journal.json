@@ -8,6 +8,13 @@
       "when": 1731960335956,
       "tag": "0000_little_newton_destine",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1742587484896,
+      "tag": "0001_warm_sersi",
+      "breakpoints": true
     }
   ]
 }
