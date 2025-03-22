@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 import { promptPath } from "@/actions/path";
-import { actionTemplate, promptTemplate } from "@/actions/template";
+import {
+  actionTemplate,
+  promptOpenAPI,
+  promptTemplate,
+} from "@/actions/template";
 import { intro, isCancel, outro } from "@clack/prompts";
 import pico from "picocolors";
 import { actionCodeGenFinish, actionCodeGenStart } from "./actions/code-gen";
@@ -13,7 +17,7 @@ import { actionDependencies, promptDependencies } from "./actions/dependencies";
 import { promptDescription } from "./actions/description";
 import { actionGit, promptGit } from "./actions/git";
 import { HONC_TITLE } from "./const";
-import { initContext } from "./context";
+import { Context, initContext } from "./context";
 import { updateProjectName } from "./project-name";
 import { touchDevVars } from "./touch-dev-vars";
 import { isError } from "./types";
@@ -41,6 +45,7 @@ async function main() {
     shouldPromptDescription ? promptDescription : undefined,
     promptPath,
     promptTemplate,
+    promptOpenAPI,
     promptDatabase,
     promptDependencies,
     promptGit,
@@ -99,11 +104,11 @@ ${dbPreamble}
 cd ${context.path}
 ${context.packageManager} run db:setup
 
-# [optional] Use Fiberplane to explore your api:
-${context.packageManager} run fiberplane
-
 # Run your api:
 ${context.packageManager} run dev
+
+# [optional] Use Fiberplane to explore your api
+open http://localhost:8787/fp
 `);
   process.exit(0);
 }

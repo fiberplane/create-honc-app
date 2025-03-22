@@ -7,22 +7,21 @@
     "db:migrate": "drizzle-kit migrate",
     "db:seed": "tsx seed.ts",
     "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
-    "db:studio": "drizzle-kit studio",
-    "fiberplane": "npx @fiberplane/studio@latest"
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.1",
-    "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.36.4",
-    "hono": "^4.6.7"
+    "@fiberplane/hono": "0.4.4-beta.2",
+    "@neondatabase/serverless": "^0.10.4",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.39.3",
+    "hono": "^4.7.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241205.0",
-    "@fiberplane/hono-otel": "^0.6.2",
-    "drizzle-kit": "^0.28.1",
-    "drizzle-seed": "^0.1.2",
+    "@cloudflare/workers-types": "^4.20250204.0",
+    "drizzle-kit": "^0.30.4",
+    "drizzle-seed": "^0.3.1",
     "tsx": "^4.19.2",
-    "typescript": "^5.5.4",
-    "wrangler": "^3.95.0"
+    "wrangler": "^3.107.3"
   }
 }
