@@ -1,18 +1,14 @@
 ## 🪿 Goose Joke Generator
 
-This is a project created with the Neon HONC template.
+This is a project created with the D1 HONC template.
 
-It is a simple Goose Joke Generator that uses Cloudflare AI to generate jokes, and store them in a Neon Postgres database.
+It is a simple Goose Joke Generator that uses Cloudflare AI to generate jokes, and store them in a D1 database.
 
 The jokes are of a particularly poor quality.
 
 ### Getting started
 
-Make sure you have Neon set up and the api is configured to use your database. 
-
-To do this, create a `.dev.vars` file with your Neon connection string as the `DATABASE_URL` key and value (see: `.dev.vars.example`).
-
-Also make sure you are logged in to Cloudflare and have access to Workers AI.
+Make sure you are logged in to Cloudflare and have access to Workers AI.
 
 Then, run `pnpm dev` to kick off the app locally.
 
@@ -26,7 +22,6 @@ Then, run `pnpm dev` to kick off the app locally.
 │   └── db
 │       └── schema.ts # Database schema
 ├── seed.ts # Seeding script
-├── .dev.vars.example # Example .dev.vars file
 ├── wrangler.toml # Cloudflare Workers configuration
 ├── drizzle.config.ts # Drizzle configuration
 ├── tsconfig.json # TypeScript configuration
@@ -49,24 +44,35 @@ Run the development server:
 pnpm dev
 ```
 
-Test and debug with Fiberplane:
-
-```sh
-pnpm fiberplane
-```
-
 ### Deploying to Cloudflare
 
 > **Remember this uses some AI!** So you will be billed for any newly generated goose jokes.
 
 Deploy with Cloudflare Wrangler.
 
-First set the DATABASE_URL as a secret:
+#### Setting up the D1 database
+First, create the D1 database:
 
 ```sh
-pnpx wrangler secret put DATABASE_URL
-# when prompted, enter your Neon connection string
+pnpx wrangler d1 create goose-joke-generator
 ```
+
+Then, update your wrangler.toml file to include the D1 database id:
+
+```toml
+[[d1_databases]]
+binding = "DB"
+database_name = "goose-joke-generator"
+database_id = "<result from previous command>"
+```
+
+Finally, create a `.prod.vars` file with your Cloudflare API token, account ID, and database ID (See: `D1-explained.md`), and run the migrations against production:
+
+```sh
+pnpm run db:migrate:prod
+```
+
+#### Setting up KV for the rate limiter
 
 Then, create the KV binding on your account, since we use that for the rate limiter:
 

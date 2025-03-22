@@ -1,7 +1,9 @@
-import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-export const jokes = pgTable("jokes", {
-  id: serial("id").primaryKey(),
+export const jokes = sqliteTable("jokes", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   content: text("content").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  createdAt: text("created_at").notNull().default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: text("updated_at").notNull().default(sql`(CURRENT_TIMESTAMP)`),
 });

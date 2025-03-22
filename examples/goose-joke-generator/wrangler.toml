@@ -5,8 +5,11 @@ compatibility_flags = [ "nodejs_compat" ]
 [dev]
 port = 7153
 
-# [vars]
-# MY_VAR = "my-variable"
+[[d1_databases]]
+binding = "DB"
+database_name = "goose-joke-generator"
+database_id = "394ccdfa-c874-41dd-93b6-7a6acd2ab1fc"
+migrations_dir = "drizzle/migrations"
 
 # Workers Logs
 # Docs: https://developers.cloudflare.com/workers/observability/logs/workers-logs/
