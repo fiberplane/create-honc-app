@@ -1,7 +1,5 @@
-import { instrument } from "@fiberplane/hono-otel";
-import { neon } from "@neondatabase/serverless";
 import { count } from "drizzle-orm";
-import { type NeonHttpDatabase, drizzle } from "drizzle-orm/neon-http";
+import { drizzle, DrizzleD1Database } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { HomePage } from "./HomePage";
 import { generateGooseJoke } from "./ai";
@@ -16,8 +14,7 @@ const app = new Hono<{ Bindings: Bindings }>();
 // app.use(gooseJokesRateLimiter);
 
 app.get("/", async (c) => {
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
 
   let joke: string;
 
@@ -40,8 +37,7 @@ app.get("/", async (c) => {
  * @returns A Promise that resolves to an array of jokes
  */
 app.get("/api/jokes", async (c) => {
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
 
   return c.json({
     jokes: await db.select().from(jokes),
@@ -58,8 +54,7 @@ app.get("/api/jokes", async (c) => {
  */
 app.post("/api/generate-joke", async (c) => {
   const ai = c.env.AI;
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
 
   const joke = await generateGooseJoke(db, ai);
 
@@ -84,7 +79,7 @@ app.post("/api/generate-joke", async (c) => {
   });
 });
 
-export default instrument(app);
+export default app;
 
 /**
  * Retrieves a random joke from the database or generates a new one if there are fewer than 50 jokes.
@@ -93,7 +88,7 @@ export default instrument(app);
  * @param ai - The AI object used for generating new jokes
  * @returns A Promise that resolves to a string containing the joke
  */
-async function getRandomJoke(db: NeonHttpDatabase, ai: Ai): Promise<string> {
+async function getRandomJoke(db: DrizzleD1Database, ai: Ai): Promise<string> {
   // Get the total count of jokes in the database
   const [{ count: jokeCount }] = await db
     .select({ count: count() })

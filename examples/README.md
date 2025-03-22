@@ -87,7 +87,7 @@ A GitHub PR review bot that provides "goosey" code reviews using Claude. Built w
 </details>
 
 ### 😄 [Goose Joke Generator](./goose-joke-generator)
-A web app that generates (terrible) goose-themed jokes using Cloudflare AI. Stores jokes in a Neon Postgres database and includes rate limiting functionality.
+A web app that generates (terrible) goose-themed jokes using Cloudflare AI. Stores jokes in a D1 sqlite database and includes rate limiting functionality.
 
 - See it live: https://goose-jokes.fp.dev
 

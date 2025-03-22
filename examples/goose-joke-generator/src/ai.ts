@@ -1,6 +1,6 @@
 import { desc } from "drizzle-orm";
-import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
 import { jokes } from "./db/schema";
+import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 /**
  * Generates a new goose joke using AI
@@ -10,7 +10,7 @@ import { jokes } from "./db/schema";
  * @returns A Promise that resolves to a string containing the generated goose joke
  */
 export async function generateGooseJoke(
-  db: NeonHttpDatabase,
+  db: DrizzleD1Database,
   ai: Ai,
 ): Promise<string> {
   // Fetch the 5 most recent jokes
@@ -44,7 +44,7 @@ export async function generateGooseJoke(
   `.trim();
 
   const response: AiTextGenerationOutput = await ai.run(
-    "@cf/meta/llama-3.1-8b-instruct-fast" as BaseAiTextGenerationModels,
+    "@cf/meta/llama-3.2-3b-instruct",
     {
       messages: [
         { role: "system", content: systemPrompt },
