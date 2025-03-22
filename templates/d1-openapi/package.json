@@ -21,11 +21,11 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250204.0",
+    "@cloudflare/workers-types": "^4.20250321.0",
     "@libsql/client": "^0.14.0",
     "drizzle-kit": "^0.30.4",
     "drizzle-seed": "^0.3.1",
     "tsx": "^4.19.2",
-    "wrangler": "^3.107.3"
+    "wrangler": "^4.4.0"
   }
 }

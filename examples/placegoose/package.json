@@ -30,12 +30,12 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@cloudflare/workers-types": "^4.20241205.0",
+    "@cloudflare/workers-types": "^4.20250321.0",
     "@fiberplane/hono-otel": "^0.6.2",
     "@libsql/client": "^0.14.0",
     "@types/prismjs": "^1.26.5",
     "drizzle-kit": "^0.28.1",
     "tsx": "^4.19.2",
-    "wrangler": "^3.95.0"
+    "wrangler": "^4.4.0"
   }
 }

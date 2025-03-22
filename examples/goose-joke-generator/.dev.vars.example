@@ -1,1 +1,1 @@
-DATABASE_URL=
+# no env vars necessary for this project
