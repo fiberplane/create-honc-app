@@ -27,7 +27,7 @@ function truncateJoke(joke: string) {
 
 export const HomePage: FC<{ joke: string }> = ({ joke }) => {
   const shareableJoke = truncateJoke(joke);
-  const post = `Here is a very funny goose joke:\n\n${shareableJoke}\n\nWowww funny! Find more goose comedy at: https://goose-joke-generator.mies.workers.dev/\n#HONC #jsnation`;
+  const post = `Here is a very funny goose joke:\n\n${shareableJoke}\n\nWowww funny! Find more goose comedy at: https://goose-joke-generator.mies.workers.dev/\n#HONC`;
   const honcStackTwitterHandle = "@honcstack";
   const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${post} ${honcStackTwitterHandle}`)}`;
   const honcStackBlueskyHandle = "@honcstack.bsky.social";

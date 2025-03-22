@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "wrangler dev src/index.tsx",
     "deploy": "wrangler deploy --minify src/index.tsx",
+    "postdeploy": "pnpm run db:migrate:dtw",
     "db:touch": "wrangler d1 execute DB --local --command='SELECT 1'",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply DB --local",
