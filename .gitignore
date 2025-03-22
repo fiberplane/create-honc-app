@@ -6,6 +6,15 @@ templates/**/package-lock.json
 # Ignore package-lock.json files in examples
 examples/**/package-lock.json
 
+# Ignore .wrangler folder in examples
+examples/**/.wrangler
+
+# Ignore .dev.vars files in examples
+examples/**/.dev.vars
+
+# Ignore .prod.vars files in examples
+examples/**/.prod.vars
+
 # Ignore test apps
 cli/test-apps/**
 !cli/test-apps/.gitkeep
@@ -15,3 +24,6 @@ cli/test-apps/**
 
 # Ignore VSCode settings
 .vscode/
+
+# script for removing nodemodules
+remove_node_modules.sh
