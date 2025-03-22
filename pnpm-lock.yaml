@@ -74,7 +74,7 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        version: 0.36.0(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
@@ -89,8 +89,8 @@ importers:
         version: 3.23.8
     devDependencies:
       '@cloudflare/workers-types':
-        specifier: ^4.20241205.0
-        version: 4.20241205.0
+        specifier: ^4.20250321.0
+        version: 4.20250321.0
       '@fiberplane/hono-otel':
         specifier: ^0.6.2
         version: 0.6.2
@@ -114,13 +114,13 @@ importers:
         version: 5.5.4
       wrangler:
         specifier: ^4.4.0
-        version: 4.4.0(@cloudflare/workers-types@4.20241205.0)
+        version: 4.4.0(@cloudflare/workers-types@4.20250321.0)
 
   examples/goose-joke-generator:
     dependencies:
       '@hono-rate-limiter/cloudflare':
         specifier: ^0.2.1
-        version: 0.2.1(@cloudflare/workers-types@4.20241205.0)(hono@4.6.9)
+        version: 0.2.1(@cloudflare/workers-types@4.20250321.0)(hono@4.6.9)
       '@neondatabase/serverless':
         specifier: ^0.10.1
         version: 0.10.1
@@ -129,7 +129,7 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        version: 0.36.0(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       hono:
         specifier: ^4.6.9
         version: 4.6.9
@@ -138,8 +138,8 @@ importers:
         version: 0.4.0(hono@4.6.9)
     devDependencies:
       '@cloudflare/workers-types':
-        specifier: ^4.20241205.0
-        version: 4.20241205.0
+        specifier: ^4.20250321.0
+        version: 4.20250321.0
       '@fiberplane/hono-otel':
         specifier: ^0.6.2
         version: 0.6.2
@@ -157,7 +157,7 @@ importers:
         version: 5.5.4
       wrangler:
         specifier: ^4.4.0
-        version: 4.4.0(@cloudflare/workers-types@4.20241205.0)
+        version: 4.4.0(@cloudflare/workers-types@4.20250321.0)
 
   examples/goose-review-bot:
     dependencies:
@@ -178,7 +178,7 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        version: 0.36.0(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
@@ -187,8 +187,8 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
       '@cloudflare/workers-types':
-        specifier: ^4.20241205.0
-        version: 4.20241205.0
+        specifier: ^4.20250321.0
+        version: 4.20250321.0
       '@fiberplane/hono-otel':
         specifier: ^0.6.2
         version: 0.6.2
@@ -203,7 +203,7 @@ importers:
         version: 5.5.4
       wrangler:
         specifier: ^4.4.0
-        version: 4.4.0(@cloudflare/workers-types@4.20241205.0)
+        version: 4.4.0(@cloudflare/workers-types@4.20250321.0)
 
   examples/honc-the-halls:
     dependencies:
@@ -215,7 +215,7 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.36.4
-        version: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        version: 0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       hono:
         specifier: ^4.6.7
         version: 4.6.11
@@ -224,8 +224,8 @@ importers:
         version: 0.10.0(encoding@0.1.13)
     devDependencies:
       '@cloudflare/workers-types':
-        specifier: ^4.20241205.0
-        version: 4.20241205.0
+        specifier: ^4.20250321.0
+        version: 4.20250321.0
       '@fiberplane/hono-otel':
         specifier: 0.8.0-canary.3
         version: 0.8.0-canary.3
@@ -234,7 +234,7 @@ importers:
         version: 0.28.1
       drizzle-seed:
         specifier: ^0.1.2
-        version: 0.1.3(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1))
+        version: 0.1.3(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1))
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -243,7 +243,7 @@ importers:
         version: 5.7.3
       wrangler:
         specifier: ^4.4.0
-        version: 4.4.0(@cloudflare/workers-types@4.20241205.0)
+        version: 4.4.0(@cloudflare/workers-types@4.20250321.0)
 
   examples/honcanator:
     dependencies:
@@ -255,14 +255,14 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        version: 0.36.0(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
     devDependencies:
       '@cloudflare/workers-types':
-        specifier: ^4.20241205.0
-        version: 4.20241205.0
+        specifier: ^4.20250321.0
+        version: 4.20250321.0
       '@fiberplane/hono-otel':
         specifier: ^0.6.2
         version: 0.6.2
@@ -277,7 +277,7 @@ importers:
         version: 5.5.4
       wrangler:
         specifier: ^4.4.0
-        version: 4.4.0(@cloudflare/workers-types@4.20241205.0)
+        version: 4.4.0(@cloudflare/workers-types@4.20250321.0)
 
   examples/placegoose:
     dependencies:
@@ -286,16 +286,16 @@ importers:
         version: 0.4.1-beta.3(hono@4.6.11)
       '@hono-rate-limiter/cloudflare':
         specifier: ^0.2.1
-        version: 0.2.1(@cloudflare/workers-types@4.20241205.0)(hono@4.6.11)
+        version: 0.2.1(@cloudflare/workers-types@4.20250321.0)(hono@4.6.11)
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.36.4
-        version: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        version: 0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       drizzle-zod:
         specifier: ^0.5.1
-        version: 0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1))(zod@3.24.2)
+        version: 0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1))(zod@3.24.2)
       hono:
         specifier: ^4.6.11
         version: 4.6.11
@@ -316,8 +316,8 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
       '@cloudflare/workers-types':
-        specifier: ^4.20241205.0
-        version: 4.20241205.0
+        specifier: ^4.20250321.0
+        version: 4.20250321.0
       '@fiberplane/hono-otel':
         specifier: ^0.6.2
         version: 0.6.2
@@ -335,7 +335,7 @@ importers:
         version: 4.19.2
       wrangler:
         specifier: ^4.4.0
-        version: 4.4.0(@cloudflare/workers-types@4.20241205.0)
+        version: 4.4.0(@cloudflare/workers-types@4.20250321.0)
 
   examples/uptime-monitor:
     dependencies:
@@ -344,7 +344,7 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.36.0
-        version: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        version: 0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       hono:
         specifier: ^4.6.7
         version: 4.6.11
@@ -353,8 +353,8 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
       '@cloudflare/workers-types':
-        specifier: ^4.20241205.0
-        version: 4.20241205.0
+        specifier: ^4.20250321.0
+        version: 4.20250321.0
       '@fiberplane/hono-otel':
         specifier: ^0.6.2
         version: 0.6.2
@@ -372,7 +372,7 @@ importers:
         version: 5.6.2
       wrangler:
         specifier: ^4.4.0
-        version: 4.4.0(@cloudflare/workers-types@4.20241205.0)
+        version: 4.4.0(@cloudflare/workers-types@4.20250321.0)
 
   examples/webhook-customer-io:
     dependencies:
@@ -384,14 +384,14 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        version: 0.36.0(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
     devDependencies:
       '@cloudflare/workers-types':
-        specifier: ^4.20241205.0
-        version: 4.20241205.0
+        specifier: ^4.20250321.0
+        version: 4.20250321.0
       '@fiberplane/hono-otel':
         specifier: ^0.6.2
         version: 0.6.2
@@ -406,7 +406,7 @@ importers:
         version: 5.5.4
       wrangler:
         specifier: ^4.4.0
-        version: 4.4.0(@cloudflare/workers-types@4.20241205.0)
+        version: 4.4.0(@cloudflare/workers-types@4.20250321.0)
 
   examples/webhook-strava-calories-converter:
     dependencies:
@@ -418,14 +418,14 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        version: 0.36.0(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
     devDependencies:
       '@cloudflare/workers-types':
-        specifier: ^4.20241205.0
-        version: 4.20241205.0
+        specifier: ^4.20250321.0
+        version: 4.20250321.0
       '@fiberplane/hono-otel':
         specifier: ^0.6.2
         version: 0.6.2
@@ -440,7 +440,7 @@ importers:
         version: 5.5.4
       wrangler:
         specifier: ^4.4.0
-        version: 4.4.0(@cloudflare/workers-types@4.20241205.0)
+        version: 4.4.0(@cloudflare/workers-types@4.20250321.0)
 
 packages:
 
@@ -692,8 +692,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@cloudflare/workers-types@4.20241205.0':
-    resolution: {integrity: sha512-pj1VKRHT/ScQbHOIMFODZaNAlJHQHdBSZXNIdr9ebJzwBff9Qz8VdqhbhggV7f+aUEh8WSbrsPIo4a+WtgjUvw==}
+  '@cloudflare/workers-types@4.20250321.0':
+    resolution: {integrity: sha512-jPwtZJC7tVFOwFazuwq96be8haTnY9qik8hJ+oLFi50d9LTWPPrnrNHC4OxZmJTEcPIAy0y1WFZHe8C/b7xFXQ==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -4005,7 +4005,7 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20250320.0':
     optional: true
 
-  '@cloudflare/workers-types@4.20241205.0': {}
+  '@cloudflare/workers-types@4.20250321.0': {}
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -4423,14 +4423,14 @@ snapshots:
       hono: 4.6.11
       zod: 3.24.2
 
-  '@hono-rate-limiter/cloudflare@0.2.1(@cloudflare/workers-types@4.20241205.0)(hono@4.6.11)':
+  '@hono-rate-limiter/cloudflare@0.2.1(@cloudflare/workers-types@4.20250321.0)(hono@4.6.11)':
     dependencies:
-      '@cloudflare/workers-types': 4.20241205.0
+      '@cloudflare/workers-types': 4.20250321.0
       hono: 4.6.11
 
-  '@hono-rate-limiter/cloudflare@0.2.1(@cloudflare/workers-types@4.20241205.0)(hono@4.6.9)':
+  '@hono-rate-limiter/cloudflare@0.2.1(@cloudflare/workers-types@4.20250321.0)(hono@4.6.9)':
     dependencies:
-      '@cloudflare/workers-types': 4.20241205.0
+      '@cloudflare/workers-types': 4.20250321.0
       hono: 4.6.9
 
   '@img/sharp-darwin-arm64@0.33.5':
@@ -5386,9 +5386,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.36.0(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1):
+  drizzle-orm@0.36.0(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1):
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20241205.0
+      '@cloudflare/workers-types': 4.20250321.0
       '@libsql/client': 0.14.0
       '@libsql/client-wasm': 0.14.0
       '@neondatabase/serverless': 0.10.1
@@ -5398,9 +5398,9 @@ snapshots:
       postgres: 3.4.5
       react: 18.3.1
 
-  drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1):
+  drizzle-orm@0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1):
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20241205.0
+      '@cloudflare/workers-types': 4.20250321.0
       '@libsql/client': 0.14.0
       '@libsql/client-wasm': 0.14.0
       '@neondatabase/serverless': 0.10.4
@@ -5410,15 +5410,15 @@ snapshots:
       postgres: 3.4.5
       react: 18.3.1
 
-  drizzle-seed@0.1.3(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)):
+  drizzle-seed@0.1.3(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)):
     dependencies:
       pure-rand: 6.1.0
     optionalDependencies:
-      drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+      drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
 
-  drizzle-zod@0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1))(zod@3.24.2):
+  drizzle-zod@0.5.1(drizzle-orm@0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1))(zod@3.24.2):
     dependencies:
-      drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20241205.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+      drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.14.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
       zod: 3.24.2
 
   eastasianwidth@0.2.0: {}
@@ -6624,7 +6624,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20250320.0
       '@cloudflare/workerd-windows-64': 1.20250320.0
 
-  wrangler@4.4.0(@cloudflare/workers-types@4.20241205.0):
+  wrangler@4.4.0(@cloudflare/workers-types@4.20250321.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@cloudflare/unenv-preset': 2.3.0(unenv@2.0.0-rc.15)(workerd@1.20250320.0)
@@ -6635,7 +6635,7 @@ snapshots:
       unenv: 2.0.0-rc.15
       workerd: 1.20250320.0
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20241205.0
+      '@cloudflare/workers-types': 4.20250321.0
       fsevents: 2.3.3
       sharp: 0.33.5
     transitivePeerDependencies:
