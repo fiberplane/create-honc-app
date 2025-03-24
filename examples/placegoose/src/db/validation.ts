@@ -6,15 +6,15 @@ import * as schema from "./schema";
 // from the "schema" file export
 
 export const ZGaggleInsert = createInsertSchema(schema.gaggles, {
-    // Enhance (or override) property schemas
-    name: (schema) => schema.name.min(1),
-    territory: (schema) => schema.territory.min(1),
+  // Enhance (or override) property schemas
+  name: (schema) => schema.name.min(1),
+  territory: (schema) => schema.territory.min(1),
 });
 
 export const ZGaggleSelect = createSelectSchema(schema.gaggles);
 
 export const ZGooseInsert = createInsertSchema(schema.geese, {
-    name: (schema) => schema.name.min(1),
+  name: (schema) => schema.name.min(1),
 });
 
 export const ZGooseSelect = createSelectSchema(schema.geese);

@@ -1,3 +1,4 @@
+import { createFiberplane } from "@fiberplane/hono";
 import { instrument } from "@fiberplane/hono-otel";
 import { cloudflareRateLimiter } from "@hono-rate-limiter/cloudflare";
 import { Hono } from "hono";
@@ -6,15 +7,14 @@ import { cors } from "hono/cors";
 import { raw } from "hono/html";
 import { HTTPException } from "hono/http-exception";
 import { jsxRenderer } from "hono/jsx-renderer";
-import { createFiberplane } from "@fiberplane/hono";
 
+import { apiSpec } from "./api-spec";
 import Layout from "./components/Layout";
 import { mdToHtml } from "./lib/markdown";
 import { formatZodError, isZodError } from "./lib/validation";
 import homePage from "./pages/index.md";
 import * as routes from "./routes";
 import type { AppType } from "./types";
-import { apiSpec } from "./api-spec";
 
 const app = new Hono<AppType>();
 
@@ -57,9 +57,12 @@ app.route("/geese", routes.geese);
 app.route("/honks", routes.honks);
 
 // Mount the Fiberplane playground to play with the API
-app.use("/fp/*", createFiberplane({
-  openapi: { content: JSON.stringify(apiSpec) },
-}));
+app.use(
+  "/fp/*",
+  createFiberplane({
+    openapi: { content: JSON.stringify(apiSpec) },
+  }),
+);
 
 app.onError((error, c) => {
   console.error(error);
