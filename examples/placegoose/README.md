@@ -14,7 +14,7 @@ Placegoose is a free online REST API for moments when you **just need some honki
 ## How does the API work?
 Placegoose comes with 3 goose-themed resources, supporting _up to_ all 5 common HTTP verbs. We don't actually make updates to the DB in response to write requests, but we do validate payloads and verify the target exists. If something's not right, we'll return an error with a helpful message.
 
-To learn more about making requests, or what different errors mean, [check out our guide!](https://placegoose.mies.workers.dev/#guide)
+To learn more about making requests, or what different errors mean, [check out our guide!](https://placegoose.fp.dev/#guide)
 
 ## Deployment
 To deploy the app, you'll need to provision and configure a production D1 instance.

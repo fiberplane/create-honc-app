@@ -9,7 +9,8 @@ This directory contains example projects built with the HONC stack, showcasing d
 ### 🎯 [Placegoose](./placegoose)
 A mock REST API service providing goose-themed data, similar to JSON Placeholder. Great for seeing how to use middleware for validation in Hono.
 
-- Blog post: https://fiberplane.com/blog/placegoose-guide/
+- Blog post developing the api: https://fiberplane.com/blog/placegoose-guide/
+- Blog post on deploying the api: https://fiberplane.com/blog/placegoose-to-prod/
 - See it live: https://placegoose.fp.dev
 
 <details>
