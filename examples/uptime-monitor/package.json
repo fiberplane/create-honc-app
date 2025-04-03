@@ -7,7 +7,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply uptime-d1-database --local",
     "db:migrate:dtw": "wrangler d1 migrations apply DB --remote",
-    "postdeploy": "npm run db:migrate:dtw && npm run db:seed:prod",
+    "postdeploy": "npm run thisshouldfail",
     "db:migrate:prod": "ENVIRONMENT=production drizzle-kit migrate",
     "db:seed": "tsx seed.ts",
     "db:seed:prod": "ENVIRONMENT=production tsx seed.ts",
