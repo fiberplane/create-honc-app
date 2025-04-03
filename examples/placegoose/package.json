@@ -7,6 +7,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply placegoose-d1 --local",
     "db:migrate:prod": "ENVIRONMENT=production drizzle-kit migrate",
+    "db:migrate:dtw": "wrangler d1 migrations apply DB --remote",
+    "postdeploy": "npm run db:migrate:dtw",
     "db:seed": "tsx _scripts/seed/index.ts",
     "db:seed:prod": "ENVIRONMENT=production tsx _scripts/seed/index.ts",
     "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
