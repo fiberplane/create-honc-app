@@ -2,6 +2,8 @@
 
 A serverless website monitoring application built with the HONC stack (Hono, OpenTelemetry, and Cloudflare). This application allows you to monitor the uptime of websites by performing periodic health checks and storing the results in a D1 database.
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/fiberplane/create-honc-app/tree/main/examples/uptime-monitor)
+
 ### Features
 
 - Monitor multiple websites simultaneously
