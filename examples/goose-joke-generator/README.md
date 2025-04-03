@@ -1,5 +1,7 @@
 ## 🪿 Goose Joke Generator
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/fiberplane/create-honc-app/tree/main/examples/goose-joke-generator)
+
 This is a project created with the D1 HONC template.
 
 It is a simple Goose Joke Generator that uses Cloudflare AI to generate jokes, and store them in a D1 database.
@@ -93,4 +95,3 @@ Then deploy:
 ```sh
 pnpm run deploy
 ```
-
