@@ -13,12 +13,43 @@ A mock REST API service providing goose-themed data, similar to JSON Placeholder
 - Blog post on deploying the api: https://fiberplane.com/blog/placegoose-to-prod/
 - See it live: https://placegoose.fp.dev
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/fiberplane/create-honc-app/tree/main/examples/placegoose)
+
 <details>
 <summary>Integrations</summary>
 
 - Cloudflare D1 for data storage
 - Cloudflare Asset Bindings for Workers
 - UI: Markdown rendered with Remark
+</details>
+
+### 📊 [Website Uptime Monitor](./uptime-monitor)
+A serverless monitoring application that tracks website uptime. Features configurable health checks, response time tracking, and a web interface. Uses Cloudflare D1 and Durable Objects.
+
+- Blog post: https://fiberplane.com/blog/honc-up-time-monitor/
+
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/fiberplane/create-honc-app/tree/main/examples/uptime-monitor)
+
+<details>
+<summary>Integrations</summary>
+
+- Cloudflare D1 for data storage
+- Cloudflare Durable Objects for serverless state
+- UI: SSR with hono/jsx
+</details>
+
+### 😄 [Goose Joke Generator](./goose-joke-generator)
+A web app that generates (terrible) goose-themed jokes using Cloudflare AI. Stores jokes in a D1 sqlite database and includes rate limiting functionality.
+
+- See it live: https://goose-jokes.fp.dev
+
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/fiberplane/create-honc-app/tree/main/examples/goose-joke-generator)
+
+<details>
+<summary>Integrations</summary>
+
+- Neon serverless Postgres for data storage
+- Cloudflare AI (Llama-3.1-8B-Instruct)
 </details>
 
 ### 🤖 [Retrieval Augmented Goose](./cf-retrieval-augmented-goose)
@@ -35,23 +66,11 @@ A RAG (Retrieval Augmented Generation) example that uses Cloudflare docs as a kn
 - UI: SSR with hono/jsx and Fiberplane's "ascuii" SSR ui components
 </details>
 
-### 📊 [Website Uptime Monitor](./uptime-monitor)
-A serverless monitoring application that tracks website uptime. Features configurable health checks, response time tracking, and a web interface. Uses Cloudflare D1 and Durable Objects.
-
-- Blog post: https://fiberplane.com/blog/honc-up-time-monitor/
-
-<details>
-<summary>Integrations</summary>
-
-- Cloudflare D1 for data storage
-- Cloudflare Durable Objects for serverless state
-- UI: SSR with hono/jsx
-</details>
 
 ### 🤖 Telegram Bot
 A personal AI assistant agent that can manage your schedule, events and calendars.
 - Check out [the GitHub repo](https://github.com/MonsterDeveloper/www-berlin-feb-2025)
-   
+
 ### 🎨 [Honcanator](./honcanator)
 An AI-powered goose image generator that creates comic/anime style goose images using Cloudflare AI. Stores images in R2 and metadata in Neon Postgres.
 
@@ -85,16 +104,4 @@ A GitHub PR review bot that provides "goosey" code reviews using Claude. Built w
 
 - GitHub Octokit to handle webhooks and pull requests
 - Claude (Anthropic) to provide code reviews
-</details>
-
-### 😄 [Goose Joke Generator](./goose-joke-generator)
-A web app that generates (terrible) goose-themed jokes using Cloudflare AI. Stores jokes in a D1 sqlite database and includes rate limiting functionality.
-
-- See it live: https://goose-jokes.fp.dev
-
-<details>
-<summary>Integrations</summary>
-
-- Neon serverless Postgres for data storage
-- Cloudflare AI (Llama-3.1-8B-Instruct)
 </details>
