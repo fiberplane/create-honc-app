@@ -118,18 +118,19 @@ async function getLocalDatabase(): Promise<LibSQLDatabase<Record<string, never>>
 async function getProductionDatabase(): Promise<SqliteRemoteDatabase<Record<string, never>>> {
   console.warn("Using production D1 database");
   console.log(process.env);
-  console.log(process.env.CLOUDFLARE_D1_TOKEN);
-  console.log(process.env.CLOUDFLARE_ACCOUNT_ID);
-  console.log(process.env.CLOUDFLARE_DATABASE_ID);
+  console.log(process.env.CLOUDFLARE_API_TOKEN);
+  console.log(process.env.CLOUDFLARE_ACCOUNT_ID); // correct
+  console.log(process.env.DATABASE_ID);
+  console.log(process.env.DB);
   config({ path: ".prod.vars" });
 
-  const apiToken = process.env.CLOUDFLARE_D1_TOKEN;
+  const apiToken = process.env.CLOUDFLARE_API_TOKEN;
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const databaseId = process.env.CLOUDFLARE_DATABASE_ID;
 
   if (!apiToken || !accountId || !databaseId) {
     throw new Error(
-      "Production environment variables unset. Check your .prod.vars file",
+      "Production environment variables unset. Make sure CLOUDFLARE_D1_TOKEN, CLOUDFLARE_ACCOUNT_ID, and CLOUDFLARE_DATABASE_ID are set in your environment.",
     );
   }
 
