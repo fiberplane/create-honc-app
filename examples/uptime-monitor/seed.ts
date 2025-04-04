@@ -117,6 +117,10 @@ async function getLocalDatabase(): Promise<LibSQLDatabase<Record<string, never>>
  */
 async function getProductionDatabase(): Promise<SqliteRemoteDatabase<Record<string, never>>> {
   console.warn("Using production D1 database");
+  console.log(process.env);
+  console.log(process.env.CLOUDFLARE_D1_TOKEN);
+  console.log(process.env.CLOUDFLARE_ACCOUNT_ID);
+  console.log(process.env.CLOUDFLARE_DATABASE_ID);
   config({ path: ".prod.vars" });
 
   const apiToken = process.env.CLOUDFLARE_D1_TOKEN;
