@@ -1,4 +1,4 @@
-import { instrument } from "@fiberplane/hono-otel";
+import { createOpenAPISpec, createFiberplane } from "@fiberplane/hono";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
@@ -187,5 +187,21 @@ app.get("/websites/:id/uptime", async (c) => {
   }
 });
 
-export default instrument(app);
+app.get("/openapi.json", (c) => {
+  const spec = createOpenAPISpec(app, {
+    info: { title: "Uptime Monitor", version: "1.0.0" },
+  });
+  return c.json(spec);
+});
+
+app.use(
+  "/fp/*",
+  createFiberplane({
+    openapi: {
+      url: "/openapi.json",
+    },
+  }),
+);
+
+export default app;
 export { Monitor };
