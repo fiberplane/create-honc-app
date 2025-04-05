@@ -155,6 +155,9 @@ importers:
       '@anthropic-ai/sdk':
         specifier: ^0.31.0
         version: 0.31.0(encoding@0.1.13)
+      '@fiberplane/hono':
+        specifier: 0.5.2
+        version: 0.5.2(@hono/zod-openapi@0.18.4(hono@4.6.9)(zod@3.24.2))(@standard-schema/spec@1.0.0)(hono@4.6.9)
       '@neondatabase/serverless':
         specifier: ^0.10.1
         version: 0.10.1
@@ -180,9 +183,6 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20250321.0
         version: 4.20250321.0
-      '@fiberplane/hono-otel':
-        specifier: ^0.6.2
-        version: 0.6.2
       drizzle-kit:
         specifier: ^0.28.1
         version: 0.28.1
@@ -4745,6 +4745,19 @@ snapshots:
     transitivePeerDependencies:
       - '@standard-schema/spec'
 
+  '@fiberplane/hono@0.5.2(@hono/zod-openapi@0.18.4(hono@4.6.9)(zod@3.24.2))(@standard-schema/spec@1.0.0)(hono@4.6.9)':
+    dependencies:
+      '@hono/standard-validator': 0.1.2(@standard-schema/spec@1.0.0)(hono@4.6.9)
+      '@hono/zod-openapi': 0.18.4(hono@4.6.9)(zod@3.24.2)
+      dotenv: 16.4.7
+      hono: 4.6.9
+      json-schema-library: 10.0.0-rc7
+      jsonpath-plus: 10.3.0
+      jsonpointer: 5.0.1
+      zod: 3.24.2
+    transitivePeerDependencies:
+      - '@standard-schema/spec'
+
   '@hono-rate-limiter/cloudflare@0.2.1(@cloudflare/workers-types@4.20250321.0)(hono@4.6.11)':
     dependencies:
       '@cloudflare/workers-types': 4.20250321.0
@@ -4760,6 +4773,11 @@ snapshots:
       '@standard-schema/spec': 1.0.0
       hono: 4.6.11
 
+  '@hono/standard-validator@0.1.2(@standard-schema/spec@1.0.0)(hono@4.6.9)':
+    dependencies:
+      '@standard-schema/spec': 1.0.0
+      hono: 4.6.9
+
   '@hono/zod-openapi@0.18.4(hono@4.6.11)(zod@3.24.2)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.24.2)
@@ -4767,9 +4785,21 @@ snapshots:
       hono: 4.6.11
       zod: 3.24.2
 
+  '@hono/zod-openapi@0.18.4(hono@4.6.9)(zod@3.24.2)':
+    dependencies:
+      '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.24.2)
+      '@hono/zod-validator': 0.4.3(hono@4.6.9)(zod@3.24.2)
+      hono: 4.6.9
+      zod: 3.24.2
+
   '@hono/zod-validator@0.4.3(hono@4.6.11)(zod@3.24.2)':
     dependencies:
       hono: 4.6.11
+      zod: 3.24.2
+
+  '@hono/zod-validator@0.4.3(hono@4.6.9)(zod@3.24.2)':
+    dependencies:
+      hono: 4.6.9
       zod: 3.24.2
 
   '@img/sharp-darwin-arm64@0.33.5':

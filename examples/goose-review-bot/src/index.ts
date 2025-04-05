@@ -1,4 +1,3 @@
-import { instrument } from "@fiberplane/hono-otel";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
@@ -6,6 +5,7 @@ import { pullRequests, reviews } from "./db/schema";
 import { eq } from "drizzle-orm";
 import { Anthropic } from "@anthropic-ai/sdk";
 import { Octokit } from "@octokit/rest";
+import { createFiberplane, createOpenAPISpec } from "@fiberplane/hono";
 
 type Bindings = {
   DATABASE_URL: string;
@@ -218,5 +218,23 @@ app.delete("/api/reviews/:id", async (c) => {
 // Streaming: https://hono.dev/docs/helpers/streaming#streaming-helper
 // Realtime: https://developers.cloudflare.com/durable-objects/
 // Realtime: https://fiberplane.com/blog/creating-websocket-server-hono-durable-objects/
+//
+// import { createOpenAPISpec } from "@fiberplane/hono";
 
-export default instrument(app);
+app.get("/openapi.json", (c) => {
+  const spec = createOpenAPISpec(app, {
+    info: { title: "Goose Review Bot", version: "1.0.0" },
+  });
+  return c.json(spec);
+});
+
+app.use(
+  "/fp/*",
+  createFiberplane({
+    openapi: {
+      url: "/openapi.json",
+    },
+  }),
+);
+
+export default app;
