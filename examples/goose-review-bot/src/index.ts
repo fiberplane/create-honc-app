@@ -209,7 +209,7 @@ app.delete("/api/reviews/:id", async (c) => {
 
 app.get("/openapi.json", (c) => {
   const spec = createOpenAPISpec(app, {
-    info: { title: "My API", version: "1.0.0" }
+    info: { title: "Amazing Goose Review Bot API", version: "1.0.0" }
   });
   return c.json(spec);
 });
@@ -222,5 +222,6 @@ app.use("/fp/*", createFiberplane({
 // Streaming: https://hono.dev/docs/helpers/streaming#streaming-helper
 // Realtime: https://developers.cloudflare.com/durable-objects/
 // Realtime: https://fiberplane.com/blog/creating-websocket-server-hono-durable-objects/
+
 
 export default app;
