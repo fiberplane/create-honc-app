@@ -218,8 +218,6 @@ app.delete("/api/reviews/:id", async (c) => {
 // Streaming: https://hono.dev/docs/helpers/streaming#streaming-helper
 // Realtime: https://developers.cloudflare.com/durable-objects/
 // Realtime: https://fiberplane.com/blog/creating-websocket-server-hono-durable-objects/
-//
-// import { createOpenAPISpec } from "@fiberplane/hono";
 
 app.get("/openapi.json", (c) => {
   const spec = createOpenAPISpec(app, {
