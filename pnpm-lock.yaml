@@ -161,9 +161,6 @@ importers:
       '@fiberplane/hono':
         specifier: 0.5.2
         version: 0.5.2(@hono/zod-openapi@0.18.4(hono@4.6.9)(zod@3.24.2))(@standard-schema/spec@1.0.0)(hono@4.6.9)
-      '@neondatabase/serverless':
-        specifier: ^0.10.1
-        version: 0.10.1
       '@octokit/rest':
         specifier: ^21.0.2
         version: 21.0.2
@@ -174,8 +171,8 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       drizzle-orm:
-        specifier: ^0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.15.0)(@neondatabase/serverless@0.10.1)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(pg@8.13.1)(postgres@3.4.5)(react@18.3.1)
+        specifier: ^0.41.0
+        version: 0.41.0(@cloudflare/workers-types@4.20250321.0)(@libsql/client-wasm@0.14.0)(@libsql/client@0.15.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(@types/pg@8.11.10)(gel@2.0.1)(pg@8.13.1)(postgres@3.4.5)
       hono:
         specifier: ^4.6.7
         version: 4.6.9
@@ -187,8 +184,8 @@ importers:
         specifier: ^4.20250321.0
         version: 4.20250321.0
       drizzle-kit:
-        specifier: ^0.28.1
-        version: 0.28.1
+        specifier: ^0.30.6
+        version: 0.30.6
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -2612,6 +2609,10 @@ packages:
     resolution: {integrity: sha512-l6dMSE100u7sDaTbLczibrQZjA35jLsHNqIV+jmhNVO3O8jzM6kywMOmV9uOz9ZVSCMPQhAZEFjL/qDPVrqpUA==}
     hasBin: true
 
+  drizzle-kit@0.30.6:
+    resolution: {integrity: sha512-U4wWit0fyZuGuP7iNmRleQyK2V8wCuv57vf5l3MnG4z4fzNTjY/U13M8owyQ5RavqvqxBifWORaR3wIUzlN64g==}
+    hasBin: true
+
   drizzle-orm@0.36.0:
     resolution: {integrity: sha512-6BETYPdKSR7cDHC0ZfqZk2VrKJ8n/Rfd3ajFPsAbc69gi87nwZ6oBA2wUGMELHA0tQE4kUKN0Ds00LUZQ6Z69A==}
     peerDependencies:
@@ -4747,6 +4748,20 @@ snapshots:
       zod: 3.24.2
     transitivePeerDependencies:
       - '@standard-schema/spec'
+
+  '@fiberplane/hono@0.5.2(@hono/zod-openapi@0.18.4(hono@4.6.9)(zod@3.24.2))(@standard-schema/spec@1.0.0)(hono@4.6.9)':
+    dependencies:
+      '@hono/standard-validator': 0.1.2(@standard-schema/spec@1.0.0)(hono@4.6.9)
+      '@hono/zod-openapi': 0.18.4(hono@4.6.9)(zod@3.24.2)
+      dotenv: 16.4.7
+      hono: 4.6.9
+      json-schema-library: 10.0.0-rc7
+      jsonpath-plus: 10.3.0
+      jsonpointer: 5.0.1
+      zod: 3.24.2
+    transitivePeerDependencies:
+      - '@standard-schema/spec'
+
   '@fiberplane/hono@0.5.2(@hono/zod-openapi@0.18.4(hono@4.7.5)(zod@3.24.2))(@standard-schema/spec@1.0.0)(hono@4.7.5)':
     dependencies:
       '@hono/standard-validator': 0.1.2(@standard-schema/spec@1.0.0)(hono@4.7.5)
@@ -4774,16 +4789,31 @@ snapshots:
     dependencies:
       '@standard-schema/spec': 1.0.0
       hono: 4.6.11
+
+  '@hono/standard-validator@0.1.2(@standard-schema/spec@1.0.0)(hono@4.6.9)':
+    dependencies:
+      '@standard-schema/spec': 1.0.0
+      hono: 4.6.9
+
   '@hono/standard-validator@0.1.2(@standard-schema/spec@1.0.0)(hono@4.7.5)':
     dependencies:
       '@standard-schema/spec': 1.0.0
       hono: 4.7.5
+
   '@hono/zod-openapi@0.18.4(hono@4.6.11)(zod@3.24.2)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.24.2)
       '@hono/zod-validator': 0.4.3(hono@4.6.11)(zod@3.24.2)
       hono: 4.6.11
       zod: 3.24.2
+
+  '@hono/zod-openapi@0.18.4(hono@4.6.9)(zod@3.24.2)':
+    dependencies:
+      '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.24.2)
+      '@hono/zod-validator': 0.4.3(hono@4.6.9)(zod@3.24.2)
+      hono: 4.6.9
+      zod: 3.24.2
+
   '@hono/zod-openapi@0.18.4(hono@4.7.5)(zod@3.24.2)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.24.2)
@@ -4795,6 +4825,12 @@ snapshots:
     dependencies:
       hono: 4.6.11
       zod: 3.24.2
+
+  '@hono/zod-validator@0.4.3(hono@4.6.9)(zod@3.24.2)':
+    dependencies:
+      hono: 4.6.9
+      zod: 3.24.2
+
   '@hono/zod-validator@0.4.3(hono@4.7.5)(zod@3.24.2)':
     dependencies:
       hono: 4.7.5
@@ -5834,6 +5870,16 @@ snapshots:
       - supports-color
 
   drizzle-kit@0.30.5:
+    dependencies:
+      '@drizzle-team/brocli': 0.10.2
+      '@esbuild-kit/esm-loader': 2.6.5
+      esbuild: 0.19.12
+      esbuild-register: 3.6.0(esbuild@0.19.12)
+      gel: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+
+  drizzle-kit@0.30.6:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
       '@esbuild-kit/esm-loader': 2.6.5
