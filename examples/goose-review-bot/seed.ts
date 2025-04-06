@@ -1,45 +1,47 @@
-import { neon } from "@neondatabase/serverless";
 import { config } from "dotenv";
-import { drizzle } from "drizzle-orm/neon-http";
+import { drizzle } from "drizzle-orm/d1";
 import * as schema from "./src/db/schema";
+import { execSync } from "child_process";
+import { writeFileSync, unlinkSync } from "fs";
+import { join } from "path";
 
 config({ path: ".dev.vars" });
 
-// biome-ignore lint/style/noNonNullAssertion: error from neon client is helpful enough to fix
-const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle(sql);
-
-const seedPullRequests = [
-  {
-    title: "Add new feature",
-    description: "This pull request adds a new feature.",
-    authorId: 1,
-  },
-  {
-    title: "Fix bug",
-    description: "This pull request fixes a bug.",
-    authorId: 2,
-  },
-];
-
-const seedReviews = [
-  {
-    pullRequestId: 1,
-    reviewerId: 3,
-    comments: "Looks good to me.",
-    status: "approved",
-  },
-  {
-    pullRequestId: 2,
-    reviewerId: 1,
-    comments: "Needs some changes.",
-    status: "changes_requested",
-  },
-];
-
+// This is a workaround to seed D1 in a local environment
 async function seed() {
-  await db.insert(schema.pullRequests).values(seedPullRequests);
-  await db.insert(schema.reviews).values(seedReviews);
+  // Create a temporary SQL file with the seed data
+  // First, clear any existing data to avoid conflicts
+  const seedSql = `
+    -- Clear existing data
+    DELETE FROM reviews;
+    DELETE FROM pull_requests;
+    
+    -- Reset auto-increment counters
+    DELETE FROM sqlite_sequence WHERE name IN ('pull_requests', 'reviews');
+    
+    -- Insert pull requests first
+    INSERT INTO pull_requests (title, description, author_id, github_pr_id) VALUES
+    ('Add new feature', 'This pull request adds a new feature.', 1, 1),
+    ('Fix bug', 'This pull request fixes a bug.', 2, 2);
+    
+    -- Insert reviews with correct foreign key references
+    INSERT INTO reviews (pull_request_id, reviewer_id, comments, status) VALUES
+    (1, 3, 'Looks good to me.', 'approved'),
+    (2, 1, 'Needs some changes.', 'changes_requested');
+  `;
+
+  const tempSqlFile = join(process.cwd(), "temp-seed.sql");
+  writeFileSync(tempSqlFile, seedSql);
+
+  try {
+    // Execute the SQL file against the D1 database
+    execSync(`wrangler d1 execute ghpr-review-bot-db --file=${tempSqlFile}`, {
+      stdio: "inherit",
+    });
+  } finally {
+    // Clean up the temporary file
+    unlinkSync(tempSqlFile);
+  }
 }
 
 async function main() {
