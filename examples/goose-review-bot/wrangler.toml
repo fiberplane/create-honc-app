@@ -19,10 +19,14 @@ enabled = true
 # binding = "MY_BUCKET"
 # bucket_name = "my-bucket"
 
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "my-database"
-# database_id = ""
+[[d1_databases]]
+binding = "DB"
+database_name = "ghpr-review-bot-db"
+database_id = ""
+migrations_dir = "drizzle/migrations"
+
+[[migrations]]
+tag = "v1"
 
 # [ai]
 # binding = "AI"

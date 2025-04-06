@@ -1,14 +1,13 @@
-import { instrument } from "@fiberplane/hono-otel";
-import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
+import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { pullRequests, reviews } from "./db/schema";
 import { eq } from "drizzle-orm";
 import { Anthropic } from "@anthropic-ai/sdk";
 import { Octokit } from "@octokit/rest";
+import { createFiberplane, createOpenAPISpec } from "@fiberplane/hono";
 
 type Bindings = {
-  DATABASE_URL: string;
+  DB: D1Database;
   GITHUB_TOKEN: string;
   ANTHROPIC_API_KEY: string;
 };
@@ -74,7 +73,8 @@ async function generateCodeReview(
       },
     ],
   });
-  return message.content[0].text;
+  // Using type assertion to handle the response
+  return (message.content[0] as any).text || "";
 }
 
 // Post review comment on GitHub
@@ -99,8 +99,7 @@ app.get("/", (c) => {
 
 // TODO: enhance granularity of types of payloads and events
 app.post("/api/pull-requests", async (c) => {
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
 
   const payload = await c.req.json();
 
@@ -164,8 +163,7 @@ app.post("/api/pull-requests", async (c) => {
 });
 
 app.put("/api/pull-requests/:id", async (c) => {
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
   const id = Number.parseInt(c.req.param("id"));
   const updatedData = await c.req.json();
   await db.update(pullRequests).set(updatedData).where(eq(pullRequests.id, id));
@@ -173,8 +171,7 @@ app.put("/api/pull-requests/:id", async (c) => {
 });
 
 app.delete("/api/pull-requests/:id", async (c) => {
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
   const id = Number.parseInt(c.req.param("id"));
   await db.delete(pullRequests).where(eq(pullRequests.id, id));
   return c.text("Pull request deleted");
@@ -182,24 +179,21 @@ app.delete("/api/pull-requests/:id", async (c) => {
 
 // CRUD for Reviews
 app.get("/api/reviews", async (c) => {
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
   return c.json({
     reviews: await db.select().from(reviews),
   });
 });
 
 app.post("/api/reviews", async (c) => {
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
   const newReview = await c.req.json();
   const insertedReview = await db.insert(reviews).values(newReview).returning();
   return c.json(insertedReview);
 });
 
 app.put("/api/reviews/:id", async (c) => {
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
   const id = Number.parseInt(c.req.param("id"));
   const updatedData = await c.req.json();
   await db.update(reviews).set(updatedData).where(eq(reviews.id, id));
@@ -207,16 +201,26 @@ app.put("/api/reviews/:id", async (c) => {
 });
 
 app.delete("/api/reviews/:id", async (c) => {
-  const sql = neon(c.env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(c.env.DB);
   const id = Number.parseInt(c.req.param("id"));
   await db.delete(reviews).where(eq(reviews.id, id));
   return c.text("Review deleted");
 });
+
+app.get("/openapi.json", (c) => {
+  const spec = createOpenAPISpec(app, {
+    info: { title: "My API", version: "1.0.0" }
+  });
+  return c.json(spec);
+});
+
+app.use("/fp/*", createFiberplane({
+  openapi: { url: "/openapi.json" },
+}));
 
 // TODO: Implement streaming or realtime updates for pull requests and reviews
 // Streaming: https://hono.dev/docs/helpers/streaming#streaming-helper
 // Realtime: https://developers.cloudflare.com/durable-objects/
 // Realtime: https://fiberplane.com/blog/creating-websocket-server-hono-durable-objects/
 
-export default instrument(app);
+export default app;
