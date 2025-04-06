@@ -6,6 +6,7 @@ import { generateGooseJoke } from "./ai";
 import { jokes } from "./db/schema";
 // import { gooseJokesRateLimiter } from "./rate-limiter";
 import type { Bindings } from "./types";
+import { createFiberplane, createOpenAPISpec } from "@fiberplane/hono";
 
 const app = new Hono<{ Bindings: Bindings }>();
 
@@ -78,6 +79,22 @@ app.post("/api/generate-joke", async (c) => {
     joke: newJoke,
   });
 });
+
+app.get("/openapi.json", (c) => {
+  const spec = createOpenAPISpec(app, {
+    info: { title: "Goose Joke Generation API", version: "1.0.0" },
+  });
+  return c.json(spec);
+});
+
+app.use(
+  "/fp/*",
+  createFiberplane({
+    openapi: {
+      url: "/openapi.json",
+    },
+  }),
+);
 
 export default app;
 
