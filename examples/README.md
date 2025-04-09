@@ -67,10 +67,6 @@ A RAG (Retrieval Augmented Generation) example that uses Cloudflare docs as a kn
 </details>
 
 
-### 🤖 Telegram Bot
-A personal AI assistant agent that can manage your schedule, events and calendars.
-- Check out [the GitHub repo](https://github.com/MonsterDeveloper/www-berlin-feb-2025)
-
 ### 🎨 [Honcanator](./honcanator)
 An AI-powered goose image generator that creates comic/anime style goose images using Cloudflare AI. Stores images in R2 and metadata in Neon Postgres.
 

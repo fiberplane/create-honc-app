@@ -1,5 +1,11 @@
 node_modules
 
+# Ignore package-lock.json files in cli
+cli/**/package-lock.json
+
+# Ignore package-lock.json files in ascui
+ascui/**/package-lock.json
+
 # Ignore package-lock.json files in templates
 templates/**/package-lock.json
 
