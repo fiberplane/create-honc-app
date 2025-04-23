@@ -550,6 +550,49 @@ importers:
         specifier: ^4.4.0
         version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
 
+  templates/base-supa-hono-openapi:
+    dependencies:
+      '@fiberplane/hono':
+        specifier: 0.4.4-beta.2
+        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.5.0
+      drizzle-orm:
+        specifier: ^0.39.3
+        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@opentelemetry/api@1.9.0)(postgres@3.4.5)
+      hono:
+        specifier: ^4.7.0
+        version: 4.7.7
+      hono-openapi:
+        specifier: ^0.4.6
+        version: 0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod-openapi@4.2.4)(zod@3.24.3)
+      postgres:
+        specifier: ^3.4.5
+        version: 3.4.5
+      zod:
+        specifier: ^3.23.8
+        version: 3.24.3
+      zod-openapi:
+        specifier: ^4.2.4
+        version: 4.2.4(zod@3.24.3)
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20250321.0
+        version: 4.20250422.0
+      drizzle-kit:
+        specifier: ^0.30.4
+        version: 0.30.6
+      drizzle-seed:
+        specifier: ^0.3.1
+        version: 0.3.1(drizzle-orm@0.39.3)
+      tsx:
+        specifier: ^4.19.2
+        version: 4.19.3
+      wrangler:
+        specifier: ^4.4.0
+        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
+
   templates/base-supa-openapi:
     dependencies:
       '@fiberplane/hono':
@@ -692,10 +735,13 @@ importers:
         version: 4.7.7
       hono-openapi:
         specifier: ^0.4.6
-        version: 0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod@3.24.3)
+        version: 0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod-openapi@4.2.4)(zod@3.24.3)
       zod:
         specifier: ^3.23.8
         version: 3.24.3
+      zod-openapi:
+        specifier: ^4.2.4
+        version: 4.2.4(zod@3.24.3)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20250321.0
@@ -4807,7 +4853,7 @@ packages:
       function-bind: 1.1.2
     dev: false
 
-  /hono-openapi@0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod@3.24.3):
+  /hono-openapi@0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod-openapi@4.2.4)(zod@3.24.3):
     resolution: {integrity: sha512-wSDySp2cS5Zcf1OeLG7nCP3eMsCpcDomN137T9B6/Z5Qq3D0nWgMf0I3Gl41SE1rE37OBQ0Smqx3LOP9Hk//7A==}
     peerDependencies:
       '@hono/arktype-validator': ^2.0.0
@@ -4858,6 +4904,7 @@ packages:
       hono: 4.7.7
       json-schema-walker: 2.0.0
       zod: 3.24.3
+      zod-openapi: 4.2.4(zod@3.24.3)
     dev: false
 
   /hono-rate-limiter@0.4.2(hono@4.7.7):
@@ -6383,6 +6430,15 @@ packages:
 
   /zimmerframe@1.1.2:
     resolution: {integrity: sha512-rAbqEGa8ovJy4pyBxZM70hg4pE6gDgaQ0Sl9M3enG3I0d6H4XSAM3GeNGLKnsBpuijUow064sf7ww1nutC5/3w==}
+    dev: false
+
+  /zod-openapi@4.2.4(zod@3.24.3):
+    resolution: {integrity: sha512-tsrQpbpqFCXqVXUzi3TPwFhuMtLN3oNZobOtYnK6/5VkXsNdnIgyNr4r8no4wmYluaxzN3F7iS+8xCW8BmMQ8g==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.21.4
+    dependencies:
+      zod: 3.24.3
     dev: false
 
   /zod-to-json-schema@3.24.5(zod@3.24.3):

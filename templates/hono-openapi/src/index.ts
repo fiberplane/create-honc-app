@@ -7,6 +7,7 @@ import * as schema from "./db/schema";
 import { createFiberplane } from "@fiberplane/hono";
 import z from "zod";
 import { resolver, validator as zValidator } from "hono-openapi/zod";
+import "zod-openapi/extend";
 
 // Types for environment variables and context
 type Bindings = {
@@ -43,16 +44,7 @@ const UserSchema = z.object({
   email: z.string().email().openapi({
     example: "nikita@neon.tech",
   }),
-}).openapi("User");
-
-const NewUserSchema = z.object({
-  name: z.string().openapi({
-    example: "Nikita",
-  }),
-  email: z.string().email().openapi({
-    example: "nikita@neon.tech",
-  }),
-}).openapi("NewUser");
+}).openapi({ ref: "User" });
 
 const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -87,7 +79,17 @@ apiRouter.get(
       },
     },
   }),
-  zValidator("json", NewUserSchema),
+  zValidator(
+    "json",
+    z.object({
+      name: z.string().openapi({
+        example: "Nikita",
+      }),
+      email: z.string().email().openapi({
+        example: "nikita@neon.tech",
+      }),
+    }).openapi({ ref: "NewUser" }),
+  ),
   async (c) => {
     const db = c.get("db");
     const { name, email } = c.req.valid("json");

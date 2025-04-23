@@ -1,5 +1,5 @@
 {
-  "name": "hono-neon-drizzle-template-hono-openapi",
+  "name": "hono-supabase-drizzle-hono-openapi-template",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
@@ -11,12 +11,11 @@
   },
   "dependencies": {
     "@fiberplane/hono": "0.4.4-beta.2",
-    "@hono/zod-validator": "^0.4.3",
-    "@neondatabase/serverless": "^0.10.4",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.4.5",
     "drizzle-orm": "^0.39.3",
     "hono": "^4.7.0",
     "hono-openapi": "^0.4.6",
+    "postgres": "^3.4.5",
     "zod": "^3.23.8",
     "zod-openapi": "^4.2.4"
   },
