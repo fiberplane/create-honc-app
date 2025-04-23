@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import type { Context } from "@/context";
-import type { Template } from "@/types";
+import type { OpenAPITemplate, Template } from "@/types";
 import { safeReadFile } from "@/utils";
 import { confirm, log, select, spinner } from "@clack/prompts";
 import { downloadTemplate } from "giget";
@@ -40,14 +40,41 @@ export async function promptTemplate(ctx: Context) {
 }
 
 export async function promptOpenAPI(ctx: Context) {
-  const confirmOpenAPI = await confirm({
-    message: "Do you need an OpenAPI spec?",
-    initialValue: true,
-    active: "Yes",
-  });
+  try {
+    const confirmOpenAPI = await confirm({
+      message: "Do you need an OpenAPI spec?",
+      initialValue: true,
+      active: "Yes",
+    });
 
-  if (typeof confirmOpenAPI === "boolean" && confirmOpenAPI) {
-    ctx.useOpenAPI = confirmOpenAPI;
+    if (typeof confirmOpenAPI === "boolean" && confirmOpenAPI) {
+      const result = await select({
+        message: "Which openapi lib do you want to use?",
+        options: [
+          {
+            value: "openapi",
+            label: "Zod OpenAPI template",
+            hint: "This uses @hono/zod-openapi library",
+          },
+          {
+            value: "hono-openapi",
+            label: "Hono OpenAPI template",
+            hint: "This uses hono-openapi library",
+          },
+        ],
+        initialValue: "openapi",
+      });
+
+      if (typeof result === "string") {
+        ctx.useOpenAPI = result as OpenAPITemplate;
+      }
+
+      return result;
+    }
+
+    return null;
+  } catch (error) {
+    return error;
   }
 }
 
@@ -65,17 +92,23 @@ export async function actionTemplate(ctx: Context) {
   switch (ctx.template) {
     case "base":
       templateUrl = ctx.useOpenAPI
-        ? "github:fiberplane/create-honc-app/templates/base-openapi"
+        ? ctx.useOpenAPI === "openapi"
+          ? "github:fiberplane/create-honc-app/templates/base-openapi"
+          : "github:fiberplane/create-honc-app/templates/hono-openapi"
         : "github:fiberplane/create-honc-app/templates/base";
       break;
     case "base-supa":
       templateUrl = ctx.useOpenAPI
-        ? "github:fiberplane/create-honc-app/templates/base-supa-openapi"
+        ? ctx.useOpenAPI === "openapi"
+          ? "github:fiberplane/create-honc-app/templates/base-supa-openapi"
+          : "github:fiberplane/create-honc-app/templates/base-supa-hono-openapi"
         : "github:fiberplane/create-honc-app/templates/base-supa";
       break;
     case "sample-d1":
       templateUrl = ctx.useOpenAPI
-        ? "github:fiberplane/create-honc-app/templates/d1-openapi"
+        ? ctx.useOpenAPI === "openapi"
+          ? "github:fiberplane/create-honc-app/templates/d1-openapi"
+          : "github:fiberplane/create-honc-app/templates/d1-hono-openapi"
         : "github:fiberplane/create-honc-app/templates/d1";
       break;
     default:
