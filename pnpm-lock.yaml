@@ -433,381 +433,6 @@ importers:
         specifier: ^4.4.0
         version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
 
-  templates/base:
-    dependencies:
-      '@fiberplane/hono':
-        specifier: 0.4.4-beta.2
-        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      '@neondatabase/serverless':
-        specifier: ^0.10.4
-        version: 0.10.4
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.5.0
-      drizzle-orm:
-        specifier: ^0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@neondatabase/serverless@0.10.4)
-      hono:
-        specifier: ^4.7.0
-        version: 4.7.7
-      zod:
-        specifier: ^3.23.8
-        version: 3.24.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250321.0
-        version: 4.20250422.0
-      drizzle-kit:
-        specifier: ^0.30.4
-        version: 0.30.6
-      drizzle-seed:
-        specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.39.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.3
-      wrangler:
-        specifier: ^4.4.0
-        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
-
-  templates/base-openapi:
-    dependencies:
-      '@fiberplane/hono':
-        specifier: 0.4.4-beta.2
-        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      '@hono/zod-openapi':
-        specifier: ^0.18.4
-        version: 0.18.4(hono@4.7.7)(zod@3.24.3)
-      '@neondatabase/serverless':
-        specifier: ^0.10.4
-        version: 0.10.4
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.5.0
-      drizzle-orm:
-        specifier: ^0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@neondatabase/serverless@0.10.4)
-      hono:
-        specifier: ^4.7.0
-        version: 4.7.7
-      zod:
-        specifier: ^3.23.8
-        version: 3.24.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250321.0
-        version: 4.20250422.0
-      drizzle-kit:
-        specifier: ^0.30.4
-        version: 0.30.6
-      drizzle-seed:
-        specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.39.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.3
-      wrangler:
-        specifier: ^4.4.0
-        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
-
-  templates/base-supa:
-    dependencies:
-      '@fiberplane/hono':
-        specifier: 0.4.4-beta.2
-        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.5.0
-      drizzle-orm:
-        specifier: ^0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@opentelemetry/api@1.9.0)(postgres@3.4.5)
-      hono:
-        specifier: ^4.7.0
-        version: 4.7.7
-      postgres:
-        specifier: ^3.4.5
-        version: 3.4.5
-      zod:
-        specifier: ^3.23.8
-        version: 3.24.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250321.0
-        version: 4.20250422.0
-      '@fiberplane/hono-otel':
-        specifier: ^0.6.2
-        version: 0.6.2
-      drizzle-kit:
-        specifier: ^0.30.4
-        version: 0.30.6
-      drizzle-seed:
-        specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.39.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.3
-      wrangler:
-        specifier: ^4.4.0
-        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
-
-  templates/base-supa-hono-openapi:
-    dependencies:
-      '@fiberplane/hono':
-        specifier: 0.4.4-beta.2
-        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      '@hono/zod-validator':
-        specifier: ^0.4.3
-        version: 0.4.3(hono@4.7.7)(zod@3.24.3)
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.5.0
-      drizzle-orm:
-        specifier: ^0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@opentelemetry/api@1.9.0)(postgres@3.4.5)
-      hono:
-        specifier: ^4.7.0
-        version: 4.7.7
-      hono-openapi:
-        specifier: ^0.4.6
-        version: 0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod-openapi@4.2.4)(zod@3.24.3)
-      postgres:
-        specifier: ^3.4.5
-        version: 3.4.5
-      zod:
-        specifier: ^3.23.8
-        version: 3.24.3
-      zod-openapi:
-        specifier: ^4.2.4
-        version: 4.2.4(zod@3.24.3)
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250321.0
-        version: 4.20250422.0
-      drizzle-kit:
-        specifier: ^0.30.4
-        version: 0.30.6
-      drizzle-seed:
-        specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.39.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.3
-      wrangler:
-        specifier: ^4.4.0
-        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
-
-  templates/base-supa-openapi:
-    dependencies:
-      '@fiberplane/hono':
-        specifier: 0.4.4-beta.2
-        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      '@hono/zod-openapi':
-        specifier: ^0.18.4
-        version: 0.18.4(hono@4.7.7)(zod@3.24.3)
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.5.0
-      drizzle-orm:
-        specifier: ^0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@opentelemetry/api@1.9.0)(postgres@3.4.5)
-      hono:
-        specifier: ^4.7.0
-        version: 4.7.7
-      postgres:
-        specifier: ^3.4.5
-        version: 3.4.5
-      zod:
-        specifier: ^3.23.8
-        version: 3.24.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250321.0
-        version: 4.20250422.0
-      drizzle-kit:
-        specifier: ^0.30.4
-        version: 0.30.6
-      drizzle-seed:
-        specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.39.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.3
-      wrangler:
-        specifier: ^4.4.0
-        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
-
-  templates/d1:
-    dependencies:
-      '@fiberplane/hono':
-        specifier: 0.4.4-beta.2
-        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.5.0
-      drizzle-orm:
-        specifier: ^0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)
-      hono:
-        specifier: ^4.7.0
-        version: 4.7.7
-      zod:
-        specifier: ^3.23.8
-        version: 3.24.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250321.0
-        version: 4.20250422.0
-      '@fiberplane/hono-otel':
-        specifier: ^0.6.2
-        version: 0.6.2
-      '@libsql/client':
-        specifier: ^0.14.0
-        version: 0.14.0
-      drizzle-kit:
-        specifier: ^0.30.4
-        version: 0.30.6
-      drizzle-seed:
-        specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.39.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.3
-      wrangler:
-        specifier: ^4.4.0
-        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
-
-  templates/d1-hono-openapi:
-    dependencies:
-      '@fiberplane/hono':
-        specifier: 0.4.4-beta.2
-        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      '@hono/zod-validator':
-        specifier: ^0.4.3
-        version: 0.4.3(hono@4.7.7)(zod@3.24.3)
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.5.0
-      drizzle-orm:
-        specifier: ^0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)
-      hono:
-        specifier: ^4.7.0
-        version: 4.7.7
-      hono-openapi:
-        specifier: ^0.4.6
-        version: 0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod-openapi@4.2.4)(zod@3.24.3)
-      zod:
-        specifier: ^3.23.8
-        version: 3.24.3
-      zod-openapi:
-        specifier: ^4.2.4
-        version: 4.2.4(zod@3.24.3)
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250321.0
-        version: 4.20250422.0
-      '@libsql/client':
-        specifier: ^0.14.0
-        version: 0.14.0
-      drizzle-kit:
-        specifier: ^0.30.4
-        version: 0.30.6
-      drizzle-seed:
-        specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.39.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.3
-      wrangler:
-        specifier: ^4.4.0
-        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
-
-  templates/d1-openapi:
-    dependencies:
-      '@fiberplane/hono':
-        specifier: 0.4.4-beta.2
-        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      '@hono/zod-openapi':
-        specifier: ^0.18.4
-        version: 0.18.4(hono@4.7.7)(zod@3.24.3)
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.5.0
-      drizzle-orm:
-        specifier: ^0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)
-      hono:
-        specifier: ^4.7.0
-        version: 4.7.7
-      zod:
-        specifier: ^3.23.8
-        version: 3.24.3
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250321.0
-        version: 4.20250422.0
-      '@libsql/client':
-        specifier: ^0.14.0
-        version: 0.14.0
-      drizzle-kit:
-        specifier: ^0.30.4
-        version: 0.30.6
-      drizzle-seed:
-        specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.39.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.3
-      wrangler:
-        specifier: ^4.4.0
-        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
-
-  templates/hono-openapi:
-    dependencies:
-      '@fiberplane/hono':
-        specifier: 0.4.4-beta.2
-        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      '@hono/zod-validator':
-        specifier: ^0.4.3
-        version: 0.4.3(hono@4.7.7)(zod@3.24.3)
-      '@neondatabase/serverless':
-        specifier: ^0.10.4
-        version: 0.10.4
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.5.0
-      drizzle-orm:
-        specifier: ^0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@neondatabase/serverless@0.10.4)
-      hono:
-        specifier: ^4.7.0
-        version: 4.7.7
-      hono-openapi:
-        specifier: ^0.4.6
-        version: 0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod-openapi@4.2.4)(zod@3.24.3)
-      zod:
-        specifier: ^3.23.8
-        version: 3.24.3
-      zod-openapi:
-        specifier: ^4.2.4
-        version: 4.2.4(zod@3.24.3)
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250321.0
-        version: 4.20250422.0
-      drizzle-kit:
-        specifier: ^0.30.4
-        version: 0.30.6
-      drizzle-seed:
-        specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.39.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.3
-      wrangler:
-        specifier: ^4.4.0
-        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
-
 packages:
 
   /@ai-sdk/openai@0.0.72(zod@3.24.3):
@@ -950,15 +575,6 @@ packages:
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
-    dev: false
-
-  /@apidevtools/json-schema-ref-parser@11.9.3:
-    resolution: {integrity: sha512-60vepv88RwcJtSHrD6MjIL6Ta3SOYbgfnkHb+ppAVK+o9mXprRtulx7VlRl3lN3bbvysAfCS7WMVfhUYemB0IQ==}
-    engines: {node: '>= 16'}
-    dependencies:
-      '@jsdevtools/ono': 7.1.3
-      '@types/json-schema': 7.0.15
-      js-yaml: 4.1.0
     dev: false
 
   /@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.3):
@@ -1905,24 +1521,6 @@ packages:
       - '@standard-schema/spec'
     dev: false
 
-  /@fiberplane/hono@0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7):
-    resolution: {integrity: sha512-dz38NNqe4AWMiGdHqhokwhKuKk7a/K3iJTZhETfdv5O08QZD7EuNQSKPOB91GcP0ls7di/ICkcp0JbW8rP7WAQ==}
-    peerDependencies:
-      '@hono/zod-openapi': ^0.18.0
-      hono: ^4.0
-    dependencies:
-      '@cfworker/json-schema': 4.1.1
-      '@hono/standard-validator': 0.1.2(@standard-schema/spec@1.0.0)(hono@4.7.7)
-      '@hono/zod-openapi': 0.18.4(hono@4.7.7)(zod@3.24.3)
-      dotenv: 16.5.0
-      hono: 4.7.7
-      jsonpath-plus: 10.3.0
-      jsonpointer: 5.0.1
-      zod: 3.24.3
-    transitivePeerDependencies:
-      - '@standard-schema/spec'
-    dev: false
-
   /@fiberplane/hono@0.5.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7):
     resolution: {integrity: sha512-uxkATFetGqUd/4hrpBFcVQz/JDRx7pjf+rIT0r8Fdbe8u9ErK/bznq64obbbEB5f41cZMRpz/fJ3JgLoq++Ubw==}
     peerDependencies:
@@ -2207,10 +1805,6 @@ packages:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
     dev: true
-
-  /@jsdevtools/ono@7.1.3:
-    resolution: {integrity: sha512-4JQNk+3mVzK3xh2rqd6RB4J46qUR19azEHBneZyTZM+c456qOrbbM/5xcR8huNCCcbVt7+UmizG6GuUvPvKUYg==}
-    dev: false
 
   /@jsep-plugin/assignment@1.3.0(jsep@1.4.0):
     resolution: {integrity: sha512-VVgV+CXrhbMI3aSusQyclHkenWSAm95WaiKrMxRFam3JSUiIaQjoMIw2sEs/OX4XifnqeQUN4DYbJjlA8EfktQ==}
@@ -3333,10 +2927,6 @@ packages:
   /@types/estree@1.0.7:
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
 
-  /@types/json-schema@7.0.15:
-    resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
-    dev: false
-
   /@types/node-fetch@2.6.12:
     resolution: {integrity: sha512-8nneRWKCg3rMtF69nLQJnOYUcbafYeFSjqkw3jCRLsqkWFlHaoQrr5mXmofFGOx3DKn7UfmBMyov8ySvLRVldA==}
     dependencies:
@@ -3567,10 +3157,6 @@ packages:
     resolution: {integrity: sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==}
     dev: true
 
-  /argparse@2.0.1:
-    resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
-    dev: false
-
   /aria-query@5.3.2:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
     engines: {node: '>= 0.4'}
@@ -3695,11 +3281,6 @@ packages:
     resolution: {integrity: sha512-tskPPKEs8D2KPafUypv2gxwJP8h/OaJmC82QQGGDQcHvXX43xF2VDACcJVmZ0EuSxkpO9Kc4MlrA3q0+FG58AQ==}
     dependencies:
       consola: 3.4.2
-    dev: false
-
-  /clone@2.1.2:
-    resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
-    engines: {node: '>=0.8'}
     dev: false
 
   /clsx@2.1.1:
@@ -4084,277 +3665,6 @@ packages:
       pg: 8.15.1
       react: 19.1.0
 
-  /drizzle-orm@0.39.3(@cloudflare/workers-types@4.20250422.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0):
-    resolution: {integrity: sha512-EZ8ZpYvDIvKU9C56JYLOmUskazhad+uXZCTCRN4OnRMsL+xAJ05dv1eCpAG5xzhsm1hqiuC5kAZUCS924u2DTw==}
-    peerDependencies:
-      '@aws-sdk/client-rds-data': '>=3'
-      '@cloudflare/workers-types': '>=4'
-      '@electric-sql/pglite': '>=0.2.0'
-      '@libsql/client': '>=0.10.0'
-      '@libsql/client-wasm': '>=0.10.0'
-      '@neondatabase/serverless': '>=0.10.0'
-      '@op-engineering/op-sqlite': '>=2'
-      '@opentelemetry/api': ^1.4.1
-      '@planetscale/database': '>=1'
-      '@prisma/client': '*'
-      '@tidbcloud/serverless': '*'
-      '@types/better-sqlite3': '*'
-      '@types/pg': '*'
-      '@types/sql.js': '*'
-      '@vercel/postgres': '>=0.8.0'
-      '@xata.io/client': '*'
-      better-sqlite3: '>=7'
-      bun-types: '*'
-      expo-sqlite: '>=14.0.0'
-      knex: '*'
-      kysely: '*'
-      mysql2: '>=2'
-      pg: '>=8'
-      postgres: '>=3'
-      prisma: '*'
-      sql.js: '>=1'
-      sqlite3: '>=5'
-    peerDependenciesMeta:
-      '@aws-sdk/client-rds-data':
-        optional: true
-      '@cloudflare/workers-types':
-        optional: true
-      '@electric-sql/pglite':
-        optional: true
-      '@libsql/client':
-        optional: true
-      '@libsql/client-wasm':
-        optional: true
-      '@neondatabase/serverless':
-        optional: true
-      '@op-engineering/op-sqlite':
-        optional: true
-      '@opentelemetry/api':
-        optional: true
-      '@planetscale/database':
-        optional: true
-      '@prisma/client':
-        optional: true
-      '@tidbcloud/serverless':
-        optional: true
-      '@types/better-sqlite3':
-        optional: true
-      '@types/pg':
-        optional: true
-      '@types/sql.js':
-        optional: true
-      '@vercel/postgres':
-        optional: true
-      '@xata.io/client':
-        optional: true
-      better-sqlite3:
-        optional: true
-      bun-types:
-        optional: true
-      expo-sqlite:
-        optional: true
-      knex:
-        optional: true
-      kysely:
-        optional: true
-      mysql2:
-        optional: true
-      pg:
-        optional: true
-      postgres:
-        optional: true
-      prisma:
-        optional: true
-      sql.js:
-        optional: true
-      sqlite3:
-        optional: true
-    dependencies:
-      '@cloudflare/workers-types': 4.20250422.0
-      '@libsql/client': 0.14.0
-      '@opentelemetry/api': 1.9.0
-    dev: false
-
-  /drizzle-orm@0.39.3(@cloudflare/workers-types@4.20250422.0)(@neondatabase/serverless@0.10.4):
-    resolution: {integrity: sha512-EZ8ZpYvDIvKU9C56JYLOmUskazhad+uXZCTCRN4OnRMsL+xAJ05dv1eCpAG5xzhsm1hqiuC5kAZUCS924u2DTw==}
-    peerDependencies:
-      '@aws-sdk/client-rds-data': '>=3'
-      '@cloudflare/workers-types': '>=4'
-      '@electric-sql/pglite': '>=0.2.0'
-      '@libsql/client': '>=0.10.0'
-      '@libsql/client-wasm': '>=0.10.0'
-      '@neondatabase/serverless': '>=0.10.0'
-      '@op-engineering/op-sqlite': '>=2'
-      '@opentelemetry/api': ^1.4.1
-      '@planetscale/database': '>=1'
-      '@prisma/client': '*'
-      '@tidbcloud/serverless': '*'
-      '@types/better-sqlite3': '*'
-      '@types/pg': '*'
-      '@types/sql.js': '*'
-      '@vercel/postgres': '>=0.8.0'
-      '@xata.io/client': '*'
-      better-sqlite3: '>=7'
-      bun-types: '*'
-      expo-sqlite: '>=14.0.0'
-      knex: '*'
-      kysely: '*'
-      mysql2: '>=2'
-      pg: '>=8'
-      postgres: '>=3'
-      prisma: '*'
-      sql.js: '>=1'
-      sqlite3: '>=5'
-    peerDependenciesMeta:
-      '@aws-sdk/client-rds-data':
-        optional: true
-      '@cloudflare/workers-types':
-        optional: true
-      '@electric-sql/pglite':
-        optional: true
-      '@libsql/client':
-        optional: true
-      '@libsql/client-wasm':
-        optional: true
-      '@neondatabase/serverless':
-        optional: true
-      '@op-engineering/op-sqlite':
-        optional: true
-      '@opentelemetry/api':
-        optional: true
-      '@planetscale/database':
-        optional: true
-      '@prisma/client':
-        optional: true
-      '@tidbcloud/serverless':
-        optional: true
-      '@types/better-sqlite3':
-        optional: true
-      '@types/pg':
-        optional: true
-      '@types/sql.js':
-        optional: true
-      '@vercel/postgres':
-        optional: true
-      '@xata.io/client':
-        optional: true
-      better-sqlite3:
-        optional: true
-      bun-types:
-        optional: true
-      expo-sqlite:
-        optional: true
-      knex:
-        optional: true
-      kysely:
-        optional: true
-      mysql2:
-        optional: true
-      pg:
-        optional: true
-      postgres:
-        optional: true
-      prisma:
-        optional: true
-      sql.js:
-        optional: true
-      sqlite3:
-        optional: true
-    dependencies:
-      '@cloudflare/workers-types': 4.20250422.0
-      '@neondatabase/serverless': 0.10.4
-    dev: false
-
-  /drizzle-orm@0.39.3(@cloudflare/workers-types@4.20250422.0)(@opentelemetry/api@1.9.0)(postgres@3.4.5):
-    resolution: {integrity: sha512-EZ8ZpYvDIvKU9C56JYLOmUskazhad+uXZCTCRN4OnRMsL+xAJ05dv1eCpAG5xzhsm1hqiuC5kAZUCS924u2DTw==}
-    peerDependencies:
-      '@aws-sdk/client-rds-data': '>=3'
-      '@cloudflare/workers-types': '>=4'
-      '@electric-sql/pglite': '>=0.2.0'
-      '@libsql/client': '>=0.10.0'
-      '@libsql/client-wasm': '>=0.10.0'
-      '@neondatabase/serverless': '>=0.10.0'
-      '@op-engineering/op-sqlite': '>=2'
-      '@opentelemetry/api': ^1.4.1
-      '@planetscale/database': '>=1'
-      '@prisma/client': '*'
-      '@tidbcloud/serverless': '*'
-      '@types/better-sqlite3': '*'
-      '@types/pg': '*'
-      '@types/sql.js': '*'
-      '@vercel/postgres': '>=0.8.0'
-      '@xata.io/client': '*'
-      better-sqlite3: '>=7'
-      bun-types: '*'
-      expo-sqlite: '>=14.0.0'
-      knex: '*'
-      kysely: '*'
-      mysql2: '>=2'
-      pg: '>=8'
-      postgres: '>=3'
-      prisma: '*'
-      sql.js: '>=1'
-      sqlite3: '>=5'
-    peerDependenciesMeta:
-      '@aws-sdk/client-rds-data':
-        optional: true
-      '@cloudflare/workers-types':
-        optional: true
-      '@electric-sql/pglite':
-        optional: true
-      '@libsql/client':
-        optional: true
-      '@libsql/client-wasm':
-        optional: true
-      '@neondatabase/serverless':
-        optional: true
-      '@op-engineering/op-sqlite':
-        optional: true
-      '@opentelemetry/api':
-        optional: true
-      '@planetscale/database':
-        optional: true
-      '@prisma/client':
-        optional: true
-      '@tidbcloud/serverless':
-        optional: true
-      '@types/better-sqlite3':
-        optional: true
-      '@types/pg':
-        optional: true
-      '@types/sql.js':
-        optional: true
-      '@vercel/postgres':
-        optional: true
-      '@xata.io/client':
-        optional: true
-      better-sqlite3:
-        optional: true
-      bun-types:
-        optional: true
-      expo-sqlite:
-        optional: true
-      knex:
-        optional: true
-      kysely:
-        optional: true
-      mysql2:
-        optional: true
-      pg:
-        optional: true
-      postgres:
-        optional: true
-      prisma:
-        optional: true
-      sql.js:
-        optional: true
-      sqlite3:
-        optional: true
-    dependencies:
-      '@cloudflare/workers-types': 4.20250422.0
-      '@opentelemetry/api': 1.9.0
-      postgres: 3.4.5
-
   /drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250422.0)(@libsql/client@0.15.4):
     resolution: {integrity: sha512-7A4ZxhHk9gdlXmTdPj/lREtP+3u8KvZ4yEN6MYVxBzZGex5Wtdc+CWSbu7btgF6TB0N+MNPrvW7RKBbxJchs/Q==}
     peerDependencies:
@@ -4457,18 +3767,6 @@ packages:
         optional: true
     dependencies:
       drizzle-orm: 0.36.4(@cloudflare/workers-types@4.20250422.0)(@neondatabase/serverless@0.10.4)(@opentelemetry/api@1.9.0)(pg@8.15.1)(react@19.1.0)
-      pure-rand: 6.1.0
-    dev: true
-
-  /drizzle-seed@0.3.1(drizzle-orm@0.39.3):
-    resolution: {integrity: sha512-F/0lgvfOAsqlYoHM/QAGut4xXIOXoE5VoAdv2FIl7DpGYVXlAzKuJO+IphkKUFK3Dz+rFlOsQLnMNrvoQ0cx7g==}
-    peerDependencies:
-      drizzle-orm: '>=0.36.4'
-    peerDependenciesMeta:
-      drizzle-orm:
-        optional: true
-    dependencies:
-      drizzle-orm: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@opentelemetry/api@1.9.0)(postgres@3.4.5)
       pure-rand: 6.1.0
     dev: true
 
@@ -4902,60 +4200,6 @@ packages:
       function-bind: 1.1.2
     dev: false
 
-  /hono-openapi@0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod-openapi@4.2.4)(zod@3.24.3):
-    resolution: {integrity: sha512-wSDySp2cS5Zcf1OeLG7nCP3eMsCpcDomN137T9B6/Z5Qq3D0nWgMf0I3Gl41SE1rE37OBQ0Smqx3LOP9Hk//7A==}
-    peerDependencies:
-      '@hono/arktype-validator': ^2.0.0
-      '@hono/effect-validator': ^1.2.0
-      '@hono/typebox-validator': ^0.2.0 || ^0.3.0
-      '@hono/valibot-validator': ^0.5.1
-      '@hono/zod-validator': ^0.4.1
-      '@sinclair/typebox': ^0.34.9
-      '@valibot/to-json-schema': ^1.0.0-beta.3
-      arktype: ^2.0.0-rc.25
-      effect: ^3.11.3
-      hono: ^4.6.13
-      openapi-types: ^12.1.3
-      valibot: ^1.0.0-beta.9
-      zod: ^3.23.8
-      zod-openapi: ^4.0.0
-    peerDependenciesMeta:
-      '@hono/arktype-validator':
-        optional: true
-      '@hono/effect-validator':
-        optional: true
-      '@hono/typebox-validator':
-        optional: true
-      '@hono/valibot-validator':
-        optional: true
-      '@hono/zod-validator':
-        optional: true
-      '@sinclair/typebox':
-        optional: true
-      '@valibot/to-json-schema':
-        optional: true
-      arktype:
-        optional: true
-      effect:
-        optional: true
-      hono:
-        optional: true
-      openapi-types:
-        optional: true
-      valibot:
-        optional: true
-      zod:
-        optional: true
-      zod-openapi:
-        optional: true
-    dependencies:
-      '@hono/zod-validator': 0.4.3(hono@4.7.7)(zod@3.24.3)
-      hono: 4.7.7
-      json-schema-walker: 2.0.0
-      zod: 3.24.3
-      zod-openapi: 4.2.4(zod@3.24.3)
-    dev: false
-
   /hono-rate-limiter@0.4.2(hono@4.7.7):
     resolution: {integrity: sha512-AAtFqgADyrmbDijcRTT/HJfwqfvhalya2Zo+MgfdrMPas3zSMD8SU03cv+ZsYwRU1swv7zgVt0shwN059yzhjw==}
     peerDependencies:
@@ -5057,13 +4301,6 @@ packages:
   /js-base64@3.7.7:
     resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
 
-  /js-yaml@4.1.0:
-    resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
-    hasBin: true
-    dependencies:
-      argparse: 2.0.1
-    dev: false
-
   /jsep@1.4.0:
     resolution: {integrity: sha512-B7qPcEVE3NVkmSJbaYxvv4cHkVW7DQsZz13pUMrfS8z8Q/BuShN+gcTXrUlPiGqM2/t/EEaI030bpxMqY8gMlw==}
     engines: {node: '>= 10.16.0'}
@@ -5079,14 +4316,6 @@ packages:
       fast-deep-equal: 3.1.3
       smtp-address-parser: 1.0.10
       valid-url: 1.0.9
-    dev: false
-
-  /json-schema-walker@2.0.0:
-    resolution: {integrity: sha512-nXN2cMky0Iw7Af28w061hmxaPDaML5/bQD9nwm1lOoIKEGjHcRGxqWe4MfrkYThYAPjSUhmsp4bJNoLAyVn9Xw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@apidevtools/json-schema-ref-parser': 11.9.3
-      clone: 2.1.2
     dev: false
 
   /json-schema@0.4.0:
@@ -5692,10 +4921,6 @@ packages:
 
   /postgres-range@1.1.4:
     resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
-
-  /postgres@3.4.5:
-    resolution: {integrity: sha512-cDWgoah1Gez9rN3H4165peY9qfpEo+SA61oQv65O3cRUE1pOEoJWwddwcqKE8XZYjbblOJlYDlLV4h67HrEVDg==}
-    engines: {node: '>=12'}
 
   /printable-characters@1.0.42:
     resolution: {integrity: sha512-dKp+C4iXWK4vVYZmYSd0KBH5F/h1HoZRsbJ82AVKRO3PEo8L4lBS/vLwhVtpwwuYcoIsVY+1JYKR268yn480uQ==}
@@ -6478,15 +5703,6 @@ packages:
 
   /zimmerframe@1.1.2:
     resolution: {integrity: sha512-rAbqEGa8ovJy4pyBxZM70hg4pE6gDgaQ0Sl9M3enG3I0d6H4XSAM3GeNGLKnsBpuijUow064sf7ww1nutC5/3w==}
-    dev: false
-
-  /zod-openapi@4.2.4(zod@3.24.3):
-    resolution: {integrity: sha512-tsrQpbpqFCXqVXUzi3TPwFhuMtLN3oNZobOtYnK6/5VkXsNdnIgyNr4r8no4wmYluaxzN3F7iS+8xCW8BmMQ8g==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.21.4
-    dependencies:
-      zod: 3.24.3
     dev: false
 
   /zod-to-json-schema@3.24.5(zod@3.24.3):
