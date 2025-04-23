@@ -555,6 +555,9 @@ importers:
       '@fiberplane/hono':
         specifier: 0.4.4-beta.2
         version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
+      '@hono/zod-validator':
+        specifier: ^0.4.3
+        version: 0.4.3(hono@4.7.7)(zod@3.24.3)
       dotenv:
         specifier: ^16.4.5
         version: 16.5.0
@@ -657,6 +660,52 @@ importers:
       '@fiberplane/hono-otel':
         specifier: ^0.6.2
         version: 0.6.2
+      '@libsql/client':
+        specifier: ^0.14.0
+        version: 0.14.0
+      drizzle-kit:
+        specifier: ^0.30.4
+        version: 0.30.6
+      drizzle-seed:
+        specifier: ^0.3.1
+        version: 0.3.1(drizzle-orm@0.39.3)
+      tsx:
+        specifier: ^4.19.2
+        version: 4.19.3
+      wrangler:
+        specifier: ^4.4.0
+        version: 4.12.1(@cloudflare/workers-types@4.20250422.0)
+
+  templates/d1-hono-openapi:
+    dependencies:
+      '@fiberplane/hono':
+        specifier: 0.4.4-beta.2
+        version: 0.4.4-beta.2(@hono/zod-openapi@0.18.4)(@standard-schema/spec@1.0.0)(hono@4.7.7)
+      '@hono/zod-validator':
+        specifier: ^0.4.3
+        version: 0.4.3(hono@4.7.7)(zod@3.24.3)
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.5.0
+      drizzle-orm:
+        specifier: ^0.39.3
+        version: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@libsql/client@0.14.0)(@opentelemetry/api@1.9.0)
+      hono:
+        specifier: ^4.7.0
+        version: 4.7.7
+      hono-openapi:
+        specifier: ^0.4.6
+        version: 0.4.6(@hono/zod-validator@0.4.3)(hono@4.7.7)(zod-openapi@4.2.4)(zod@3.24.3)
+      zod:
+        specifier: ^3.23.8
+        version: 3.24.3
+      zod-openapi:
+        specifier: ^4.2.4
+        version: 4.2.4(zod@3.24.3)
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20250321.0
+        version: 4.20250422.0
       '@libsql/client':
         specifier: ^0.14.0
         version: 0.14.0
@@ -4214,6 +4263,7 @@ packages:
     dependencies:
       '@cloudflare/workers-types': 4.20250422.0
       '@neondatabase/serverless': 0.10.4
+    dev: false
 
   /drizzle-orm@0.39.3(@cloudflare/workers-types@4.20250422.0)(@opentelemetry/api@1.9.0)(postgres@3.4.5):
     resolution: {integrity: sha512-EZ8ZpYvDIvKU9C56JYLOmUskazhad+uXZCTCRN4OnRMsL+xAJ05dv1eCpAG5xzhsm1hqiuC5kAZUCS924u2DTw==}
@@ -4304,7 +4354,6 @@ packages:
       '@cloudflare/workers-types': 4.20250422.0
       '@opentelemetry/api': 1.9.0
       postgres: 3.4.5
-    dev: false
 
   /drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250422.0)(@libsql/client@0.15.4):
     resolution: {integrity: sha512-7A4ZxhHk9gdlXmTdPj/lREtP+3u8KvZ4yEN6MYVxBzZGex5Wtdc+CWSbu7btgF6TB0N+MNPrvW7RKBbxJchs/Q==}
@@ -4419,7 +4468,7 @@ packages:
       drizzle-orm:
         optional: true
     dependencies:
-      drizzle-orm: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@neondatabase/serverless@0.10.4)
+      drizzle-orm: 0.39.3(@cloudflare/workers-types@4.20250422.0)(@opentelemetry/api@1.9.0)(postgres@3.4.5)
       pure-rand: 6.1.0
     dev: true
 
@@ -5647,7 +5696,6 @@ packages:
   /postgres@3.4.5:
     resolution: {integrity: sha512-cDWgoah1Gez9rN3H4165peY9qfpEo+SA61oQv65O3cRUE1pOEoJWwddwcqKE8XZYjbblOJlYDlLV4h67HrEVDg==}
     engines: {node: '>=12'}
-    dev: false
 
   /printable-characters@1.0.42:
     resolution: {integrity: sha512-dKp+C4iXWK4vVYZmYSd0KBH5F/h1HoZRsbJ82AVKRO3PEo8L4lBS/vLwhVtpwwuYcoIsVY+1JYKR268yn480uQ==}

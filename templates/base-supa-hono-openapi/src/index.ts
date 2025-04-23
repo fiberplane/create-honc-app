@@ -1,7 +1,7 @@
 import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { eq } from "drizzle-orm";
-import {describeRoute, openAPISpecs} from "hono-openapi";
-import {resolver, validator as zValidator} from "hono-openapi/zod";
+import { describeRoute, openAPISpecs } from "hono-openapi";
+import { resolver, validator as zValidator } from "hono-openapi/zod";
 import { Hono } from "hono";
 import postgres from "postgres";
 import * as schema from "./db/schema";
@@ -44,7 +44,7 @@ const UserSchema = z.object({
   email: z.string().email().openapi({
     example: "paul@supabase.com",
   }),
-}).openapi({ref: "User"});
+}).openapi({ ref: "User" });
 
 const NewUserSchema = z.object({
   name: z.string().openapi({
@@ -53,31 +53,34 @@ const NewUserSchema = z.object({
   email: z.string().email().openapi({
     example: "paul@supabase.com",
   }),
-}).openapi({ref: "NewUser"});
+}).openapi({ ref: "NewUser" });
 
 const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>()
   .get(
     "/", describeRoute({
       responses: {
-    200: {
-      content: { "application/json": { schema: resolver(z.array(UserSchema)) } },
-      description: "Users fetched successfully",
-    },
-  },
-    }), async (c) => {
-    const db = c.get("db");
-    const users = await db.select().from(schema.users);
-    return c.json(users);}
-  ).post("/", describeRoute({responses: {
-    201: {
-      content: {
-        "application/json": {
-          schema: resolver(UserSchema),
+        200: {
+          content: { "application/json": { schema: resolver(z.array(UserSchema)) } },
+          description: "Users fetched successfully",
         },
       },
-      description: "User created successfully",
+    }), async (c) => {
+      const db = c.get("db");
+      const users = await db.select().from(schema.users);
+      return c.json(users);
+    }
+  ).post("/", describeRoute({
+    responses: {
+      201: {
+        content: {
+          "application/json": {
+            schema: resolver(UserSchema),
+          },
+        },
+        description: "User created successfully",
+      },
     },
-  },}), zValidator("json", NewUserSchema), async(c) => {
+  }), zValidator("json", NewUserSchema), async (c) => {
     const db = c.get("db");
     const { name, email } = c.req.valid("json");
 
@@ -89,39 +92,50 @@ const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>()
       })
       .returning();
 
-    return c.json(newUser, 201);}).get("/:id", describeRoute({
-  responses: {
-    200: {
-      content: { "application/json": { schema: UserSchema } },
-      description: "User fetched successfully",
+    return c.json(newUser, 201);
+  }).get("/:id", describeRoute({
+    responses: {
+      200: {
+        content: { "application/json": { schema: UserSchema } },
+        description: "User fetched successfully",
+      },
     },
-  },}), zValidator("param", z.object({
-      id: z.coerce.number().openapi({
-        example: 1,
-      }),
-    })), async (c) => {
+  }), zValidator("param", z.object({
+    id: z.coerce.number().openapi({
+      example: 1,
+    }),
+  })), async (c) => {
     const db = c.get("db");
     const { id } = c.req.valid("param");
     const [user] = await db.select().from(schema.users).where(eq(schema.users.id, id));
-    return c.json(user);})
+    return c.json(user);
+  })
 
 // Route Implementations
 // Connect the route definitions to their handlers using .openapi()
-app.get("/", (c) => {
+app.get("/", describeRoute({
+  responses: {
+    200: {
+      content: { "text/plain": { schema: z.string() } },
+      description: "Root fetched successfully",
+    },
+  },
+}), (c) => {
   return c.text("Supa Honc! 📯🪿📯🪿📯🪿📯");
 })
   .route("/api/users", apiRouter)
-  // Generate OpenAPI spec at /openapi.json
-  
-  app.get("/openapi.json", openAPISpecs(app, {
-    documentation: {
+// Generate OpenAPI spec at /openapi.json
+
+app.get("/openapi.json", openAPISpecs(app, {
+  documentation: {
     info: {
       title: "Supa Honc! 📯🪿📯🪿📯🪿📯",
       version: "1.0.0",
       description: "Supa Honc! 📯🪿📯🪿📯🪿📯",
     },
-  }}
-  ))
+  }
+}
+))
   .use("/fp/*", createFiberplane({
     app,
     openapi: { url: "/openapi.json" },
