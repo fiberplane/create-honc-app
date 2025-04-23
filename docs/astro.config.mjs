@@ -4,7 +4,6 @@ import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import { socials } from "./src/config";
 
 export default defineConfig({
   site: "https://fiberplane.com",
@@ -26,17 +25,17 @@ export default defineConfig({
       description:
         "HONC is the zero-config stack for lightweight data APIs",
       social: {
-        github: socials.github.url,
-        discord: socials.discord.url
+        github: "https://github.com/fiberplane/create-honc-app",
+        discord:"https://discord.com/invite/ugAwAK6Yzm"
       },
       sidebar: [
         {
           label: "Docs",
           items: [
-            // {
-            //   label: "Quickstart",
-            //   items: ["docs/get-started"]
-            // },
+            {
+              label: "Quickstart",
+              items: ["docs"]
+            },
             // {
             //   label: "Features",
             //   autogenerate: { directory: "docs/features" }
