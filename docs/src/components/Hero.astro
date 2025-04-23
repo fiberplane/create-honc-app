@@ -1,0 +1,271 @@
+---
+import { Image } from "astro:assets";
+import { LinkButton } from "@astrojs/starlight/components";
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, image, actions = [] } = data.hero || {};
+
+const alt = image?.alt ?? "";
+let heroImageLight: ImageMetadata | undefined;
+let heroImageDark: ImageMetadata | undefined;
+if (image && "light" in image && "dark" in image) {
+  heroImageLight = image.light;
+  heroImageDark = image.dark;
+}
+
+const imageAttrs = {
+  loading: "eager" as const,
+  decoding: "async" as const,
+  widths: [1024, 1248],
+  height: 736,
+  sizes: "(max-width: 1024px) 1024px, 1248px",
+  "data-hero-image": "",
+  quality: "high",
+  alt
+};
+---
+
+<section class="hero not-content">
+  <div class="hero-content">
+    <header class="hero-header">
+      <h1 class="hero-title">{title}</h1>
+      <p class="hero-tagline">{tagline}</p>
+
+      <div class="hero-button-group">
+        {
+          actions.map(
+            ({
+              attrs: { class: className, ...attrs } = {},
+              icon,
+              link: href,
+              text,
+              variant
+            }) => (
+              <LinkButton
+                {href}
+                {variant}
+                icon={icon?.name}
+                class:list={["hero-link-button", className]}
+                {...attrs}
+              >
+                {text}
+                {icon?.html && <Fragment set:html={icon.html} />}
+              </LinkButton>
+            )
+          )
+        }
+      </div>
+    </header>
+
+    <figure class="hero-figure">
+      {
+        heroImageLight && (
+          <Image
+            src={heroImageLight}
+            class="dark:sl-hidden hero-image"
+            {...imageAttrs}
+          />
+        )
+      }
+      {
+        heroImageDark && (
+          <Image
+            src={heroImageDark}
+            class="light:sl-hidden hero-image"
+            {...imageAttrs}
+          />
+        )
+      }
+    </figure>
+  </div>
+</section>
+
+<script is:inline>
+  const heroImages = document.querySelectorAll("[data-hero-image]");
+  for (const heroImage of heroImages) {
+    heroImage.onload = () => heroImage.classList.add("is-loaded");
+  }
+</script>
+
+<style>
+  html[data-has-hero] body {
+    --sl-content-width: 100vi;
+
+    --hero-max-width: 102rem;
+    --hero-padding: 6rem;
+    --content-spacing: 4rem;
+
+    *:where(div:has(div > .hero)) {
+      overflow-x: clip;
+    }
+  }
+
+  section.hero {
+    container: hero-container / inline-size;
+    max-width: var(--hero-max-width);
+    margin-inline: auto;
+  }
+
+  .hero-button-group {
+    display: flex;
+    gap: 1rem;
+  }
+
+  /* Padding was overridden in prod, hence the specifity */
+  .sl-link-button.hero-link-button.not-content.primary {
+    --sl-color-text-accent: var(--bg-brand-muted);
+    --sl-color-text-accent: var(--bg-brand);
+    --sl-color-black: var(--fg-on-primary);
+    border-radius: var(--border-radius);
+
+    /* Overwrite the -block & -inline values as cascade differs in prod */
+    padding-block: 0.5rem;
+    padding-inline: 0.75rem;
+  }
+
+  .hero-content {
+    display: grid;
+    gap: var(--content-spacing);
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+
+    position: relative;
+    isolation: isolate;
+
+    height: 54rem;
+    border-radius: 20px;
+    background-image: linear-gradient(
+      0deg,
+      var(--sl-color-bg),
+      var(--bg-secondary)
+    );
+
+    padding-inline: var(--hero-padding);
+
+    /* Make sure the hero's content is on top of the dotted bg */
+    & > * {
+      z-index: 2;
+    }
+  }
+
+  .hero-header {
+    display: grid;
+    align-content: center;
+    gap: 2rem;
+  }
+
+  /* TODO: Add Geist font from fontsource.com */
+  .hero-title {
+    font-size: clamp(1.5rem, 8cqw, 4rem);
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .hero-tagline {
+    /* TODO: Add Inter-Tight font & update font size & line height */
+    /* fontsource.com */
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 400;
+    text-wrap: pretty;
+    color: var(--fg-muted);
+    max-width: 40ch;
+    margin-inline: auto;
+  }
+
+  .hero-figure {
+    position: relative;
+    align-self: center;
+    height: min(100%, calc(54rem - var(--hero-padding)));
+  }
+
+  .hero-figure img.hero-image {
+    position: absolute;
+    height: 100%;
+    width: auto;
+    border-radius: 12px;
+    border: 1px solid var(--sl-color-hairline-shade);
+    box-shadow: 0px 6px 24px 0px var(--bg-emphasis);
+
+    /* Rudimentary entry animations for now, add some sprinkles */
+    opacity: 0;
+    translate: 0 24px;
+    transition:
+      opacity 0.5s,
+      translate 0.5s;
+  }
+
+  .hero-figure .hero-image.is-loaded {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .hero-content::before {
+    --hero-background-image-size: 2rem;
+    --hero-background-image-position: calc(
+      var(--hero-background-image-size) / 2
+    );
+
+    z-index: 1;
+    content: "";
+    position: absolute;
+    border-radius: 20px;
+    inset: 0;
+    background-image: radial-gradient(
+      hsl(from var(--bg-background) h s l / 0.5) 3px,
+      transparent 0
+    );
+    background-size: var(--hero-background-image-size)
+      var(--hero-background-image-size);
+    background-position: top center;
+  }
+
+  @container hero-container (width <= 90rem) {
+    .hero-header {
+      margin-inline: 4rem;
+    }
+
+    .hero-tagline {
+      font-size: clamp(18px, 2.5cqi, 32px);
+    }
+  }
+
+  @container hero-container (width <= 72rem) {
+    .hero-header {
+      margin-inline: 2rem 0;
+    }
+  }
+
+  @container hero-container (width < 64rem) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      align-content: start;
+      padding-block-start: 3rem;
+      height: auto;
+      margin-inline: calc(var(--sl-content-pad-x) * -1);
+      padding-inline: var(--sl-nav-pad-x);
+      border-radius: 0;
+    }
+
+    .hero-button-group {
+      justify-content: center;
+    }
+
+    .hero-header {
+      text-align: center;
+      margin-inline: 0;
+    }
+
+    .hero-figure {
+      --figure-block-padding: 2rem;
+      height: 90cqi;
+    }
+
+    .hero-figure .hero-image {
+      height: calc(100% - var(--figure-block-padding) * 2);
+      height: 88%;
+      border-radius: 8px;
+      translate: var(--sl-nav-pad-x) 0;
+    }
+  }
+</style>

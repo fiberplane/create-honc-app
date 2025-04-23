@@ -1,0 +1,260 @@
+---
+// import fpxHeroScreenshotLight from "@/assets/fpx-hero-screenshot.png";
+// import fpxHeroScreenshotDark from "@/assets/fpx-hero-screenshot-dark.png";
+// import fpLogo from "@/assets/fp-logo.svg?url";
+import { Content } from "@/content/landing/index.mdx";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+---
+
+<StarlightPage
+  hasSidebar={true}
+  frontmatter={{
+    title: "For lightweight data APIs | HONC",
+    template: "splash",
+    banner: {
+      content:
+        '<span><a href="https://www.youtube.com/@fiberplane/streams">📺 Catch the weekly HONC live streams! 📺</a></span>'
+    },
+    hero: {
+      title: "HONC",
+      // image: {
+      //   dark: fpxHeroScreenshotDark,
+      //   light: fpxHeroScreenshotLight,
+      //   alt: "FPX Studio screenshot with auto detected routes"
+      // },
+      tagline:
+        "The low-config solution for lightweight data APIs",
+      actions: [
+        {
+          text: "Get started",
+          link: "docs/get-started",
+          icon: "right-arrow",
+          variant: "primary"
+        }
+      ]
+    }
+  }}
+>
+  <!-- <section class="getting-started hide-sidebar not-content">
+    <div class="content-grid">
+      <div class="cards-content">
+        <header class="cards-header">
+          <h2 class="cards-title">
+            The Fiberplane API Playground:<br />From Development to Delivery
+          </h2>
+
+          <ul class="card-explanation not-content">
+            <li class="explanation-card">
+              <div class="card-icon">
+                <pre>🧙</pre>
+              </div>
+              <p class="card-text">
+                <em>For the API builder</em> who appreciates designing a high quality
+                API with quick debugging and automated features, making it easy for
+                users to onboard and experiment.
+              </p>
+            </li>
+
+            <li class="explanation-card">
+              <div class="card-icon">
+                <pre>🙋</pre>
+              </div>
+              <p class="card-text">
+                <em>For the API user</em> who are ready to prototype quickly with
+                interactive documentation and endpoint testing, in a streamlined
+                experience for development.
+              </p>
+            </li>
+          </ul>
+        </header>
+      </div>
+
+      <Content />
+    </div>
+  </section> -->
+  <section class="container hide-sidebar not-content">
+    <div class="bento-grid">
+      <article class="bento-grid-item bento-grid-item--horizontal">
+        <header>
+          <h3>OpenTelemetry Worker</h3>
+          <p>
+            Use <a
+              href="http://github.com/fiberplane/otel-worker"
+              target="_blank"
+              rel="noopener noreferrer">our open source OTEL collector</a
+            > or bring your own.
+          </p>
+        </header>
+  
+        <div class="icon-container">🔭</div>
+      </article>
+    </div>
+  </section>
+</StarlightPage>
+
+
+<style>
+  .getting-started {
+    container: getting-started-container / inline-size;
+    max-width: calc(102rem - var(--hero-padding) * 2);
+    margin-inline: auto;
+    margin-block: 6rem;
+  }
+
+  .logo-container {
+    margin-block-end: 2rem;
+  }
+
+  .fp-logo {
+    display: block;
+    margin-inline: auto;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+  }
+
+  .fp-logo-visible {
+    opacity: 1;
+  }
+
+  .content-grid {
+    gap: var(--content-spacing);
+
+    .sl-steps {
+      p {
+        margin-block: 0.5rem;
+      }
+
+      li:not(:first-child) {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  .cards-content {
+    background-color: var(--bg-secondary);
+    padding-inline: var(--sl-content-pad-x);
+    padding-block-end: 4rem;
+    margin-inline: calc(var(--sl-content-pad-x) * -1);
+    background-image: linear-gradient(
+      180deg,
+      var(--sl-color-bg),
+      var(--bg-secondary)
+    );
+  }
+
+  .cards-content em {
+    font-weight: bold;
+  }
+
+  .cards-title {
+    text-align: center;
+    margin-block-end: 1em;
+    font-size: clamp(1.5rem, 8cqw, 2.5rem);
+    line-height: 1.2;
+  }
+
+  .card-explanation {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .explanation-card {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: var(--sl-content-pad-x);
+    padding: var(--sl-content-pad-x);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--sl-color-hairline-shade);
+    border-radius: 20px;
+  }
+
+  .card-icon {
+    border-radius: 50%;
+    background-color: var(--sl-color-bg);
+    box-shadow: 0 0 32px 0 hsl(from var(--sl-color-hairline-shade) h s l / 0.8);
+    border: 1px solid hsl(from var(--sl-color-accent) h s l / 0.5);
+    display: grid;
+    place-content: center;
+    font-size: 3rem;
+    line-height: 1;
+    aspect-ratio: 1;
+    align-self: center;
+  }
+
+  .card-icon pre {
+    filter: grayscale(1);
+  }
+
+  @container getting-started-container (width >= 64rem) {
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .content-grid > div {
+      order: 1;
+      min-width: 0;
+    }
+
+    .cards-content {
+      display: grid;
+      background-color: var(--bg-secondary);
+      padding: calc(var(--sl-content-pad-x) * 2);
+      background-image: linear-gradient(
+        180deg,
+        var (--sl-color-bg),
+        var(--bg-secondary)
+      );
+      margin: initial;
+      border-radius: 20px;
+      position: relative;
+      min-width: 0;
+    }
+
+    .cards-content > * {
+      z-index: 2;
+    }
+
+    .cards-header {
+      position: sticky;
+      inset: 6rem 0 2rem 0;
+      align-self: center;
+      height: fit-content;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .card-explanation {
+      gap: 1.5rem;
+    }
+
+    .cards-header .cards-title {
+      text-align: left;
+    }
+
+    /* Taken from the hero, make reusable */
+    .cards-content::before {
+      --hero-background-image-size: 2rem;
+      --hero-background-image-position: calc(
+        var(--hero-background-image-size) / 2
+      );
+
+      z-index: 1;
+      content: "";
+      position: absolute;
+      border-radius: 20px;
+      inset: 0;
+      background-image: radial-gradient(
+        hsl(from var(--bg-background) h s l / 0.5) 3px,
+        transparent 0
+      );
+      background-size: var(--hero-background-image-size)
+        var(--hero-background-image-size);
+      background-position: bottom center;
+    }
+  }
+</style>
