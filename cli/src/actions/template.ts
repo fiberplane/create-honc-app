@@ -49,17 +49,17 @@ export async function promptOpenAPI(ctx: Context) {
 
     if (typeof confirmOpenAPI === "boolean" && confirmOpenAPI) {
       const result = await select({
-        message: "Which openapi lib do you want to use?",
+        message: "Which OpenAPI lib do you want to use?",
         options: [
           {
             value: "openapi",
             label: "Zod OpenAPI template",
-            hint: "This uses @hono/zod-openapi library",
+            hint: "This uses @hono/zod-openapi library. This uses an extended Hono class that supports OpenAPI.",
           },
           {
             value: "hono-openapi",
             label: "Hono OpenAPI template",
-            hint: "This uses hono-openapi library",
+            hint: "This uses hono-openapi library. This is a middleware which enables automatic OpenAPI documentation using your validators.",
           },
         ],
         initialValue: "openapi",
