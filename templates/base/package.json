@@ -7,10 +7,12 @@
     "db:migrate": "drizzle-kit migrate",
     "db:seed": "tsx seed.ts",
     "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "lint": "biome check --write src",
+    "format": "biome format --write src"
   },
   "dependencies": {
-    "@fiberplane/hono": "0.4.4-beta.2",
+    "@fiberplane/hono": "0.5.2",
     "@neondatabase/serverless": "^0.10.4",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.3",
@@ -18,6 +20,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@cloudflare/workers-types": "^4.20250321.0",
     "drizzle-kit": "^0.30.4",
     "drizzle-seed": "^0.3.1",
