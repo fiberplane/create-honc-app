@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import { type SQL, sql } from "drizzle-orm";
 import {
   type AnySQLiteColumn,
@@ -19,7 +20,8 @@ export type NewUser = typeof users.$inferInsert;
 export const users = sqliteTable(
   "users",
   {
-    id: text().$defaultFn(crypto.randomUUID).primaryKey(),
+    // .primaryKey() must be chained before $defaultFn
+    id: text().primaryKey().$defaultFn(crypto.randomUUID),
     name: text().notNull(),
     email: text().notNull(),
     createdAt: text().notNull().default(currentTimestamp()),
