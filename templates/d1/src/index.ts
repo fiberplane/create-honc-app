@@ -3,8 +3,8 @@ import { instrument } from "@fiberplane/hono-otel";
 import { eq } from "drizzle-orm";
 import { type DrizzleD1Database, drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
-import { HTTPException } from "hono/http-exception";
 import { createMiddleware } from "hono/factory";
+import { HTTPException } from "hono/http-exception";
 import * as schema from "./db/schema";
 
 const initDb = createMiddleware<{
@@ -16,8 +16,8 @@ const initDb = createMiddleware<{
 	};
 }>(async (c, next) => {
 	const db = drizzle(c.env.DB, {
-    casing: "snake_case",
-  });
+		casing: "snake_case",
+	});
 
 	c.set("db", db);
 	await next();
@@ -38,7 +38,7 @@ const api = new Hono()
 		const [user] = await db
 			.select()
 			.from(schema.users)
-			.where(eq(schema.users.id, Number(id)));
+			.where(eq(schema.users.id, id));
 
 		return c.json(user);
 	})
@@ -64,17 +64,23 @@ const app = new Hono()
 	.route("/api", api);
 
 app.onError((error, c) => {
-  console.error(error);
-  if (error instanceof HTTPException) {
-    return c.json({ 
-      message: error.message 
-    }, error.status);
-  }
+	console.error(error);
+	if (error instanceof HTTPException) {
+		return c.json(
+			{
+				message: error.message,
+			},
+			error.status,
+		);
+	}
 
-  return c.json({
-    message: 'Something went wrong',
-  }, 500);
-})
+	return c.json(
+		{
+			message: "Something went wrong",
+		},
+		500,
+	);
+});
 
 /**
  * Serve a simplified api specification for your API
