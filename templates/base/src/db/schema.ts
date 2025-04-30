@@ -30,5 +30,9 @@ export const users = pgTable(
     createdAt: timestamp().defaultNow().notNull(),
     updatedAt: timestamp().defaultNow().notNull(),
   },
+  /**
+   * Ensure case-insensitive uniqueness for email
+   * @see https://orm.drizzle.team/docs/guides/unique-case-insensitive-email#postgresql
+   */
   (table) => [uniqueIndex("emailUniqueIndex").on(lower(table.email))],
 );

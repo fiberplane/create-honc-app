@@ -25,5 +25,9 @@ export const users = sqliteTable(
     createdAt: text().notNull().default(currentTimestamp()),
     updatedAt: text().notNull().default(currentTimestamp()),
   },
+  /**
+   * Ensure case-insensitive uniqueness for email
+   * @see https://orm.drizzle.team/docs/guides/unique-case-insensitive-email#sqlite
+   */
   (table) => [uniqueIndex("emailUniqueIndex").on(lower(table.email))],
 );
