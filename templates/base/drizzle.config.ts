@@ -5,7 +5,7 @@ config({ path: "./.dev.vars" });
 
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) {
-  throw new Error("Missing Envirnment Variable: DATABASE_URL");
+  throw new Error("Missing Environment Variable: DATABASE_URL");
 }
 
 export default defineConfig({
