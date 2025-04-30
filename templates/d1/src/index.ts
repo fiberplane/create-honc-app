@@ -15,7 +15,10 @@ const initDb = createMiddleware<{
 		db: DrizzleD1Database;
 	};
 }>(async (c, next) => {
-	const db = drizzle(c.env.DB);
+	const db = drizzle(c.env.DB, {
+    casing: "snake_case",
+  });
+
 	c.set("db", db);
 	await next();
 });

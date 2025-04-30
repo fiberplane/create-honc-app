@@ -17,7 +17,10 @@ const initDb = createMiddleware<{
 	};
 }>(async (c, next) => {
 	const client = postgres(c.env.DATABASE_URL);
-	const db = drizzle(client);
+	const db = drizzle(client, {
+    casing: "snake_case",
+  });
+
 	c.set("db", db);
 	await next();
 });
