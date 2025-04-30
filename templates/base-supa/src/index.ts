@@ -3,6 +3,7 @@ import { instrument } from "@fiberplane/hono-otel";
 import { eq } from "drizzle-orm";
 import { type PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
 import { Hono } from "hono";
+import { HTTPException } from "hono/http-exception";
 import { createMiddleware } from "hono/factory";
 import postgres from "postgres";
 import * as schema from "./db/schema";
@@ -60,6 +61,19 @@ const app = new Hono()
 		return c.text("Honc from above! ☁️🪿");
 	})
 	.route("/api", api);
+
+app.onError((error, c) => {
+  console.error(error);
+  if (error instanceof HTTPException) {
+    return c.json({ 
+      message: error.message 
+    }, error.status);
+  }
+
+  return c.json({
+    message: 'Something went wrong',
+  }, 500);
+})
 
 /**
  * Serve a simplified api specification for your API
