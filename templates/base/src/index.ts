@@ -33,17 +33,6 @@ const api = new Hono()
 
     return c.json(users);
   })
-  .get("/users/:id", async (c) => {
-    const db = c.var.db;
-    const id = c.req.param("id");
-
-    const [user] = await db
-      .select()
-      .from(schema.users)
-      .where(eq(schema.users.id, id));
-
-    return c.json(user);
-  })
   .post("/users", async (c) => {
     const db = c.var.db;
     const { name, email } = await c.req.json();
@@ -57,6 +46,17 @@ const api = new Hono()
       .returning();
 
     return c.json(newUser, 201);
+  })
+  .get("/users/:id", async (c) => {
+    const db = c.var.db;
+    const id = c.req.param("id");
+
+    const [user] = await db
+      .select()
+      .from(schema.users)
+      .where(eq(schema.users.id, id));
+
+    return c.json(user);
   });
 
 const app = new Hono()
