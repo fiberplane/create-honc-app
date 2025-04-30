@@ -29,7 +29,7 @@ const api = new Hono()
 
 		return c.json(users);
 	})
-	.get("/user/:id", async (c) => {
+	.get("/users/:id", async (c) => {
 		const db = c.var.db;
 		const id = c.req.param("id");
 
@@ -40,7 +40,7 @@ const api = new Hono()
 
 		return c.json(user);
 	})
-	.post("/user", async (c) => {
+	.post("/users", async (c) => {
 		const db = c.var.db;
 		const { name, email } = await c.req.json();
 
