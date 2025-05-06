@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@fiberplane/hono": "0.5.2",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.3",
     "hono": "^4.7.0",
     "postgres": "^3.4.5",

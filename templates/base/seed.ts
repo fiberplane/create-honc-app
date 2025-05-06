@@ -6,9 +6,15 @@ import { seed } from "drizzle-seed";
 
 config({ path: ".dev.vars" });
 
-// biome-ignore lint/style/noNonNullAssertion: error from neon client is helpful enough to fix
-const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle(sql);
+const DATABASE_URL = process.env.DATABASE_URL;
+if (!DATABASE_URL) {
+  throw new Error("Missing Environment Variable: DATABASE_URL");
+}
+
+const client = neon(DATABASE_URL);
+const db = drizzle(client, {
+  casing: "snake_case"
+});
 
 async function seedDatabase() {
   // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
