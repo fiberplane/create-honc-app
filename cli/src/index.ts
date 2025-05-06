@@ -17,7 +17,7 @@ import { actionDependencies, promptDependencies } from "./actions/dependencies";
 import { promptDescription } from "./actions/description";
 import { actionGit, promptGit } from "./actions/git";
 import { HONC_TITLE } from "./const";
-import { Context, initContext } from "./context";
+import { initContext } from "./context";
 import { updateProjectName } from "./project-name";
 import { touchDevVars } from "./touch-dev-vars";
 import { isError } from "./types";
