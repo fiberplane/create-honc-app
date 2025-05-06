@@ -21,8 +21,8 @@ export default defineConfig({
 					label: 'Discord',
 					href: 'https://discord.com/invite/ugAwAK6Yzm' 
 				},
-		],
-		sidebar: [
+			],
+			sidebar: [
 				'get-started',
 				{
 					label: 'The Stack',
