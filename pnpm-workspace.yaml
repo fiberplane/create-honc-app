@@ -1,4 +1,5 @@
 packages:
-  - "cli"
-  - "examples/*"
   - "ascuii"
+  - "cli"
+  - "docs"
+  - "examples/*"
