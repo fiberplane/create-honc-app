@@ -28,10 +28,16 @@ async function seedDatabase() {
 
   try {
     // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
-    await seed(db, schema);
+    await seed(db, schema)
+      .refine((funcs) => ({
+        users: {
+          columns: {
+            id: funcs.uuid(),
+          }
+        }
+      }));
+
     console.log("✅ Database seeded successfully!");
-    if (!isProd) {
-      }
   } catch (error) {
     console.error("❌ Error seeding database:", error);
     process.exit(1);
@@ -57,7 +63,11 @@ function getLocalD1Db() {
   const client = createClient({
     url: `file:${pathToDb}`,
   });
-  const db = drizzle(client);
+
+  const db = drizzle(client, {
+    casing: "snake_case",
+  });
+
   return db;
 }
 
@@ -66,7 +76,7 @@ function getLocalD1Db() {
  */
 function getLocalD1DBPath() {
   try {
-    const basePath = path.resolve(".wrangler");
+    const basePath = path.resolve(".wrangler", "state", "v3", "d1");
     const files = fs
       .readdirSync(basePath, { encoding: "utf-8", recursive: true })
       .filter((f) => f.endsWith(".sqlite"));
@@ -225,5 +235,7 @@ export function createProductionD1Connection(
     return results;
   };
 
-  return drizzleSQLiteProxy(queryClient, batchQueryClient);
+  return drizzleSQLiteProxy(queryClient, batchQueryClient, {
+    casing: "snake_case",
+  });
 }

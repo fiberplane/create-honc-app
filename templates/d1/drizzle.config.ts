@@ -11,6 +11,7 @@ if (process.env.ENVIRONMENT === "production") {
     out: "./drizzle/migrations",
     dialect: "sqlite",
     driver: "d1-http",
+    casing: "snake_case",
     dbCredentials: {
       accountId: process.env.CLOUDFLARE_ACCOUNT_ID ?? "",
       databaseId: process.env.CLOUDFLARE_DATABASE_ID ?? "",
@@ -28,6 +29,7 @@ if (process.env.ENVIRONMENT === "production") {
     schema: "./src/db/schema.ts",
     out: "./drizzle/migrations",
     dialect: "sqlite",
+    casing: "snake_case",
     dbCredentials: {
       url: localD1DB,
     },
@@ -38,7 +40,7 @@ export default dbConfig;
 
 function getLocalD1DB() {
   try {
-    const basePath = path.resolve(".wrangler");
+    const basePath = path.resolve(".wrangler", "state", "v3", "d1");
     const files = fs
       .readdirSync(basePath, { encoding: "utf-8", recursive: true })
       .filter((f) => f.endsWith(".sqlite"));

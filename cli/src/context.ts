@@ -1,5 +1,5 @@
 import type { ScaffoldedFiles } from "@/integrations/code-gen";
-import type { Flags, OpenAPITemplate, Template } from "./types";
+import type { Flags, Template } from "./types";
 import { getPackageManager } from "./utils";
 
 export interface Context {
@@ -8,7 +8,7 @@ export interface Context {
   path?: string;
   description?: string;
   template?: Template;
-  useOpenAPI?: OpenAPITemplate;
+  useOpenAPI?: boolean;
   database?: string;
   flags: Flags;
   databaseConnectionString?: string;
