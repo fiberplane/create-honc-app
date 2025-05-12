@@ -32,26 +32,30 @@ app.use(async (c, next) => {
 //
 // We can add openapi documentation, as well as name the Schema in the OpenAPI document,
 // by chaining `openapi` on the zod schema definitions
-const UserSchema = z.object({
-  id: z.number().openapi({
-    example: 1,
-  }),
-  name: z.string().openapi({
-    example: "Matthew",
-  }),
-  email: z.string().email().openapi({
-    example: "matthew@cloudflare.com",
-  }),
-}).openapi({ ref: "User" });
+const UserSchema = z
+  .object({
+    id: z.number().openapi({
+      example: 1,
+    }),
+    name: z.string().openapi({
+      example: "Matthew",
+    }),
+    email: z.string().email().openapi({
+      example: "matthew@cloudflare.com",
+    }),
+  })
+  .openapi({ ref: "User" });
 
-const NewUserSchema = z.object({
-  name: z.string().openapi({
-    example: "Matthew",
-  }),
-  email: z.string().email().openapi({
-    example: "matthew@cloudflare.com",
-  }),
-}).openapi({ ref: "NewUser" });
+const NewUserSchema = z
+  .object({
+    name: z.string().openapi({
+      example: "Matthew",
+    }),
+    email: z.string().email().openapi({
+      example: "matthew@cloudflare.com",
+    }),
+  })
+  .openapi({ ref: "NewUser" });
 
 const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>()
   .get(
@@ -123,43 +127,47 @@ const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>()
     async (c) => {
       const db = c.get("db");
       const { id } = c.req.valid("param");
-      const [user] = await db.select().from(schema.users).where(
-        eq(schema.users.id, id),
-      );
+      const [user] = await db
+        .select()
+        .from(schema.users)
+        .where(eq(schema.users.id, id));
       return c.json(user);
     },
   );
 
 // Route Implementations
 // Connect the route definitions to their handlers using .openapi()
-app.get(
-  "/",
-  describeRoute({
-    responses: {
-      200: {
-        content: { "text/plain": { schema: z.string() } },
-        description: "Root fetched successfully",
+app
+  .get(
+    "/",
+    describeRoute({
+      responses: {
+        200: {
+          content: { "text/plain": { schema: z.string() } },
+          description: "Root fetched successfully",
+        },
       },
+    }),
+    (c) => {
+      return c.text("Honc from above! ☁️🪿");
     },
-  }),
-  (c) => {
-    return c.text("Honc from above! ☁️🪿");
-  },
-).route("/api/users", apiRouter);
+  )
+  .route("/api/users", apiRouter);
 
 // Generate OpenAPI spec at /openapi.json
-app.get(
-  "/openapi.json",
-  openAPISpecs(app, {
-    documentation: {
-      info: {
-        title: "D1 Honc! 🪿☁️",
-        version: "1.0.0",
-        description: "D1 Honc! 🪿☁️",
+app
+  .get(
+    "/openapi.json",
+    openAPISpecs(app, {
+      documentation: {
+        info: {
+          title: "D1 Honc! 🪿☁️",
+          version: "1.0.0",
+          description: "D1 Honc! 🪿☁️",
+        },
       },
-    },
-  }),
-)
+    }),
+  )
   .use(
     "/fp/*",
     createFiberplane({

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@fiberplane/hono": "0.5.2",
-    "@hono/zod-validator": "^0.18.4",
+    "@hono/zod-validator": "^0.4.3",
     "@neondatabase/serverless": "^0.10.4",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.3",
@@ -23,6 +23,7 @@
     "zod-openapi": "^4.2.4"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@cloudflare/workers-types": "^4.20250321.0",
     "drizzle-kit": "^0.30.4",
     "drizzle-seed": "^0.3.1",
