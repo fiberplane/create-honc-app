@@ -1,9 +1,13 @@
 import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { eq } from "drizzle-orm";
-import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
+import { describeRoute, openAPISpecs } from "hono-openapi";
+import { resolver, validator as zValidator } from "hono-openapi/zod";
+import { Hono } from "hono";
 import postgres from "postgres";
 import * as schema from "./db/schema";
 import { createFiberplane } from "@fiberplane/hono";
+import "zod-openapi/extend";
+import z from "zod";
 
 // Types for environment variables and context
 type Bindings = {
@@ -16,7 +20,7 @@ type Variables = {
 
 // Create the app with type-safe bindings and variables
 // For more information on OpenAPIHono, see: https://hono.dev/examples/zod-openapi
-const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Middleware: Set up Postgres connection for all routes
 app.use(async (c, next) => {
@@ -24,21 +28,6 @@ app.use(async (c, next) => {
   const db = drizzle(sql);
   c.set("db", db);
   await next();
-});
-
-// Route Definitions
-// Each route is defined separately with its request/response schema
-// This enables automatic OpenAPI documentation and type safety
-
-const root = createRoute({
-  method: "get",
-  path: "/",
-  responses: {
-    200: {
-      content: { "text/plain": { schema: z.string() } },
-      description: "Root fetched successfully",
-    },
-  },
 });
 
 // Define the expected response shape using Zod
@@ -55,37 +44,7 @@ const UserSchema = z.object({
   email: z.string().email().openapi({
     example: "paul@supabase.com",
   }),
-}).openapi("User");
-
-const getUsers = createRoute({
-  method: "get",
-  path: "/api/users",
-  responses: {
-    200: {
-      content: { "application/json": { schema: z.array(UserSchema) } },
-      description: "Users fetched successfully",
-    },
-  },
-});
-
-const getUser = createRoute({
-  method: "get",
-  path: "/api/users/{id}",
-  request: {
-    // Validate and parse URL parameters
-    params: z.object({
-      id: z.coerce.number().openapi({
-        example: 1,
-      }),
-    }),
-  },
-  responses: {
-    200: {
-      content: { "application/json": { schema: UserSchema } },
-      description: "User fetched successfully",
-    },
-  },
-});
+}).openapi({ ref: "User" });
 
 const NewUserSchema = z.object({
   name: z.string().openapi({
@@ -94,51 +53,34 @@ const NewUserSchema = z.object({
   email: z.string().email().openapi({
     example: "paul@supabase.com",
   }),
-}).openapi("NewUser");
+}).openapi({ ref: "NewUser" });
 
-const createUser = createRoute({
-  method: "post",
-  path: "/users",
-  request: {
-    // Validate request body using Zod schemas
-    body: {
-      required: true,
-      content: {
-        "application/json": {
-          schema: NewUserSchema,
+const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>()
+  .get(
+    "/", describeRoute({
+      responses: {
+        200: {
+          content: { "application/json": { schema: resolver(z.array(UserSchema)) } },
+          description: "Users fetched successfully",
         },
       },
-    },
-  },
-  responses: {
-    201: {
-      content: {
-        "application/json": {
-          schema: UserSchema,
+    }), async (c) => {
+      const db = c.get("db");
+      const users = await db.select().from(schema.users);
+      return c.json(users);
+    }
+  ).post("/", describeRoute({
+    responses: {
+      201: {
+        content: {
+          "application/json": {
+            schema: resolver(UserSchema),
+          },
         },
+        description: "User created successfully",
       },
-      description: "User created successfully",
     },
-  },
-});
-
-// Route Implementations
-// Connect the route definitions to their handlers using .openapi()
-app.openapi(root, (c) => {
-  return c.text("Supa Honc! 📯🪿📯🪿📯🪿📯");
-})
-  .openapi(getUsers, async (c) => {
-    const db = c.get("db");
-    const users = await db.select().from(schema.users);
-    return c.json(users);
-  })
-  .openapi(getUser, async (c) => {
-    const db = c.get("db");
-    const { id } = c.req.valid("param");
-    const [user] = await db.select().from(schema.users).where(eq(schema.users.id, id));
-    return c.json(user);
-  })
-  .openapi(createUser, async (c) => {
+  }), zValidator("json", NewUserSchema), async (c) => {
     const db = c.get("db");
     const { name, email } = c.req.valid("json");
 
@@ -151,16 +93,49 @@ app.openapi(root, (c) => {
       .returning();
 
     return c.json(newUser, 201);
+  }).get("/:id", describeRoute({
+    responses: {
+      200: {
+        content: { "application/json": { schema: UserSchema } },
+        description: "User fetched successfully",
+      },
+    },
+  }), zValidator("param", z.object({
+    id: z.coerce.number().openapi({
+      example: 1,
+    }),
+  })), async (c) => {
+    const db = c.get("db");
+    const { id } = c.req.valid("param");
+    const [user] = await db.select().from(schema.users).where(eq(schema.users.id, id));
+    return c.json(user);
   })
-  // Generate OpenAPI spec at /openapi.json
-  .doc("/openapi.json", {
-    openapi: "3.0.0",
+
+// Route Implementations
+// Connect the route definitions to their handlers using .openapi()
+app.get("/", describeRoute({
+  responses: {
+    200: {
+      content: { "text/plain": { schema: z.string() } },
+      description: "Root fetched successfully",
+    },
+  },
+}), (c) => {
+  return c.text("Supa Honc! 📯🪿📯🪿📯🪿📯");
+})
+  .route("/api/users", apiRouter)
+// Generate OpenAPI spec at /openapi.json
+
+app.get("/openapi.json", openAPISpecs(app, {
+  documentation: {
     info: {
       title: "Supa Honc! 📯🪿📯🪿📯🪿📯",
       version: "1.0.0",
       description: "Supa Honc! 📯🪿📯🪿📯🪿📯",
     },
-  })
+  }
+}
+))
   .use("/fp/*", createFiberplane({
     app,
     openapi: { url: "/openapi.json" },

@@ -6,7 +6,7 @@ Learn more about the HONC stack on the [website](https://honc.dev) or the main [
 
 > There is also an [Awesome HONC collection](https://github.com/fiberplane/awesome-honc) with further guides, use cases and examples.
 
-This template uses a Neon database and [a version of Hono](https://hono.dev/examples/zod-openapi) that can generate an OpenAPI spec from your code. The OpenAPI spec is served from the route `/openapi.json`. To explore your API interactively, run `npm run dev` and go to `http://localhost:8787/fp`.
+This template uses a Neon database, [Hono](https://hono.dev) and [hono-openapi](https://github.com/rhinobase/hono-openapi) that can generate an OpenAPI spec from your code. The OpenAPI spec is served from the route `/openapi.json`. To explore your API interactively, run `npm run dev` and go to `http://localhost:8787/fp`.
 
 ### Getting started
 

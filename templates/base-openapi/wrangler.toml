@@ -1,6 +1,6 @@
-name = "honc-neon-template-openapi"
+name = "honc-neon-template-hono-openapi"
 compatibility_date = "2025-02-04"
-compatibility_flags = [ "nodejs_compat" ]
+compatibility_flags = ["nodejs_compat"]
 
 # [vars]
 # MY_VAR = "my-variable"

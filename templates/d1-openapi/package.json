@@ -1,5 +1,5 @@
 {
-  "name": "hono-d1-drizzle-template",
+  "name": "hono-d1-drizzle-hono-openapi-template",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
@@ -10,20 +10,19 @@
     "db:seed": "tsx seed.ts",
     "db:seed:prod": "ENVIRONMENT=production tsx seed.ts",
     "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
-    "db:studio": "drizzle-kit studio",
-    "lint": "biome check --write src",
-    "format": "biome format --write src"
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@fiberplane/hono": "0.5.2",
-    "@hono/zod-openapi": "^0.18.4",
+    "@fiberplane/hono": "0.4.4-beta.2",
+    "@hono/zod-validator": "^0.4.3",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.39.3",
     "hono": "^4.7.0",
-    "zod": "^3.23.8"
+    "hono-openapi": "^0.4.6",
+    "zod": "^3.23.8",
+    "zod-openapi": "^4.2.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
     "@cloudflare/workers-types": "^4.20250321.0",
     "@libsql/client": "^0.14.0",
     "drizzle-kit": "^0.30.4",
