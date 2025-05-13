@@ -1,4 +1,4 @@
-name = "honc-neon-template-hono-openapi"
+name = "honc-neon-template-openapi"
 compatibility_date = "2025-02-04"
 compatibility_flags = [ "nodejs_compat" ]
 
