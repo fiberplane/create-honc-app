@@ -1,9 +1,13 @@
 {
-	"name": "create-honc-root",
-	"version": "0.0.1",
-	"description": "A template for creating a new HONC project",
-	"devDependencies": {
-		"@biomejs/biome": "^1.8.3",
-		"typescript": "^5.5.4"
-	}
+  "name": "create-honc-root",
+  "version": "0.0.1",
+  "description": "A template for creating a new HONC project",
+  "scripts": {
+    "build:docs": "pnpm --filter docs build",
+    "deploy:docs": "pnpm --filter docs deploy"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "typescript": "^5.5.4"
+  }
 }
