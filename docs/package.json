@@ -7,7 +7,6 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "staging": "wrangler pages deploy ./dist --env staging",
     "deploy": "wrangler pages deploy ./dist",
     "astro": "astro"
   },
