@@ -1,0 +1,32 @@
+name: Check and build the HONC docs website
+on:
+  pull_request:
+    branches:
+      - "*"
+    paths:
+      - "docs/**"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.11.0
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+        env:
+          CI: true
+
+      - name: Build website
+        run: pnpm build:docs
