@@ -1,5 +1,5 @@
 {
-  "name": "hono-d1-drizzle-template",
+  "name": "hono-d1-drizzle-hono-openapi-template",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
@@ -16,11 +16,13 @@
   },
   "dependencies": {
     "@fiberplane/hono": "0.5.2",
-    "@hono/zod-openapi": "^0.18.4",
+    "@hono/zod-validator": "^0.4.3",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.39.3",
     "hono": "^4.7.0",
-    "zod": "^3.23.8"
+    "hono-openapi": "^0.4.6",
+    "zod": "^3.23.8",
+    "zod-openapi": "^4.2.4"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
