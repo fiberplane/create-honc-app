@@ -141,7 +141,6 @@ apiRouter
   );
 
 // Route Implementations
-// Connect the route definitions to their handlers using .openapi()
 app
   .get(
     "/",
