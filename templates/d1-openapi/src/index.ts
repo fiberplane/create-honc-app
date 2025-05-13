@@ -136,7 +136,6 @@ const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>()
   );
 
 // Route Implementations
-// Connect the route definitions to their handlers using .openapi()
 app
   .get(
     "/",
