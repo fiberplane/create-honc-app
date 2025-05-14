@@ -8,7 +8,9 @@ config({ path: ".dev.vars" });
 
 // biome-ignore lint/style/noNonNullAssertion: error from neon client is helpful enough to fix
 const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle(sql);
+const db = drizzle(sql, {
+  casing: "snake_case",
+});
 
 async function seedDatabase() {
   // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
