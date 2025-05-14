@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper branch detection
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -37,5 +39,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: ./docs
-          command: pages deploy ./dist
+          command: pages deploy ./dist --branch ${{ github.ref_name }}
 
