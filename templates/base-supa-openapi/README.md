@@ -10,6 +10,14 @@ There is also an [Awesome HONC collection](https://github.com/fiberplane/awesome
 
 Make sure you have Supabase set up and configured with your database. Create a .dev.vars file with the `DATABASE_URL` key and value (see: `.dev.vars.example`).
 
+If you're working locally, your `DATABASE_URL` will be something like:
+
+```sh
+DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres
+```
+
+
+
 ### Project structure
 
 ```#

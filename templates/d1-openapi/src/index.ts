@@ -34,8 +34,8 @@ app.use(async (c, next) => {
 // by chaining `openapi` on the zod schema definitions
 const UserSchema = z
   .object({
-    id: z.number().openapi({
-      example: 1,
+    id: z.string().uuid().openapi({
+      example: "123e4567-e89b-12d3-a456-426614174000",
     }),
     name: z.string().openapi({
       example: "Matthew",
@@ -119,8 +119,8 @@ const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>()
     zValidator(
       "param",
       z.object({
-        id: z.coerce.number().openapi({
-          example: 1,
+        id: z.string().uuid().openapi({
+          example: "123e4567-e89b-12d3-a456-426614174000",
         }),
       }),
     ),
@@ -142,7 +142,7 @@ app
     describeRoute({
       responses: {
         200: {
-          content: { "text/plain": { schema: z.string() } },
+          content: { "text/plain": { schema: resolver(z.string()) } },
           description: "Root fetched successfully",
         },
       },

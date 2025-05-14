@@ -1,9 +1,11 @@
-import { jsonb, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export type NewUser = typeof users.$inferInsert;
 
 export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
+  // NOTE - We use a random UUID here, instead of a `serial`, because at the time of writing,
+  //        drizzle-seed messes with the auto-incrementing ID in Postgres. not sure why yet.
+  id: uuid("id").defaultRandom().primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull(),
   settings: jsonb("settings"),
