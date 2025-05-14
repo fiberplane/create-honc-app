@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
@@ -36,6 +35,12 @@ export default defineConfig({
           autogenerate: { directory: "solutions" },
         },
       ],
+      components: {
+        Banner: "./src/components/Banner.astro",
+        Footer: "./src/components/Footer.astro",
+        Head: "./src/components/Head.astro",
+        Header: "./src/components/Header.astro",
+      },
       expressiveCode: {
         themes: ["github-dark", "github-light"],
         styleOverrides: {
@@ -43,8 +48,5 @@ export default defineConfig({
         },
       },
     }),
-  ],
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  ]
 });
