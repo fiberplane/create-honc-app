@@ -21,5 +21,5 @@ export const ZUserByIDParams = z
   .object({
     id: z.string(),
   }).openapi({
-    ref: "UserByIdParams"
+    ref: "UserByIdParams",
   });
