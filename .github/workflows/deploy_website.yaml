@@ -1,0 +1,41 @@
+name: Deploy DHONCs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.11.0
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+        env:
+          CI: true
+
+      - name: Build docs
+        run: pnpm build:docs
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pnpm deploy:docs
