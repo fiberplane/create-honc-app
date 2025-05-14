@@ -6,7 +6,12 @@ import * as schema from "./src/db/schema";
 
 config({ path: ".dev.vars" });
 
-const sql = postgres(process.env.DATABASE_URL ?? "");
+const DATABASE_URL = process.env.DATABASE_URL;
+if (!DATABASE_URL) {
+  throw new Error("Missing Environment Variable: DATABASE_URL");
+}
+
+const sql = postgres(DATABASE_URL);
 const db = drizzle(sql, {
   casing: "snake_case",
 });
