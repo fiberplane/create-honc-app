@@ -142,7 +142,7 @@ app
     describeRoute({
       responses: {
         200: {
-          content: { "text/plain": { schema: z.string() } },
+          content: { "text/plain": { schema: resolver(z.string()) } },
           description: "Root fetched successfully",
         },
       },
