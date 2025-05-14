@@ -33,7 +33,7 @@ jobs:
       - name: Build docs
         run: pnpm build:docs
 
-      - name: Deploy
+      - name: Deploy docs
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

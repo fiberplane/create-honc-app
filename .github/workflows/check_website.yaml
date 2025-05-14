@@ -1,4 +1,4 @@
-name: Check and build the HONC docs website
+name: Check, build, and deploy the HONC docs website
 on:
   pull_request:
     branches:
@@ -7,7 +7,7 @@ on:
       - "docs/**"
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,3 +30,10 @@ jobs:
 
       - name: Build website
         run: pnpm build:docs
+
+      - name: Deploy preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pnpm deploy:docs
