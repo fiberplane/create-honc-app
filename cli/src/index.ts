@@ -90,7 +90,7 @@ async function main() {
   // Update the project name in the package.json file and wrangler.toml file
   updateProjectName(context);
 
-  // Add the default FPX_ENDPOINT environment variable to the .dev.vars file
+  // Add a (gitignored) .dev.vars file
   touchDevVars(context);
 
   // Add a reminder of remaining database setup steps, if necessary
