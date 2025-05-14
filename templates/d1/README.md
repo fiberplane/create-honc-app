@@ -87,6 +87,11 @@ Afterwards, run the migration script for production:
 npm run db:migrate:prod
 ```
 
+You can also run the seed script for production:
+```shell
+npm run db:seed:prod
+```
+
 Change the name of the project in `wrangler.toml` to something appropriate for your project:
 
 ```toml
