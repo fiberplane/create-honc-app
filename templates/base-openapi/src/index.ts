@@ -36,8 +36,8 @@ app.use(async (c, next) => {
 // by chaining `openapi` on the zod schema definitions
 const UserSchema = z
   .object({
-    id: z.number().openapi({
-      example: 1,
+    id: z.string().uuid().openapi({
+      example: "123e4567-e89b-12d3-a456-426614174000",
     }),
     name: z.string().openapi({
       example: "Nikita",
@@ -76,7 +76,7 @@ apiRouter
         201: {
           content: {
             "application/json": {
-              schema: UserSchema,
+              schema: resolver(UserSchema),
             },
           },
           description: "User created successfully",
