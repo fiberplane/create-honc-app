@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "A template for creating a new HONC project",
   "scripts": {
-    "build:docs": "pnpm --filter dhonc build",
-    "deploy:docs": "pnpm run --filter dhonc deploy"
+    "build:docs": "pnpm --filter dhonc build"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
