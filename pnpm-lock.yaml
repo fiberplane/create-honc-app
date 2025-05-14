@@ -72,6 +72,9 @@ importers:
       sharp:
         specifier: ^0.34.1
         version: 0.34.1
+      starlight-package-managers:
+        specifier: ^0.6.0
+        version: 0.6.0(@astrojs/starlight@0.34.3(astro@5.7.12(@types/node@22.13.10)(encoding@0.1.13)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.2)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)))(astro@5.7.12(@types/node@22.13.10)(encoding@0.1.13)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.2)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0))
       typescript:
         specifier: ^5.5.4
         version: 5.7.3
@@ -5261,6 +5264,13 @@ packages:
 
   stacktracey@2.1.8:
     resolution: {integrity: sha512-Kpij9riA+UNg7TnphqjH7/CzctQ/owJGNbFkfEeve4Z4uxT5+JapVLFXcsurIfN34gnTWZNJ/f7NMG0E8JDzTw==}
+
+  starlight-package-managers@0.6.0:
+    resolution: {integrity: sha512-2tE0B4ZVEZXZ1LJjcSvVXLfJP8SB2nE+nhiFgSa3fuHUPtnbzmFxLVp7jEKD8jaMXKWPYtlNTy95gJSK9W1sbQ==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.22.0'
+      astro: '>=4.2.7'
 
   stoppable@1.1.0:
     resolution: {integrity: sha512-KXDYZ9dszj6bzvnEMRYvxgeTHU74QBFL54XKtP3nyMuJ81CFYtABZ3bAzL2EdFUaEwJOBOgENyFj3R7oTzDyyw==}
@@ -10881,6 +10891,11 @@ snapshots:
     dependencies:
       as-table: 1.0.55
       get-source: 2.0.12
+
+  starlight-package-managers@0.6.0(@astrojs/starlight@0.34.3(astro@5.7.12(@types/node@22.13.10)(encoding@0.1.13)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.2)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)))(astro@5.7.12(@types/node@22.13.10)(encoding@0.1.13)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.2)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)):
+    dependencies:
+      '@astrojs/starlight': 0.34.3(astro@5.7.12(@types/node@22.13.10)(encoding@0.1.13)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.2)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0))
+      astro: 5.7.12(@types/node@22.13.10)(encoding@0.1.13)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.2)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   stoppable@1.1.0: {}
 
