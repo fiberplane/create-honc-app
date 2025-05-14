@@ -225,5 +225,7 @@ export function createProductionD1Connection(
     return results;
   };
 
-  return drizzleSQLiteProxy(queryClient, batchQueryClient);
+  return drizzleSQLiteProxy(queryClient, batchQueryClient, {
+    casing: "snake_case",
+  });
 }
