@@ -6,6 +6,8 @@ import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
 import postgres from "postgres";
 import * as schema from "./db/schema";
+import { zodValidator } from "./middleware/validator";
+import { ZUserByIDParams, ZUserInsert } from "./dtos";
 
 const initDb = createMiddleware<{
   Bindings: {
@@ -32,31 +34,39 @@ const api = new Hono()
 
     return c.json(users);
   })
-  .post("/users", async (c) => {
-    const db = c.var.db;
-    const { name, email } = await c.req.json();
+  .post(
+    "/users",
+    zodValidator("json", ZUserInsert),
+    async (c) => {
+      const db = c.var.db;
+      const { name, email } = c.req.valid("json");
 
-    const [newUser] = await db
-      .insert(schema.users)
-      .values({
-        name: name,
-        email: email,
-      })
-      .returning();
+      const [newUser] = await db
+        .insert(schema.users)
+        .values({
+          name: name,
+          email: email,
+        })
+        .returning();
 
-    return c.json(newUser, 201);
-  })
-  .get("/users/:id", async (c) => {
-    const db = c.var.db;
-    const id = c.req.param("id");
+      return c.json(newUser, 201);
+    }
+  )
+  .get(
+    "/users/:id",
+    zodValidator("param", ZUserByIDParams),
+    async (c) => {
+      const db = c.var.db;
+      const { id } = c.req.valid("param");
 
-    const [user] = await db
-      .select()
-      .from(schema.users)
-      .where(eq(schema.users.id, id));
+      const [user] = await db
+        .select()
+        .from(schema.users)
+        .where(eq(schema.users.id, id));
 
-    return c.json(user);
-  });
+      return c.json(user);
+    }
+  );
 
 const app = new Hono()
   .get("/", (c) => {
