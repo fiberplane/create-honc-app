@@ -20,7 +20,9 @@ export const users = sqliteTable(
   "users",
   {
     // .primaryKey() must be chained before $defaultFn
-    id: text().primaryKey().$defaultFn(() => crypto.randomUUID()),
+    id: text()
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
     name: text().notNull(),
     email: text().notNull(),
     createdAt: text().notNull().default(currentTimestamp()),

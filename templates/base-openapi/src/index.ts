@@ -3,10 +3,10 @@ import { neon } from "@neondatabase/serverless";
 import { eq } from "drizzle-orm";
 import { type NeonHttpDatabase, drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
-import { createMiddleware } from "hono/factory";
-import { HTTPException } from "hono/http-exception";
 import { describeRoute, openAPISpecs } from "hono-openapi";
 import { resolver } from "hono-openapi/zod";
+import { createMiddleware } from "hono/factory";
+import { HTTPException } from "hono/http-exception";
 import * as schema from "./db/schema";
 import { ZUserByIDParams, ZUserInsert, ZUserSelect } from "./dtos";
 import { zodValidator } from "./middleware/validator";
@@ -39,10 +39,10 @@ const api = new Hono()
           content: {
             "application/json": {
               schema: resolver(ZUserSelect.array()),
-            }
+            },
           },
-        }
-      }
+        },
+      },
     }),
     async (c) => {
       const db = c.var.db;
@@ -60,10 +60,10 @@ const api = new Hono()
           content: {
             "application/json": {
               schema: resolver(ZUserSelect),
-            }
+            },
           },
-        }
-      }
+        },
+      },
     }),
     /**
      * Add request data to the OpenAPI spec through
@@ -83,7 +83,7 @@ const api = new Hono()
         .returning();
 
       return c.json(newUser, 201);
-    }
+    },
   )
   .get(
     "/users/:id",
@@ -94,10 +94,10 @@ const api = new Hono()
           content: {
             "application/json": {
               schema: resolver(ZUserSelect),
-            }
+            },
           },
-        }
-      }
+        },
+      },
     }),
     zodValidator("param", ZUserByIDParams),
     async (c) => {
@@ -110,7 +110,7 @@ const api = new Hono()
         .where(eq(schema.users.id, id));
 
       return c.json(user);
-    }
+    },
   );
 
 const app = new Hono()
@@ -143,14 +143,14 @@ app.onError((error, c) => {
  * As of writing, this is just the list of routes and their methods.
  */
 app.get(
-  "/openapi.json", 
+  "/openapi.json",
   openAPISpecs(app, {
     documentation: {
       info: {
         title: "HONC Neon App",
         version: "1.0.0",
       },
-    }
+    },
   }),
 );
 
