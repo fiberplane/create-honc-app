@@ -1,4 +1,4 @@
-name: Check and build the HONC docs website
+name: Check, build, and deploy the HONC docs website
 on:
   pull_request:
     branches:
@@ -7,10 +7,12 @@ on:
       - "docs/**"
 
 jobs:
-  publish:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper branch detection
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -30,3 +32,29 @@ jobs:
 
       - name: Build website
         run: pnpm build:docs
+
+      - name: Deploy preview
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: ./docs
+          command: pages deploy ./dist --branch ${{ github.ref_name }}
+
+      - name: Comment PR
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const deployUrl = '${{ steps.deploy.outputs.deployment-url }}';
+            const aliasUrl = '${{ steps.deploy.outputs.pages-deployment-alias-url }}';
+            const { issue: { number: issueNumber }, repo: { owner, repo } } = context;
+            
+            github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: issueNumber,
+              body: `🚀 Preview deployment is ready!\n\n**Main URL:** [${deployUrl}](${deployUrl})\n**Branch-specific URL:** [${aliasUrl}](${aliasUrl})`
+            });
+

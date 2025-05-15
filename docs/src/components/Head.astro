@@ -1,0 +1,14 @@
+---
+// import ogDefaultImage from "@/assets/og-default.png?url";
+import Default from "@astrojs/starlight/components/Head.astro";
+
+// const id = Astro.locals.starlightRoute.id;
+
+// Use the default OG image.
+//
+// const canonicalImageSrc = new URL(ogDefaultImage, Astro.site);
+---
+
+<Default {...Astro.props}><slot /></Default>
+<!-- <meta property="og:image" content={canonicalImageSrc} /> -->
+<!-- <meta name="twitter:image" content={canonicalImageSrc} /> -->
