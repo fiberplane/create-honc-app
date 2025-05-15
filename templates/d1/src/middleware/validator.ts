@@ -1,6 +1,6 @@
 import type { ValidationTargets } from "hono";
-import { validator } from "hono/validator";
 import { HTTPException } from "hono/http-exception";
+import { validator } from "hono/validator";
 import type { z } from "zod";
 
 /**
