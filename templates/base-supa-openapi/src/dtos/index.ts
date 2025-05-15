@@ -19,7 +19,9 @@ export const ZUserSelect = createSelectSchema(schema.users)
 
 export const ZUserByIDParams = z
   .object({
-    id: z.string(),
+    id: z.string().uuid().openapi({
+      example: "3e0bb3d0-2074-4a1e-6263-d13dd10cb0cf",
+    }),
   }).openapi({
     ref: "UserByIdParams",
   });
