@@ -137,8 +137,7 @@ app.onError((error, c) => {
 });
 
 /**
- * Serve a simplified api specification for your API
- * As of writing, this is just the list of routes and their methods.
+ * Generate OpenAPI spec at /openapi.json
  */
 app.get(
   "/openapi.json",
@@ -166,7 +165,3 @@ app.use(
 );
 
 export default app;
-
-// Export the instrumented app if you've wired up a Fiberplane-Hono-OpenTelemetry trace collector
-//
-// export default instrument(app);

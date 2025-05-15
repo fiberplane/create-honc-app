@@ -1,5 +1,4 @@
 import { createFiberplane, createOpenAPISpec } from "@fiberplane/hono";
-import { instrument } from "@fiberplane/hono-otel";
 import { eq } from "drizzle-orm";
 import { type PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
 import { Hono } from "hono";
@@ -113,7 +112,3 @@ app.use(
 );
 
 export default app;
-
-// Export the instrumented app if you've wired up a Fiberplane-Hono-OpenTelemetry trace collector
-//
-// export default instrument(app);
