@@ -70,7 +70,7 @@ const api = new Hono()
     zodValidator("json", ZUserInsert),
     async (c) => {
       const db = c.var.db;
-      const { name, email } = await c.req.valid("json");
+      const { name, email } = c.req.valid("json");
 
       const [newUser] = await db
         .insert(schema.users)
