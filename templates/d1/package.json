@@ -18,6 +18,7 @@
     "@fiberplane/hono": "0.5.2",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.43.1",
+    "drizzle-zod": "^0.7.1",
     "hono": "^4.7.0",
     "zod": "^3.23.8"
   },
