@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@fiberplane/hono": "0.5.2",
-    "@hono/zod-validator": "^0.4.3",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.39.3",
     "drizzle-zod": "^0.7.1",
