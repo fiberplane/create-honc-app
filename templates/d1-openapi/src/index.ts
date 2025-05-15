@@ -1,105 +1,82 @@
-import { drizzle, type DrizzleD1Database } from "drizzle-orm/d1";
-import { eq } from "drizzle-orm";
 import { createFiberplane } from "@fiberplane/hono";
-import { describeRoute, openAPISpecs } from "hono-openapi";
-import { resolver, validator as zValidator } from "hono-openapi/zod";
-import z from "zod";
+import { eq } from "drizzle-orm";
+import { type DrizzleD1Database, drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
-import "zod-openapi/extend";
+import { describeRoute, openAPISpecs } from "hono-openapi";
+import { resolver } from "hono-openapi/zod";
+import { createMiddleware } from "hono/factory";
+import { HTTPException } from "hono/http-exception";
 import * as schema from "./db/schema";
+import { ZUserByIDParams, ZUserInsert, ZUserSelect } from "./dtos";
+import { zodValidator } from "./middleware/validator";
 
-// Types for environment variables and context
-type Bindings = {
-  DB: D1Database; // Cloudflare D1 database binding
-};
+const initDb = createMiddleware<{
+  Bindings: {
+    DB: D1Database;
+  };
+  Variables: {
+    db: DrizzleD1Database;
+  };
+}>(async (c, next) => {
+  const db = drizzle(c.env.DB, {
+    casing: "snake_case",
+  });
 
-type Variables = {
-  db: DrizzleD1Database;
-};
-
-// Create the app with type-safe bindings and variables
-// For more information on OpenAPIHono, see: https://hono.dev/examples/zod-openapi
-const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
-
-// Middleware: Set up D1 database connection for all routes
-app.use(async (c, next) => {
-  const db = drizzle(c.env.DB);
   c.set("db", db);
   await next();
 });
 
-// Define the expected response shape using Zod
-//
-// We can add openapi documentation, as well as name the Schema in the OpenAPI document,
-// by chaining `openapi` on the zod schema definitions
-const UserSchema = z
-  .object({
-    id: z.string().uuid().openapi({
-      example: "123e4567-e89b-12d3-a456-426614174000",
-    }),
-    name: z.string().openapi({
-      example: "Matthew",
-    }),
-    email: z.string().email().openapi({
-      example: "matthew@cloudflare.com",
-    }),
-  })
-  .openapi({ ref: "User" });
-
-const NewUserSchema = z
-  .object({
-    name: z.string().openapi({
-      example: "Matthew",
-    }),
-    email: z.string().email().openapi({
-      example: "matthew@cloudflare.com",
-    }),
-  })
-  .openapi({ ref: "NewUser" });
-
-const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>()
+const api = new Hono()
+  .use("*", initDb)
   .get(
-    "/",
+    "/users",
     describeRoute({
       responses: {
         200: {
+          description: "Users queried successfully",
           content: {
-            "application/json": { schema: resolver(z.array(UserSchema)) },
+            "application/json": {
+              schema: resolver(ZUserSelect.array()),
+            },
           },
-          description: "Users fetched successfully",
         },
       },
     }),
     async (c) => {
-      const db = c.get("db");
+      const db = c.var.db;
       const users = await db.select().from(schema.users);
+
       return c.json(users);
     },
   )
   .post(
-    "/",
+    "/users",
     describeRoute({
       responses: {
         201: {
+          description: "User created successfully",
           content: {
             "application/json": {
-              schema: resolver(UserSchema),
+              schema: resolver(ZUserSelect),
             },
           },
-          description: "User created successfully",
         },
       },
     }),
-    zValidator("json", NewUserSchema),
+    /**
+     * Add request data to the OpenAPI spec through
+     * validators, not `describeRoute` options
+     */
+    zodValidator("json", ZUserInsert),
     async (c) => {
-      const db = c.get("db");
+      const db = c.var.db;
       const { name, email } = c.req.valid("json");
 
       const [newUser] = await db
         .insert(schema.users)
         .values({
-          name,
-          email,
+          name: name,
+          email: email,
         })
         .returning();
 
@@ -107,72 +84,84 @@ const apiRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>()
     },
   )
   .get(
-    "/:id",
+    "/users/:id",
     describeRoute({
       responses: {
         200: {
-          content: { "application/json": { schema: resolver(UserSchema) } },
-          description: "User fetched successfully",
+          description: "User queried by ID successfully",
+          content: {
+            "application/json": {
+              schema: resolver(ZUserSelect),
+            },
+          },
         },
       },
     }),
-    zValidator(
-      "param",
-      z.object({
-        id: z.string().uuid().openapi({
-          example: "123e4567-e89b-12d3-a456-426614174000",
-        }),
-      }),
-    ),
+    zodValidator("param", ZUserByIDParams),
     async (c) => {
-      const db = c.get("db");
+      const db = c.var.db;
       const { id } = c.req.valid("param");
+
       const [user] = await db
         .select()
         .from(schema.users)
         .where(eq(schema.users.id, id));
+
       return c.json(user);
     },
   );
 
-// Route Implementations
-app
-  .get(
-    "/",
-    describeRoute({
-      responses: {
-        200: {
-          content: { "text/plain": { schema: resolver(z.string()) } },
-          description: "Root fetched successfully",
-        },
-      },
-    }),
-    (c) => {
-      return c.text("Honc from above! ☁️🪿");
-    },
-  )
-  .route("/api/users", apiRouter);
+const app = new Hono()
+  .get("/", (c) => {
+    return c.text("Honc from above! ☁️🪿");
+  })
+  .route("/api", api);
 
-// Generate OpenAPI spec at /openapi.json
-app
-  .get(
-    "/openapi.json",
-    openAPISpecs(app, {
-      documentation: {
-        info: {
-          title: "D1 Honc! 🪿☁️",
-          version: "1.0.0",
-          description: "D1 Honc! 🪿☁️",
-        },
+app.onError((error, c) => {
+  console.error(error);
+  if (error instanceof HTTPException) {
+    return c.json(
+      {
+        message: error.message,
       },
-    }),
-  )
-  .use(
-    "/fp/*",
-    createFiberplane({
-      app,
-      openapi: { url: "/openapi.json" },
-    }),
+      error.status,
+    );
+  }
+
+  return c.json(
+    {
+      message: "Something went wrong",
+    },
+    500,
   );
+});
+
+/**
+ * Generate OpenAPI spec at /openapi.json
+ */
+app.get(
+  "/openapi.json",
+  openAPISpecs(app, {
+    documentation: {
+      info: {
+        title: "HONC D1 App",
+        version: "1.0.0",
+      },
+    },
+  }),
+);
+
+/**
+ * Mount the Fiberplane api explorer to be able to make requests against your API.
+ *
+ * Visit the explorer at `/fp`
+ */
+app.use(
+  "/fp/*",
+  createFiberplane({
+    app,
+    openapi: { url: "/openapi.json" },
+  }),
+);
 
 export default app;

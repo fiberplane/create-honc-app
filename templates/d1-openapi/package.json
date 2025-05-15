@@ -19,6 +19,7 @@
     "@hono/zod-validator": "^0.4.3",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.39.3",
+    "drizzle-zod": "^0.7.1",
     "hono": "^4.7.0",
     "hono-openapi": "^0.4.6",
     "zod": "^3.23.8",

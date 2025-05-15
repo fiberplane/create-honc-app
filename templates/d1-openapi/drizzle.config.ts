@@ -11,6 +11,7 @@ if (process.env.ENVIRONMENT === "production") {
     out: "./drizzle/migrations",
     dialect: "sqlite",
     driver: "d1-http",
+    casing: "snake_case",
     dbCredentials: {
       accountId: process.env.CLOUDFLARE_ACCOUNT_ID ?? "",
       databaseId: process.env.CLOUDFLARE_DATABASE_ID ?? "",
@@ -28,6 +29,7 @@ if (process.env.ENVIRONMENT === "production") {
     schema: "./src/db/schema.ts",
     out: "./drizzle/migrations",
     dialect: "sqlite",
+    casing: "snake_case",
     dbCredentials: {
       url: localD1DB,
     },
