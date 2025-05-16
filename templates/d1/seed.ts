@@ -33,6 +33,8 @@ async function seedDatabase() {
         users: {
           columns: {
             id: funcs.uuid(),
+            createdAt: funcs.timestamp(),
+            updatedAt: funcs.timestamp(),
           }
         }
       }));

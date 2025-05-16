@@ -16,13 +16,13 @@
     "@neondatabase/serverless": "^0.10.4",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.43.1",
+    "drizzle-zod": "^0.7.1",
     "hono": "^4.7.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@cloudflare/workers-types": "^4.20250321.0",
-    "@fiberplane/hono-otel": "^0.6.2",
     "drizzle-kit": "^0.30.4",
     "drizzle-seed": "^0.3.1",
     "tsx": "^4.19.2",

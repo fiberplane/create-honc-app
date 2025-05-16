@@ -6,6 +6,8 @@ import { Hono } from "hono";
 import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
 import * as schema from "./db/schema";
+import { ZUserByIDParams, ZUserInsert } from "./dtos";
+import { zodValidator } from "./middleware/validator";
 
 const initDb = createMiddleware<{
   Bindings: {
@@ -32,9 +34,9 @@ const api = new Hono()
 
     return c.json(users);
   })
-  .post("/users", async (c) => {
+  .post("/users", zodValidator("json", ZUserInsert), async (c) => {
     const db = c.var.db;
-    const { name, email } = await c.req.json();
+    const { name, email } = c.req.valid("json");
 
     const [newUser] = await db
       .insert(schema.users)
@@ -46,9 +48,9 @@ const api = new Hono()
 
     return c.json(newUser, 201);
   })
-  .get("/users/:id", async (c) => {
+  .get("/users/:id", zodValidator("param", ZUserByIDParams), async (c) => {
     const db = c.var.db;
-    const id = c.req.param("id");
+    const { id } = c.req.valid("param");
 
     const [user] = await db
       .select()
