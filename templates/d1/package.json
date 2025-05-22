@@ -26,7 +26,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@cloudflare/vitest-pool-workers": "^0.8.31",
-    "@cloudflare/workers-types": "^4.20250321.0",
+    "@cloudflare/workers-types": "^4.20250508.0",
     "@libsql/client": "^0.14.0",
     "drizzle-kit": "^0.30.4",
     "drizzle-seed": "^0.3.1",

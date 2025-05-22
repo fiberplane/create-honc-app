@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@cloudflare/workers-types": "^4.20250321.0",
+    "@cloudflare/workers-types": "^4.20250508.0",
     "@types/node": "^22.15.18",
     "drizzle-kit": "^0.30.4",
     "drizzle-seed": "^0.3.1",
