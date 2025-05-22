@@ -6,7 +6,8 @@ import app from "../src";
 
 const client = testClient(app, env);
 
-const DATE_REGEX = /\d{4}-[01]\d-[0-3]\d\s[0-2]\d:[0-5]\d:[0-5]\d/;
+const DATE_REGEX = /^\d{4}-[01]\d-[0-3]\d\s[0-2]\d:[0-5]\d:[0-5]\d$/;
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/
 
 describe("Index", () => {
   it("Returns landing text", async () => {
@@ -40,15 +41,13 @@ describe("Get all users", () => {
     expect(response.status).toBe(200);
     
     const data = await response.json();
-    expect(data).toEqual({
-      users: expect.any(Array),
-    });
+    expect(data).toEqual(expect.any(Array));
 
     expect(data.length).toBeGreaterThan(0);
 
     data.forEach((user) => {
       expect(user).toEqual({
-        id: expect.any(Number),
+        id: expect.stringMatching(UUID_REGEX),
         createdAt: expect.stringMatching(DATE_REGEX),
         updatedAt: expect.stringMatching(DATE_REGEX),
         name: expect.any(String),
@@ -62,7 +61,7 @@ describe("Create User", () => {
   it("Returns an error if no User Data is sent", async () => {
     // Casting used only to pass invalid argument
     const response = await client.api.users.$post(undefined as any);
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
 
   it("Inserts and returns a User if payload is valid", async () => {
@@ -76,8 +75,10 @@ describe("Create User", () => {
     });
 
     expect(postResponse.status).toBe(201);
-    expect(await postResponse.json()).toEqual({
-      id: expect.any(Number),
+
+    const newUser = await postResponse.json();
+    expect(newUser).toEqual({
+      id: expect.stringMatching(UUID_REGEX),
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
       ...mockUserData
@@ -91,7 +92,7 @@ describe("Create User", () => {
 
     const data = await getResponse.json();
     expect(data).toContainEqual({
-      id: expect.any(Number),
+      id: newUser.id,
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
       ...mockUserData
