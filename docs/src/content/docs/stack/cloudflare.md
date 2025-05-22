@@ -79,8 +79,8 @@ interface Env {
 Cloudflare offers several managed services that can be integrated with Workers:
 
 #### Storage & Database Options
+- **D1**: SQLite-compatible serverless database, ideal for relational data with SQL query support. HONC comes with a D1 template to store data in a SQLite database.
 - **KV (Key-Value)**: A global, low-latency key-value data store, perfect for caching and small data storage needs.
-- **D1**: SQLite-compatible serverless database, ideal for relational data with SQL query support.
 - **R2**: Object storage service compatible with S3 API, suitable for storing large files and assets.
 
 #### Distributed System Architecture
