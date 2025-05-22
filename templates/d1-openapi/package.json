@@ -12,12 +12,13 @@
     "db:setup": "npm run db:touch && npm run db:generate && npm run db:migrate && npm run db:seed",
     "db:studio": "drizzle-kit studio",
     "lint": "biome check --write src",
-    "format": "biome format --write src"
+    "format": "biome format --write src",
+    "test": "vitest"
   },
   "dependencies": {
     "@fiberplane/hono": "0.5.2",
-    "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.39.3",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.43.1",
     "drizzle-zod": "^0.7.1",
     "hono": "^4.7.0",
     "hono-openapi": "^0.4.6",
@@ -26,11 +27,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@cloudflare/vitest-pool-workers": "^0.8.31",
     "@cloudflare/workers-types": "^4.20250321.0",
     "@libsql/client": "^0.14.0",
     "drizzle-kit": "^0.30.4",
     "drizzle-seed": "^0.3.1",
     "tsx": "^4.19.2",
+    "vitest": "^3.1.4",
     "wrangler": "^4.4.0"
   }
 }
