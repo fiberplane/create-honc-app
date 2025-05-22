@@ -86,7 +86,7 @@ Cloudflare offers several managed services that can be integrated with Workers:
 #### Distributed System Architecture
 - **Durable Objects**: Provide global coordination and consistent storage with a unique object-oriented approach.
 - **Queues**: Managed message queue system for handling asynchronous tasks and job processing.
-- **Pub/Sub**: Real-time message broadcasting system for building event-driven applications.
+- **Workflows**: Orchestration service for coordinating multiple Workers and managing complex, multi-step and long running processes.
 
 #### AI Features
 Cloudflare provides AI capabilities that can be integrated into Workers:
