@@ -45,7 +45,7 @@ afterAll(async () => {
   deleteBranch(testBranchId);
 })
 
-describe("Get all users", () => {
+describe("GET /users", () => {
   it("Returns an an array of users", async () => {
     const response = await client.api.users.$get();
     expect(response.status).toBe(200);
@@ -68,60 +68,70 @@ describe("Get all users", () => {
   });
 });
 
-let newUserId: string;
+let NEW_USER_ID: string;
+const MOCK_USER_DATA = {
+  name: "Wingbert Wigglefeather",
+  email: "wwigglefeather@honc.dev",
+};
 
-describe("Create User", () => {
-  it("Returns an error if no User Data is sent", async () => {
+describe("POST /users", () => {
+  it("Returns 400 if payload is undefined", async () => {
     // biome-ignore lint/suspicious/noExplicitAny: Casting used only to pass invalid argument
     const response = await client.api.users.$post(undefined as any);
     expect(response.status).toBe(400);
   });
 
-  it("Inserts and returns a User if payload is valid", async () => {
-    const mockUserData = {
-      name: "Wingbert Wigglefeather",
-      email: "wwigglefeather@honc.dev",
-    };
-
-    const postResponse = await client.api.users.$post({
-      json: mockUserData
+  it("Returns 201 and new User if payload is valid", async () => {
+    const response = await client.api.users.$post({
+      json: MOCK_USER_DATA,
     });
 
-    expect(postResponse.status).toBe(201);
+    expect(response.status).toBe(201);
 
-    const newUser = await postResponse.json();
-    newUserId = newUser.id;
+    const newUser = await response.json();
+    NEW_USER_ID = newUser.id;
     expect(newUser).toEqual({
       id: expect.stringMatching(UUID_REGEX),
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
-      settings: expect.any(Object),
-      ...mockUserData
-    });
-    /** 
-     * Since data isn't persisted between conditions,
-     * we confirm the write here
-     */
-    const getResponse = await client.api.users[":id"].$get({
-      param: { id: newUserId }
-    });
-    expect(getResponse.status).toBe(200);
-
-    const data = await getResponse.json();
-    expect(data).toEqual({
-      id: newUser.id,
-      createdAt: expect.stringMatching(DATE_REGEX),
-      updatedAt: expect.stringMatching(DATE_REGEX),
-      settings: expect.any(Object),
-      ...mockUserData
+      settings: null,
+      ...MOCK_USER_DATA,
     });
   });
+});
 
-  it("Delete User", async () => {
+describe("GET /users/:id", () => {
+  it("Returns 200 and User matching valid ID", async () => {
+    const response = await client.api.users[":id"].$get({
+      param: { id: NEW_USER_ID },
+    });
+
+    expect(response.status).toBe(200);
+    
+    const data = await response.json();
+    expect(data).toEqual({
+      id: NEW_USER_ID,
+      createdAt: expect.stringMatching(DATE_REGEX),
+      updatedAt: expect.stringMatching(DATE_REGEX),
+      settings: null,
+      name: expect.any(String),
+      email: expect.any(String),
+    });
+  });
+});
+
+describe("DELETE /users/:id", () => {
+  it("Returns 204 after deleting User matching valid ID", async () => {
     const response = await client.api.users[":id"].$delete({
-      param: { id: newUserId },
+      param: { id: NEW_USER_ID },
     });
 
     expect(response.status).toBe(204);
+
+    const confirmation = await client.api.users[":id"].$get({
+      param: { id: NEW_USER_ID },
+    });
+
+    expect(confirmation.status).toBe(404);
   });
 });

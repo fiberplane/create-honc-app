@@ -1,15 +1,14 @@
 import { env } from "cloudflare:test";
 import { testClient } from 'hono/testing'
 import { describe, it, expect, beforeAll } from "vitest";
-
 import app from "../src";
 
 const client = testClient(app, env);
 
 const DATE_REGEX = /^\d{4}-[01]\d-[0-3]\d\s[0-2]\d:[0-5]\d:[0-5]\d$/;
-const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
-describe("Index", () => {
+describe("GET /", () => {
   it("Returns landing text", async () => {
     const response = await client.index.$get();
     expect(response.status).toBe(200);
@@ -19,21 +18,26 @@ describe("Index", () => {
   })
 });
 
-describe("Get all users", () => {
+describe("GET /users", () => {
   beforeAll(async () => {
-    /**
-     * By default, operations against test databases are
-     * isolated to each test case. Seeding the database before
-     * tests woud be a nice enhancement, but isn't simple
-     */
-    const mockUserData = {
-      name: "Goose Lightning",
-      email: "glightning@honc.dev",
-    }
+    const mockUserData = [
+      {
+        name: "Wingbert Wigglefeather",
+        email: "wwigglefeather@honc.dev",
+      },
+      {
+        name: "Waddles McPaddle",
+        email: "wmcpaddle@honc.dev",
+      },
+      {
+        name: "Squawkers O'Quacker",
+        email: "soquacker@honc.dev",
+      }
+    ];
 
-    await client.api.users.$post({
-      json: mockUserData,
-    });
+    for (const user of mockUserData) {
+      await client.api.users.$post({ json: user });
+    }
   });
 
   it("Returns an an array of users", async () => {
@@ -53,49 +57,101 @@ describe("Get all users", () => {
         email: expect.any(String),
       });
     }
-
   });
 });
 
-describe("Create User", () => {
-  it("Returns an error if no User Data is sent", async () => {
+describe("POST /users", () => {
+  it("Returns 400 if payload is undefined", async () => {
     // biome-ignore lint/suspicious/noExplicitAny: Casting used only to pass invalid argument
     const response = await client.api.users.$post(undefined as any);
     expect(response.status).toBe(400);
   });
 
-  it("Inserts and returns a User if payload is valid", async () => {
+  it("Returns 201 and new User if payload is valid", async () => {
     const mockUserData = {
       name: "Wingbert Wigglefeather",
       email: "wwigglefeather@honc.dev",
     };
 
-    const postResponse = await client.api.users.$post({
-      json: mockUserData
+    const response = await client.api.users.$post({
+      json: mockUserData,
     });
 
-    expect(postResponse.status).toBe(201);
+    expect(response.status).toBe(201);
 
-    const newUser = await postResponse.json();
+    const newUser = await response.json();
     expect(newUser).toEqual({
       id: expect.stringMatching(UUID_REGEX),
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
       ...mockUserData
     });
-    /** 
-     * Since data isn't persisted between conditions,
-     * we confirm the write here
-     */
-    const getResponse = await client.api.users.$get();
-    expect(getResponse.status).toBe(200);
+  });
+});
 
-    const data = await getResponse.json();
-    expect(data).toContainEqual({
-      id: newUser.id,
+describe("GET /users/:id", () => {
+  let NEW_USER_ID: string;
+
+  beforeAll(async () => {
+    const mockUserData = {
+      name: "Wingbert Wigglefeather",
+      email: "wwigglefeather@honc.dev",
+    };
+
+    const response = await client.api.users.$post({
+      json: mockUserData,
+    });
+
+    const { id } = await response.json();
+    NEW_USER_ID = id;
+  });
+
+  it("Returns 200 and User matching valid ID", async () => {
+    const response = await client.api.users[":id"].$get({
+      param: { id: NEW_USER_ID },
+    });
+
+    expect(response.status).toBe(200);
+    
+    const data = await response.json();
+    expect(data).toEqual({
+      id: NEW_USER_ID,
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
-      ...mockUserData
+      name: expect.any(String),
+      email: expect.any(String),
     });
+  });
+});
+
+describe("DELETE /users/:id", () => {
+  let NEW_USER_ID: string;
+
+  beforeAll(async () => {
+    const mockUserData = {
+      name: "Wingbert Wigglefeather",
+      email: "wwigglefeather@honc.dev",
+    };
+
+    const response = await client.api.users.$post({
+      json: mockUserData,
+    });
+
+    const { id } = await response.json();
+    NEW_USER_ID = id;
+  });
+
+  it("Returns 204 after deleting User matching valid ID", async () => {
+    const response = await client.api.users[":id"].$delete({
+      param: { id: NEW_USER_ID },
+    });
+
+    expect(response.status).toBe(204);
+
+    const confirmation = await client.api.users[":id"].$get({
+      param: { id: NEW_USER_ID },
+    });
+
+    expect(confirmation.status).toBe(404);
   });
 });

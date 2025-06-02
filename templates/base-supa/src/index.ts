@@ -57,6 +57,10 @@ const api = new Hono()
       .from(schema.users)
       .where(eq(schema.users.id, id));
 
+    if (!user) {
+      return c.notFound();
+    }
+
     return c.json(user);
   })
   .delete("/users/:id", zodValidator("param", ZUserByIDParams), async (c) => {

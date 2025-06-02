@@ -54,6 +54,10 @@ const api = new Hono()
       .select()
       .from(schema.users)
       .where(eq(schema.users.id, id));
+    
+    if (!user) {
+      return c.notFound();
+    }
 
     return c.json(user);
   })
