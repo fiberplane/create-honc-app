@@ -3,9 +3,6 @@ import { testClient } from 'hono/testing'
 import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 
 import app from "../src";
-import { createTestBranch, deleteBranch } from "./setup";
-import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
 
 const client = testClient(app, env);
 
@@ -21,29 +18,6 @@ describe("Index", () => {
     expect(data).toBe("Honc from above! ☁️🪿");
   })
 });
-
-const { 
-  id: testBranchId, 
-  uri: testBranchUri
-} = await createTestBranch();
-
-beforeAll(async () => {
-  vi.mock("../src/db", () => {
-    return {
-      getDb: () => {
-        const db = drizzle(neon(testBranchUri), {
-          casing: "snake_case",
-        });
-        return db;
-      }
-    }
-  })
-
-});
-
-afterAll(async () => {
-  deleteBranch(testBranchId);
-})
 
 describe("GET /users", () => {
   it("Returns an an array of users", async () => {
