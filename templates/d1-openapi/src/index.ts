@@ -95,6 +95,9 @@ const api = new Hono()
             },
           },
         },
+        404: {
+          description: "User with provided ID not found",
+        },
       },
     }),
     zodValidator("param", ZUserByIDParams),
@@ -107,7 +110,30 @@ const api = new Hono()
         .from(schema.users)
         .where(eq(schema.users.id, id));
 
+      if (!user) {
+        return c.notFound();
+      }
+
       return c.json(user);
+    },
+  )
+  .delete(
+    "/users/:id",
+    describeRoute({
+      responses: {
+        204: {
+          description: "User deleted by ID successfully",
+        },
+      },
+    }),
+    zodValidator("param", ZUserByIDParams),
+    async (c) => {
+      const db = c.var.db;
+      const { id } = c.req.valid("param");
+
+      await db.delete(schema.users).where(eq(schema.users.id, id));
+
+      return c.body(null, 204);
     },
   );
 

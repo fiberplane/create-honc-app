@@ -5,7 +5,6 @@ import { type NeonHttpDatabase, drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
 import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
-import { getDb } from "./db";
 import * as schema from "./db/schema";
 import { ZUserByIDParams, ZUserInsert } from "./dtos";
 import { zodValidator } from "./middleware/validator";
@@ -18,7 +17,11 @@ const initDb = createMiddleware<{
     db: NeonHttpDatabase;
   };
 }>(async (c, next) => {
-  const db = getDb(c.env.DATABASE_URL);
+  const client = neon(c.env.DATABASE_URL);
+  const db = drizzle(client, {
+    casing: "snake_case",
+  });
+
   c.set("db", db);
   await next();
 });
