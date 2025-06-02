@@ -5,6 +5,7 @@ import { type NeonHttpDatabase, drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
 import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
+import { getDb } from "./db";
 import * as schema from "./db/schema";
 import { ZUserByIDParams, ZUserInsert } from "./dtos";
 import { zodValidator } from "./middleware/validator";
@@ -17,11 +18,7 @@ const initDb = createMiddleware<{
     db: NeonHttpDatabase;
   };
 }>(async (c, next) => {
-  const client = neon(c.env.DATABASE_URL);
-  const db = drizzle(client, {
-    casing: "snake_case",
-  });
-
+  const db = getDb(c.env.DATABASE_URL)
   c.set("db", db);
   await next();
 });
@@ -31,7 +28,7 @@ const api = new Hono()
   .get("/users", async (c) => {
     const db = c.var.db;
     const users = await db.select().from(schema.users);
-
+    
     return c.json(users);
   })
   .post("/users", zodValidator("json", ZUserInsert), async (c) => {
@@ -58,6 +55,16 @@ const api = new Hono()
       .where(eq(schema.users.id, id));
 
     return c.json(user);
+  })
+  .delete("/users/:id", zodValidator("param", ZUserByIDParams), async (c) => {
+    const db = c.var.db;
+    const { id } = c.req.valid("param");
+
+    await db
+      .delete(schema.users)
+      .where(eq(schema.users.id, id));
+
+    return c.body(null, 204);
   });
 
 const app = new Hono()

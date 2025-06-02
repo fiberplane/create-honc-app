@@ -1,12 +1,15 @@
 import { env } from "cloudflare:test";
+import { drizzle } from "drizzle-orm/neon-http";
 import { testClient } from 'hono/testing'
-import { describe, it, expect, beforeAll } from "vitest";
+import postgres from "postgres";
+import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 
 import app from "../src";
 
+
 const client = testClient(app, env);
 
-const DATE_REGEX = /^\d{4}-[01]\d-[0-3]\d\s[0-2]\d:[0-5]\d:[0-5]\d$/;
+const DATE_REGEX = /^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d{3}Z$/;
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
 describe("Index", () => {
@@ -20,21 +23,21 @@ describe("Index", () => {
 });
 
 describe("Get all users", () => {
-  beforeAll(async () => {
-    /**
-     * By default, operations against test databases are
-     * isolated to each test case. Seeding the database before
-     * tests woud be a nice enhancement, but isn't simple
-     */
-    const mockUserData = {
-      name: "Goose Lightning",
-      email: "glightning@honc.dev",
-    }
+  // beforeAll(async () => {
+  //   /**
+  //    * By default, operations against test databases are
+  //    * isolated to each test case. Seeding the database before
+  //    * tests woud be a nice enhancement, but isn't simple
+  //    */
+  //   const mockUserData = {
+  //     name: "Goose Lightning",
+  //     email: "glightning@honc.dev",
+  //   }
 
-    await client.api.users.$post({
-      json: mockUserData,
-    });
-  });
+  //   await client.api.users.$post({
+  //     json: mockUserData,
+  //   });
+  // });
 
   it("Returns an an array of users", async () => {
     const response = await client.api.users.$get();
@@ -49,11 +52,12 @@ describe("Get all users", () => {
         id: expect.stringMatching(UUID_REGEX),
         createdAt: expect.stringMatching(DATE_REGEX),
         updatedAt: expect.stringMatching(DATE_REGEX),
+        settings: expect.any(Object),
         name: expect.any(String),
         email: expect.any(String),
       });
     }
-
+    
   });
 });
 
@@ -81,6 +85,7 @@ describe("Create User", () => {
       id: expect.stringMatching(UUID_REGEX),
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
+      settings: expect.any(Object),
       ...mockUserData
     });
     /** 
@@ -95,6 +100,7 @@ describe("Create User", () => {
       id: newUser.id,
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
+      settings: expect.any(Object),
       ...mockUserData
     });
   });

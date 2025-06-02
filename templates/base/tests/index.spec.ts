@@ -1,12 +1,15 @@
 import { env } from "cloudflare:test";
 import { testClient } from 'hono/testing'
-import { describe, it, expect, beforeAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 
 import app from "../src";
+import { createTestBranch, deleteBranch } from "./setup";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 
 const client = testClient(app, env);
 
-const DATE_REGEX = /^\d{4}-[01]\d-[0-3]\d\s[0-2]\d:[0-5]\d:[0-5]\d$/;
+const DATE_REGEX = /^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d{3}Z$/;
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
 describe("Index", () => {
@@ -19,23 +22,30 @@ describe("Index", () => {
   })
 });
 
-describe("Get all users", () => {
-  beforeAll(async () => {
-    /**
-     * By default, operations against test databases are
-     * isolated to each test case. Seeding the database before
-     * tests woud be a nice enhancement, but isn't simple
-     */
-    const mockUserData = {
-      name: "Goose Lightning",
-      email: "glightning@honc.dev",
+const { 
+  id: testBranchId, 
+  uri: testBranchUri
+} = await createTestBranch();
+
+beforeAll(async () => {
+  vi.mock("../src/db", () => {
+    return {
+      getDb: () => {
+        const db = drizzle(neon(testBranchUri), {
+          casing: "snake_case",
+        });
+        return db;
+      }
     }
+  })
 
-    await client.api.users.$post({
-      json: mockUserData,
-    });
-  });
+});
 
+afterAll(async () => {
+  deleteBranch(testBranchId);
+})
+
+describe("Get all users", () => {
   it("Returns an an array of users", async () => {
     const response = await client.api.users.$get();
     expect(response.status).toBe(200);
@@ -49,6 +59,7 @@ describe("Get all users", () => {
         id: expect.stringMatching(UUID_REGEX),
         createdAt: expect.stringMatching(DATE_REGEX),
         updatedAt: expect.stringMatching(DATE_REGEX),
+        settings: expect.any(Object),
         name: expect.any(String),
         email: expect.any(String),
       });
@@ -56,6 +67,8 @@ describe("Get all users", () => {
 
   });
 });
+
+let newUserId: string;
 
 describe("Create User", () => {
   it("Returns an error if no User Data is sent", async () => {
@@ -77,25 +90,38 @@ describe("Create User", () => {
     expect(postResponse.status).toBe(201);
 
     const newUser = await postResponse.json();
+    newUserId = newUser.id;
     expect(newUser).toEqual({
       id: expect.stringMatching(UUID_REGEX),
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
+      settings: expect.any(Object),
       ...mockUserData
     });
     /** 
      * Since data isn't persisted between conditions,
      * we confirm the write here
      */
-    const getResponse = await client.api.users.$get();
+    const getResponse = await client.api.users[":id"].$get({
+      param: { id: newUserId }
+    });
     expect(getResponse.status).toBe(200);
 
     const data = await getResponse.json();
-    expect(data).toContainEqual({
+    expect(data).toEqual({
       id: newUser.id,
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
+      settings: expect.any(Object),
       ...mockUserData
     });
+  });
+
+  it("Delete User", async () => {
+    const response = await client.api.users[":id"].$delete({
+      param: { id: newUserId },
+    });
+
+    expect(response.status).toBe(204);
   });
 });
