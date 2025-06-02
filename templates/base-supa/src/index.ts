@@ -67,9 +67,7 @@ const api = new Hono()
     const db = c.var.db;
     const { id } = c.req.valid("param");
 
-    await db
-      .delete(schema.users)
-      .where(eq(schema.users.id, id));
+    await db.delete(schema.users).where(eq(schema.users.id, id));
 
     return c.body(null, 204);
   });
