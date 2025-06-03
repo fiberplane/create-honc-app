@@ -17,6 +17,7 @@
   },
   "include": [
     "./**/*.ts",
+    "./**/*.tsx",
     "./worker-configuration.d.ts" // output of `wrangler types`
   ]
 }

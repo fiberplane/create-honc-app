@@ -30,7 +30,7 @@
     "@cloudflare/vitest-pool-workers": "^0.8.31",
     "@cloudflare/workers-types": "^4.20250508.0",
     "@libsql/client": "^0.14.0",
-    "drizzle-kit": "^0.30.4",
+    "drizzle-kit": "^0.31.1",
     "drizzle-seed": "^0.3.1",
     "tsx": "^4.19.2",
     "vitest": "^3.1.4",

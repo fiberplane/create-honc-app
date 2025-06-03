@@ -22,7 +22,7 @@ const BASE_URL = 'https://api.supabase.com/v1';
 
 /**
  * Branch the target database, copying the schema and all current data.
- * Requires premium Supabase plan.
+ * Requires Supabase "Pro" plan.
  * @see https://api.supabase.com/api/v1#tag/environments/POST/v1/projects/{ref}/branches
  */
 const createBranch = async (branchName: string) => {
@@ -86,7 +86,7 @@ const getConnectionUri = async (branchId: string) => {
 }
 
 /**
- * Create a test branch based on the database associated with `NEON_PROJECT_ID` in `.dev.vars`.
+ * Create a test branch based on the database associated with `SUPABASE_PROJECT_REF` in `.dev.vars`.
  * @returns New branch connection URI, and branch ID for post-test cleanup.
  * @throws Error with response data in `cause` if either branch creation or
  * connection URI request fails. 

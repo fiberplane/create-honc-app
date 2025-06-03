@@ -27,7 +27,16 @@ export default defineWorkersConfig(async () => {
         }
       },
       ssr: {
-        noExternal: ["@sagold/json-pointer", "json-schema-library", "@fiberplane/hono"],
+        /**
+         * Instruct Vitest to inline these dependencies since Workered
+         * is unable to load them dynamically in the test environment.
+         * @see https://github.com/fiberplane/fiberplane/issues/589
+         */
+        noExternal: [
+          "@sagold/json-pointer",
+          "json-schema-library",
+          "@fiberplane/hono"
+        ],
       }
     }
 });
