@@ -97,6 +97,9 @@ const api = new Hono()
             },
           },
         },
+        404: {
+          description: "User with provided ID not found",
+        },
       },
     }),
     zodValidator("param", ZUserByIDParams),
@@ -108,6 +111,10 @@ const api = new Hono()
         .select()
         .from(schema.users)
         .where(eq(schema.users.id, id));
+
+      if (!user) {
+        return c.notFound();
+      }
 
       return c.json(user);
     },
