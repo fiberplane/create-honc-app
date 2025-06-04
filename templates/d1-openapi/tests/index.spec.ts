@@ -9,6 +9,14 @@ const client = testClient(app, env);
 const DATE_REGEX = /^\d{4}-[01]\d-[0-3]\d\s[0-2]\d:[0-5]\d:[0-5]\d$/;
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
+/**
+ * The Cloudflare + Vitest integration isolates storage for each
+ * `describe`, so it's necessary to seed any data that will be
+ * queried with `beforeAll`.
+ * @see https://developers.cloudflare.com/workers/testing/vitest-integration/
+ * @see https://github.com/cloudflare/workers-sdk/tree/main/fixtures/vitest-pool-workers-examples/d1
+ */
+
 describe("GET /", () => {
   it("Returns landing text", async () => {
     const response = await client.index.$get();

@@ -4,6 +4,11 @@ import { createMiddleware } from "hono/factory";
 import { beforeAll, afterAll, vi } from "vitest";
 import { createTestBranch, deleteBranch } from "./helpers";
 
+/**
+ * Create a temporary test branch, and mock the database provider
+ * middleware so that tests don't affect the primary database(s).
+ */
+
 const { 
   id: testBranchId, 
   uri: testBranchUri
