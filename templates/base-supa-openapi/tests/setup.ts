@@ -1,5 +1,6 @@
 import { env } from 'cloudflare:test';
 import { drizzle } from "drizzle-orm/neon-http";
+import { createMiddleware } from 'hono/factory';
 import postgres from "postgres";
 import { beforeAll, vi } from "vitest";
 
@@ -9,14 +10,16 @@ if (!TEST_DATABASE_URL) {
 }
 
 beforeAll(async () => {
-  vi.mock("../src/db", () => {
+  vi.mock("../src/middleware/dbProvider.ts", () => {
     return {
-      getDb: () => {
+      dbProvider: createMiddleware(async (c, next) => {
         const db = drizzle(postgres(TEST_DATABASE_URL), {
           casing: "snake_case",
         });
-        return db;
-      }
+        
+        c.set('db', db);
+        await next();
+      }),
     }
   });
 });

@@ -1,33 +1,14 @@
 import { createFiberplane, createOpenAPISpec } from "@fiberplane/hono";
 import { eq } from "drizzle-orm";
-import { type PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
 import { Hono } from "hono";
-import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
-import postgres from "postgres";
 import * as schema from "./db/schema";
 import { ZUserByIDParams, ZUserInsert } from "./dtos";
+import { dbProvider } from "./middleware/dbProvider";
 import { zodValidator } from "./middleware/validator";
 
-const initDb = createMiddleware<{
-  Bindings: {
-    DATABASE_URL: string;
-  };
-  Variables: {
-    db: PostgresJsDatabase;
-  };
-}>(async (c, next) => {
-  const client = postgres(c.env.DATABASE_URL);
-  const db = drizzle(client, {
-    casing: "snake_case",
-  });
-
-  c.set("db", db);
-  await next();
-});
-
 const api = new Hono()
-  .use("*", initDb)
+  .use("*", dbProvider)
   .get("/users", async (c) => {
     const db = c.var.db;
     const users = await db.select().from(schema.users);

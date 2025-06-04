@@ -1,31 +1,14 @@
 import { createFiberplane, createOpenAPISpec } from "@fiberplane/hono";
 import { eq } from "drizzle-orm";
-import { type DrizzleD1Database, drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
-import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
 import * as schema from "./db/schema";
 import { ZUserByIDParams, ZUserInsert } from "./dtos";
+import { dbProvider } from "./middleware/dbProvider";
 import { zodValidator } from "./middleware/validator";
 
-const initDb = createMiddleware<{
-  Bindings: {
-    DB: D1Database;
-  };
-  Variables: {
-    db: DrizzleD1Database;
-  };
-}>(async (c, next) => {
-  const db = drizzle(c.env.DB, {
-    casing: "snake_case",
-  });
-
-  c.set("db", db);
-  await next();
-});
-
 const api = new Hono()
-  .use("*", initDb)
+  .use("*", dbProvider)
   .get("/users", async (c) => {
     const db = c.var.db;
     const users = await db.select().from(schema.users);
