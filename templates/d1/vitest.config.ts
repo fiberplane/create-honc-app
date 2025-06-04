@@ -2,6 +2,10 @@ import path from "node:path";
 import { defineWorkersConfig, readD1Migrations } from "@cloudflare/vitest-pool-workers/config";
 
 export default defineWorkersConfig(async () => {
+  /**
+   * Read migrations file to set as test-only environment variable. Used
+   * in `/tests/setup.ts` to apply migrations before tests run.
+   */
   const migrationsPath = path.join(__dirname, 'drizzle/migrations');
   const migrations = await readD1Migrations(migrationsPath);
 
