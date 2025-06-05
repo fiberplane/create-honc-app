@@ -1,4 +1,4 @@
-import { env } from 'cloudflare:test';
+import { env } from "cloudflare:test";
 
 const PROJECT_REF = env.SUPABASE_PROJECT_REF;
 if (!PROJECT_REF) {
@@ -10,7 +10,7 @@ if (!BEARER_TOKEN) {
   throw new Error("Missing Environment Variable: SUPABASE_ANON_KEY");
 }
 
-const BASE_URL = 'https://api.supabase.com/v1';
+const BASE_URL = "https://api.supabase.com/v1";
 
 /**
  * This file isn't actively used in this template, since Supabase requires
@@ -35,19 +35,19 @@ const createBranch = async (branchName: string) => {
     body: JSON.stringify({
       branch_name: branchName,
       desired_instance_size: "pico",
-    })
+    }),
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to create test branch ${branchName}`, { 
+    throw new Error(`Failed to create test branch ${branchName}`, {
       cause: await response.json(),
     });
   }
 
-  const branch = await response.json<{ id: string; }>();
+  const branch = await response.json<{ id: string }>();
 
   return branch;
-}
+};
 
 /**
  * Get branch connection URI by branch ID.
@@ -62,35 +62,35 @@ const getConnectionUri = async (branchId: string) => {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to get connection URI", { 
+    throw new Error("Failed to get connection URI", {
       cause: await response.json(),
     });
   }
 
-  const data = await response.json<{ 
+  const data = await response.json<{
     db_host: string;
     db_port: number;
     db_user: string;
     db_pass: string;
   }>();
-  
+
   const { db_host, db_port, db_user, db_pass } = data;
 
   return `postgresql://${db_user}:${db_pass}@${db_host}:${db_port}/postgres`;
-}
+};
 
 /**
  * Create a test branch based on the database associated with `SUPABASE_PROJECT_REF` in `.dev.vars`.
  * @returns New branch connection URI, and branch ID for post-test cleanup.
  * @throws Error with response data in `cause` if either branch creation or
- * connection URI request fails. 
+ * connection URI request fails.
  */
 export const createTestBranch = async () => {
   const { id } = await createBranch(`test-${crypto.randomUUID()}`);
   const uri = await getConnectionUri(id);
-  
+
   return { id, uri };
-}
+};
 
 /**
  * Delete branch by ID.
@@ -100,8 +100,8 @@ export const deleteBranch = async (branchId: string) => {
   const response = await fetch(`${BASE_URL}/branches/${branchId}`, {
     method: "DELETE",
     headers: {
-      "Authorization": `Bearer ${BEARER_TOKEN}`
-    }
+      "Authorization": `Bearer ${BEARER_TOKEN}`,
+    },
   });
 
   if (!response.ok) {
@@ -109,4 +109,4 @@ export const deleteBranch = async (branchId: string) => {
       cause: response,
     });
   }
-}
+};

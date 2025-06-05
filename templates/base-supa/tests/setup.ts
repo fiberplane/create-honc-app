@@ -1,11 +1,11 @@
-import { env } from 'cloudflare:test';
+import { env } from "cloudflare:test";
 import { drizzle } from "drizzle-orm/neon-http";
-import { createMiddleware } from 'hono/factory';
+import { createMiddleware } from "hono/factory";
 import postgres from "postgres";
 import { beforeAll, vi } from "vitest";
 
 /**
- * Mock the database provider middleware so that 
+ * Mock the database provider middleware so that
  * tests don't affect the primary database(s).
  */
 
@@ -21,10 +21,10 @@ beforeAll(async () => {
         const db = drizzle(postgres(TEST_DATABASE_URL), {
           casing: "snake_case",
         });
-        
-        c.set('db', db);
+
+        c.set("db", db);
         await next();
       }),
-    }
+    };
   });
 });
