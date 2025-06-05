@@ -5,6 +5,7 @@ export default defineWorkersConfig(async () => {
   /**
    * Read migrations file to set as test-only environment variable. Used
    * in `/tests/setup.ts` to apply migrations before tests run.
+   * @see https://github.com/cloudflare/workers-sdk/tree/main/fixtures/vitest-pool-workers-examples/d1
    */
   const migrationsPath = path.join(__dirname, 'drizzle/migrations');
   const migrations = await readD1Migrations(migrationsPath);
