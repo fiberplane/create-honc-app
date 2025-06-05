@@ -1,13 +1,14 @@
 import { env } from "cloudflare:test";
-import { testClient } from 'hono/testing'
-import { describe, it, expect, beforeAll } from "vitest";
+import { testClient } from "hono/testing";
+import { beforeAll, describe, expect, it } from "vitest";
 
 import app from "../src";
 
 const client = testClient(app, env);
 
 const DATE_REGEX = /^\d{4}-[01]\d-[0-3]\d\s[0-2]\d:[0-5]\d:[0-5]\d$/;
-const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+const UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
 /**
  * The Cloudflare + Vitest integration isolates storage for each
@@ -24,7 +25,7 @@ describe("GET /", () => {
 
     const data = await response.text();
     expect(data).toBe("Honc from above! ☁️🪿");
-  })
+  });
 });
 
 describe("GET /users", () => {
@@ -41,7 +42,7 @@ describe("GET /users", () => {
       {
         name: "Squawkers O'Quacker",
         email: "soquacker@honc.dev",
-      }
+      },
     ];
 
     for (const user of mockUserData) {
@@ -52,7 +53,7 @@ describe("GET /users", () => {
   it("Returns an an array of users", async () => {
     const response = await client.api.users.$get();
     expect(response.status).toBe(200);
-    
+
     const data = await response.json();
     expect(data).toEqual(expect.any(Array));
     expect(data.length).toBeGreaterThan(0);
@@ -93,7 +94,7 @@ describe("POST /users", () => {
       id: expect.stringMatching(UUID_REGEX),
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
-      ...mockUserData
+      ...mockUserData,
     });
   });
 });
@@ -121,7 +122,7 @@ describe("GET /users/:id", () => {
     });
 
     expect(response.status).toBe(200);
-    
+
     const data = await response.json();
     expect(data).toEqual({
       id: NEW_USER_ID,
