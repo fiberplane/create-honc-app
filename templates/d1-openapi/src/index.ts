@@ -1,33 +1,16 @@
 import { createFiberplane } from "@fiberplane/hono";
 import { eq } from "drizzle-orm";
-import { type DrizzleD1Database, drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
 import { describeRoute, openAPISpecs } from "hono-openapi";
 import { resolver } from "hono-openapi/zod";
-import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
 import * as schema from "./db/schema";
 import { ZUserByIDParams, ZUserInsert, ZUserSelect } from "./dtos";
+import { dbProvider } from "./middleware/dbProvider";
 import { zodValidator } from "./middleware/validator";
 
-const initDb = createMiddleware<{
-  Bindings: {
-    DB: D1Database;
-  };
-  Variables: {
-    db: DrizzleD1Database;
-  };
-}>(async (c, next) => {
-  const db = drizzle(c.env.DB, {
-    casing: "snake_case",
-  });
-
-  c.set("db", db);
-  await next();
-});
-
 const api = new Hono()
-  .use("*", initDb)
+  .use("*", dbProvider)
   .get(
     "/users",
     describeRoute({
@@ -95,6 +78,9 @@ const api = new Hono()
             },
           },
         },
+        404: {
+          description: "User with provided ID not found",
+        },
       },
     }),
     zodValidator("param", ZUserByIDParams),
@@ -107,7 +93,30 @@ const api = new Hono()
         .from(schema.users)
         .where(eq(schema.users.id, id));
 
+      if (!user) {
+        return c.notFound();
+      }
+
       return c.json(user);
+    },
+  )
+  .delete(
+    "/users/:id",
+    describeRoute({
+      responses: {
+        204: {
+          description: "User deleted by ID successfully",
+        },
+      },
+    }),
+    zodValidator("param", ZUserByIDParams),
+    async (c) => {
+      const db = c.var.db;
+      const { id } = c.req.valid("param");
+
+      await db.delete(schema.users).where(eq(schema.users.id, id));
+
+      return c.body(null, 204);
     },
   );
 

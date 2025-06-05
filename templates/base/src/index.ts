@@ -1,33 +1,14 @@
 import { createFiberplane, createOpenAPISpec } from "@fiberplane/hono";
-import { neon } from "@neondatabase/serverless";
 import { eq } from "drizzle-orm";
-import { type NeonHttpDatabase, drizzle } from "drizzle-orm/neon-http";
 import { Hono } from "hono";
-import { createMiddleware } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
 import * as schema from "./db/schema";
 import { ZUserByIDParams, ZUserInsert } from "./dtos";
+import { dbProvider } from "./middleware/dbProvider";
 import { zodValidator } from "./middleware/validator";
 
-const initDb = createMiddleware<{
-  Bindings: {
-    DATABASE_URL: string;
-  };
-  Variables: {
-    db: NeonHttpDatabase;
-  };
-}>(async (c, next) => {
-  const client = neon(c.env.DATABASE_URL);
-  const db = drizzle(client, {
-    casing: "snake_case",
-  });
-
-  c.set("db", db);
-  await next();
-});
-
 const api = new Hono()
-  .use("*", initDb)
+  .use("*", dbProvider)
   .get("/users", async (c) => {
     const db = c.var.db;
     const users = await db.select().from(schema.users);
@@ -57,7 +38,19 @@ const api = new Hono()
       .from(schema.users)
       .where(eq(schema.users.id, id));
 
+    if (!user) {
+      return c.notFound();
+    }
+
     return c.json(user);
+  })
+  .delete("/users/:id", zodValidator("param", ZUserByIDParams), async (c) => {
+    const db = c.var.db;
+    const { id } = c.req.valid("param");
+
+    await db.delete(schema.users).where(eq(schema.users.id, id));
+
+    return c.body(null, 204);
   });
 
 const app = new Hono()
