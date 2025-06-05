@@ -8,17 +8,17 @@ export default defineWorkersConfig(async () => {
       poolOptions: {
         workers: {
           wrangler: { configPath: "./wrangler.toml" },
-            miniflare: {
-              compatibilityFlags: ['nodejs_compat'],
-              compatibilityDate: '2024-04-01',
-            }
+          miniflare: {
+            compatibilityFlags: ["nodejs_compat"],
+            compatibilityDate: "2024-04-01",
+          },
         },
       },
     },
     build: {
       rollupOptions: {
         external: ["@fiberplane/hono"],
-      }
+      },
     },
     ssr: {
       /**
@@ -29,8 +29,8 @@ export default defineWorkersConfig(async () => {
       noExternal: [
         "@sagold/json-pointer",
         "json-schema-library",
-        "@fiberplane/hono"
+        "@fiberplane/hono",
       ],
-    }
-  }
+    },
+  };
 });

@@ -1,7 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { createMiddleware } from "hono/factory";
-import { beforeAll, afterAll, vi } from "vitest";
+import { afterAll, beforeAll, vi } from "vitest";
 import { createTestBranch, deleteBranch } from "./helpers";
 
 /**
@@ -9,10 +9,7 @@ import { createTestBranch, deleteBranch } from "./helpers";
  * middleware so that tests don't affect the primary database(s).
  */
 
-const { 
-  id: testBranchId, 
-  uri: testBranchUri
-} = await createTestBranch();
+const { id: testBranchId, uri: testBranchUri } = await createTestBranch();
 
 beforeAll(async () => {
   vi.mock("../src/middleware/dbProvider.ts", () => {
@@ -22,10 +19,10 @@ beforeAll(async () => {
           casing: "snake_case",
         });
 
-        c.set('db', db);
+        c.set("db", db);
         await next();
       }),
-    }
+    };
   });
 });
 
