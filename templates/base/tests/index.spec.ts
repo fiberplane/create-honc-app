@@ -1,13 +1,13 @@
 import { env } from "cloudflare:test";
-import { testClient } from 'hono/testing'
-import { describe, it, expect } from "vitest";
+import { testClient } from "hono/testing";
+import { describe, expect, it } from "vitest";
 
 import app from "../src";
 
 const client = testClient(app, env);
 
 const DATE_REGEX = /^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d{3}Z$/;
-const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
 describe("Index", () => {
   it("Returns landing text", async () => {
@@ -16,14 +16,14 @@ describe("Index", () => {
 
     const data = await response.text();
     expect(data).toBe("Honc from above! ☁️🪿");
-  })
+  });
 });
 
 describe("GET /users", () => {
   it("Returns an an array of users", async () => {
     const response = await client.api.users.$get();
     expect(response.status).toBe(200);
-    
+
     const data = await response.json();
     expect(data).toEqual(expect.any(Array));
     expect(data.length).toBeGreaterThan(0);
@@ -38,7 +38,6 @@ describe("GET /users", () => {
         email: expect.any(String),
       });
     }
-
   });
 });
 
@@ -81,7 +80,7 @@ describe("GET /users/:id", () => {
     });
 
     expect(response.status).toBe(200);
-    
+
     const data = await response.json();
     expect(data).toEqual({
       id: NEW_USER_ID,
