@@ -1,4 +1,4 @@
-import { applyD1Migrations, env } from 'cloudflare:test'
+import { applyD1Migrations, env } from "cloudflare:test";
 
 /**
  * Apply migrations written from file to test-only environment

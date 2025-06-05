@@ -1,6 +1,6 @@
 import { env } from "cloudflare:test";
-import { testClient } from 'hono/testing'
-import { describe, it, expect, beforeAll } from "vitest";
+import { testClient } from "hono/testing";
+import { beforeAll, describe, expect, it } from "vitest";
 
 import app from "../src";
 
@@ -24,7 +24,7 @@ describe("GET /", () => {
 
     const data = await response.text();
     expect(data).toBe("Honc from above! ☁️🪿");
-  })
+  });
 });
 
 describe("GET /users", () => {
@@ -41,7 +41,7 @@ describe("GET /users", () => {
       {
         name: "Squawkers O'Quacker",
         email: "soquacker@honc.dev",
-      }
+      },
     ];
 
     for (const user of mockUserData) {
@@ -52,7 +52,7 @@ describe("GET /users", () => {
   it("Returns an an array of users", async () => {
     const response = await client.api.users.$get();
     expect(response.status).toBe(200);
-    
+
     const data = await response.json();
     expect(data).toEqual(expect.any(Array));
     expect(data.length).toBeGreaterThan(0);
@@ -93,7 +93,7 @@ describe("POST /users", () => {
       id: expect.stringMatching(UUID_REGEX),
       createdAt: expect.stringMatching(DATE_REGEX),
       updatedAt: expect.stringMatching(DATE_REGEX),
-      ...mockUserData
+      ...mockUserData,
     });
   });
 });
@@ -121,7 +121,7 @@ describe("GET /users/:id", () => {
     });
 
     expect(response.status).toBe(200);
-    
+
     const data = await response.json();
     expect(data).toEqual({
       id: NEW_USER_ID,
