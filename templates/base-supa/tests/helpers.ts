@@ -74,14 +74,8 @@ const getConnectionUri = async (branchId: string) => {
     db_pass: string;
   }>();
   
-  const { 
-    db_host,
-    db_port,
-    db_user,
-    db_pass,
-  } = data;
+  const { db_host, db_port, db_user, db_pass } = data;
 
-  // connection_string="postgresql://$user.$db_slug:$password@$yourpooler.pooler.supabase.com:5432/postgres"
   return `postgresql://${db_user}:${db_pass}@${db_host}:${db_port}/postgres`;
 }
 
