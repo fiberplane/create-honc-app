@@ -14,6 +14,7 @@ templates/**/worker-configuration.d.ts
 
 # Ignore migrations files generated in templates (during local dev or testing)
 templates/**/drizzle
+templates/**/**/supabase
 
 # Ignore package-lock.json files in examples
 examples/**/package-lock.json
