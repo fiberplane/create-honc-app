@@ -3,15 +3,15 @@ import { drizzle } from "drizzle-orm/libsql";
 import {
   type AsyncBatchRemoteCallback,
   type AsyncRemoteCallback,
-  drizzle as drizzleSQLiteProxy,
   type SqliteRemoteDatabase,
+  drizzle as drizzleSQLiteProxy,
 } from "drizzle-orm/sqlite-proxy";
 import { seed } from "drizzle-seed";
 
-import * as schema from "./src/db/schema";
-import path from "node:path";
 import fs from "node:fs";
+import path from "node:path";
 import { config } from "dotenv";
+import * as schema from "./src/db/schema";
 
 // biome-ignore lint/suspicious/noExplicitAny: Centralize usage of `any` type, since we use it in db results that are not worth the pain of typing
 type Any = any;
@@ -28,16 +28,15 @@ async function seedDatabase() {
 
   try {
     // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
-    await seed(db, schema)
-      .refine((funcs) => ({
-        users: {
-          columns: {
-            id: funcs.uuid(),
-            createdAt: funcs.timestamp(),
-            updatedAt: funcs.timestamp(),
-          }
-        }
-      }));
+    await seed(db, schema).refine((funcs) => ({
+      users: {
+        columns: {
+          id: funcs.uuid(),
+          createdAt: funcs.timestamp(),
+          updatedAt: funcs.timestamp(),
+        },
+      },
+    }));
 
     console.log("✅ Database seeded successfully!");
   } catch (error) {
@@ -46,7 +45,7 @@ async function seedDatabase() {
   } finally {
     process.exit(0);
   }
-};
+}
 
 /**
  * Creates a connection to the local D1 database and returns a Drizzle ORM instance.

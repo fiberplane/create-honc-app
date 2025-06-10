@@ -5,13 +5,17 @@
     "moduleResolution": "Bundler",
     "strict": true,
     "skipLibCheck": true,
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "types": [
+      "@cloudflare/vitest-pool-workers",
       "@cloudflare/workers-types"
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
   },
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx",
+    "./worker-configuration.d.ts" // output of `wrangler types`
+  ]
 }

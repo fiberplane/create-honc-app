@@ -9,6 +9,9 @@ ascui/**/package-lock.json
 # Ignore package-lock.json files in templates
 templates/**/package-lock.json
 
+# Ignore types generated in teplates (during local dev)
+templates/**/worker-configuration.d.ts
+
 # Ignore migrations files generated in templates (during local dev or testing)
 templates/**/drizzle
 templates/**/supabase
