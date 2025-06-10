@@ -11,6 +11,11 @@ export async function promptTemplate(ctx: Context) {
       message: "Which template do you want to use?",
       options: [
         {
+          value: "d1",
+          label: "D1 template",
+          hint: "A barebones HONC project with a D1 Database",
+        },
+        {
           value: "neon",
           label: "Neon template",
           hint: "A barebones HONC project with a Neon database",
@@ -19,11 +24,6 @@ export async function promptTemplate(ctx: Context) {
           value: "supabase",
           label: "Supabase template",
           hint: "A barebones HONC project with a Supabase database",
-        },
-        {
-          value: "d1",
-          label: "D1 template",
-          hint: "A barebones HONC project with a D1 Database",
         },
       ] satisfies {
         value: Template;
