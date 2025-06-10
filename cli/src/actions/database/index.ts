@@ -6,15 +6,15 @@ import { showSupabaseSetupInstructions } from "./supabase";
 
 export async function promptDatabase(ctx: Context) {
   switch (ctx.template) {
-    case "base-supa": {
+    case "supabase": {
       ctx.database = "supabase";
       break;
     }
-    case "sample-d1": {
+    case "d1": {
       ctx.database = "d1";
       break;
     }
-    case "base": {
+    case "neon": {
       ctx.database = "neon";
       const confirmNeonSetup = await confirm({
         message:
