@@ -15,19 +15,19 @@ type CodeGenResponse = {
 
 function createDatabaseSchemaContext(template?: Template) {
   switch (template) {
-    case "base":
+    case "neon":
       return {
         type: "postgres",
         drizzleImport: "drizzle-orm/pg-core",
         vendor: "Neon",
       };
-    case "base-supa":
+    case "supabase":
       return {
         type: "postgres",
         drizzleImport: "drizzle-orm/pg-core",
         vendor: "Supabase",
       };
-    case "sample-d1":
+    case "d1":
       return {
         type: "sqlite",
         drizzleImport: "drizzle-orm/sqlite-core",

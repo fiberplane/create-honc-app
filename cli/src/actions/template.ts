@@ -11,22 +11,26 @@ export async function promptTemplate(ctx: Context) {
       message: "Which template do you want to use?",
       options: [
         {
-          value: "base",
+          value: "neon",
           label: "Neon template",
           hint: "A barebones HONC project with a Neon database",
         },
         {
-          value: "base-supa",
-          label: "(Supa)base template",
+          value: "supabase",
+          label: "Supabase template",
           hint: "A barebones HONC project with a Supabase database",
         },
         {
-          value: "sample-d1",
-          label: "D1 base template",
+          value: "d1",
+          label: "D1 template",
           hint: "A barebones HONC project with a D1 Database",
         },
-      ],
-      initialValue: "base",
+      ] satisfies {
+        value: Template;
+        label: string;
+        hint: string;
+      }[],
+      initialValue: "d1",
     });
 
     if (typeof result === "string") {
@@ -63,17 +67,17 @@ export async function actionTemplate(ctx: Context) {
   let templateUrl: string;
 
   switch (ctx.template) {
-    case "base":
+    case "neon":
       templateUrl = ctx.useOpenAPI
-        ? "github:fiberplane/create-honc-app/templates/base-openapi"
-        : "github:fiberplane/create-honc-app/templates/base";
+        ? "github:fiberplane/create-honc-app/templates/neon-openapi"
+        : "github:fiberplane/create-honc-app/templates/neon";
       break;
-    case "base-supa":
+    case "supabase":
       templateUrl = ctx.useOpenAPI
-        ? "github:fiberplane/create-honc-app/templates/base-supa-openapi"
-        : "github:fiberplane/create-honc-app/templates/base-supa";
+        ? "github:fiberplane/create-honc-app/templates/supabase-openapi"
+        : "github:fiberplane/create-honc-app/templates/supabase";
       break;
-    case "sample-d1":
+    case "d1":
       templateUrl = ctx.useOpenAPI
         ? "github:fiberplane/create-honc-app/templates/d1-openapi"
         : "github:fiberplane/create-honc-app/templates/d1";
