@@ -47,7 +47,6 @@ export async function promptOpenAPI(ctx: Context) {
   const confirmOpenAPI = await confirm({
     message: "Do you need an OpenAPI spec?",
     initialValue: false,
-    active: "No",
   });
 
   if (typeof confirmOpenAPI === "boolean" && confirmOpenAPI) {
