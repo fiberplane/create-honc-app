@@ -1,6 +1,6 @@
 import { existsSync, readdirSync } from "node:fs";
-import type { ScaffoldedFiles } from "@/integrations/code-gen";
 import { confirm, log } from "@clack/prompts";
+import type { ScaffoldedFiles } from "@/integrations/code-gen";
 import type { Flags, Template } from "./types";
 import { getPackageManager } from "./utils";
 
