@@ -9,7 +9,7 @@ export interface Context {
   description?: string;
   template?: Template;
   useOpenAPI?: boolean;
-  database?: string;
+  database?: Template;
   flags: Flags;
   databaseConnectionString?: string;
 
