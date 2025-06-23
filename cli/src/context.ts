@@ -1,6 +1,6 @@
 import { existsSync, readdirSync } from "node:fs";
-import { confirm, log } from "@clack/prompts";
 import type { ScaffoldedFiles } from "@/integrations/code-gen";
+import { confirm, log } from "@clack/prompts";
 import type { Flags, Template } from "./types";
 import { getPackageManager } from "./utils";
 
@@ -134,18 +134,18 @@ function parseHatchFlag(args: string[]): string | boolean {
 
 /**
  * Parses the target directory from command line arguments.
- * 
+ *
  * @param args - An array of command line arguments.
  * @returns
  *   - `undefined` if the last argument isn't a directory path.
  *   - The relative target path as a `string`.
- * 
+ *
  * @description Checks if the last argument is a valid directory:
- * 
+ *
  * 1. If no arguments, or last argument is not a target directory, returns `undefined`.
  * 2. If last argument is invalid target (non-relative path), logs error and exits.
  * 3. If valid target exists but has contents, requests confirmation before continuing.
- * 
+ *
  * @example
  * parseTargetDirectory([]) // Returns `undefined`
  * parseTargetDirectory(["--any-flag"]) // Returns `undefined`
