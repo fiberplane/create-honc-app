@@ -2,6 +2,8 @@
 title: Cloudflare Workers
 description: Serverless runtime and deployment platform for HONC applications
 ---
+import { LinkCard } from '@astrojs/starlight/components';
+
 
 [Cloudflare Workers](https://workers.cloudflare.com/) provide a serverless runtime and deployment platform for building and scaling applications across Cloudflare's global network. Workers utilize edge runtime/deployment, which means your code runs on Cloudflare's edge network across 300+ locations worldwide.
 
@@ -15,10 +17,12 @@ Cloudflare handles the infrastructure and enables automatic scaling with excepti
 
 **Cons of Edge Runtime/Deployment:**
 - Limited runtime duration (CPU time caps)
+- Can add significant latency if database (or other connected ressources) are not colocated with the edge runtime
 - Restricted access to some Node.js APIs and features
 - Memory limitations compared to traditional servers
 
-Sign up for a [Cloudflare account](https://dash.cloudflare.com/sign-up).
+<LinkCard title="Sign up for a Cloudflare account" href="https://dash.cloudflare.com/sign-up" />
+
 
 In the HONC stack, Cloudflare Workers serve as a serverless runtime for backend applications, enabling serverless APIs, background jobs, scheduled tasks, and more.
 
