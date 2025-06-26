@@ -28,7 +28,10 @@ export default defineConfig({
         "get-started",
         {
           label: "The Stack",
-          items: [{ label: "Hono", slug: "stack/hono" }],
+          items: [
+            { label: "Hono", slug: "stack/hono" },
+            { label: "Cloudflare", slug: "stack/cloudflare" }
+          ],
         },
         {
           label: "Solutions",
