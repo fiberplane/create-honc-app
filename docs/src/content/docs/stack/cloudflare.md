@@ -113,7 +113,7 @@ Cloudflare provides AI capabilities that can be integrated into Workers:
   - Integration with major AI providers
 
 ## Local Development with Wrangler
-Cloudflare supports two main tools for [local development](https://developers.cloudflare.com/workers/development-testing/#local-development): Wrangler and Vite. Honc templates use Wrangler as the primary local development tool. Wrangler, which internally uses Miniflare, is particularly well-suited for backend worker applications. 
+Cloudflare supports two main tools for [local development](https://developers.cloudflare.com/workers/development-testing/#local-development): Wrangler and Vite. Honc templates use Wrangler as the primary local development tool.
 
 To start the local development server, HONC templates include a preconfigured script in the project's `package.json`:
 
