@@ -153,7 +153,7 @@ npx wrangler dev --x-remote-bindings
 
 ## Deploy with Wrangler
 
-Wrangler provides a CLI deployment workflow for managing Cloudflare Workers. The tool supports both manual deployments via CLI (using `wrangler deploy`) and continuous deployment integrations through platforms like GitHub Actions. Cloudflare maintains version history of deployments, which can be managed through the Cloudflare dashboard.
+Wrangler provides a CLI deployment workflow for managing Cloudflare Workers. The tool supports both manual deployments via CLI (using `wrangler deploy`) and continuous deployment integrations through platforms like [GitHub Actions](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/). Cloudflare maintains version history of deployments, which can be managed through the Cloudflare dashboard.
 
 To simplify the deployment process, HONC templates include a preconfigured deployment script in `package.json`:
 ```json, title="package.json"
