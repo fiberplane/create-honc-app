@@ -1,6 +1,8 @@
 ---
 title: Observability
 description: Monitoring app behavior, performance, and health.
+sidebar:
+  order: 5
 ---
 
 Observability is an important part of app development, maintenance, and sustainable scaling. It provides invaluable insight into both user behavior, and app stability and performance. Effective monitoring makes it easier to debug applications during development and in production. More importantly, it can help identify error-prone services or performance bottlenecks as apps scale.

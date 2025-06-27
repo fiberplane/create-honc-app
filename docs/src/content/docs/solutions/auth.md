@@ -1,6 +1,8 @@
 ---
 title: Auth
 description: Endpoint security for data APIs.
+sidebar:
+  order: 2
 ---
 
 Properly securing APIs is an essential part of developing any app exposed to the internet. Broadly speaking, “auth” workflows have two responsibilities:

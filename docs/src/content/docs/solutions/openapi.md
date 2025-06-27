@@ -1,6 +1,8 @@
 ---
 title: OpenAPI
 description: Documenting API behavior.
+sidebar:
+  order: 3
 ---
 
 Generating an [OpenAPI spec](https://swagger.io/specification/) is a fundamental requirement for most public APIs, and can be a valuable tool even for private backends. OpenAPI specs document APIs, making it easier for end-users to interact with them, and for larger teams to stay in sync.

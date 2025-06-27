@@ -1,6 +1,8 @@
 ---
 title: Testing
 description: Validating app logic with Hono's Test Client and Vitest.
+sidebar:
+  order: 4
 ---
 
 Testing is a critical step in developing resilient applications and delivering a smooth user experience. It helps flag changes that desynchronize coupled workflows, and can catch bugs before they get deployed to production. It can also feel complex and burdensome though. Tests often need to be updated when business logic is modified, and testing at all requires non-trivial infrastructure of its own.

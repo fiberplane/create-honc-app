@@ -1,6 +1,8 @@
 ---
 title: Validation
 description: Guarding against invalid requests with a type-safe boundary.
+sidebar:
+  order: 1
 ---
 
 Most backends need some kind of validation (and parsing) layer. In the simplest case, this ensures that request data conforms to the expected type and shape, though it may also be used to format or transform data after it’s passed over the wire. Dates, for example, are converted to strings and must be rehydrated on the server.
