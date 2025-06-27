@@ -1,0 +1,96 @@
+---
+title: Get Started
+description: Let HONC templates take care of the boilerplate.
+---
+
+import { TabItem, Tabs } from "@astrojs/starlight/components";
+
+
+Run the HONC template CLI to create a new project.
+
+```bash
+npm create honc-app@latest
+```
+
+During the setup process, you’ll be able to choose:
+  - From the three supported databases: Cloudflare D1, Neon, or Supabase
+  - Select whether to include OpenAPI spec generation
+
+All templates are set up to use TypeScript by default, and include [Biome.js](https://biomejs.dev/)—a formatting and linting solution that requires minimal configuration.
+
+## Databases
+
+If you choose the Neon or Supabase templates, create a database through their respective dashboards, and update your `.dev.vars` file with the `DATABASE_URL`. To run the test suite, you’ll also need to add some additional values:
+
+- **Neon:** Your project ID and API token.
+- **Supabase:** The URL for a dedicated testing database (created separately).
+
+The Cloudflare Vitest integration set up in the templates uses these values to connect to an isolated test database. The D1 template uses Miniflare to spin up test databases, so it’s ready to go out-of-box. For more information, refer to the HONC Testing docs.
+
+<Tabs>
+  <TabItem label="Neon">
+    ```sh
+    DATABASE_URL=""
+    NEON_PROJECT_ID=""
+    NEON_API_TOKEN=""
+    ```
+  </TabItem>
+  <TabItem label="Supabase">
+    ```sh
+    DATABASE_URL=""
+    TEST_DATABASE_URL=""
+    ```
+  </TabItem>
+</Tabs>
+
+Templates come preconfigured with a simple database schema. To see it in action, run the `db:setup` command, which will generate and apply migrations and seed the database.
+
+```bash
+# this is a convenience script that runs db:generate, db:migrate, and db:seed
+npm run db:setup
+```
+
+## Local Development
+
+Once you’ve set up the database, just run `dev` to spin up your app locally!
+
+```bash
+npm run dev
+```
+
+## Deployment
+
+To deploy your app, you must first [create a Cloudflare account](https://developers.cloudflare.com/fundamentals/account/create-account/), if you haven’t already. Then, create a production database and update your credentials.
+
+### With Cloudflare D1
+
+If you’re using a D1 database, you can [create a remote D1](https://developers.cloudflare.com/d1/get-started/#2-create-a-database) through the dashboard or via CLI. Then, update your `wrangler.toml` and `.prod.vars` file with the remote database name and ID.
+
+### With Other Databases
+
+Create a production database through the Neon or Supabase dashboard, and update the `DATABASE_URL` in your `.dev.vars` file.
+
+### Apply Migrations
+
+Then, run the migration command to apply migrations to your remote database.
+
+<Tabs>
+  <TabItem label="D1">
+    ```sh
+    npm run db:migrate:prod
+    ```
+  </TabItem>
+  <TabItem label="Neon + Supabase">
+    ```bash
+    npm run db:migrate
+    ```
+  </TabItem>
+</Tabs>
+
+### Deploy Worker
+
+Once your database is set up, run the `deploy` command to create a remote Worker.
+
+```bash
+npm run deploy
+```
