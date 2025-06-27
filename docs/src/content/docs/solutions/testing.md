@@ -155,12 +155,12 @@ import { applyD1Migrations, env } from "cloudflare:test";
 
 /**
  * Apply migrations written from file to test-only environment
- * varible in `vitest.config.ts`
+ * variable in `vitest.config.ts`
  */
 await applyD1Migrations(env.DB, env.TEST_MIGRATIONS);
 ```
 
-That’s it for configuration! Skip ahead to learn more about [writing tests with the Hono Test Client](https://www.notion.so/Testing-20eb6a0036a580a5a1c2ec781f12d5fd?pvs=21).
+That’s it for configuration! Skip ahead to learn more about [writing tests with the Hono Test Client](#hono-test-client).
 
 ### Other Databases
 

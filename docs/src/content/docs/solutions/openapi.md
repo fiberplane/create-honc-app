@@ -48,7 +48,7 @@ const ZUserSelect = z
 		name: z.string().openapi({
 			example: "Goose McCloud",
 		}),
-		email: name: z.string().email().openapi({
+		email: z.string().email().openapi({
 			example: "gmccloud@honc.dev",
 		}),
 	})

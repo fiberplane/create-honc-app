@@ -27,7 +27,7 @@ import { validator } from "hono/validator";
 	validator("json", async (value, c) => {
 		if (!data || typeof data !== "object") {
 			// You can directly return an error response
-      return c.text(400, "Invalid Payload");
+      return c.text("Invalid Payload", 400);
     }
     
     const { email, name } = data;

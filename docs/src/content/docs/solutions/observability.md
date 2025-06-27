@@ -24,7 +24,7 @@ By default, Worker logs can be viewed in the Cloudflare dashboard, but they can 
 
 ### Basic logging with Hono
 
-Hono comes with a basic [`logger` middleware](https://hono.dev/docs/middleware/builtin/logger) that can be helpful for small apps or in the early stages of development. It prints a log rat request start and end, including the path, method, status, and request time.
+Hono comes with a basic [`logger` middleware](https://hono.dev/docs/middleware/builtin/logger) that can be helpful for small apps or in the early stages of development. It prints a log at request start and end, including the path, method, status, and request time.
 
 ```tsx
 import { Hono } from "hono";
@@ -71,10 +71,9 @@ await configure({
 const logger = getLogger(["my-app"]);
 
 const app = new Hono()
-	.get("/", {
+	.get("/", (c) => {
 		const path = c.req.path;
 	
-		// logger.debug `Hello from ${path}`;
 		logger.debug("Hello from {path}!", { path });
 		
 		return c.text("HONC!");

@@ -51,7 +51,7 @@ Once the database is set up, you can access it throughout your Hono app via [Clo
 
 [Hono exposes bindings](https://hono.dev/docs/getting-started/cloudflare-workers#bindings) via the [`env` property on the request `Context` object](https://hono.dev/docs/api/context#env). To keep `Context` typing in sync with your bindings, you can pass the `Bindings` types as a generic to Hono app instances or middleware.
 
-In the interest of clarity, HONC templates do so manually, but this can be fragile. A more type-safe approach is to run `wrangler types`, which generates a global `Env` type based on your `wrangler.toml`. If you choose this approach though, remember to re-run the command each time you update the configuration though!
+In the interest of clarity, HONC templates do so manually, but this can be fragile. A more type-safe approach is to run `wrangler types`, which generates a global `Env` type based on your `wrangler.toml`. If you choose this approach, remember to re-run the command each time you update the configuration!
 
 > Cloudflare’s `Env` type shouldn’t be confused with Hono’s `Env`, which is the first generic argument that Hono instances and middleware accept.
 > 
@@ -116,6 +116,9 @@ That’s it! Your database is now live. If you don’t have any other remote bin
 
 Its quality-of-life features, free database branching, and native support for database transactions make it a great option—especially if Postgres is a requirement. Going outside the Cloudflare ecosystem may introduce some additional latency though, especially since it makes colocating databases with Workers more difficult.
 
+> Cloudflare’s [Hyperdrive](https://developers.cloudflare.com/hyperdrive/) can mitigate some of this latency by pooling connections and caching common query results.
+>
+
 ### Getting Started
 
 Since Neon databases run on proprietary infrastructure independent of the Cloudflare ecosystem, [local development with Neon](https://neon.tech/guides/local-development-with-neon) requires [Docker](https://www.docker.com/get-started/) to set up a local Postgres database and the Neon proxy.
@@ -169,6 +172,9 @@ That’s it! Your database is now live. The next step is to deploy your Worker s
 Supabase is a [comprehensive Postgres development platform](https://supabase.com/database). In addition to a managed database, it also provides storage, a user management system, edge functions, and a real-time client. This makes Supabase a great alternative to Firestore, but also means that it has a pricing and development model that may be sub-optimal if you just need a database.
 
 Two notable limitations are that Supabase doesn’t offer free branching, and transactions are only supported via [Database Functions](https://supabase.com/docs/guides/database/functions). Going outside the Cloudflare ecosystem may also introduce some additional latency, especially since it makes colocating databases with Workers more difficult.
+
+> Cloudflare’s [Hyperdrive](https://developers.cloudflare.com/hyperdrive/) can mitigate some of this latency by pooling connections and caching common query results.
+>
 
 ### Getting Started
 
