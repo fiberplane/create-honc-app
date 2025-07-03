@@ -1,5 +1,3 @@
-import { existsSync, readdirSync } from "node:fs";
-import { confirm, log } from "@clack/prompts";
 import type { ScaffoldedFiles } from "@/integrations/code-gen";
 import type { Flags, Template } from "./types";
 import { getPackageManager } from "./utils";
@@ -7,6 +5,7 @@ import { getPackageManager } from "./utils";
 export interface Context {
   cwd: string;
   packageManager: string;
+  name: string;
   path?: string;
   description?: string;
   template?: Template;
@@ -63,15 +62,15 @@ export interface Context {
   hatchValue: string | boolean;
 }
 
-export async function initContext(): Promise<Context> {
-  const target = await parseTargetDirectory(process.argv);
+export function initContext(): Context {
+  const projectName = parseProjectName(process.argv);
 
   const hatchValue = parseHatchFlag(process.argv);
   const flags: Flags = hatchValue ? ["hatch"] : [];
 
   return {
     cwd: process.cwd(),
-    path: target,
+    name: projectName ?? 'honc-app',
     packageManager: getPackageManager() ?? "npm",
     flags,
 
@@ -132,52 +131,12 @@ function parseHatchFlag(args: string[]): string | boolean {
   return true;
 }
 
-/**
- * Parses the target directory from command line arguments.
- *
- * @param args - An array of command line arguments.
- * @returns
- *   - `undefined` if the last argument isn't a directory path.
- *   - The relative target path as a `string`.
- *
- * @description Checks if the last argument is a valid directory:
- *
- * 1. If no arguments, or last argument is not a target directory, returns `undefined`.
- * 2. If last argument is invalid target (non-relative path), logs error and exits.
- * 3. If valid target exists but has contents, requests confirmation before continuing.
- *
- * @example
- * parseTargetDirectory([]) // Returns `undefined`
- * parseTargetDirectory(["--any-flag"]) // Returns `undefined`
- * parseTargetDirectory(["/invalid-target"]) // Logs error and exits
- * parseTargetDirectory(["./valid-target", "--any-flag"]) // Returns `undefined`
- * parseTargetDirectory(["./valid-target"]) // Returns "./valid-target"
- * parseTargetDirectory(["--any-flag", "./valid-target"]) // Returns "./valid-target"
- */
-async function parseTargetDirectory(args: string[]) {
-  const target = args.at(-1);
-
-  // `.js` check ignores `process.execPath`
-  // https://nodejs.org/docs/latest/api/process.html#processargv
-  if (!target || target.startsWith("-") || target.endsWith(".js")) {
+function parseProjectName(args: string[]) {
+  const projectName = args.at(2);
+  
+  if (!projectName || projectName.startsWith("-")) {
     return undefined;
   }
 
-  if (target[0] !== ".") {
-    log.error("Please enter a relative path.");
-    process.exit(1);
-  }
-
-  if (existsSync(target) && readdirSync(target).length > 0) {
-    const confirmation = await confirm({
-      message: "Target directory isn't empty. Continue?",
-      initialValue: false,
-    });
-
-    if (!confirmation) {
-      process.exit(1);
-    }
-  }
-
-  return target;
+  return projectName;
 }

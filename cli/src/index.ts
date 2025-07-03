@@ -40,12 +40,10 @@ async function main() {
 
   // If the hatch flag is present but without a value, we should prompt for a description
   const shouldPromptDescription = context.hatchValue === true;
-  // If target path not included in CLI args, we should prompt for a path
-  const shouldPromptPath = !context.path;
 
   const prompts = [
     shouldPromptDescription ? promptDescription : undefined,
-    shouldPromptPath ? promptPath : undefined,
+    promptPath,
     promptTemplate,
     promptOpenAPI,
     promptDatabase,
