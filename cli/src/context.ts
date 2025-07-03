@@ -136,7 +136,7 @@ function parseHatchFlag(args: string[]): string | boolean {
  * @param args - An array of command line arguments.
  * @returns The `string` project name if matched, or `undefined`
  */
-function parseProjectName(args: string[]) {
+function parseProjectName(args: string[]): string | undefined {
   const projectName = args.at(2);
 
   if (!projectName || projectName.startsWith("-")) {
