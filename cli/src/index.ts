@@ -30,7 +30,7 @@ async function main() {
 
   intro("🪿 create-honc-app");
 
-  const context = await initContext();
+  const context = initContext();
 
   // If the hatch flag is present, we should use its value
   const shouldHatch = typeof context.hatchValue === "string";
