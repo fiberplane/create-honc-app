@@ -70,7 +70,7 @@ export function initContext(): Context {
 
   return {
     cwd: process.cwd(),
-    name: projectName ?? 'honc-app',
+    name: projectName ?? "honc-app",
     packageManager: getPackageManager() ?? "npm",
     flags,
 
@@ -131,9 +131,14 @@ function parseHatchFlag(args: string[]): string | boolean {
   return true;
 }
 
+/**
+ * Checks first (non-system) argument for existence, ignoring flags
+ * @param args - An array of command line arguments.
+ * @returns The `string` project name if matched, or `undefined`
+ */
 function parseProjectName(args: string[]) {
   const projectName = args.at(2);
-  
+
   if (!projectName || projectName.startsWith("-")) {
     return undefined;
   }

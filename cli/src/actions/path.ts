@@ -1,7 +1,7 @@
 import { existsSync, readdirSync } from "node:fs";
 import { isAbsolute, parse } from "node:path";
-import { confirm, text } from "@clack/prompts";
 import type { Context } from "@/context";
+import { confirm, text } from "@clack/prompts";
 
 export async function promptPath(ctx: Context) {
   try {
@@ -14,19 +14,19 @@ export async function promptPath(ctx: Context) {
         if (value === "") {
           return undefined;
         }
-        
+
         if (isAbsolute(value)) {
           return "Please enter a relative path.";
         }
 
         if (parse(value).ext) {
-          return "Please enter a directory path."
+          return "Please enter a directory path.";
         }
 
         if (/[<>:"|?*]/.test(value) || /^\s+$/.test(value)) {
-          return "Please enter a valid path."
+          return "Please enter a valid path.";
         }
-        
+
         return undefined;
       },
     });
