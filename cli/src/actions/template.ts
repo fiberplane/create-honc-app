@@ -52,6 +52,8 @@ export async function promptOpenAPI(ctx: Context) {
   if (typeof confirmOpenAPI === "boolean" && confirmOpenAPI) {
     ctx.useOpenAPI = confirmOpenAPI;
   }
+
+  return confirmOpenAPI;
 }
 
 export async function actionTemplate(ctx: Context) {
