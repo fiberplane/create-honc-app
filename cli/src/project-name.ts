@@ -1,7 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Context } from "./context";
-import { getProjectName } from "./utils";
 
 /**
  * Update the project name in the package.json and wrangler.toml files.
@@ -10,14 +9,11 @@ import { getProjectName } from "./utils";
  */
 export function updateProjectName(context: Context): void {
   if (!context.path) {
+    // This condition should never pass
     return;
   }
 
-  const projectName = getProjectName(context.path);
-  if (!projectName) {
-    return;
-  }
-
+  const projectName = context.name;
   const projectDir = join(context.cwd, context.path);
 
   // Update package.json
