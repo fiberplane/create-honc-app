@@ -1,8 +1,8 @@
 import { existsSync, readdirSync } from "node:fs";
 import { isAbsolute, parse } from "node:path";
-import { confirm, text } from "@clack/prompts";
 import type { Context } from "@/context";
 import { handleCancel } from "@/utils";
+import { confirm, text } from "@clack/prompts";
 
 export async function promptPath(ctx: Context) {
   try {
