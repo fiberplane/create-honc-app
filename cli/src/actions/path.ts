@@ -43,6 +43,11 @@ export async function promptPath(ctx: Context) {
         initialValue: false,
       });
 
+      if (typeof confirmation === "symbol") {
+        // Process cancelled or aborted
+        return result;
+      }
+
       if (!confirmation) {
         handleCancel();
       }
