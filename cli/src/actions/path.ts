@@ -1,7 +1,8 @@
 import { existsSync, readdirSync } from "node:fs";
 import { isAbsolute, parse } from "node:path";
-import type { Context } from "@/context";
 import { confirm, text } from "@clack/prompts";
+import type { Context } from "@/context";
+import { handleCancel } from "@/utils";
 
 export async function promptPath(ctx: Context) {
   try {
@@ -43,7 +44,7 @@ export async function promptPath(ctx: Context) {
       });
 
       if (!confirmation) {
-        process.exit(1);
+        handleCancel();
       }
     }
 
