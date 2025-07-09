@@ -2,7 +2,6 @@ import { spawn } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { cancel, log } from "@clack/prompts";
 import { CANCEL_MESSAGE } from "./const";
-import { CodeGenError } from "./types";
 
 export function getPackageManager() {
   return process.env.npm_config_user_agent?.split("/").at(0);
@@ -32,25 +31,18 @@ export async function runShell(cwd: string, commands: string[]): Promise<void> {
   });
 }
 
-export function handleError(error: Error | CodeGenError) {
-  if (error instanceof CodeGenError) {
-    log.warn(
-      `Could not scaffold project according to your description\n(error: ${error.message})`,
+export function handleError(error: Error) {
+  log.error(`exiting with an error: ${error.message}`);
+  // HACK - Allow us to log the error in more depth if `CHA_LOG_LEVEL` is set to `debug`
+  if (process?.env?.CHA_LOG_LEVEL === "debug") {
+    console.error("\n\n*********LOGGING VERBOSE ERROR*********\n");
+    console.error(error);
+    console.error(
+      "\n\n*********LOGGING VERBOSE ERROR AGAIN, BUT AS JSON*********\n",
     );
-    log.info("Continuing...");
-  } else {
-    log.error(`exiting with an error: ${error.message}`);
-    // HACK - Allow us to log the error in more depth if `CHA_LOG_LEVEL` is set to `debug`
-    if (process?.env?.CHA_LOG_LEVEL === "debug") {
-      console.error("\n\n*********LOGGING VERBOSE ERROR*********\n");
-      console.error(error);
-      console.error(
-        "\n\n*********LOGGING VERBOSE ERROR AGAIN, BUT AS JSON*********\n",
-      );
-      console.error(JSON.stringify(error, null, 2));
-    }
-    process.exit(1);
+    console.error(JSON.stringify(error, null, 2));
   }
+  process.exit(1);
 }
 
 export function handleCancel() {
