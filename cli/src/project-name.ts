@@ -1,8 +1,8 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { parse } from "node:path";
 import { join } from "node:path";
-import type { Context } from "./context";
 import { PROJECT_NAME } from "./const";
+import type { Context } from "./context";
 
 /**
  * Update the project name in the package.json and wrangler.toml files.
@@ -15,10 +15,9 @@ export function updateProjectName(context: Context): void {
     return;
   }
 
-  const projectName = context.name === PROJECT_NAME
-    ? parse(context.path).name
-    : context.name;
-  
+  const projectName =
+    context.name === PROJECT_NAME ? parse(context.path).name : context.name;
+
   const projectDir = join(context.cwd, context.path);
 
   // Update package.json
@@ -55,6 +54,6 @@ export function upperFirst(text: string | undefined) {
   if (!text) {
     return text;
   }
-  
+
   return text[0].toUpperCase() + text.slice(1);
 }
