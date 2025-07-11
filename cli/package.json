@@ -7,7 +7,6 @@
     "build": "pnpm clean && tsup",
     "dev": "tsup --watch && node dist/index.js",
     "dev:target": "tsup --watch --onSuccess 'node dist/index.js test-name'",
-    "dev:hatch": "tsup --watch --onSuccess 'node dist/index.js --hatch'",
     "format": "biome format . --write",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",

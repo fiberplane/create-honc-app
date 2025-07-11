@@ -1,8 +1,8 @@
 import { existsSync, readdirSync } from "node:fs";
 import { isAbsolute, parse } from "node:path";
-import { confirm, text } from "@clack/prompts";
 import type { Context } from "@/context";
 import { handleCancel } from "@/utils";
+import { confirm, text } from "@clack/prompts";
 
 export async function promptPath(ctx: Context) {
   try {
@@ -42,6 +42,11 @@ export async function promptPath(ctx: Context) {
         message: "Target directory isn't empty. Continue?",
         initialValue: false,
       });
+
+      if (typeof confirmation === "symbol") {
+        // Process cancelled or aborted
+        return result;
+      }
 
       if (!confirmation) {
         handleCancel();
