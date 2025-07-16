@@ -7,14 +7,12 @@ import {
 } from "@/actions/template";
 import { intro, isCancel, outro } from "@clack/prompts";
 import pico from "picocolors";
-import { actionCodeGenFinish, actionCodeGenStart } from "./actions/code-gen";
 import {
   actionDatabase,
   getDatabasePreamble,
   promptDatabase,
 } from "./actions/database";
 import { actionDependencies, promptDependencies } from "./actions/dependencies";
-import { promptDescription } from "./actions/description";
 import { actionGit, promptGit } from "./actions/git";
 import { HONC_TITLE } from "./const";
 import { initContext } from "./context";
@@ -32,17 +30,7 @@ async function main() {
 
   const context = initContext();
 
-  // If the hatch flag is present, we should use its value
-  const shouldHatch = typeof context.hatchValue === "string";
-  if (shouldHatch) {
-    // TODO - Implement hatching
-  }
-
-  // If the hatch flag is present but without a value, we should prompt for a description
-  const shouldPromptDescription = context.hatchValue === true;
-
   const prompts = [
-    shouldPromptDescription ? promptDescription : undefined,
     promptPath,
     promptTemplate,
     promptOpenAPI,
@@ -68,11 +56,9 @@ async function main() {
 
   const actions = [
     actionTemplate,
-    actionCodeGenStart,
     actionDatabase,
     actionDependencies,
     actionGit,
-    actionCodeGenFinish,
   ];
 
   for (const action of actions) {

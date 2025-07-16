@@ -8,3 +8,5 @@ export const HONC_TITLE = `
 `;
 
 export const CANCEL_MESSAGE = "create-honc-app cancelled! goosebye 🪿";
+
+export const PROJECT_NAME = "honc-app";
