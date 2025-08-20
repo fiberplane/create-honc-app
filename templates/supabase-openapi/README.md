@@ -1,6 +1,6 @@
 ## 🪿 HONC
 
-This is a project created with the `create-honc-app` template. 
+This is a project created with the `create-honc-app` template.
 
 Learn more about the HONC stack on the [website](https://honc.dev) or the main [repo](https://github.com/fiberplane/create-honc-app).
 
