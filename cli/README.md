@@ -54,3 +54,11 @@ If you're inclined to deploy the app to the wild wild internet, you can do so as
 ```sh
 npm run deploy
 ```
+
+## More resources
+
+Check out our docs at [honc.dev](https://honc.dev/)!
+
+See the [examples](/examples) folder for some sample APIs.
+
+We have an [Awesome HONC repository](https://github.com/fiberplane/awesome-honc) with further guides, use cases and examples.
