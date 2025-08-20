@@ -16,16 +16,15 @@ Create a Neon account and database if you haven't already, then add your databas
 DATABASE_URL="postgresql://username:password@hostname.us-east-2.aws.neon.tech/databaseName?sslmode=require"
 ```
 
-Create the database, generate and apply migrations, and (optionally) seed the database:
+Generate and apply migrations, and (optionally) seed the database:
 
 ```sh
-npm run db:touch    # Create the database
 npm run db:generate # Generate migration files
 npm run db:migrate  # Apply migrations to (local) database
 npm run db:seed     # Seed the (local) database with random data
 ```
 
-Or just run `db:setup` to execute all four scripts!
+Or just run `db:setup` to execute all three scripts!
 
 Run the development server:
 

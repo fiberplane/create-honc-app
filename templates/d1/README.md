@@ -69,7 +69,7 @@ npm run lint && npm run format
 
 ### Testing
 
-This template comes with Vitest set up, and example tests to validate endpoints in `index.ts`. Remember to create a db and apply migrations before running tests (e.g., by running `db:setup`)!
+This template comes with Vitest set up, and example tests to validate endpoints in `index.ts`.
 
 To execute tests, run:
 
@@ -78,6 +78,8 @@ npm run test
 ```
 
 Note that the `/tests` directory includes required module declaration and `setup` files.
+
+The `setup` file applies migrations to an isolated test-specific local D1 instance that `@cloudflare/vitest-pool-workers` creates automatically.
 
 ### Deploying
 
