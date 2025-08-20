@@ -6,9 +6,6 @@ import * as schema from "./src/db/schema";
 
 seedDatabase();
 
-/**
- * Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
- */
 async function seedDatabase() {
   try {
     if (process.env.ENVIRONMENT === "production") {
@@ -27,6 +24,7 @@ async function seedDatabase() {
       casing: "snake_case",
     });
 
+    // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
     await seed(db, schema);
     console.log("✅ Database seeded successfully!");
   } catch (error) {
