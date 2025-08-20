@@ -15,7 +15,7 @@ export function getLocalD1DbPath() {
   const databaseName = d1_databases.at(0)?.database_id;
 
   if (!databaseName) {
-    throw new Error();
+    throw new Error('Could not resolve local D1 DB path: No local D1 DB found.\nTry running `npm run db:touch` to create one.');
   }
 
   const uniqueKey = "miniflare-D1DatabaseObject";
