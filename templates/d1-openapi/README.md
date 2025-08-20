@@ -85,6 +85,8 @@ Note that the `/tests` directory includes required module declaration and `setup
 
 The `setup` file applies migrations to an isolated test-specific local D1 instance that `@cloudflare/vitest-pool-workers` creates automatically.
 
+Run `wrangler types` to get type-safe access to environment variables in setup files.
+
 ### Deploying
 
 Before deploying your worker to Cloudflare, ensure that you have a running D1 instance on Cloudflare to connect your worker to.

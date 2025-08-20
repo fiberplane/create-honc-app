@@ -86,6 +86,8 @@ Note that the `/tests` directory includes required module declaration and `setup
 
 The `setup` file connects to the `TEST_DATABASE_URL` set in your environment variables. It is not isolated, but the example test suite is "self-cleaning".
 
+Run `wrangler types` to get type-safe access to environment variables in setup files.
+
 ### Deploying
 
 Add your production `DATABASE_URL` (and any other production secrets) to a `.prod.vars` file:

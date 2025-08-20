@@ -91,6 +91,8 @@ Note that the `/tests` directory includes required module declaration and `setup
 
 The `setup` file spins up and tears down an isolated test database branch for each test run. The primary Neon database is used for convenience, but in practice test branches should be branched from a dedicated testing database branch to avoid leaking user data.
 
+Run `wrangler types` to get type-safe access to environment variables in setup files.
+
 ### Deploying
 
 Add your production `DATABASE_URL` (and any other production secrets) to a `.prod.vars` file:
