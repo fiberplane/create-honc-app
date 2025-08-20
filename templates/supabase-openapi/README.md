@@ -81,6 +81,8 @@ First, add your test database URL to your `.dev.vars` file:
 TEST_DATABASE_URL=""
 ```
 
+To execute tests, run:
+
 ```sh
 npm run test
 ```

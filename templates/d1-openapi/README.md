@@ -145,5 +145,3 @@ Finally, deploy your worker:
 ```shell 
 npm run deploy
 ```
-
-

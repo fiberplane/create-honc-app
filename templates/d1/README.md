@@ -79,7 +79,6 @@ npm run test
 
 Note that the `/tests` directory includes required module declaration and `setup` files.
 
-
 ### Deploying
 
 Before deploying your worker to Cloudflare, ensure that you have a running D1 instance on Cloudflare to connect your worker to.
