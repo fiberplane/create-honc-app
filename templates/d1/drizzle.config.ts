@@ -1,11 +1,22 @@
-import fs from "node:fs";
-import path from "node:path";
 import { config } from "dotenv";
 import { defineConfig } from "drizzle-kit";
+import { getLocalD1DbPath } from "./drizzle/local";
 
 let dbConfig: ReturnType<typeof defineConfig>;
+
 if (process.env.ENVIRONMENT === "production") {
   config({ path: "./.prod.vars" });
+
+  const apiToken = process.env.CLOUDFLARE_D1_TOKEN;
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  const databaseId = process.env.CLOUDFLARE_DATABASE_ID;
+
+  if (!apiToken || !accountId || !databaseId) {
+    throw new Error(
+      "Database seed failed: production environment variables not set (make sure you have a .prod.vars file)",
+    );
+  }
+
   dbConfig = defineConfig({
     schema: "./src/db/schema.ts",
     out: "./drizzle/migrations",
@@ -13,17 +24,15 @@ if (process.env.ENVIRONMENT === "production") {
     driver: "d1-http",
     casing: "snake_case",
     dbCredentials: {
-      accountId: process.env.CLOUDFLARE_ACCOUNT_ID ?? "",
-      databaseId: process.env.CLOUDFLARE_DATABASE_ID ?? "",
-      token: process.env.CLOUDFLARE_D1_TOKEN ?? "",
+      accountId,
+      databaseId,
+      token: apiToken,
     },
   });
 } else {
   config({ path: "./.dev.vars" });
-  const localD1DB = getLocalD1DB();
-  if (!localD1DB) {
-    process.exit(1);
-  }
+
+  const localDbPath = getLocalD1DbPath();
 
   dbConfig = defineConfig({
     schema: "./src/db/schema.ts",
@@ -31,40 +40,9 @@ if (process.env.ENVIRONMENT === "production") {
     dialect: "sqlite",
     casing: "snake_case",
     dbCredentials: {
-      url: localD1DB,
+      url: localDbPath,
     },
   });
 }
 
 export default dbConfig;
-
-function getLocalD1DB() {
-  try {
-    const basePath = path.resolve(".wrangler", "state", "v3", "d1");
-    const files = fs
-      .readdirSync(basePath, { encoding: "utf-8", recursive: true })
-      .filter((f) => f.endsWith(".sqlite"));
-
-    // In case there are multiple .sqlite files, we want the most recent one.
-    files.sort((a, b) => {
-      const statA = fs.statSync(path.join(basePath, a));
-      const statB = fs.statSync(path.join(basePath, b));
-      return statB.mtime.getTime() - statA.mtime.getTime();
-    });
-    const dbFile = files[0];
-
-    if (!dbFile) {
-      throw new Error(`.sqlite file not found in ${basePath}`);
-    }
-
-    const url = path.resolve(basePath, dbFile);
-
-    return url;
-  } catch (err) {
-    if (err instanceof Error) {
-      console.log(`Error resolving local D1 DB: ${err.message}`);
-    } else {
-      console.log(`Error resolving local D1 DB: ${err}`);
-    }
-  }
-}
