@@ -4,7 +4,11 @@ import { seed } from "drizzle-seed";
 import postgres from "postgres";
 import * as schema from "./src/db/schema";
 
-config({ path: ".dev.vars" });
+if (process.env.ENVIRONMENT === "production") {
+  config({ path: "./.prod.vars" });
+} else {
+  config({ path: "./.dev.vars" });
+}
 
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) {
