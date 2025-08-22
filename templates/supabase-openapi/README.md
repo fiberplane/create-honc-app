@@ -6,7 +6,7 @@ Learn more about the HONC stack on the [website](https://honc.dev) or the main [
 
 > There is also an [Awesome HONC collection](https://github.com/fiberplane/awesome-honc) with further guides, use cases and examples.
 
-This template uses a remote [Supabase](https://supabase.com/) (postgres) database for both local development and deployment. Check out our docs learn more about [working with Supabase databases](https://docs.honc.dev/stack/databases/#supabase)!
+This template uses a remote [Supabase](https://supabase.com/) (postgres) database for both local development and deployment. Check out our docs to learn more about [working with Supabase databases](https://docs.honc.dev/stack/databases/#supabase)!
 
 ### Getting started
 

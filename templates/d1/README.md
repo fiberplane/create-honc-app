@@ -6,7 +6,7 @@ Learn more about the HONC stack on the [website](https://honc.dev) or the main [
 
 > There is also an [Awesome HONC collection](https://github.com/fiberplane/awesome-honc) with further guides, use cases and examples.
 
-This template uses a [Cloudflare D1](https://developers.cloudflare.com/d1) (sqlite) database. Running HONC with a D1 database involves two key steps: first, setting up the project locally, and second, deploying it in production. You can spin up your D1 database locally using Wrangler. If you're planning to deploy your application for production use, ensure that you have created a D1 instance in your Cloudflare account. Check out our docs learn more about [working with D1 databases](https://docs.honc.dev/stack/databases/#cloudflare-d1)!
+This template uses a [Cloudflare D1](https://developers.cloudflare.com/d1) (sqlite) database. Running HONC with a D1 database involves two key steps: first, setting up the project locally, and second, deploying it in production. You can spin up your D1 database locally using Wrangler. If you're planning to deploy your application for production use, ensure that you have created a D1 instance in your Cloudflare account. Check out our docs to learn more about [working with D1 databases](https://docs.honc.dev/stack/databases/#cloudflare-d1)!
 
 ### Getting started
 

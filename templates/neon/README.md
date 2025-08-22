@@ -6,7 +6,7 @@ Learn more about the HONC stack on the [website](https://honc.dev) or the main [
 
 > There is also an [Awesome HONC collection](https://github.com/fiberplane/awesome-honc) with further guides, use cases and examples.
 
-This template uses a remote [Neon](https://neon.com/) (postgres) database for both local development and deployment. You can use Neon [database branches](https://neon.com/branching) to create isolated databases for each. Check out our docs learn more about [working with Neon databases](https://docs.honc.dev/stack/databases/#neon)!
+This template uses a remote [Neon](https://neon.com/) (postgres) database for both local development and deployment. You can use Neon [database branches](https://neon.com/branching) to create isolated databases for each. Check out our docs to learn more about [working with Neon databases](https://docs.honc.dev/stack/databases/#neon)!
 
 ### Getting started
 
