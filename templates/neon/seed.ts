@@ -4,26 +4,28 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { seed } from "drizzle-seed";
 import * as schema from "./src/db/schema";
 
-config({ path: ".dev.vars" });
-
-const DATABASE_URL = process.env.DATABASE_URL;
-if (!DATABASE_URL) {
-  throw new Error("Missing Environment Variable: DATABASE_URL");
-}
-
-const client = neon(DATABASE_URL);
-const db = drizzle(client, {
-  casing: "snake_case",
-});
+seedDatabase();
 
 async function seedDatabase() {
-  // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
-  await seed(db, schema);
-}
-
-async function main() {
   try {
-    await seedDatabase();
+    if (process.env.ENVIRONMENT === "production") {
+      config({ path: "./.prod.vars" });
+    } else {
+      config({ path: "./.dev.vars" });
+    }
+
+    const DATABASE_URL = process.env.DATABASE_URL;
+    if (!DATABASE_URL) {
+      throw new Error("Missing Environment Variable: DATABASE_URL");
+    }
+
+    const client = neon(DATABASE_URL);
+    const db = drizzle(client, {
+      casing: "snake_case",
+    });
+
+    // Read more about seeding here: https://orm.drizzle.team/docs/seed-overview#drizzle-seed
+    await seed(db, schema);
     console.log("✅ Database seeded successfully!");
   } catch (error) {
     console.error("❌ Error during seeding:", error);
@@ -32,4 +34,3 @@ async function main() {
     process.exit(0);
   }
 }
-main();
