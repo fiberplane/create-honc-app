@@ -1,0 +1,44 @@
+{
+  "name": "create-fiberplane",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "An interactive CLI to create MCP (Model Context Protocol) projects with Fiberplane",
+  "scripts": {
+    "build": "pnpm clean && tsup",
+    "dev": "tsup --watch && node dist/index.js",
+    "dev:target": "tsup --watch --onSuccess 'node dist/index.js test-name'",
+    "format": "biome format . --write",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "clean:test-apps": "rimraf test-apps/* && touch test-apps/.gitkeep"
+  },
+  "exports": "./dist/index.js",
+  "files": ["dist", "README.md", "LICENSE", ".gitignore"],
+  "bin": {
+    "create-fiberplane": "dist/index.js"
+  },
+  "author": "Fiberplane<info@fiberplane.com>",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/fiberplane/create-honc-app",
+    "type": "git"
+  },
+  "dependencies": {
+    "@clack/core": "^0.3.4",
+    "@clack/prompts": "^0.7.0",
+    "giget": "^1.2.3",
+    "open": "^10.1.0",
+    "picocolors": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.2.0",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.2.3"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
