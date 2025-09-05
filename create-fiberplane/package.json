@@ -7,6 +7,7 @@
     "build": "pnpm clean && tsup",
     "dev": "tsup --watch --onSuccess 'node dist/index.js'",
     "dev:target": "tsup --watch --onSuccess 'node dist/index.js test-name'",
+    "test:auth": "tsx test-auth.ts",
     "format": "biome format . --write",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
@@ -26,6 +27,7 @@
   "dependencies": {
     "@clack/core": "^0.3.4",
     "@clack/prompts": "^0.7.0",
+    "@oslojs/oauth2": "^0.5.0",
     "giget": "^1.2.3",
     "open": "^10.1.0",
     "picocolors": "^1.0.1"
@@ -33,7 +35,8 @@
   "devDependencies": {
     "@types/node": "^22.2.0",
     "rimraf": "^6.0.1",
-    "tsup": "^8.2.3"
+    "tsup": "^8.2.3",
+    "tsx": "^4.19.2"
   },
   "engines": {
     "node": ">=18.17.0"
