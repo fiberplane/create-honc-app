@@ -3,6 +3,7 @@ import { existsSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import pico from "picocolors";
 import type { Context } from "../../context";
+import { AGENTS_MD, FIBERPLANE_MCP_URL } from "./constants";
 
 export async function actionClaudeCode(context: Context) {
   if (!context.path) {
@@ -20,23 +21,9 @@ export async function actionClaudeCode(context: Context) {
     if (!existsSync(mcpJsonPath)) {
       const mcpConfig = {
         mcpServers: {
-          context7: {
+          fiberplane: {
             type: "http",
-            url: "https://mcp.context7.com/mcp",
-          },
-          playwright: {
-            type: "stdio",
-            command: "npx",
-            args: ["@playwright/mcp@latest"],
-            env: {},
-          },
-          notion: {
-            type: "http",
-            url: "https://mcp.notion.com/mcp",
-          },
-          linear: {
-            type: "http",
-            url: "https://mcp.linear.app/mcp",
+            url: FIBERPLANE_MCP_URL,
           },
         },
       };
@@ -46,48 +33,7 @@ export async function actionClaudeCode(context: Context) {
 
     // Create CLAUDE.md if it doesn't exist
     if (!existsSync(claudePath)) {
-      const claudeContent = `# Claude Code Configuration
-
-This file contains configuration and documentation for Claude Code integration in your MCP project.
-
-## MCP Server Configuration
-
-The \`.mcp.json\` file configures the Model Context Protocol servers available to Claude Code:
-
-### Available Servers
-
-- **Context7**: General-purpose context server
-- **Playwright**: Browser automation and testing
-- **Notion**: Notion workspace integration
-- **Linear**: Linear project management integration
-
-## Usage
-
-1. Ensure your \`.mcp.json\` file is properly configured
-2. Claude Code will automatically detect and use the MCP servers
-3. Use the MCP capabilities within Claude Code for enhanced functionality
-
-## Custom MCP Servers
-
-To add your own MCP server:
-
-\`\`\`json
-{
-  "mcpServers": {
-    "your-server": {
-      "type": "http",
-      "url": "https://your-mcp-server.com/mcp"
-    }
-  }
-}
-\`\`\`
-
-## Development
-
-- Test your MCP servers locally before adding to production
-- Document any custom MCP capabilities in this file
-- Keep server URLs up to date
-`;
+      const claudeContent = AGENTS_MD;
 
       writeFileSync(claudePath, claudeContent);
     }
@@ -97,13 +43,11 @@ To add your own MCP server:
     note(`${pico.cyan("Claude Code setup complete!")}
     
 ${pico.dim("Created:")}
-• .mcp.json - MCP server configuration for Claude Code
-• CLAUDE.md - Claude Code integration documentation
+• CLAUDE.md
+• .mcp.json with Fiberplane MCP server
 
-${pico.dim("Next steps:")}
-• Configure your MCP server endpoints in .mcp.json
-• Test MCP integration with Claude Code
-• Document custom capabilities in CLAUDE.md`);
+Claude Code is ready to use Fiberplane.
+`);
   } catch (error) {
     s.stop(`${pico.red("✗")} Failed to set up Claude Code configuration`);
     throw error;

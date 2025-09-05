@@ -3,7 +3,22 @@ import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import pico from "picocolors";
 import type { Context } from "../../context";
+import { AGENTS_MD } from "./constants";
 
+const FIBERPLANE_MCP_CONFIG = {
+  mcpServers: {
+    "fiberplane-mcp-server": {
+      url: "https://fiberplane.com/mcp",
+      headers: {},
+    },
+  },
+};
+
+/**
+ * @NOTE - As of writing, nested AGENTS.md within a project are not supported
+ *         So if someone installs this as a package-within-a-project, then AGENTS.md will not get pickedup.
+ * @TODO - Add a `.cursor/rule` file...
+ */
 export async function actionCursor(context: Context) {
   if (!context.path) {
     throw new Error("Path not set");
@@ -24,39 +39,14 @@ export async function actionCursor(context: Context) {
 
     // Create mcp.json if it doesn't exist
     if (!existsSync(mcpJsonPath)) {
-      const mcpConfig = {
-        mcpServers: {
-          "fiberplane-mcp-server": {
-            url: "https://fiberplane.com/mcp",
-            headers: {},
-          },
-        },
-      };
+      const mcpConfig = FIBERPLANE_MCP_CONFIG;
 
       writeFileSync(mcpJsonPath, JSON.stringify(mcpConfig, null, 2));
     }
 
     // Create AGENTS.md if it doesn't exist
     if (!existsSync(agentsPath)) {
-      const agentsContent = `# AI Agents Configuration
-
-This file contains configuration and documentation for AI agents in your MCP project.
-
-## Available Agents
-
-### Your MCP Server Agent
-- **Endpoint**: https://your-mcp-server.com/mcp
-- **Description**: Main MCP server for this project
-- **Capabilities**: [To be documented]
-
-## Usage
-
-Configure your AI assistant to use the MCP servers defined in \`.cursor/mcp.json\`.
-
-## Development
-
-Add your custom MCP server configurations here as you develop new capabilities.
-`;
+      const agentsContent = AGENTS_MD;
 
       writeFileSync(agentsPath, agentsContent);
     }
@@ -66,13 +56,11 @@ Add your custom MCP server configurations here as you develop new capabilities.
     note(`${pico.cyan("Cursor setup complete!")}
     
 ${pico.dim("Created:")}
-• .cursor/mcp.json - MCP server configuration
-• AGENTS.md - AI agents documentation
+• AGENTS.md
+• .cursor/mcp.json
 
-${pico.dim("Next steps:")}
-• Update the MCP server URL in .cursor/mcp.json
-• Configure your MCP server endpoints
-• Document your agents in AGENTS.md`);
+Cursor is ready to use Fiberplane.
+`);
   } catch (error) {
     s.stop(`${pico.red("✗")} Failed to set up Cursor configuration`);
     throw error;

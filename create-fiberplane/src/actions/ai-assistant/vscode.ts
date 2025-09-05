@@ -2,7 +2,7 @@ import { note } from "@clack/prompts";
 import pico from "picocolors";
 import type { Context } from "../../context";
 
-export async function actionVSCode(context: Context) {
+export async function actionVSCode(_context: Context) {
   note(`${pico.yellow("TODO")} - VSCode configuration not yet implemented
   
 ${pico.dim("Planned features:")}

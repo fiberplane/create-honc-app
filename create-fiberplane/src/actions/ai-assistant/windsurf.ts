@@ -2,7 +2,7 @@ import { note } from "@clack/prompts";
 import pico from "picocolors";
 import type { Context } from "../../context";
 
-export async function actionWindsurf(context: Context) {
+export async function actionWindsurf(_context: Context) {
   note(`${pico.yellow("TODO")} - Windsurf configuration not yet implemented
   
 ${pico.dim("Planned features:")}
