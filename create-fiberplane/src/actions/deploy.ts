@@ -4,7 +4,7 @@ import type { Context } from "../context";
 
 export async function promptDeploy(context: Context) {
   const deployFiberplane = await confirm({
-    message: '"Make it live" (Deploy with Fiberplane?)',
+    message: "Should we deploy this thing now?",
     initialValue: true,
   });
 

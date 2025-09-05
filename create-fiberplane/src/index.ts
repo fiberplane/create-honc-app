@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 import { intro, isCancel, outro } from "@clack/prompts";
 import pico from "picocolors";
-import { actionAIAssistant, promptAIAssistant } from "./actions/ai-assistant";
+import {
+  actionAIAssistant,
+  promptAIAssistant,
+} from "./actions/ai-assistant/ai-assistant";
 import { actionDependencies, promptDependencies } from "./actions/dependencies";
 import { actionDeploy, promptDeploy } from "./actions/deploy";
 import { actionGit, promptGit } from "./actions/git";
@@ -39,7 +42,7 @@ async function main() {
       handleCancel();
     }
 
-    if (result instanceof Error) {
+    if (isError(result)) {
       handleError(result);
     }
   }
@@ -71,11 +74,11 @@ ${pico.cyan("Next steps:")}
 # Navigate to your project:
 cd ${context.name}
 
-# Start developing:
-${context.packageManager} run dev
+# As you develop, deploy:
+${context.packageManager} fp deploy
 
-# Learn more about MCP:
-open https://modelcontextprotocol.io
+# Learn more about Fiberplane:
+open https://docs.fiberplane.com
 
 ${
   context.flags.includes("deploy-fiberplane")

@@ -1,13 +1,16 @@
-import { confirm, spinner } from "@clack/prompts";
+import { spinner } from "@clack/prompts";
 import { execSync } from "node:child_process";
 import pico from "picocolors";
 import type { Context } from "../context";
 
 export async function promptDependencies(context: Context) {
-  const installDeps = await confirm({
-    message: "Install dependencies?",
-    initialValue: true,
-  });
+  // NOTE - Minimize questions, just install dependencies
+  const installDeps = true;
+
+  // const installDeps = await confirm({
+  //   message: "Install dependencies?",
+  //   initialValue: true,
+  // });
 
   if (installDeps) {
     context.flags.push("install-dependencies");

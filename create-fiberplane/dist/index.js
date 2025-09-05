@@ -4,17 +4,17 @@
 import { intro, isCancel, outro } from "@clack/prompts";
 import pico7 from "picocolors";
 
-// src/actions/ai-assistant.ts
+// src/actions/ai-assistant/ai-assistant.ts
 import { select } from "@clack/prompts";
 async function promptAIAssistant(context) {
   const aiAssistant = await select({
-    message: "Install AI assistance?",
+    message: "Who is your copilot?",
     options: [
       { value: "cursor", label: "Cursor" },
       { value: "claude-code", label: "Claude Code" },
       { value: "vscode", label: "VSCode" },
       { value: "windsurf", label: "Windsurf" },
-      { value: "none", label: "None" }
+      { value: "none", label: "I do it old school" }
     ],
     initialValue: "cursor"
   });
@@ -31,14 +31,11 @@ async function actionAIAssistant(context) {
 }
 
 // src/actions/dependencies.ts
-import { confirm, spinner } from "@clack/prompts";
+import { spinner } from "@clack/prompts";
 import { execSync } from "node:child_process";
 import pico from "picocolors";
 async function promptDependencies(context) {
-  const installDeps = await confirm({
-    message: "Install dependencies?",
-    initialValue: true
-  });
+  const installDeps = true;
   if (installDeps) {
     context.flags.push("install-dependencies");
   }
@@ -51,7 +48,8 @@ async function actionDependencies(context) {
   const s = spinner();
   s.start("Installing dependencies...");
   try {
-    execSync(`cd ${context.path} && ${context.packageManager} install`, {
+    execSync(`${context.packageManager} install`, {
+      cwd: context.path,
       stdio: "ignore"
     });
     s.stop(`${pico.green("\u2713")} Dependencies installed successfully`);
@@ -62,11 +60,11 @@ async function actionDependencies(context) {
 }
 
 // src/actions/deploy.ts
-import { confirm as confirm2, spinner as spinner2 } from "@clack/prompts";
+import { confirm, spinner as spinner2 } from "@clack/prompts";
 import pico2 from "picocolors";
 async function promptDeploy(context) {
-  const deployFiberplane = await confirm2({
-    message: '"Make it live" (Deploy with Fiberplane?)',
+  const deployFiberplane = await confirm({
+    message: "Should we deploy this thing now?",
     initialValue: true
   });
   if (deployFiberplane) {
@@ -100,7 +98,7 @@ Visit https://fiberplane.com/docs for more information.
 }
 
 // src/actions/git.ts
-import { confirm as confirm3, spinner as spinner3 } from "@clack/prompts";
+import { spinner as spinner3 } from "@clack/prompts";
 import { execSync as execSync3 } from "node:child_process";
 import pico4 from "picocolors";
 
@@ -111,14 +109,14 @@ import pico3 from "picocolors";
 
 // src/const.ts
 var FIBERPLANE_TITLE = `
- ______   __     ______     ______     ______     ______   __         ______     __   __     ______    
-/\\  ___\\ /\\ \\   /\\  == \\   /\\  ___\\   /\\  == \\   /\\  == \\ /\\ \\       /\\  __ \\   /\\ "-.\\ \\   /\\  ___\\   
-\\ \\  __\\ \\ \\ \\  \\ \\  __<   \\ \\  __\\   \\ \\  __<   \\ \\  _-/ \\ \\ \\____  \\ \\  __ \\  \\ \\ \\-.  \\  \\ \\  __\\   
- \\ \\_\\    \\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\    \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\\\"\\_\\  \\ \\_____\\ 
-  \\/_/     \\/_/   \\/_____/   \\/_____/   \\/_/ /_/   \\/_/     \\/_____/   \\/_/\\/_/   \\/_/ \\/_/   \\/_____/ 
-                                                                                                        
+ ______   __     ______     ______     ______    
+/\\  ___\\ /\\ \\   /\\  == \\   /\\  ___\\   /\\  ___\\   
+\\ \\  __\\ \\ \\ \\  \\ \\  __<   \\ \\  __\\   \\ \\___  \\  
+ \\ \\_\\    \\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\/\\_____\\ 
+  \\/_/     \\/_/   \\/_____/   \\/_____/   \\/_____/ 
+                                                 
 `;
-var CANCEL_MESSAGE = "create-fiberplane cancelled! \u{1F680}";
+var CANCEL_MESSAGE = "create-fiberplane cancelled! \u{1F648}";
 var PROJECT_NAME = "lorem-ipsum-mcp";
 
 // src/utils.ts
@@ -159,10 +157,7 @@ async function promptGit(context) {
   if (isInGitRepo()) {
     return;
   }
-  const initGit = await confirm3({
-    message: "Initialize git?",
-    initialValue: true
-  });
+  const initGit = true;
   if (initGit) {
     context.flags.push("initialize-git");
   }
@@ -175,13 +170,16 @@ async function actionGit(context) {
   const s = spinner3();
   s.start("Initializing git repository...");
   try {
-    execSync3(`cd ${context.path} && git init`, {
+    execSync3("git init", {
+      cwd: context.path,
       stdio: "ignore"
     });
-    execSync3(`cd ${context.path} && git add .`, {
+    execSync3("git add .", {
+      cwd: context.path,
       stdio: "ignore"
     });
-    execSync3(`cd ${context.path} && git commit -m "Initial commit"`, {
+    execSync3('git commit -m "Initial commit: \u{1F916} create-fiberplane"', {
+      cwd: context.path,
       stdio: "ignore"
     });
     s.stop(`${pico4.green("\u2713")} Git repository initialized`);
@@ -198,7 +196,7 @@ import { join } from "node:path";
 import pico5 from "picocolors";
 async function promptPath(context) {
   const path = await text({
-    message: "Name of folder?",
+    message: "Target directory?",
     placeholder: context.name,
     defaultValue: context.name,
     validate: (value) => {
@@ -222,7 +220,7 @@ import { spinner as spinner4 } from "@clack/prompts";
 import { downloadTemplate } from "giget";
 import { existsSync as existsSync2, mkdirSync } from "node:fs";
 import pico6 from "picocolors";
-var MCP_TEMPLATE_URL = "github:fiberplane/mcp-template";
+var MCP_TEMPLATE_URL = "github:brettimus/moncy-bars/apps/echo";
 async function actionTemplate(context) {
   if (!context.path) {
     throw new Error("Path not set");
@@ -289,7 +287,7 @@ async function main() {
     if (isCancel(result)) {
       handleCancel();
     }
-    if (result instanceof Error) {
+    if (isError(result)) {
       handleError(result);
     }
   }
@@ -316,11 +314,11 @@ ${pico7.cyan("Next steps:")}
 # Navigate to your project:
 cd ${context.name}
 
-# Start developing:
-${context.packageManager} run dev
+# As you develop, deploy:
+${context.packageManager} fp deploy
 
-# Learn more about MCP:
-open https://modelcontextprotocol.io
+# Learn more about Fiberplane:
+open https://docs.fiberplane.com
 
 ${context.flags.includes("deploy-fiberplane") ? `
 ${pico7.green("\u2713")} Fiberplane deployment is configured and ready!` : ""}

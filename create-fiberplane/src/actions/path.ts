@@ -6,7 +6,7 @@ import type { Context } from "../context";
 
 export async function promptPath(context: Context) {
   const path = await text({
-    message: "Name of folder?",
+    message: "Target directory?",
     placeholder: context.name,
     defaultValue: context.name,
     validate: (value) => {

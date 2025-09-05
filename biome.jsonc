@@ -63,7 +63,11 @@
       "dist",
 
       // ignore all tsconfig.json files
-      "tsconfig.json"
+      "tsconfig.json",
+
+      // ignore all test-apps
+      "cli/test-apps/**",
+      "create-fiberplane/test-apps/**"
     ]
   }
 }
