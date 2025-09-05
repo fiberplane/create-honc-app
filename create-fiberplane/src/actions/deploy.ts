@@ -1,4 +1,5 @@
 import { confirm, spinner } from "@clack/prompts";
+import { execSync } from "node:child_process";
 import pico from "picocolors";
 import type { Context } from "../context";
 
@@ -21,27 +22,33 @@ export async function actionDeploy(context: Context) {
   }
 
   const s = spinner();
-  s.start("Setting up Fiberplane deployment...");
+  s.start("Deploying to Fiberplane...");
 
   try {
-    // TODO - Integrate with Fiberplane's deployment API
-    // For now, we'll just simulate the process
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // Execute the deploy script in the target project
+    execSync(`${context.packageManager} run deploy`, {
+      cwd: context.path,
+      stdio: "inherit", // Show output to user
+    });
 
-    s.stop(`${pico.green("✓")} Fiberplane deployment configured`);
+    s.stop(`${pico.green("✓")} Deployment completed successfully`);
 
     console.log(`
-${pico.cyan("🚀 Your MCP project is ready to deploy!")}
+${pico.cyan("🚀 Your MCP project is now live!")}
 
-Next steps:
-1. Configure your Fiberplane account
-2. Set up your deployment pipeline
-3. Deploy your MCP server
-
-Visit https://fiberplane.com/docs for more information.
+Your MCP server has been deployed to Fiberplane.
+Visit your Fiberplane dashboard to manage your deployment.
 `);
   } catch (error) {
-    s.stop(`${pico.red("✗")} Failed to configure Fiberplane deployment`);
+    s.stop(`${pico.red("✗")} Deployment failed`);
+    console.error(`
+${pico.red("Deployment error:")} ${error instanceof Error ? error.message : "Unknown error"}
+
+${pico.dim("Make sure:")}
+• The template includes a "deploy" script in package.json
+• You have proper Fiberplane credentials configured
+• All dependencies are installed
+`);
     throw error;
   }
 }
