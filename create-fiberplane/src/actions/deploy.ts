@@ -25,6 +25,12 @@ export async function actionDeploy(context: Context) {
   s.start("Deploying to Fiberplane...");
 
   try {
+    // HACK - use local login until we support the cli token exchange in prod/preview
+    execSync(`${context.packageManager} fiberplane-cli auth login`, {
+      cwd: context.path,
+      stdio: "inherit", // Show output to user
+    });
+
     // Execute the deploy script in the target project
     execSync(`${context.packageManager} run deploy`, {
       cwd: context.path,
