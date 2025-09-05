@@ -19,7 +19,7 @@ npm create fiberplane@latest [project-name]
 
 ## Flow
 
-1. **Target directory?** - Project directory name (default: "lorem-ipsum-mcp")
+1. **Target directory?** - Project directory name (default: "echo-mcp")
 2. **Install AI assistance?** - Choose your preferred AI coding assistant
 3. **Install dependencies?** - Automatically install project dependencies
 4. **Initialize git?** - Set up git repository (skipped if already in a git repo)

@@ -1,6 +1,7 @@
 import { spinner } from "@clack/prompts";
 import { downloadTemplate } from "giget";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { basename, join } from "node:path";
 import pico from "picocolors";
 import type { Context } from "../context";
 
@@ -25,6 +26,29 @@ export async function actionTemplate(context: Context) {
       dir: context.path,
       force: true,
     });
+
+    // Update package.json name field with the project directory name
+    const packageJsonPath = join(context.path, "package.json");
+    if (existsSync(packageJsonPath)) {
+      try {
+        const packageJsonContent = readFileSync(packageJsonPath, "utf-8");
+        const packageJson = JSON.parse(packageJsonContent);
+
+        // Set the name to the basename of the path (project directory name)
+        packageJson.name = basename(context.path);
+
+        // Write back the updated package.json
+        writeFileSync(
+          packageJsonPath,
+          `${JSON.stringify(packageJson, null, 2)}\n`,
+        );
+      } catch (error) {
+        // If package.json parsing fails, continue without updating
+        console.warn(
+          `${pico.yellow("⚠")} Could not update package.json name field`,
+        );
+      }
+    }
 
     s.stop(`${pico.green("✓")} MCP template downloaded successfully`);
   } catch (error) {

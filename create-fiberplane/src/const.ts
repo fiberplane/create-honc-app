@@ -9,4 +9,4 @@ export const FIBERPLANE_TITLE = `
 
 export const CANCEL_MESSAGE = "create-fiberplane cancelled! 🙈";
 
-export const PROJECT_NAME = "lorem-ipsum-mcp";
+export const PROJECT_NAME = "echo-mcp";
