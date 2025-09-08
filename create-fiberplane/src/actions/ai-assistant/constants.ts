@@ -1,14 +1,28 @@
 export const FIBERPLANE_MCP_URL = "https://fiberplane.com/mcp";
 
-export const AGENTS_MD = `# AI Coding Agent Configuration
+export const AGENTS_MD = `# AI Coding Agent Instructions
+
+This is a modern Typescript web application. 
+
+It creates a Model Context Protocol (MCP) server, which can be connected to by MCP Clients (AI assistants) such as:
+
+- Claude Desktop
+- Claude Code
+- Cursor
+- VSCode + GitHub Copilot
+- Windsurf
 
 ## Stack
 
-This application is a Model Context Protocol server that will be deployed to a Cloudflare serverless runtime.
+This project is deployed to Fiberplane, which is equivalent to a Cloudflare serverless runtime.
 
-## Development
+## Workflow
+
+Keep this file up to date with succinct descriptions of the project purpose, architecture, integrations, and other important information.
+
+### Development
 
 This project does not support local development.
 
-Your workflow should be that, after you make changes, you run pnpm \`fp deploy\` to deploy the changes to Fiberplane.
+Your workflow should be that, after you make changes, you run \`pnpm run deploy\` to deploy the changes to Fiberplane.
 `;
