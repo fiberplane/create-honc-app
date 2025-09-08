@@ -3,16 +3,7 @@ import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import pico from "picocolors";
 import type { Context } from "../../context";
-import { AGENTS_MD } from "./constants";
-
-const FIBERPLANE_MCP_CONFIG = {
-  mcpServers: {
-    "fiberplane-mcp-server": {
-      url: "https://fiberplane.com/mcp",
-      headers: {},
-    },
-  },
-};
+import { AGENTS_MD, FIBERPLANE_MCP_CONFIG } from "./constants";
 
 /**
  * @NOTE - As of writing, nested AGENTS.md within a project are not supported

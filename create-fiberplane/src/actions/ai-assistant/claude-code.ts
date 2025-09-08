@@ -3,7 +3,21 @@ import { existsSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import pico from "picocolors";
 import type { Context } from "../../context";
-import { AGENTS_MD, FIBERPLANE_MCP_URL } from "./constants";
+import {
+  AGENTS_MD,
+  FIBERPLANE_MCP_NAME,
+  FIBERPLANE_MCP_URL,
+} from "./constants";
+
+// NOTE - CC needs the `type: "http"` property
+const CLAUDE_CODE_FIBERPLANE_MCP_CONFIG = {
+  mcpServers: {
+    [FIBERPLANE_MCP_NAME]: {
+      type: "http",
+      url: FIBERPLANE_MCP_URL,
+    },
+  },
+};
 
 export async function actionClaudeCode(context: Context) {
   if (!context.path) {
@@ -19,14 +33,7 @@ export async function actionClaudeCode(context: Context) {
 
     // Create .mcp.json if it doesn't exist
     if (!existsSync(mcpJsonPath)) {
-      const mcpConfig = {
-        mcpServers: {
-          fiberplane: {
-            type: "http",
-            url: FIBERPLANE_MCP_URL,
-          },
-        },
-      };
+      const mcpConfig = CLAUDE_CODE_FIBERPLANE_MCP_CONFIG;
 
       writeFileSync(mcpJsonPath, JSON.stringify(mcpConfig, null, 2));
     }

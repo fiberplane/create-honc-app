@@ -4,16 +4,7 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 import pico from "picocolors";
 import type { Context } from "../../context";
-import { AGENTS_MD, FIBERPLANE_MCP_URL } from "./constants";
-
-const FIBERPLANE_MCP_CONFIG = {
-  mcpServers: {
-    "fiberplane-mcp-server": {
-      url: FIBERPLANE_MCP_URL,
-      headers: {},
-    },
-  },
-};
+import { AGENTS_MD, FIBERPLANE_MCP_CONFIG } from "./constants";
 
 function ensureDir(path: string) {
   if (!existsSync(path)) {

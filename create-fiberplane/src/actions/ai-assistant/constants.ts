@@ -1,4 +1,14 @@
+export const FIBERPLANE_MCP_NAME = "fiberplane-mcp-server";
 export const FIBERPLANE_MCP_URL = "https://fiberplane.com/mcp";
+
+export const FIBERPLANE_MCP_CONFIG = {
+  mcpServers: {
+    [FIBERPLANE_MCP_NAME]: {
+      url: FIBERPLANE_MCP_URL,
+      headers: {},
+    },
+  },
+};
 
 export const AGENTS_MD = `# AI Coding Agent Instructions
 
