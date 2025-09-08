@@ -33,9 +33,12 @@ export function getPackageManager(): string | undefined {
   return "npm";
 }
 
-export function isInGitRepo(): boolean {
+export function isInGitRepo(path?: string): boolean {
   try {
-    execSync("git rev-parse --is-inside-work-tree", { stdio: "ignore" });
+    execSync("git rev-parse --is-inside-work-tree", {
+      stdio: "ignore",
+      cwd: path,
+    });
     return true;
   } catch {
     return false;

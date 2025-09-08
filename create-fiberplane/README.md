@@ -25,6 +25,32 @@ npm create fiberplane@latest [project-name]
 4. **Initialize git?** - Set up git repository (skipped if already in a git repo)
 5. **"Make it live" (Deploy with Fiberplane?)** - Configure Fiberplane deployment
 
+## Debugging
+
+The CLI includes comprehensive logging to help debug issues. Logs are automatically saved to:
+
+- **macOS**: `~/Library/Logs/create-fiberplane/`
+- **Linux**: `~/.local/state/create-fiberplane/logs/`
+- **Windows**: `%LOCALAPPDATA%\create-fiberplane\Logs\`
+
+### View Debug Logs
+
+All CLI operations are automatically logged to files for debugging:
+
+```bash
+# Check the logs (macOS example)
+tail -f ~/Library/Logs/create-fiberplane/create-fiberplane-*.log
+
+# Or view the latest log file
+ls -t ~/Library/Logs/create-fiberplane/ | head -1 | xargs -I {} cat ~/Library/Logs/create-fiberplane/{}
+```
+
+### Environment Variables
+
+- `CFP_LOG_DIR=/custom/path` - Override log directory (optional)
+
+**Note**: All debug information is automatically logged to files to avoid interfering with the interactive CLI prompts.
+
 ## Development
 
 ```bash
@@ -35,6 +61,9 @@ pnpm install
 pnpm build
 
 # Test locally
+pnpm dev
+
+# Test locally (check log files for debug output)
 pnpm dev
 
 # Format code

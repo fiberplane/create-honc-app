@@ -30,7 +30,9 @@
     "@oslojs/oauth2": "^0.5.0",
     "giget": "^1.2.3",
     "open": "^10.1.0",
-    "picocolors": "^1.0.1"
+    "picocolors": "^1.0.1",
+    "pino": "^9.9.4",
+    "pino-pretty": "^13.1.1"
   },
   "devDependencies": {
     "@types/node": "^22.2.0",
