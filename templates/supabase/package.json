@@ -18,10 +18,10 @@
     "@fiberplane/hono": "0.5.2",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.43.1",
-    "drizzle-zod": "^0.7.1",
+    "drizzle-zod": "^0.8.1",
     "hono": "^4.7.0",
     "postgres": "^3.4.5",
-    "zod": "^3.23.8"
+    "zod": "^4.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
