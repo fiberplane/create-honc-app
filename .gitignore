@@ -9,6 +9,9 @@ ascui/**/package-lock.json
 # Ignore package-lock.json files in templates
 templates/**/package-lock.json
 
+# Ignore pnpm-lock.yaml files in templates
+templates/**/pnpm-lock.yaml
+
 # Ignore types generated in teplates (during local dev)
 templates/**/worker-configuration.d.ts
 
