@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "db:touch": "wrangler d1 execute honc-d1-database --local --command='SELECT 1'",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply honc-d1-database --local",
