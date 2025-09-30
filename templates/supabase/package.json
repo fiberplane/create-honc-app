@@ -21,7 +21,7 @@
     "drizzle-zod": "^0.8.1",
     "hono": "^4.7.0",
     "postgres": "^3.4.5",
-    "zod": "^4.0.0"
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
