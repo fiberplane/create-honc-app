@@ -39,7 +39,7 @@ cli/test-apps/**
 .DS_Store
 
 # Ignore VSCode settings
-vscode/
+.vscode/
 
 # script for removing nodemodules
 remove_node_modules.sh
